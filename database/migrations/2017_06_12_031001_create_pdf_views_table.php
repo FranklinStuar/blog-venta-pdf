@@ -15,7 +15,7 @@ class CreatePdfViewsTable extends Migration
     {
         Schema::create('pdf_views', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pdf_name'); //nombre del pdf que se reviso
+            $table->string('path_pdf'); //path del pdf que se visualizó
             $table->integer('post_id')->unsigned()->nullable(); //post donde se encuentra registrado el pdf
             $table->integer('user_id')->unsigned()->nullable();//el usuario que revisó si se encontró registrado
             $table->string('user_agent'); //navegador, kernel de OS, OS, kerner del navegador

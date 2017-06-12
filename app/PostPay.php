@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostVisit extends Model
+class PostPay extends Model
 {
     //
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
   protected $fillable = [
-  	'post_id','user_id','user_agent','browser','kernel_os','os','languaje','path','ip','country','long','lat','created_at',
+  	'price','user_id','post_price_id','finish','post_id','category_id','status','created_at',
   ];
   public $timestamps = false;
 }

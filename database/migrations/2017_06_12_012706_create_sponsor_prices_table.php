@@ -15,8 +15,8 @@ class CreateSponsorPricesTable extends Migration
     {
         Schema::create('sponsor_prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('price_day',4,3);
-            $table->double('price_month',6,2);
+            $table->double('price_day',4,3)->default(0);
+            $table->double('price_month',6,2)->default(0);
             $table->integer('months')->default(1);
             $table->boolean('featured')->default(0);
             $table->timestamps();

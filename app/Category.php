@@ -5,12 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SponsorPriceDetail extends Model
+class Category extends Model
 {
-    //
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
-  protected $fillable = [
-  	'title','excerpt','sponsor_price_id',
-  ];
+	protected $table = "categories";
+  protected $fillable = ['id','parent_id','order','name','slug', ];
 }
