@@ -19,4 +19,4 @@ Route::resource('/posts','PostsController');
 Auth::routes();
 
 Route::get('/init', 'InitController@index')->name('init');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/neuro-admin', 'HomeController@index')->name('admin');

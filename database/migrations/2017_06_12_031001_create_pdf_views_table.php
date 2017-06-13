@@ -18,16 +18,6 @@ class CreatePdfViewsTable extends Migration
             $table->string('path_pdf'); //path del pdf que se visualizó
             $table->integer('post_id')->unsigned()->nullable(); //post donde se encuentra registrado el pdf
             $table->integer('user_id')->unsigned()->nullable();//el usuario que revisó si se encontró registrado
-            $table->string('user_agent'); //navegador, kernel de OS, OS, kerner del navegador
-            $table->string('browser');//navegador
-            $table->string('kernel_os');//kernel del OS
-            $table->string('os');// Sistema operativo
-            $table->string('languaje');//Idioma
-            $table->string('path');//path de la pagina visitada
-            $table->string('ip',100);//la ip desde donde se realiza la actividad
-            $table->string('country',15)->nullable();
-            $table->string('long')->nullable(); //longitud para ser buscado por google maps
-            $table->string('lat')->nullable();// lalitus para ser buscado por google maps
             $table->timestamp('created_at')->nullable();
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('user_id')->references('id')->on('users');
@@ -41,6 +31,10 @@ class CreatePdfViewsTable extends Migration
      */
     public function down()
     {
+        Schema::table('pdf_views', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('pdf_views');
     }
 }

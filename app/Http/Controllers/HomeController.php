@@ -23,6 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        return view('klorofil.index')
+            ->with('users',\App\User::all())
+            ->with('posts',\App\Post::all())
+            ->with('sponsors',\App\Sponsor::all())
+            ->with('visit_posts',\App\PostHistorial::all())
+            ->with('post_pays',\App\PostPay::all())
+        ;
     }
 }

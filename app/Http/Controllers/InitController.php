@@ -118,6 +118,6 @@ class InitController extends Controller
     	}
     	$user->assignRole($superAdmin->id);
     	\Auth::login($user);
-    	return redirect()->route('home');
+    	return redirect()->route('admin');
     }
 }

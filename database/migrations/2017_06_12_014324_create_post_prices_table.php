@@ -39,6 +39,10 @@ class CreatePostPricesTable extends Migration
      */
     public function down()
     {
+        Schema::table('post_prices', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['category_id']);
+        });
         Schema::dropIfExists('post_prices');
     }
 }

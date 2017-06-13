@@ -38,6 +38,12 @@ class CreatePostPricePaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_price_pays');
+        Schema::table('post_pays', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['post_price_id']);
+            $table->dropForeign(['category_id']);
+        });
+        Schema::dropIfExists('post_pays');
     }
 }

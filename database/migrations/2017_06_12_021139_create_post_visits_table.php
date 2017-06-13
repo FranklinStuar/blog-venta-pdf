@@ -17,16 +17,6 @@ class CreatePostVisitsTable extends Migration
             $table->increments('id');
             $table->integer('post_id')->unsigned();//post l que se le hace la visita
             $table->integer('user_id')->unsigned()->nullable();//si se encuentra un usuario registrado
-            $table->string('user_agent'); //navegador, kernel de OS, OS, kerner del navegador
-            $table->string('browser');//navegador
-            $table->string('kernel_os');//kernel del OS
-            $table->string('os');// Sistema operativo
-            $table->string('languaje');//Idioma
-            $table->string('path');//path de la pagina visitada
-            $table->string('ip',100);//la ip desde donde se realiza la actividad
-            $table->string('country',15)->nullable();
-            $table->string('long')->nullable(); //longitud para ser buscado por google maps
-            $table->string('lat')->nullable();// lalitus para ser buscado por google maps
             $table->timestamp('created_at')->nullable();
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('user_id')->references('id')->on('users');
@@ -40,6 +30,10 @@ class CreatePostVisitsTable extends Migration
      */
     public function down()
     {
+        Schema::table('post_visits', function (Blueprint $table) {
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('post_visits');
     }
 }

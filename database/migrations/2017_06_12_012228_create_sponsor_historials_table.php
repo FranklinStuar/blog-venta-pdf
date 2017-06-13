@@ -40,6 +40,10 @@ class CreateSponsorHistorialsTable extends Migration
      */
     public function down()
     {
+        Schema::table('sponsor_historials', function (Blueprint $table) {
+            $table->dropForeign(['author_id']);
+            $table->dropForeign(['sponsor_id']);
+        });
         Schema::dropIfExists('sponsor_historials');
     }
 }

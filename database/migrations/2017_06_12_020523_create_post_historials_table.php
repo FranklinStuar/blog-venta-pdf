@@ -32,6 +32,10 @@ class CreatePostHistorialsTable extends Migration
      */
     public function down()
     {
+        Schema::table('post_historials', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['post_id']);
+        });
         Schema::dropIfExists('post_historials');
     }
 }

@@ -31,6 +31,9 @@ class CreateSponsorPriceDetailsTable extends Migration
      */
     public function down()
     {
+        Schema::table('sponsor_price_details', function (Blueprint $table) {
+            $table->dropForeign(['sponsor_price_id']);
+        });
         Schema::dropIfExists('sponsor_price_details');
     }
 }

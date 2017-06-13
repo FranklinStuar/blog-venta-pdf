@@ -47,6 +47,9 @@ class CreateSponsorsTable extends Migration
      */
     public function down()
     {
+        Schema::table('sponsors', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('sponsors');
     }
 }

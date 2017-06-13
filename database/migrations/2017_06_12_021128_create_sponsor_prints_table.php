@@ -16,16 +16,6 @@ class CreateSponsorPrintsTable extends Migration
         Schema::create('sponsor_prints', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sponsor_id')->unsigned()->nullable();
-            $table->string('user_agent'); //navegador, kernel de OS, OS, kerner del navegador
-            $table->string('browser');//navegador
-            $table->string('kernel_os');//kernel del OS
-            $table->string('os');// Sistema operativo
-            $table->string('languaje');//Idioma
-            $table->string('path');//path de la pagina visitada
-            $table->string('ip',100);//la ip desde donde se realiza la actividad
-            $table->string('country',15)->nullable();
-            $table->string('long')->nullable(); //longitud para ser buscado por google maps
-            $table->string('lat')->nullable();// lalitus para ser buscado por google maps
             $table->timestamp('created_at')->nullable();
             $table->foreign('sponsor_id')->references('id')->on('sponsors');
         });
@@ -38,6 +28,9 @@ class CreateSponsorPrintsTable extends Migration
      */
     public function down()
     {
+        Schema::table('sponsor_prints', function (Blueprint $table) {
+            $table->dropForeign(['sponsor_id']);
+        });
         Schema::dropIfExists('sponsor_prints');
     }
 }
