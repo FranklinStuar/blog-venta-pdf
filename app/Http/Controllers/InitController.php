@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 
@@ -17,7 +16,6 @@ class InitController extends Controller
     	]);
     	$permissions =[
     		'Vista Administración'=>[
-    			['name'=>'Dashboard Super administrador','slug'=>'dashboard.superadmin'],
     			['name'=>'Dashboard administrador','slug'=>'dashboard.admin'],
     			['name'=>'Usuario Normal','slug'=>'dashboard.normaluser'],
   			],
@@ -66,10 +64,10 @@ class InitController extends Controller
     			['name'=>'Ver estadisticas de Sponsor','slug'=>'sponsor.statistics'],
   			],
     		'Precios Sponsors'=>[
-    			['name'=>'Nuevo Precio','slug'=>'sponsor.price.new'],
-    			['name'=>'Editar Precio','slug'=>'sponsor.price.edit'],
-    			['name'=>'Ver Precio','slug'=>'sponsor.price.show'],
-    			['name'=>'Eliminar Precio','slug'=>'sponsor.price.destroy'],
+    			['name'=>'Nuevo Precio Sponsor','slug'=>'sponsor.price.new'],
+    			['name'=>'Editar Precio Sponsor','slug'=>'sponsor.price.edit'],
+    			['name'=>'Ver Precio Sponsor','slug'=>'sponsor.price.show'],
+    			['name'=>'Eliminar Precio Sponsor','slug'=>'sponsor.price.destroy'],
     			['name'=>'Listar Precios','slug'=>'sponsor.price.list'],
   			],
     		'Pagos Sponsors'=>[
@@ -79,24 +77,26 @@ class InitController extends Controller
     			['name'=>'Listar pagos finalizados','slug'=>'sponsor.pay.list.finished'],
   			],
     		'Usuarios'=>[
-    			['name'=>'Nuevo usuario','slug'=>'user.new'],
+                ['name'=>'Nuevo usuario','slug'=>'user.new'],
     			['name'=>'Editar usuario','slug'=>'user.edit'],
     			['name'=>'Ver usuario','slug'=>'user.show'],
-    			['name'=>'Ver perfil usuario','slug'=>'user.show.profile'],
+    			['name'=>'Ver perfil usuario','slug'=>'user.profile'],
     			['name'=>'Eliminar usuario','slug'=>'user.destroy'],
     			['name'=>'Listar usuario','slug'=>'user.list'],
   			],
     		'Roles de usuario'=>[
     			['name'=>'Nuevo rol','slug'=>'role.new'],
-    			['name'=>'Editar nombre de rol','slug'=>'role.editt'],
+    			['name'=>'Editar nombre de rol','slug'=>'role.edit'],
     			['name'=>'Eliminar rol','slug'=>'role.destroy'],
-    			['name'=>'Listar rol','slug'=>'role.list'],
+                ['name'=>'Listar rol','slug'=>'role.list'],
+                ['name'=>'Ver permisos del rol','slug'=>'role.show'],
+    			['name'=>'Configurar permisos por defecto del rol','slug'=>'role.show.default'],
     			['name'=>'Agregar Permisos','slug'=>'permission.add'],
     			['name'=>'Quitar Permisos','slug'=>'permission.quit'],
   			],
     	];
 
-    	$superAdmin = Role::create(['name'=>'Super administrador','slug'=>'superadmin']);
+    	$superAdmin = Role::create(['name'=>'Super administrador','slug'=>'superadmin','special'=>'all-access']);
     	$admin = Role::create(['name'=>'Administrador','slug'=>'admin']);
     	$normaluser = Role::create(['name'=>'Usuario Normal','slug'=>'normaluser']);
 
@@ -111,7 +111,6 @@ class InitController extends Controller
 	  			]);
 	  			$permission_create->category_id = $category->id;
 	  			$permission_create->save();
-	  			$superAdmin->assignPermission($permission_create->id);
 	  			if($category->name != "Vista Administración" || ($category->name == "Vista Administración" && $permission_create->slug == 'dashboard.admin'))
 	  				$admin->assignPermission($permission_create->id);
     		}

@@ -23,7 +23,6 @@ class CreatePostPricePaysTable extends Migration
             $table->integer('category_id')->unsigned()->nullable();//si se paga por una categoria
             $table->enum('status',['paid','cancel_service','finished'])->default('paid');//pagado, calcelado el servicio, finalizado
             $table->timestamp('created_at')->nullable();
-            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('post_price_id')->references('id')->on('post_prices');
             $table->foreign('post_id')->references('id')->on('posts');

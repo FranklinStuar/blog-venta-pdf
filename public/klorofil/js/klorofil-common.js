@@ -1,4 +1,13 @@
+
+$('.destroy').submit(function(evt){
+		if (!confirm('Desea Eliminar')) {
+			evt.preventDefault()
+		}
+   
+})
+
 $(document).ready(function() {
+	$('.select2').select2()
 
 	/*-----------------------------------/
 	/*	TOP NAVIGATION AND LAYOUT

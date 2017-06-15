@@ -8,6 +8,7 @@ class PostHistorial extends Model
 {
     //
   protected $fillable = [
-  	'user_id','post_id','activity','details','historial_id',
+  	'user_id','post_id','activity','details',
   ];
+
 }

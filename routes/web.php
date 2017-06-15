@@ -14,9 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::resource('/posts','PostsController');
 Auth::routes();
 
+Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
+	Route::get('/', 'HomeController@index')->name('admin');
+	Route::resource('/users','UsersController');
+	Route::resource('/posts','PostsController');
+	Route::resource('/roles','RolesController');
+	Route::post('roles/add-permission/{role_id}', 'RolesController@addPermission')->name('role.add-permission');
+	Route::post('roles/quit-permission/{role_id}', 'RolesController@quitPermission')->name('role.quit-permission');
+	Route::resource('/categories','CategoriesController');
+});
+
 Route::get('/init', 'InitController@index')->name('init');
-Route::get('/neuro-admin', 'HomeController@index')->name('admin');

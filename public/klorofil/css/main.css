@@ -1763,3 +1763,25 @@ ul.activity-timeline > li {
     border: 1px solid #CCC; }
 
 /*# sourceMappingURL=main.css.map */
+.img-table{
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 50%;
+}
+.destroy{
+  display: inline;
+}
+.destroy button, .destroy button:hover{
+  color:#f44336;
+}
+.destroy button{
+  background:none!important;
+  background-color: inherit;
+  border-radius: 0;
+  border-style: none;
+  padding: 0 4px;
+  margin: 0;
+  -moz-box-shadow: 0 0 rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 rgba(0, 0, 0, 0);
+}

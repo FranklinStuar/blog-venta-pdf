@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/linearicons/style.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/chartist/css/chartist-custom.css') }}">
+	<link rel="stylesheet" href="{{ url('plugins/Select2/css/select2.css') }}">
+
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/main.css') }}">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
@@ -20,6 +22,10 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ url('klorofil/img/apple-icon.png') }}">
 	{{-- <link rel="icon" type="image/png" sizes="96x96" href="{{ url('klorofil/img/favicon.png') }}"> --}}
+
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body>
@@ -95,18 +101,28 @@
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
+				<br>
 					<ul class="nav">
+
+						@if(Shinobi::can('dashboard.superadmin') || Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
+							<li>
+								<a href="#posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="posts-menu" class="collapse ">
+									<ul class="nav">
+										@if (Shinobi::can('category.list'))
+											<li><a href="{{ url('/neuro-admin/categories') }}" class="">Categorias</a></li>
+										@endif
+										@if (Shinobi::can('post.new'))
+											<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Post</a></li>
+										@endif
+										@if (Shinobi::can('post.list'))
+											<li><a href="{{ url('/neuro-admin') }}" class="">Lista de Posts</a></li>
+										@endif
+									</ul>
+								</div>
+							</li>
+						@endif
 						
-						<li>
-							<a href="#posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="posts-menu" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Categorias</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Post</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de Posts</a></li>
-								</ul>
-							</div>
-						</li>
 						
 						<li>
 							<a href="#sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-layers"></i> <span>Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
@@ -118,19 +134,19 @@
 							</div>
 						</li>
 						
-						<li>
-							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="premium-sponsors-menu" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
-								</ul>
-							</div>
-						</li>
-						
+							<li>
+								<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="premium-sponsors-menu" class="collapse ">
+									<ul class="nav">
+										<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
+										<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
+										<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
+										<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
+										<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
+									</ul>
+								</div>
+							</li>
+
 						<li>
 							<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="premium-posts-menu" class="collapse ">
@@ -144,16 +160,24 @@
 							</div>
 						</li>
 						
-						<li>
-							<a href="#users-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Usuarios</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="users-menu" class="collapse ">
-								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de Usuarios</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Roles</a></li>
-								</ul>
-							</div>
-						</li>
+						@if(Shinobi::can('dashboard.superadmin') || Shinobi::can('user.new') || Shinobi::can('user.lists') || Shinobi::can('role.list'))
+							<li>
+								<a href="#users-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Usuarios</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="users-menu" class="collapse ">
+									<ul class="nav">
+										@if (Shinobi::can('user.new'))
+											<li><a href="{{ url('/neuro-admin/users/create') }}" class="">Nuevo</a></li>
+										@endif
+										@if (Shinobi::can('user.list'))
+											<li><a href="{{ url('/neuro-admin/users') }}" class="">Lista de Usuarios</a></li>
+										@endif
+										@if (Shinobi::can('role.list'))
+											<li><a href="{{ url('/neuro-admin/roles') }}" class="">Roles</a></li>
+										@endif
+									</ul>
+								</div>
+							</li>
+						@endif
 
 						<li>
 							<a href="#system-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i> <span>Sistema</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
@@ -206,6 +230,7 @@
 	<script src="{{ url('plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 	<script src="{{ url('plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 	<script src="{{ url('plugins/chartist/js/chartist.min.js') }}"></script>
+	<script src="{{ url('plugins/Select2/js/select2.min.js') }}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
 	@yield('script')
 </body>

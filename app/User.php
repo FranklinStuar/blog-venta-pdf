@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getRole(){
+        if($this->id !=null){
+            if (!is_null($this->roles)) {
+                $roles_temp = $this->roles->first();
+                return ['id'=>$roles_temp->id,'name'=>$roles_temp->name];
+            }
+        }
+        else
+            return null;
+    }
 }

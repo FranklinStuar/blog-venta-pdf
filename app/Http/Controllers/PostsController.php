@@ -9,7 +9,6 @@ class PostsController extends Controller
     
     public function index(Request $request)
     {
-        dd($request);
     }
 
     public function create()
