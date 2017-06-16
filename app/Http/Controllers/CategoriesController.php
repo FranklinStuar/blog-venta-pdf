@@ -11,7 +11,7 @@ class CategoriesController extends Controller
     
     public function index()
     {
-        if (\Shinobi::can('category.list') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('category.list')) {
             return view('klorofil.category.index')->with('categories', Category::all());
         }else
             abort(404);
@@ -20,7 +20,7 @@ class CategoriesController extends Controller
    
     public function create()
     {
-        if (\Shinobi::can('category.new') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('category.new')) {
             return view('klorofil.category.create',[
                 'category'=> new Category,
                 'categories'=> array_pluck(Category::all(),'name','id'),
@@ -36,23 +36,24 @@ class CategoriesController extends Controller
             'name' => 'required|unique:categories|max:255',
             'slug' => 'required|unique:categories|max:255',
         ]);
-        Category::create([
-            'name' => trim($request->name),
-            'slug' => str_slug(trim($request->slug)),
-            'parent_id' => ($request->has('parent_id'))?$request->parent_id:null,
-        ]);
-        return redirect()->action('CategoriesController@index');
+        if(Category::where('name',$request->name)->orWhere('slug',$request->slug)->first() == null){
+            Category::create([
+                'name' => trim($request->name),
+                'slug' => str_slug(trim($request->slug)),
+                'parent_id' => ($request->has('parent_id'))?$request->parent_id:null,
+            ]);
+            $request->session()->flash('success', 'Categoría "'.$request->name.'" guardado correctamente');
+            return redirect()->action('CategoriesController@index');
+        }else{
+            $request->session()->flash('Errors', 'Categoría "'.$request->name.'" ya existe');
+            return redirect()->back();
+        }
+
     }
 
-    public function show($slug)
-    {
-
-    }
-
-    
     public function edit($id)
     {
-        if (\Shinobi::can('category.edit') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('category.edit')) {
             return view('klorofil.category.edit',[
                 'category'=> Category::find($id),
                 'categories'=> array_pluck(Category::where('id','<>',$id)->get(),'name','id'),
@@ -72,14 +73,20 @@ class CategoriesController extends Controller
             'slug' => str_slug(trim($request->slug)),
             'parent_id' => ($request->has('parent_id'))?$request->parent_id:null,
         ]);
+        $request->session()->flash('success', 'Categoría "'.$request->name.'" editado correctamente');
         return redirect()->action('CategoriesController@index');
     }
 
     
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        if (\Shinobi::can('category.destroy') || \Shinobi::can('dashboard.superadmin')) {
-            Category::destroy($id);
+        if (\Shinobi::can('category.destroy')) {
+            $category = Category::find($id);
+            $name = $category->name;
+            if($category->delete())
+                $request->session()->flash('success', 'Categoría "'.$name.'" eliminado correctamente');
+            else
+                $request->session()->flash('errors', 'Categoría "'.$name.'" No se pudo eliminar');
             return redirect()->action('CategoriesController@index');
         }else
             abort(404);

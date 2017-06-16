@@ -103,6 +103,7 @@
 				<nav>
 				<br>
 					<ul class="nav">
+							<li><a href="{{ url('/neuro-admin') }}" class="">Dashboard</a></li>
 
 						@if(Shinobi::can('dashboard.superadmin') || Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
 							<li>
@@ -113,10 +114,10 @@
 											<li><a href="{{ url('/neuro-admin/categories') }}" class="">Categorias</a></li>
 										@endif
 										@if (Shinobi::can('post.new'))
-											<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Post</a></li>
+											<li><a href="{{ url('/neuro-admin/posts/create') }}" class="">Nuevo Post</a></li>
 										@endif
 										@if (Shinobi::can('post.list'))
-											<li><a href="{{ url('/neuro-admin') }}" class="">Lista de Posts</a></li>
+											<li><a href="{{ url('/neuro-admin/posts') }}" class="">Lista de Posts</a></li>
 										@endif
 									</ul>
 								</div>
@@ -210,6 +211,39 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
+
+					@if(count($errors)>0)
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<ul>
+								@foreach($errors->all() as $error)
+									<li><i class="fa fa-times-circle"></i> {{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+{{-- 
+					@if(\Session::has('errors'))
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<ul>
+								@foreach(\Session::get('errors')->all() as $error)
+									<li><i class="fa fa-times-circle"></i> {{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+ --}}
+					@if(\Session::has('success'))
+						<div class="alert alert-success alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+							
+									<i class="fa fa-times-circle"></i> {{ \Session::get('success') }}
+								
+							</ul>
+						</div>
+					@endif
+
 					@yield('content')
 				</div>
 			</div>

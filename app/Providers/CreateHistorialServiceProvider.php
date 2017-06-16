@@ -26,8 +26,8 @@ class CreateHistorialServiceProvider extends ServiceProvider
 
         // View::composer('*', function ($view) use($historial) {
         //     $historial->update(['user_id'=>(\Auth::user())?\Auth::user()->id:null,]);
-
         // });
+        
         // View::composer('klorofil.*', function ($view) {
         // });
     }

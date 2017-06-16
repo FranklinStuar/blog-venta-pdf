@@ -29,15 +29,19 @@ class RolesController extends Controller
 
 	public function store(Request $request)
 	{
-		$this->validate($request, [
-			'name' => 'required|unique:categories|max:255',
-			'slug' => 'required|unique:categories|max:255',
-		]);
-		Role::create([
-			'name' => trim($request->name),
-			'slug' => str_slug(trim($request->slug)),
-		]);
-		return redirect()->route('roles.index');
+		if (\Shinobi::can('role.new')) {
+			$this->validate($request, [
+				'name' => 'required|unique:categories|max:255',
+				'slug' => 'required|unique:categories|max:255',
+			]);
+			Role::create([
+				'name' => trim($request->name),
+				'slug' => str_slug(trim($request->slug)),
+			]);
+			$request->session()->flash('success', 'Rol "'.$request->name.'" guardado correctamente');
+			return redirect()->route('roles.index');
+		}else
+			abort(404);
 	}
 
 	public function show($id)
@@ -66,21 +70,30 @@ class RolesController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		$this->validate($request, [
-			'name' => 'required|unique:categories|max:255',
-			'slug' => 'required|unique:categories|max:255',
-		]);
-		Role::find($id)->update([
-			'name' => trim($request->name),
-			'slug' => str_slug(trim($request->slug)),
-		]);
-		return redirect()->route('roles.index');
+		if (\Shinobi::can('role.edit')) {
+			$this->validate($request, [
+				'name' => 'required|unique:categories|max:255',
+				'slug' => 'required|unique:categories|max:255',
+			]);
+			Role::find($id)->update([
+				'name' => trim($request->name),
+				'slug' => str_slug(trim($request->slug)),
+			]);
+			$request->session()->flash('success', 'Rol "'.$request->name.'" editado correctamente');
+			return redirect()->route('roles.index');
+		}else
+			abort(404);
 	}
 
 	public function destroy($id)
 	{
 		if (\Shinobi::can('roles.destroy')) {
-			Role::destroy($id);
+			$role = Role::find($id);
+			$name = $role->name;
+			if($role->destroy)
+				$request->session()->flash('success', 'Rol "'.$name.'" eliminado correctamente');
+			else
+				$request->session()->flash('errors', 'No se pudo eliminar rol "'.$name.'" ');
 			return redirect()->route('roles.index');
 		}else
 			abort(404);

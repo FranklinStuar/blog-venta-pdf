@@ -177,7 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Caffeinated\Shinobi\ShinobiServiceProvider::class,
+
         App\Providers\CreateHistorialServiceProvider::class,
+        App\Providers\CategoriesMenuProvider::class,
+        
         Collective\Html\HtmlServiceProvider::class,
 
     ],
