@@ -9,6 +9,11 @@ use App\User;
 class UsersController extends Controller
 {
    
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>['profile']]);
+    }
+
     public function index()
     {
         if (\Shinobi::can('user.list') || \Shinobi::can('dashboard.superadmin')) {
@@ -102,4 +107,24 @@ class UsersController extends Controller
         }else
             abort(404);
     }
+
+    public function profile(){
+        return view('corporate.profile');
+    }
+
+    public function profileEdit(){
+        return view('corporate.profile-edit');
+    }
+
+    public function profileSave(Request $request){
+         $this->validate($request, [
+            'username' => 'required|string|max:255|alpha_num',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'gender' => 'required',
+        ]);
+        \Auth::user()->update($request->all());
+        return redirect()->route('profile');
+    }
+
 }

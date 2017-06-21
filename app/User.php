@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'username', 'email', 'name', 'avatar', 'password',
+        'username', 'email', 'name', 'avatar', 'password','gender'
     ];
 
     /**
@@ -36,5 +36,13 @@ class User extends Authenticatable
         }
         else
             return null;
+    }
+
+    public function sponsors(){
+        return $this->hasMany('\App\Sponsor');
+    }
+
+    public function posts(){
+        return $this->hasMany('App\Post','author_id');
     }
 }

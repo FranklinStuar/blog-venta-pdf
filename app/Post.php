@@ -32,4 +32,7 @@ class Post extends Model
   	return $this->hasMany('App\PostPay','post_id');
   }
 
+  public function author(){
+    return $this->belongsTo('App\User','author_id');
+  }
 }

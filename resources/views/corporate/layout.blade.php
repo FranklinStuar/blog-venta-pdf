@@ -10,13 +10,14 @@
 	<title>@yield('title')</title>
 
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
 
 	<!-- Material Design Bootstrap -->
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
+	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
 
 	<!-- Template styles -->
 	<style rel="stylesheet">
@@ -92,7 +93,9 @@
 									<a href="{{ url('register') }}" class="dropdown-item">Registrarse</a>
 								@else
 									<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
-									<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
+									@if (Shinobi::can('dashboard.admin'))
+										<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
+									@endif
 									<a href="{{ route('logout') }}" 
                       onclick="event.preventDefault();
                        	document.getElementById('logout-form').submit();">
@@ -112,8 +115,29 @@
 		<!--/.Navbar-->
 
 	</header>
+	
+		@if(\Session::has('errors'))
+			<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<ul>
+					@foreach(\Session::get('errors')->all() as $error)
+						<li><i class="fa fa-times-circle"></i> {{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		
+		@if(\Session::has('success'))
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+				
+						<i class="fa fa-times-circle"></i> {{ \Session::get('success') }}
+					
+				</ul>
+			</div>
+		@endif
 
-			@yield('container')
+		@yield('container')
 
 
 	<!--Footer-->
@@ -125,10 +149,7 @@
 
 				<!--First column-->
 				<div class="col-md-3 offset-lg-1 hidden-lg-down">
-					<h5 class="title">ABOUT MATERIAL DESIGN</h5>
-					<p>Material Design (codenamed Quantum Paper) is a design language developed by Google. </p>
-
-					<p>Material Design for Bootstrap (MDB) is a powerful Material Design UI KIT for most popular HTML, CSS, and JS framework - Bootstrap.</p>
+					
 				</div>
 				<!--/.First column-->
 
@@ -136,12 +157,12 @@
 
 				<!--Second column-->
 				<div class="col-lg-2 col-md-4 offset-lg-1">
-					<h5 class="title">First column</h5>
+					<h5 class="title">Contactos</h5>
 					<ul>
-						<li><a href="#!">Link 1</a></li>
-						<li><a href="#!">Link 2</a></li>
-						<li><a href="#!">Link 3</a></li>
-						<li><a href="#!">Link 4</a></li>
+						<li><a href="http://www.facebook.com/{{ $system->facebook }}">Facebook</a></li>
+						<li><a href="http://www.instagram.com/{{ $system->instagram }}">Instagram</a></li>
+						<li><a href="http://www.youtube.com/{{ $system->youtube }}">Youtube</a></li>
+						<li><a href="#contactanos"  data-toggle="modal" data-target="#contactanosModal">Contáctanos</a></li>
 					</ul>
 				</div>
 				<!--/.Second column-->
@@ -150,17 +171,17 @@
 
 				<!--Third column-->
 				<div class="col-lg-2 col-md-4">
-					<h5 class="title">Second column</h5>
+					<h5 class="title">Acerca de</h5>
 					<ul>
-						<li><a href="#!">Link 1</a></li>
-						<li><a href="#!">Link 2</a></li>
-						<li><a href="#!">Link 3</a></li>
-						<li><a href="#!">Link 4</a></li>
+						<li><a href="#quienes-somos" data-toggle="modal" data-target="#quienesSomosModal">Quienes somos</a></li>
+						<li><a href="#acerca-cuentas-premium" data-toggle="modal" data-target="#CuentasPremiumModal">Cuentas Premium</a></li>
+						<li><a href="#acerca-publicidad" data-toggle="modal" data-target="#publicidadModal">Publicidad</a></li>
+						<li><a href="#politicas-condiciones" data-toggle="modal" data-target="#politicasCondicionesModal">Politicas y condiciones</a></li>
 					</ul>
 				</div>
 				<!--/.Third column-->
 
-				<hr class="hidden-md-up">
+				{{-- <hr class="hidden-md-up">
 
 				<!--Fourth column-->
 				<div class="col-lg-2 col-md-4">
@@ -173,7 +194,7 @@
 					</ul>
 				</div>
 				<!--/.Fourth column-->
-
+ --}}
 			</div>
 		</div>
 		<!--/.Footer Links-->
@@ -208,6 +229,100 @@
 	<script>
 	new WOW().init();
 	</script>
+
+
+	<!-- Contactos -->
+	<div class="modal fade" id="contactanosModal" tabindex="-1" role="dialog" aria-labelledby="contactanosModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="contactanosModalLabel">Contactanos</h4>
+	      </div>
+	      <div class="modal-body">
+					{{ $system->quienes_somos }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<!-- Quienes somos -->
+	<div class="modal fade" id="quienesSomosModal" tabindex="-1" role="dialog" aria-labelledby="quienesSomosModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="quienesSomosModalLabel">Quienes somos</h4>
+	      </div>
+	      <div class="modal-body">
+					{{ $system->quienes_somos }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<!-- Cuentas Premium-->
+	<div class="modal fade" id="CuentasPremiumModal" tabindex="-1" role="dialog" aria-labelledby="CuentasPremiumModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="CuentasPremiumModalLabel">Acerca de las cuentas premium</h4>
+	      </div>
+	      <div class="modal-body">
+					{{ $system->cuentas_premium }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Publicidad-->
+	<div class="modal fade" id="publicidadModal" tabindex="-1" role="dialog" aria-labelledby="publicidadModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="publicidadModalLabel">Acerca de la publicidad</h4>
+	      </div>
+	      <div class="modal-body">
+					{{ $system->cuentas_premium }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Politicas y condiciones-->
+	<div class="modal fade" id="politicasCondicionesModal" tabindex="-1" role="dialog" aria-labelledby="politicasCondicionesModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="politicasCondicionesModalLabel">Políticas y condiciones</h4>
+	      </div>
+	      <div class="modal-body">
+					{{ $system->cuentas_premium }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 
 </body>
 

@@ -31,7 +31,6 @@ class PostsController extends Controller
 
 	public function store(Request $request)
 	{
-		// dd($request->all());
 		if (\Shinobi::can('post.new')) {
 			$this->validate($request, [
 				'title'     			=> 'required',
@@ -150,7 +149,16 @@ class PostsController extends Controller
 	}
 
 	public function viewPDF($id){
-		return view('pdf.view')
-            ->with('post', Post::find($id));
+		
+		if (\Shinobi::can('post.pdf.show')) {
+      	$post = Post::find($id);
+			if($post){
+				return view('pdf.view')
+	        ->with('post', $post);
+			}
+			else
+				abort(404);
+		}else
+			abort(503);
 	}
 }

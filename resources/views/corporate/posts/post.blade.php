@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	{{ $search }} | Neurocodigo
+	{{ $name }} | Neurocodigo
 @endsection
 
 
@@ -10,9 +10,11 @@
 		<!--Main layout-->
 		<div class="container">
 
-			<h1>Resultados de: {{ $search }}</h1>
+			<h1>{{ $type }}: {{ $name }}</h1>
 
 			<hr class="extra-margins">
+
+			@include('corporate.sponsors.print')
 
 			<div class="row">
 				@foreach($posts as $post)

@@ -17,8 +17,7 @@ class CreateSponsorsTable extends Migration
             $table->increments('id');
             $table->string('name',90);
             $table->string('excerpt');
-            $table->string('web');
-            $table->timestamp('finish'); //fecha en la que finaliza el sponsor
+            $table->string('web')->nullable();
             $table->integer('user_id')->unsigned();
             $table->string('image')->nullable();
             $table->string('phone',20)->nullable();
@@ -27,7 +26,6 @@ class CreateSponsorsTable extends Migration
             $table->string('url_twitter',90)->nullable();
             $table->string('url_instagram',90)->nullable();
             $table->string('url_youtube',90)->nullable();
-            $table->enum('status',['published','finished','created','canceled'])->default('created');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');

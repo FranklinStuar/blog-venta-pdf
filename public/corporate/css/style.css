@@ -1,1 +1,29 @@
-/* YOUR CUSTOM STYLES */
+main > .container{
+	margin-bottom: 3.3em
+}
+.profile-detail{
+	color: #212121;
+}
+.profile-detail > i{
+	display: none;
+}
+.profile-detail:hover > i{
+	display: inline;
+}
+.profile-detail span{
+	margin-left: 5px ;
+	margin-right: 5px ;
+}
+#edit-user .form-control{
+	padding-left: 15px;
+}
+.type-payment{
+	text-align: center;
+	font-size: 2.1em;
+	padding: 5px 25px;
+	margin: auto;	
+	display: inline-block;
+}
+.type-payment span{
+	color: #424242;
+}

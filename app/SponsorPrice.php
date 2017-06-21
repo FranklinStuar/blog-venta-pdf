@@ -11,6 +11,10 @@ class SponsorPrice extends Model
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
   protected $fillable = [
-  	'price_day','price_month','months','featured',
+  	'prints','price_month','months','featured',
   ];
+
+  public function details(){
+  	return $this->hasMany('\App\SponsorPriceDetail','sponsor_price_id');
+  }
 }

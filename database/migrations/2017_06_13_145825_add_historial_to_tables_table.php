@@ -17,6 +17,10 @@ class AddHistorialToTablesTable extends Migration
             $table->integer('historial_id')->unsigned()->nullable(); //historial al que se enlaza
             $table->foreign('historial_id')->references('id')->on('historials');
         });
+        Schema::table('post_historials', function (Blueprint $table) {
+            $table->integer('historial_id')->unsigned()->nullable(); //historial al que se enlaza
+            $table->foreign('historial_id')->references('id')->on('historials');
+        });
         Schema::table('pdf_views', function (Blueprint $table) {
             $table->integer('historial_id')->unsigned()->nullable(); //historial al que se enlaza
             $table->foreign('historial_id')->references('id')->on('historials');

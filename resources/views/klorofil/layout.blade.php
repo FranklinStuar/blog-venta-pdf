@@ -18,7 +18,7 @@
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/demo.css') }}">
 	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	{{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"> --}}
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ url('klorofil/img/apple-icon.png') }}">
 	{{-- <link rel="icon" type="image/png" sizes="96x96" href="{{ url('klorofil/img/favicon.png') }}"> --}}
@@ -105,7 +105,7 @@
 					<ul class="nav">
 							<li><a href="{{ url('/neuro-admin') }}" class="">Dashboard</a></li>
 
-						@if(Shinobi::can('dashboard.superadmin') || Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
+						@if( Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
 							<li>
 								<a href="#posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="posts-menu" class="collapse ">
@@ -129,8 +129,12 @@
 							<a href="#sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-layers"></i> <span>Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="sponsors-menu" class="collapse ">
 								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Sponsor</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de Sponsors</a></li>
+									@if (\Shinobi::can('sponsor.admin.add'))
+										<li><a href="{{ route('sponsors.create') }}" class="">Nuevo Sponsor</a></li>
+									@endif
+									@if (\Shinobi::can('sponsor.admin.list'))
+										<li><a href="{{ route('sponsors.index') }}" class="">Lista de Sponsors</a></li>
+									@endif
 								</ul>
 							</div>
 						</li>
@@ -149,19 +153,23 @@
 							</li>
 
 						<li>
-							<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="premium-posts-menu" class="collapse ">
 								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
+									@if (Shinobi::can('sponsor.price.new'))
+										<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Premium</a></li>
+									@endif
+									@if (Shinobi::can('sponsor.price.list'))
+										<li><a href="{{ route('premium-sponsor.index') }}" class="">Lista de precios</a></li>
+									@endif
+									{{-- <li><a href="{{ route('payment-sponsor.index') }}" class="">Realizar Pago</a></li> --}}
 									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
 								</ul>
 							</div>
 						</li>
 						
-						@if(Shinobi::can('dashboard.superadmin') || Shinobi::can('user.new') || Shinobi::can('user.lists') || Shinobi::can('role.list'))
+						@if( Shinobi::can('user.new') || Shinobi::can('user.lists') || Shinobi::can('role.list'))
 							<li>
 								<a href="#users-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Usuarios</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="users-menu" class="collapse ">
@@ -184,6 +192,9 @@
 							<a href="#system-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i> <span>Sistema</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="system-menu" class="collapse ">
 								<ul class="nav">
+									@if(\Shinobi::can('system.edit'))
+										<li><a href="{{ route('config') }}" class="">Configuración</a></li>
+									@endif
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Posts</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Sponsors</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas Usuarios</a></li>

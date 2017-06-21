@@ -14,7 +14,20 @@
 	<div class="container-fluid">
 		<div class="row">
 
-			<div class="col-sm-3"></div>
+			<div class="col-sm-3">
+
+				<p>
+					<b>Autor</b> : <a href="{{ route('show-user',['uID'=>$post->author->username]) }}">{{ $post->author->name }}</a>
+				</p>
+				<p>
+					<b>Fecha</b> : {{ $post->created_at }}
+				</p>
+				<p>
+					<b>Categoría</b> : <a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
+				</p>
+				<hr class="extra-margins">
+				@include('corporate.sponsors.print',['print'=>'all'])
+			</div>
 			<div class="col-sm-6	">
 				<?php
 					echo $post->body;

@@ -45,7 +45,7 @@ class CategoriesController extends Controller
             $request->session()->flash('success', 'Categoría "'.$request->name.'" guardado correctamente');
             return redirect()->action('CategoriesController@index');
         }else{
-            $request->session()->flash('Errors', 'Categoría "'.$request->name.'" ya existe');
+            $request->session()->flash('errors', 'Categoría "'.$request->name.'" ya existe');
             return redirect()->back();
         }
 

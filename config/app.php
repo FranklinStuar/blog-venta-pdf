@@ -180,6 +180,8 @@ return [
 
         App\Providers\CreateHistorialServiceProvider::class,
         App\Providers\CategoriesMenuProvider::class,
+        App\Providers\AddSystemServicesProvider::class,
+        App\Providers\AddSponsorServiceProvider::class,
         
         Collective\Html\HtmlServiceProvider::class,
 

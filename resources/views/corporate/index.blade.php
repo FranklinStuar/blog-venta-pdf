@@ -9,31 +9,34 @@
 	<main>
 		<!--Main layout-->
 		<div class="container">
-
-			<!--First row-->
-			<div class="row wow fadeIn" data-wow-delay="0.2s">
-				<div class="col-lg-7">
-					<!--Featured image -->
-					<div class="view overlay hm-white-light z-depth-1-half">
-							<img src="{{ url('/storage/'.$featured->image) }}" class="img-fluid " alt="{{ $featured->title }}">
-						<div class="mask">
+			
+			@if($featured)
+				<!--First row-->
+				<div class="row wow fadeIn" data-wow-delay="0.2s">
+					<div class="col-lg-7">
+						<!--Featured image -->
+						<div class="view overlay hm-white-light z-depth-1-half">
+								<img src="{{ url('/storage/'.$featured->image) }}" class="img-fluid " alt="{{ $featured->title }}">
+							<div class="mask">
+							</div>
 						</div>
+						<br>
 					</div>
-					<br>
-				</div>
 
-				<!--Main information-->
-				<div class="col-lg-5">
-					<h2 class="h2-responsive">{{ $featured->title }}</h2>
-					<hr>
-					<p>{{ $featured->excerpt }}</p>
-					<a href="{{ route('show-post',['PN'=> $featured->slug]) }}" class="btn btn-info">Leer Más</a>
+					<!--Main information-->
+					<div class="col-lg-5">
+						<h2 class="h2-responsive">{{ $featured->title }}</h2>
+						<hr>
+						<p>{{ $featured->excerpt }}</p>
+						<a href="{{ route('show-post',['PN'=> $featured->slug]) }}" class="btn btn-info">Leer Más</a>
+					</div>
 				</div>
-			</div>
-			<!--/.First row-->
-
+				<!--/.First row-->
 			<hr class="extra-margins">
+			@endif
 
+			@include('corporate.sponsors.print')
+			
 			<!--Second row-->
 			<div class="row">
 				@foreach($posts as $post)
