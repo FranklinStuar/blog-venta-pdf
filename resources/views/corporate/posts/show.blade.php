@@ -36,7 +36,7 @@
 					<hr>
 					@if(Shinobi::can('post.pdf.show'))
 						<a href="{{ route('show-pdf',['pID'=>$post->slug]) }}">
-							<img src="{{ url('images/pdf.png') }}" style='max-with:100%; max-height: 100px; display: block; margin: auto; cursor: pointer;' alt="pdf">
+							<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
 						</a>
 					@else
 						<center><b>No tiene acceso al archivo adjunto</b></center>
@@ -44,7 +44,6 @@
 				</div>
 			</div>
 		</div>
-		<hr>
 	</div>
 	<!--/.Main layout-->
 @endsection

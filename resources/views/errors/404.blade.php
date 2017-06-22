@@ -9,17 +9,7 @@
 	<main>
 		<!--Main layout-->
 		<div class="container">
-			<center><h1>No se encontró la página</h1></center>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+			<h1 class="text-center extra-margin-page">No se encontró la página</h1>
 		</div>
 		<!--/.Main layout-->
 	</main>

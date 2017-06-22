@@ -103,7 +103,7 @@
 				<nav>
 				<br>
 					<ul class="nav">
-							<li><a href="{{ url('/neuro-admin') }}" class="">Dashboard</a></li>
+							<li><a href="{{ url('/neuro-admin') }}"><i class="lnr lnr-file-empty"></i> <span>Dashboard</span></a></li>
 
 						@if( Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
 							<li>
@@ -124,50 +124,51 @@
 							</li>
 						@endif
 						
-						
 						<li>
-							<a href="#sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-layers"></i> <span>Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="sponsors-menu" class="collapse ">
+							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="premium-sponsors-menu" class="collapse ">
 								<ul class="nav">
-									@if (\Shinobi::can('sponsor.admin.add'))
-										<li><a href="{{ route('sponsors.create') }}" class="">Nuevo Sponsor</a></li>
-									@endif
-									@if (\Shinobi::can('sponsor.admin.list'))
-										<li><a href="{{ route('sponsors.index') }}" class="">Lista de Sponsors</a></li>
-									@endif
-								</ul>
-							</div>
-						</li>
-						
-							<li>
-								<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="premium-sponsors-menu" class="collapse ">
-									<ul class="nav">
-										<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
-										<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
-										<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
-										<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
-										<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
-									</ul>
-								</div>
-							</li>
-
-						<li>
-							<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="premium-posts-menu" class="collapse ">
-								<ul class="nav">
-									@if (Shinobi::can('sponsor.price.new'))
-										<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Premium</a></li>
-									@endif
-									@if (Shinobi::can('sponsor.price.list'))
-										<li><a href="{{ route('premium-sponsor.index') }}" class="">Lista de precios</a></li>
-									@endif
-									{{-- <li><a href="{{ route('payment-sponsor.index') }}" class="">Realizar Pago</a></li> --}}
+									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
+									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
+									<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
 								</ul>
 							</div>
 						</li>
+
+						@if (\Shinobi::can('sponsor.admin.add') || \Shinobi::can('sponsor.admin.list'))
+							<li>
+								<a href="#sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-layers"></i> <span>Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="sponsors-menu" class="collapse ">
+									<ul class="nav">
+										@if (\Shinobi::can('sponsor.admin.add'))
+											<li><a href="{{ route('sponsors.create') }}" class="">Nuevo Sponsor</a></li>
+										@endif
+										@if (\Shinobi::can('sponsor.admin.list'))
+											<li><a href="{{ route('sponsors.index') }}" class="">Lista de Sponsors</a></li>
+										@endif
+									</ul>
+								</div>
+							</li>
+						@endif
+
+						@if (\Shinobi::can('sponsor.price.new') || \Shinobi::can('sponsor.price.list'))
+							<li>
+								<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="premium-posts-menu" class="collapse ">
+									<ul class="nav">
+										@if (Shinobi::can('sponsor.price.new'))
+											<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Premium</a></li>
+										@endif
+										@if (Shinobi::can('sponsor.price.list'))
+											<li><a href="{{ route('premium-sponsor.index') }}" class="">Lista de precios</a></li>
+										@endif
+										{{-- <li><a href="{{ route('payment-sponsor.index') }}" class="">Realizar Pago</a></li> --}}
+									</ul>
+								</div>
+							</li>
+						@endif
 						
 						@if( Shinobi::can('user.new') || Shinobi::can('user.lists') || Shinobi::can('role.list'))
 							<li>
@@ -195,11 +196,15 @@
 									@if(\Shinobi::can('system.edit'))
 										<li><a href="{{ route('config') }}" class="">Configuración</a></li>
 									@endif
+									@if(\Shinobi::can('system.edit'))
+										<li><a href="{{ route('historial') }}" class="">Historial de visitas</a></li>
+									@endif
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Posts</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Sponsors</a></li>
 									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas Usuarios</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Historial de actividades</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Bloquear</a></li>
+									@if(\Shinobi::can('lock'))
+										<li><a href="{{ url('/neuro-admin') }}" class="">Bloquear</a></li>
+									@endif
 								</ul>
 							</div>
 						</li>

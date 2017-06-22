@@ -10,7 +10,7 @@ class InitController extends Controller
 {
     public function index(Request $request){
         if(count(\App\System::all())==0){
-            \App\System::create([
+            $system = \App\System::create([
                 'facebook' => "",
                 'instagram' => "",
                 'youtube' => "",
@@ -34,6 +34,7 @@ class InitController extends Controller
                 'Vista Administración'=>[
                     ['name'=>'Dashboard administrador','slug'=>'dashboard.admin'],
                     ['name'=>'Editar la información del sistema','slug'=>'system.edit'],
+                    ['name'=>'Editar la información del sistema','slug'=>'system.history'],
                   ],
                 'Posts'=>[
                     ['name'=>'Nuevo Post Admin','slug'=>'post.new'],
@@ -84,23 +85,28 @@ class InitController extends Controller
                     ['name'=>'Listar Sponsor Admin','slug'=>'sponsor.admin.list'],
                     ['name'=>'Ver Detalles de Sponsor Admin','slug'=>'sponsor.admin.show'],
                     ['name'=>'Ver estadisticas de Sponsor Admin','slug'=>'sponsor.admin.statistics'],
+                    ['name'=>'Ver historial de Sponsor Admin','slug'=>'sponsor.admin.historial'],
                   ],
                 'Precios Sponsors'=>[
-                    ['name'=>'Nuevo Precio Sponsor','slug'=>'sponsor.price.new'],
-                    ['name'=>'Editar Precio Sponsor','slug'=>'sponsor.price.edit'],
-                    ['name'=>'Ver Precio Sponsor','slug'=>'sponsor.price.show'],
-                    ['name'=>'Eliminar Precio Sponsor','slug'=>'sponsor.price.destroy'],
-                    ['name'=>'Listar Precios Sponsor','slug'=>'sponsor.price.list'],
-                    ['name'=>'Nuevo  Detalle Precio Sponsor','slug'=>'sponsor.detail.new'],
-                    ['name'=>'Listar  Detalle Precios Sponsor','slug'=>'sponsor.detail.list'],
-                    ['name'=>'Eliminar  Detalle Precio Sponsor','slug'=>'sponsor.detail.destroy'],
+                    ['name'=>'Nuevo Premium Sponsor','slug'=>'sponsor.price.new'],
+                    ['name'=>'Editar Premium Sponsor','slug'=>'sponsor.price.edit'],
+                    ['name'=>'Ver Premium Sponsor','slug'=>'sponsor.price.show'],
+                    ['name'=>'Eliminar Premium Sponsor','slug'=>'sponsor.price.destroy'],
+                    ['name'=>'Listar Premiums Sponsor','slug'=>'sponsor.price.list'],
+                    ['name'=>'Nuevo  Detalle Premium Sponsor','slug'=>'sponsor.detail.new'],
+                    ['name'=>'Listar  Detalle Premiums Sponsor','slug'=>'sponsor.detail.list'],
+                    ['name'=>'Eliminar  Detalle Premium Sponsor','slug'=>'sponsor.detail.destroy'],
                   ],
                 'Pagos Sponsors'=>[
                     ['name'=>'Hacer pago','slug'=>'sponsor.pay.new'],
                     ['name'=>'Cancelar pago','slug'=>'sponsor.pay.cancel'],
+                    ['name'=>'Ver detalles pago','slug'=>'sponsor.pay.show'],
+                    ['name'=>'Activar pago','slug'=>'sponsor.pay.active'],
                     ['name'=>'Listar pagos','slug'=>'sponsor.pay.list'],
                     ['name'=>'Listar pagos activos','slug'=>'sponsor.pay.list.actives'],
                     ['name'=>'Listar pagos finalizados','slug'=>'sponsor.pay.list.finished'],
+                    
+                    ['name'=>'Cancelar pago Admin','slug'=>'sponsor.admin.pay.cancel'],
                   ],
                 'Usuarios'=>[
                     ['name'=>'Nuevo usuario','slug'=>'user.new'],
@@ -125,6 +131,8 @@ class InitController extends Controller
             $superAdmin = Role::create(['name'=>'Super administrador','slug'=>'superadmin','special'=>'all-access']);
             $admin = Role::create(['name'=>'Administrador','slug'=>'admin']);
             $normaluser = Role::create(['name'=>'Usuario Normal','slug'=>'normaluser']);
+
+            $system->update(['role_id' => $normaluser->id]);
 
             foreach ($permissions as $category_name => $permissions_list) {
                 $category = new \App\PermissionCategory;

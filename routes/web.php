@@ -27,9 +27,16 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::resource('/premium-sponsor','PremiumSponsorsController');
 	Route::post('/premium-sponsor-detail/{premium_id}/add-category','PremiumSponsorsController@addCategory')->name('premium-sponsor.add-category');
 	Route::post('/premium-sponsor-detail/{detail_id}/quit-category','PremiumSponsorsController@quitCategory')->name('premium-sponsor.quit-category');
-	Route::get('/config', 'HomeController@config')->name('config');
-	Route::post('/config', 'HomeController@saveConfig')->name('config.save');
 	Route::resource('/sponsors','SponsorsController');
+	Route::get('/sponsors/historial/{id}','SponsorsController@historial')->name('sponsors.historial');
+	Route::get('/sponsor-pay/{id_pay}','SponsorPaysController@show')->name('sponsor-pays.show');
+	Route::get('/sponsor-pay/{id_pay}/active','SponsorPaysController@active')->name('sponsor-pays.active');
+	Route::post('/sponsor-pay/{id_pay}','SponsorPaysController@saveActive')->name('sponsor-pays.save-active');
+	Route::get('/sponsor-pay/{id_pay}/cancele','SponsorPaysController@cancel')->name('sponsor-pays.cancel');
+
+	Route::get('/config', 'SystemController@config')->name('config');
+	Route::post('/config', 'SystemController@saveConfig')->name('config.save');
+	Route::get('/historial', 'SystemController@historial')->name('historial');
 });
 
 
@@ -56,4 +63,3 @@ Route::get('categoria/{category}','HomeController@showCategory')->name('show-cat
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
 Route::get('{post_name}','HomeController@showPost')->name('show-post');
 Route::get('{post_name}/book','HomeController@showPDF')->name('show-pdf');
-

@@ -5,9 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Crypt;
 
 class CreateHistorialServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap the application services.
      *
@@ -15,13 +17,13 @@ class CreateHistorialServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        $date = \Carbon\Carbon::now();
+
         $historial = \App\Historial::create([
             'user_agent'=>$request->server()['HTTP_USER_AGENT'],
             'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
             'path'=>$request->url(),
             'ip'=>$request->ip(),
-            'created_at'=>$date,
+            'created_at'=>\Carbon\Carbon::now(),
         ]);
         
         View::composer('*', function ($view) use($historial) {
@@ -56,7 +58,7 @@ class CreateHistorialServiceProvider extends ServiceProvider
             }
         });
 
-        View::composer(['corporate.posts.show','pdf.view'], function ($view) use($historial, $date)  {
+        View::composer(['corporate.posts.show','pdf.view'], function ($view) use($historial)  {
             \App\PostHistorial::create([
                 'user_id' => (\Auth::user())? \Auth::user()->id: null,
                 'post_id' => $view->post->id,
@@ -68,7 +70,7 @@ class CreateHistorialServiceProvider extends ServiceProvider
                 'post_id' => $view->post->id,
                 'user_id' => (\Auth::user())? \Auth::user()->id: null,
                 'historial_id' => $historial->id,
-                'created_at' => $date,
+                'created_at' => \Carbon\Carbon::now(),
             ]);
         });
 

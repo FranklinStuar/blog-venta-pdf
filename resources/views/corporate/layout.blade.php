@@ -19,30 +19,6 @@
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
 
-	<!-- Template styles -->
-	<style rel="stylesheet">
-		/* TEMPLATE STYLES */
-		
-		main {
-			padding-top: 3rem;
-			padding-bottom: 2rem;
-		}
-		
-		.extra-margins {
-			margin-top: 1rem;
-			margin-bottom: 2.5rem;
-		}
-		 .navbar {
-			background-color: #3b3b3f;
-		}
-		
-		footer.page-footer {
-			background-color: #3b3b3f;
-			margin-top: 2rem;
-		 
-		}
-	</style>
-
 </head>
 
 <body>

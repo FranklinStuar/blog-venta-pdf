@@ -40,4 +40,11 @@ class Sponsor extends Model
     else
       return false;
   }
+
+  public function cancel(){
+    foreach ($this->pays as $pay) {
+      $pay->update(['status'=>'canceled']);
+    }
+    return true;
+  }
 }

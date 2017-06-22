@@ -67,8 +67,40 @@ class SponsorsController extends Controller
 
     public function show($id){
         if (\Shinobi::can('sponsor.admin.edit')) {
-            return view('klorofil.sponsors.show')
-            ->with('sponsor', Sponsor::find($id));
+            $sponsor = Sponsor::find($id);
+            if($sponsor != null){
+                return view('klorofil.sponsors.show')
+                ->with('sponsor', $sponsor);
+            }
+        }
+        abort(404);
+    }
+
+    public function destroy(Request $request, $id){
+        if (\Shinobi::can('sponsor.admin.destroy')) {
+            $sponsor = Sponsor::find($id);
+            if($sponsor != null){
+                if(count($sponsor->pays) > 0){
+                    $request->session()->flash('success', 'Tiene pagos realizados, se han cancelado todos los pagos y ya no están accesible para el usuario');
+                    $sponsor->cancel();
+                }else{
+                    $sponsor->delete();
+                    $request->session()->flash('success', 'Sponsor eliminado de la lista');
+                }
+                return redirect()->back();
+            }
+        }
+        abort(404);
+    }
+
+
+    public function historial($id){
+        if (\Shinobi::can('sponsor.admin.historial')) {
+            $sponsor = Sponsor::find($id);
+            if($sponsor != null){
+                return view('klorofil.sponsors.historial')
+                ->with('sponsor', $sponsor);
+            }
         }
         abort(404);
 

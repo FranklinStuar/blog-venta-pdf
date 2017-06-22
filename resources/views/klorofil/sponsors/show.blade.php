@@ -8,47 +8,78 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">Detalles</div>
 						<div class="panel-body">
-							<dl class="dl-horizontal">
-								<dt>Título</dt>
-								<dd>{{ $sponsor->name }}</dd>
-								<hr>
-								
-								<dt>Descripción</dt>
-								<dd>{{ $sponsor->excerpt }}</dd>
-								<hr>
+							
+							<div class="title-detail">
+								<span class="title">Título</span>
+								<span class="detail">{{ $sponsor->name }}</span>
+							</div>
 
-								<dt>Propietario</dt>
-								<dd>{{ $sponsor->user->name }}</dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Descripción</span>
+								<span class="detail">{{ $sponsor->excerpt }}</span>
+							</div>
 
-								<dt>Sitio Web</dt>
-								<dd><a href="http://{{ $sponsor->web }}">{{ $sponsor->web }}</a></dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Sitio Web</span>
+								<span class="detail">
+									<a href="http://{{ $sponsor->web }}">{{ $sponsor->web }}</a>
+								</span>
+							</div>
 
-								<dt>Teléfono</dt>
-								<dd>{{ $sponsor->phone }}</dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Teléfono</span>
+								<span class="detail">{{ $sponsor->phone }}</span>
+							</div>
 
-								<dt>Dirección</dt>
-								<dd>{{ $sponsor->address }}</dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Dirección</span>
+								<span class="detail">{{ $sponsor->address }}</span>
+							</div>
 
-								<dt>Facebook</dt>
-								<dd><a href="https://www.facebook.com/{{ $sponsor->url_facebook }}">https://www.facebook.com/{{ $sponsor->url_facebook }}</a></dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Facebook</span>
+								<span class="detail">
+									<a href="https://www.facebook.com/{{ $sponsor->url_facebook }}">
+											https://www.facebook.com/{{ $sponsor->url_facebook }}
+									</a>
+								</span>
+							</div>
 
-								<dt>Twitter</dt>
-								<dd><a href="https://www.twitter.com/{{ $sponsor->url_twitter }}">https://www.twitter.com/{{ $sponsor->url_twitter }}</a></dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Instagram</span>
+								<span class="detail">
+									<a href="https://www.instagram.com/{{ $sponsor->url_instagram }}">
+											https://www.instagram.com/{{ $sponsor->url_instagram }}
+									</a>
+								</span>
+							</div>
 
-								<dt>Instagram</dt>
-								<dd><a href="https://www.instagram.com/{{ $sponsor->url_instagram }}">https://www.instagram.com/{{ $sponsor->url_instagram }}</a></dd>
-								<hr>
+							<div class="title-detail">
+								<span class="title">Twitter</span>
+								<span class="detail">
+									<a href="https://www.twitter.com/{{ $sponsor->url_twitter }}">
+											https://www.twitter.com/{{ $sponsor->url_twitter }}
+									</a>
+								</span>
+							</div>
 
-								<dt>Youtube</dt>
-								<dd><a href="https://www.youtube.com/{{ $sponsor->url_youtube }}">https://www.youtube.com/{{ $sponsor->url_youtube }}</a></dd>
+							<div class="title-detail">
+								<span class="title">Youtube</span>
+								<span class="detail">
+									<a href="https://www.youtube.com/{{ $sponsor->url_youtube }}">
+											https://www.youtube.com/{{ $sponsor->url_youtube }}
+									</a>
+								</span>
+							</div>
 
-							</dl>
+							<div class="container-fluid">
+								<center>
+									@if (Shinobi::can('sponsor.admin.edit'))
+										{!! link_to_route('sponsors.edit', "Editar",['i'=>$sponsor->id], ['class' =>'btn btn-primary']) !!}
+									@endif
+								</center>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -70,8 +101,7 @@
 								<hr>
 								
 								<dt>Impresiones</dt>
-								<dd>{{ $sponsor->prints->count() }}</dd>
-								<hr>
+								<dd>{{ $sponsor->prints->count() }} - <a href="{{ route('sponsors.historial',[$sponsor->id]) }}">Ver historial</a></dd>
 
 							</dl>
 						</div>
@@ -105,6 +135,11 @@
 													<span class="badge badge-danger">Cancelado</span>
 												@else
 													<span class="badge badge-danger">Sin estado</span>
+												@endif
+											</td>
+											<td>
+												@if (Shinobi::can('sponsor.pay.show'))
+													{!! link_to_route('sponsor-pays.show', "",['i'=>$pay->id], ['class' =>'glyphicon glyphicon-eye-open']) !!}
 												@endif
 											</td>
 										</tr>

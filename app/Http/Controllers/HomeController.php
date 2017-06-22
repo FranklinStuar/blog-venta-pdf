@@ -29,7 +29,9 @@ class HomeController extends Controller
             ->with('posts',Post::all())
             ->with('sponsors',\App\Sponsor::all())
             ->with('visit_posts',\App\PostVisit::all())
-            ->with('post_pays',\App\PostPay::all());
+            ->with('post_pays',\App\PostPay::all())
+            ->with('sponsor_pays',\App\SponsorPay::all())
+            ;
     }
     public function index(){
         $posts = Post::orderBy('updated_at','desc')->get();
@@ -89,32 +91,6 @@ class HomeController extends Controller
                 ->with('type','Autor')
                 ->with('posts',$user->posts)
             ;
-        }
-        abort(404);
-    }
-
-    public function config(){
-        return view('klorofil.sistem.index');
-    }
-
-    public function saveConfig(Request $request){
-        if (\Shinobi::can('system.edit')) {
-            $this->validate($request, [
-                'facebook'              => '|max:90',
-                'instagram'             => '|max:90',
-                'youtube'               => '|max:90',
-                'email'                 => 'email|max:255',
-                'direccion'             => '|max:255',
-                'telefono'              => 'integer',
-                'celular'               => 'integer',
-                'quienes_somos'         => 'required',
-                'cuentas_premium'       => 'required',
-                'publicidad'            => 'required',
-                'politicas_condiciones' => 'required',
-            ]);
-            \App\System::first()->update($request->all());
-            $request->session()->flash('success', 'Configuración del sistema guardaddo correctamente');
-            return redirect()->back();
         }
         abort(404);
     }

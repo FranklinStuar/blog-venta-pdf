@@ -153,21 +153,6 @@
         </div>
     </div>
 
-{{-- 
-  'name',
-  'excerpt',
-  'web',
-  'finish',
-  'user_id',
-  'image',
-  'phone',
-  'address',
-  'url_facebook',
-  'url_twitter',
-  'url_instagram',
-  'url_youtube',
-  'status',
-  --}}
 
     {!! Form::submit('Guardar',['class'=>'btn btn-primary']) !!}
     <a href="{{ route('sponsors.index') }}" class="btn btn-danger">Cancelar</a>

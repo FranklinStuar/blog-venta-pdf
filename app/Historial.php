@@ -10,4 +10,8 @@ class Historial extends Model
   	'user_id','user_agent','browser','kernel_os','os','languaje','path','ip','country','long','lat','created_at',
   ];
   public $timestamps = false;
+
+  public function user(){
+  	return $this->belongsTo('App\User');
+  }
 }

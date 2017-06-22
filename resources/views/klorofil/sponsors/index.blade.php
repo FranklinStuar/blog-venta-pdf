@@ -21,6 +21,7 @@
 						<th>Acciones</th>
 					</tr>
 				</thead>
+				
 				<tbody>
 					@foreach($sponsors as $index => $sponsor)
 						<tr>
@@ -41,6 +42,11 @@
 								@endif
 								@if (Shinobi::can('sponsor.admin.show'))
 									{!! link_to_route('sponsors.show', "",['i'=>$sponsor->id], ['class' =>'glyphicon glyphicon-eye-open']) !!}
+								@endif
+								@if (Shinobi::can('sponsor.admin.destroy'))
+									{!! Form::open(['route' => ['sponsors.destroy',$sponsor->id],'method'=>'DELETE','class'=>'destroy']) !!}
+										<button class="btn btn-link glyphicon glyphicon-trash"></button>
+									{!! Form::close() !!}
 								@endif
 							</td>
 						</tr>

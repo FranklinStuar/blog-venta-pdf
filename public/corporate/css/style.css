@@ -1,3 +1,27 @@
+/* TEMPLATE STYLES */
+		
+main {
+	padding-top: 3rem;
+	padding-bottom: 2rem;
+}
+
+.extra-margins {
+	margin-top: 1rem;
+	margin-bottom: 2.5rem;
+}
+ .navbar {
+	background-color: #3b3b3f;
+}
+
+footer.page-footer {
+	background-color: #3b3b3f;
+	margin-top: 2rem;
+ 
+}
+
+/* PROPIO */
+
+
 main > .container{
 	margin-bottom: 3.3em
 }
@@ -27,3 +51,53 @@ main > .container{
 .type-payment span{
 	color: #424242;
 }
+
+.extra-margin-page{
+  /*display: block;*/
+  margin-top: 30px;
+  margin-bottom: 300px;
+}
+.image-profile{
+	max-width: 200px; 
+	border-radius: 50%;
+}
+
+.title-detail{
+	display: block;
+	padding: 15px 0;
+	border-bottom: 1px solid #e0e0e0
+}
+.title-detail > .detail, .title-detail > .title{
+	display: inline-block;
+}
+
+.title-detail > .title{
+	font-weight: bold;
+	text-align: right;
+	width: 25%;
+	padding-right: 5px;
+}
+
+.title-detail > .detail > a{
+	color :#263238;
+}
+
+.title-detail > .detail:hover > a{
+	color :#1976d2;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.img-pdf-show{
+ 	max-with:100%; 
+ 	max-height: 100px; 
+ 	display: block; 
+ 	margin: auto; 
+ 	cursor: pointer;
+ }

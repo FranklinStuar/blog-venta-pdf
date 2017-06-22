@@ -26,6 +26,8 @@ class CreateSystemsTable extends Migration
             $table->text('cuentas_premium');
             $table->text('publicidad');
             $table->text('politicas_condiciones');
+            $table->integer('role_id')->unsigned()->index()->nullable(); //rol por defecto para nuevos usuarios
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
@@ -36,6 +38,9 @@ class CreateSystemsTable extends Migration
      */
     public function down()
     {
+        Schema::table('systems', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+        });
         Schema::dropIfExists('systems');
     }
 }

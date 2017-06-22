@@ -158,6 +158,19 @@
 	        </div>
 		    </div>
 
+		    <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
+        	<label for="role_id" class="col-md-4 control-label">Rol por defecto para nuevos usuarios</label>
+	        <div class="col-md-6">
+						{!! Form::select('role_id', $roles, $system->role_id, ['class' => 'form-control','placeholder'=>'Escoja un rol por defecto']) !!}
+
+            @if ($errors->has('role_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('role_id') }}</strong>
+              </span>
+            @endif
+	        </div>
+		    </div>
+
 		    {!! Form::submit('Guardar',['class'=>'btn btn-primary']) !!}
 		    <a href="{{ route('admin') }}" class="btn btn-danger">Cancelar</a>
 			{!! Form::close() !!}

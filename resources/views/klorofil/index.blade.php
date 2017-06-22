@@ -123,27 +123,28 @@
 								<thead>
 									<tr>
 										<th>No.</th>
-										<th>Post</th>
-										<th>Precio</th>
+										<th>Título</th>
+										<th>Usuario</th>
 										<th>Fecha</th>
 									</tr>
 								</thead>
-								@foreach($post_pays as $index=> $post)
+								@foreach($sponsors as $index=> $sponsor)
 								<tbody>
 									<tr>
-										<td><a href="#">{{ $index }}</a></td>
-										<td>{{ $post->name()}}</td>
-										<td>{{ $post->price}}</td>
-										<td>{{ $post->created_at}}</td>
+										<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $index +1 }}</a></td>
+										<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $sponsor->name}}</a></td>
+										<td>{{ $sponsor->user->username}}</td>
+										<td>{{ $sponsor->created_at}}</td>
 									</tr>
 								</tbody>
+								<?php if($index == 4) break;?>
 								@endforeach
 							</table>
 						</div>
 						<div class="panel-footer">
 							<div class="row">
 								<div class="col-md-6"><span class="panel-note"><i class="fa fa-list"></i> Ultimos 5 Sponsors Realizados</span></div>
-								<div class="col-md-6 text-right"><a href="#" class="btn btn-primary">Ver todos las ventas</a></div>
+								<div class="col-md-6 text-right"><a href="{{ route('sponsors.index') }}" class="btn btn-primary">Ver todos los sponsors</a></div>
 							</div>
 						</div>
 					</div>

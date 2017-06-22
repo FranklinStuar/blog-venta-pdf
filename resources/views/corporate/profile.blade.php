@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
-					<img src="{{ url('images/avatar.png') }}" alt="{{ Auth::user()->name }}" style="max-width: 200px; border-radius: 50%;">
+					<img src="{{ url('images/avatar.png') }}" alt="{{ Auth::user()->name }}" class="image-profile" >
 				</div>
 				<div class="col-sm-6">
 					@section('user')
