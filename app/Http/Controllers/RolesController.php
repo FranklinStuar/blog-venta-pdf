@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Caffeinated\Shinobi\Models\Role;
+// use Caffeinated\Shinobi\Models\Role;
+use App\Role;
 use Caffeinated\Shinobi\Models\Permission;
 
 class RolesController extends Controller
@@ -95,6 +96,15 @@ class RolesController extends Controller
 			else
 				$request->session()->flash('errors', 'No se pudo eliminar rol "'.$name.'" ');
 			return redirect()->route('roles.index');
+		}else
+			abort(404);
+	}
+	public function showPosts($id){
+		if (\Shinobi::can('role.show')) {
+			$role = Role::find($id);
+			return view('klorofil.roles.posts',[
+				'role'=> $role,
+			]);
 		}else
 			abort(404);
 	}

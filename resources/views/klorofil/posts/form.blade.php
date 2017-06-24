@@ -9,19 +9,38 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('excerpt', 'Descripción corta') !!}
-						{!! Form::text('excerpt', $post->excerpt,['class' => "form-control",'placeholder'=>"Descripción corta",'required','autofocus']) !!}
+						{!! Form::textarea('excerpt', $post->excerpt,['class' => "form-control",'placeholder'=>"Descripción corta",'required','autofocus','rows'=>'3']) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label('body', 'Descripción detallada') !!}
 						{!! Form::textarea('body', $post->body,['class' => "form-control",'id'=>'','placeholder'=>"Descripción detallada",'required','autofocus']) !!}
 					</div>
+
+					<div class="form-group">
+						{!! Form::label('meta_description', 'Descripción para SEO') !!}
+						{!! Form::textarea('meta_description', $post->meta_description,['class' => "form-control",'placeholder'=>"Descripción corta SEO",'required','autofocus','rows'=>'3']) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('meta_keywords', 'Palabras claves SEO') !!}
+						{!! Form::text('meta_keywords', $post->meta_keywords,['class' => "form-control",'placeholder'=>"Palabras , claves, SEO",'required','autofocus']) !!}
+					</div>
+
+					<div class="form-group">
+						{!! Form::label('category_id', 'Categoría') !!}
+						{!! Form::select('category_id', $categories, $post->category_id,['class' => "select2 form-control",'placeholder'=>"Escoja una categoría",'required','autofocus']) !!}
+					</div>
+					
+					<div class="form-group">
+						{!! Form::label('roles[]', 'Roles') !!}
+						{!! Form::select('roles[]', $roles, array_pluck($post->roles,'id'),['class' => "select2 form-control",'required','autofocus','multiple']) !!}
+					</div>
+
 				</div>
-				<div class="panel-body">
-					<button class="btn btn-primary">Guardar</button>
-					{!! link_to_route('posts.index', $title = "Cancelar",null, ['class' =>'btn btn-danger']) !!}
-				</div>
+
+
 			</div>
 	  </div>
+
 		<div class="col-sm-4">
 		  <div class="panel">
 	  		<div class="panel-body">
@@ -59,21 +78,15 @@
 						@endif
 					</div>
 					<hr>
+						
+					<div class="panel-body">
+						<button class="btn btn-primary">Guardar</button>
+						{!! link_to_route('posts.index', $title = "Cancelar",null, ['class' =>'btn btn-danger']) !!}
+					</div>
 
-					<div class="form-group">
-						{!! Form::label('meta_description', 'Descripción para SEO') !!}
-						{!! Form::text('meta_description', $post->meta_description,['class' => "form-control",'placeholder'=>"Descripción corta SEO",'required','autofocus']) !!}
-					</div>
-					<div class="form-group">
-						{!! Form::label('meta_keywords', 'Palabras claves SEO') !!}
-						{!! Form::text('meta_keywords', $post->meta_keywords,['class' => "form-control",'placeholder'=>"Palabras , claves, SEO",'required','autofocus']) !!}
-					</div>
-					<div class="form-group">
-						{!! Form::label('category_id', 'Categoría') !!}
-						{!! Form::select('category_id', $categories, $post->category_id,['class' => "form-control",'placeholder'=>"Escoja una categoría",'required','autofocus']) !!}
-					</div>
 				</div>
 			</div>
 	  </div>
+	  
 	</div>
 {!! Form::close() !!}

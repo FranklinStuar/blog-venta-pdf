@@ -14,6 +14,7 @@
 						<th>#</th>
 						<th>Nombre</th>
 						<th>Slug</th>
+						<th>Posts</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -23,6 +24,9 @@
 							<td>{{ $index+1 }}</td>
 							<td>{{ $role->name }}</td>
 							<td>{{ $role->slug }}</td>
+							<td>
+								{!! link_to_route('role.show-posts', count($role->posts).' Posts',['i'=>$role->id], ['class' =>'glyphicon glyphicon-file-empty']) !!}
+							</td>
 							<td>
 								@if(Shinobi::can('role.show.default') || ($role->slug != 'superadmin' && $role->slug != 'admin' && $role->slug != 'normaluser') )
 									@if (Shinobi::can('role.edit'))

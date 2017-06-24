@@ -18,18 +18,24 @@
 						<th>Descrpción</th>
 						<th>Estado</th>
 						<th>Categoría</th>
+						<th>Roles</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach($posts as $post)
 						<tr>
-							<td>{{ explode(' ',$post->created_at)[0] }}</td>
+							<td>{{ $post->created_at->diffForHumans() }}</td>
 							{{-- <td>{{ \Carbon\Carbon::createFromFormat(' F j\\, Y',explode(':',$post->created_at)[0]) }}</td> --}}
 							<td>{{ $post->title }}</td>
-							<td>{{ $post->excerpt }}</td>
+							<td>{{ str_limit($post->excerpt,70) }}</td>
 							<td>{{ $post->status }}</td>
 							<td>{{ $post->category->name }}</td>
+							<td>
+								@foreach($post->roles as $role)
+									{{ $role->name }} <br>
+								@endforeach
+							</td>
 							<td>
 								@if (Shinobi::can('post.edit'))
 									{!! link_to_route('posts.edit', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-pencil']) !!}

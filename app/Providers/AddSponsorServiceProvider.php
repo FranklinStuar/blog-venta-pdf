@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class AddSponsorServiceProvider extends ServiceProvider
@@ -13,9 +12,9 @@ class AddSponsorServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Request $request)
+    public function boot()
     {
-        
+       // 
     }
 
     /**

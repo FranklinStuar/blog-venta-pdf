@@ -26,12 +26,13 @@
             @endif
         </div>
     </div>
+
     <div class="form-group{{ $errors->has('parent_id') ? ' has-error' : '' }}">
         <label for="parent_id" class="col-md-4 control-label">Categoría Padre</label>
 
         <div class="col-md-6">
-        	{!! Form::select('parent_id', $categories, (old('parent_id'))? old('parent_id') : $category->parent_id , ['placeholder' => 'Seleccione una categoría padre','class' =>'form-control', 'autofocus']) !!}
-	
+            {!! Form::select('parent_id', $categories, (old('parent_id'))? old('parent_id') : $category->parent_id , ['placeholder' => 'Seleccione una categoría padre','class' =>'form-control', 'autofocus']) !!}
+    
           @if ($errors->has('parent_id'))
             <span class="help-block">
                 <strong>{{ $errors->first('parent_id') }}</strong>

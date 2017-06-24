@@ -22,11 +22,16 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::resource('/roles','RolesController');
 	Route::post('roles/add-permission/{role_id}', 'RolesController@addPermission')->name('role.add-permission');
 	Route::post('roles/quit-permission/{role_id}', 'RolesController@quitPermission')->name('role.quit-permission');
+	Route::get('roles/show-posts/{role_id}', 'RolesController@showPosts')->name('role.show-posts');
+
 	Route::resource('/categories','CategoriesController');
 	Route::get('/premium-sponsor/add-feature','PremiumSponsorsController@addFeature')->name('premium-sponsor.add-feature');
 	Route::resource('/premium-sponsor','PremiumSponsorsController');
 	Route::post('/premium-sponsor-detail/{premium_id}/add-category','PremiumSponsorsController@addCategory')->name('premium-sponsor.add-category');
 	Route::post('/premium-sponsor-detail/{detail_id}/quit-category','PremiumSponsorsController@quitCategory')->name('premium-sponsor.quit-category');
+
+	Route::resource('premium-post','PremiumPostsController');
+
 	Route::resource('/sponsors','SponsorsController');
 	Route::get('/sponsors/historial/{id}','SponsorsController@historial')->name('sponsors.historial');
 	Route::get('/sponsor-pay/{id_pay}','SponsorPaysController@show')->name('sponsor-pays.show');

@@ -35,4 +35,14 @@ class Post extends Model
   public function author(){
     return $this->belongsTo('App\User','author_id');
   }
+
+  public function roles(){
+    return $this->belongsToMany('Caffeinated\Shinobi\Models\Role');
+  }
+  
+  public function getRoles(){
+    return array_pluck($this->roles,'name','id');
+  }
+
+
 }

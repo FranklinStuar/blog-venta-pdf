@@ -36,7 +36,6 @@ class CreateHistorialServiceProvider extends ServiceProvider
             }
         });
 
-
         View::composer(['corporate.index','corporate.posts.*'], function ($view) use($historial) {
             if (\Shinobi::can('sponsor.quit.others') == false) {
                 $pay_sponsor = \App\SponsorPay::where('finish_date', '>' ,\Carbon\Carbon::now())

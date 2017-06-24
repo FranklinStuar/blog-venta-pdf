@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
+use Caffeinated\Shinobi\Models\Role;
+use Carbon\Carbon;
 
 class PostsController extends Controller
 {
+
+	public function __construct(){
+		Carbon::setLocale('es');
+	}
 	
 	public function index(Request $request)
 	{
@@ -24,6 +30,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.create',[
 				'post'=> new Post,
 				'categories'=> array_pluck(Category::all(),'name','id'),
+				'roles'=> array_pluck(Role::all(),'name','id'),
 			]);
 		}else
 			abort(404);
@@ -38,7 +45,9 @@ class PostsController extends Controller
 				'body'      			=> 'required',
 				'meta_description'=> 'required',
 				'meta_keywords'		=> 'required',
+				'roles'						=> 'required',
 			]);
+
 			// Nombre de como se va a guardar 
 			$file_name = str_slug(\Carbon\Carbon::now());
 
@@ -46,7 +55,7 @@ class PostsController extends Controller
 		  \Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
 		  \Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
 		
-			Post::create([
+			$post = Post::create([
 				'author_id'=> \Auth::user()->id,
 				'title'=> $request->title,
 				'seo_title'=> $request->title,
@@ -60,7 +69,8 @@ class PostsController extends Controller
 				'status'=> 'PUBLISHED',
 				'category_id'=> $request->category_id,
 			]);
-			$request->session()->flash('success', 'Post "'.$request->name.'" guardado correctamente');
+			$post->roles()->sync($request->roles);
+			$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
 			return redirect()->route('posts.index');
 		}else
 			abort(404);
@@ -83,6 +93,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.edit',[
 				'post'=> Post::find($id),
 				'categories'=> array_pluck(Category::all(),'name','id'),
+				'roles'=> array_pluck(Role::all(),'name','id'),
 			]);
 		}else
 			abort(404);
@@ -97,6 +108,7 @@ class PostsController extends Controller
 				'body'      			=> 'required',
 				'meta_description'=> 'required',
 				'meta_keywords'		=> 'required',
+				'roles'						=> 'required',
 			]);
 
 			$post = Post::find($id);
@@ -128,7 +140,8 @@ class PostsController extends Controller
 					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				]);
 			}
-			$request->session()->flash('success', 'Post "'.$request->name.'" editado correctamente');
+			$post->roles()->sync($request->roles);
+			$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
 			return redirect()->route('posts.index');
 		}else
 			abort(404);
@@ -138,11 +151,11 @@ class PostsController extends Controller
 	{
 		if (\Shinobi::can('post.destroy')) {
       $post = Post::find($id);
-      $name = $post->name;
+      $title = $post->title;
       if($post->delete())
-        $request->session()->flash('success', 'Post "'.$name.'" eliminado correctamente');
+        $request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
       else
-        $request->session()->flash('errors', 'Post "'.$name.'" No se pudo eliminar');
+        $request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
 			return redirect()->route('posts.index');
 		}else
 			abort(404);
