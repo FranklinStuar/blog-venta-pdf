@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Caffeinated\Shinobi\Models\Role;
+use App\Role;
 use App\User;
 
 class UsersController extends Controller
@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         if (\Shinobi::can('user.list') || \Shinobi::can('dashboard.superadmin')) {
-            return view('klorofil.users.index')->with('users', User::all());
+            return view('klorofil.users.index')->with('users', User::usersAll());
         }else
             abort(404);
     }
@@ -28,7 +28,7 @@ class UsersController extends Controller
         if (\Shinobi::can('user.new') || \Shinobi::can('dashboard.superadmin')) {
             return view('klorofil.users.create',[
                 'user'=> new User,
-                'roles'=> array_pluck(Role::all(),'name','id'),
+                'roles'=> array_pluck(Role::rolesAll(),'name','id'),
             ]);
         }else
             abort(404);
@@ -50,6 +50,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password)
         ]);
         $user->assignRole($request->role_id);
+        $request->session()->flash('success', 'Usuario "'.$request->name.'" guardado correctamente');
         return redirect()->route('users.index');
     }
 
@@ -63,7 +64,7 @@ class UsersController extends Controller
         if (\Shinobi::can('user.edit') || \Shinobi::can('dashboard.superadmin')) {
             return view('klorofil.users.edit',[
                 'user'=> User::find($id),
-                'roles'=> array_pluck(Role::all(),'name','id'),
+                'roles'=> array_pluck(Role::rolesAll(),'name','id'),
             ]);
         }else
             abort(404);
@@ -71,7 +72,6 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
         $this->validate($request, [
             'username' => 'required|string|max:255|alpha_num',
             'name' => 'required|string|max:255',
@@ -95,6 +95,7 @@ class UsersController extends Controller
         }
 
         $user->syncRoles([$request->role_id]);
+        $request->session()->flash('success', 'Usuario "'.$request->name.'" editado correctamente');
         return redirect()->route('users.index');
     }
 

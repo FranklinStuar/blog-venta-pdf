@@ -30,7 +30,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.create',[
 				'post'=> new Post,
 				'categories'=> array_pluck(Category::all(),'name','id'),
-				'roles'=> array_pluck(Role::all(),'name','id'),
+				'roles'=> \App\Role::rolesList()
 			]);
 		}else
 			abort(404);
@@ -93,7 +93,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.edit',[
 				'post'=> Post::find($id),
 				'categories'=> array_pluck(Category::all(),'name','id'),
-				'roles'=> array_pluck(Role::all(),'name','id'),
+				'roles'=> \App\Role::rolesList()
 			]);
 		}else
 			abort(404);

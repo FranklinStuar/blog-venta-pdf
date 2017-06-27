@@ -51,16 +51,19 @@
 						</div>
 						<div class="col-md-3">
 							<div class="weekly-summary text-right">
-								<span class="number">{{ $post_pays->count() }}</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $post_pays->count() }}%</span>
+								<span class="number">{{ $totalPays }}</span> 
+								{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $post_pays->count() }}%</span> --}}
 								<span class="info-label">Total Ventas</span>
 							</div>
 							<div class="weekly-summary text-right">
-								<span class="number">${{ $post_pays->count() }}</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $post_pays->count() }}%</span>
-								<span class="info-label">Ingreso Mensual</span>
+								<span class="number">${{ $paysToday }}</span> 
+								{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $paysToday *100 / $totalMonth }}%</span> --}}
+								<span class="info-label">Ingreso Hoy</span>
 							</div>
 							<div class="weekly-summary text-right">
-								<span class="number">${{ $post_pays->count() }}</span> <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span>
-								<span class="info-label">Ingreso Total</span>
+								<span class="number">${{ $totalMonth }}</span> 
+								{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
+								<span class="info-label">Ingreso Mensual</span>
 							</div>
 						</div>
 					</div>
@@ -90,19 +93,20 @@
 								@foreach($post_pays as $index=> $post)
 								<tbody>
 									<tr>
-										<td><a href="#">{{ $index }}</a></td>
-										<td>{{ $post->name()}}</td>
-										<td>{{ $post->price}}</td>
-										<td>{{ $post->created_at}}</td>
+										<td><a href="{{ route('pay-post.show',['ppID'=>$post->id]) }}">{{ $index+1 }}</a></td>
+										<td>{{ $post->postPrice->name}}</td>
+										<td>$ {{ $post->price}}</td>
+										<td>{{ $post->created_at }}</td>
 									</tr>
 								</tbody>
+								<?php if($index == 4) break;?>
 								@endforeach
 							</table>
 						</div>
 						<div class="panel-footer">
 							<div class="row">
 								<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Ultimos 5 Posts Vendidos</span></div>
-								<div class="col-md-6 text-right"><a href="#" class="btn btn-primary">Ver todos las ventas</a></div>
+								<div class="col-md-6 text-right"><a href="{{ route('pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
 							</div>
 						</div>
 					</div>
@@ -113,7 +117,7 @@
 					<!-- RECENT PURCHASES -->
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="panel-title">Nuevos Sponsors</h3>
+							<h3 class="panel-title">Pagos por Sponsors</h3>
 							<div class="right">
 								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 							</div>
@@ -150,8 +154,11 @@
 					</div>
 					<!-- END RECENT PURCHASES -->
 				</div>
+			
+			</div>
 
 
+			<div class="row">
 				<div class="col-md-6">
 					<!-- MULTI CHARTS -->
 					<div class="panel">

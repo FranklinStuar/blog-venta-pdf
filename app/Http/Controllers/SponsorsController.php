@@ -21,7 +21,7 @@ class SponsorsController extends Controller
     public function create(){
         if (\Shinobi::can('sponsor.admin.add')) {
             return view('klorofil.sponsors.create')
-            ->with('users', User::all())
+            ->with('users', User::usersList())
             ->with('sponsor', new Sponsor);
         }
         abort(404);
@@ -44,7 +44,7 @@ class SponsorsController extends Controller
     public function edit($id){
         if (\Shinobi::can('sponsor.admin.edit')) {
             return view('klorofil.sponsors.edit')
-            ->with('users', User::all())
+            ->with('users', User::usersList())
             ->with('sponsor', Sponsor::find($id));
         }
         abort(404);

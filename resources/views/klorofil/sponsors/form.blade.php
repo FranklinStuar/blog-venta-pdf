@@ -140,11 +140,7 @@
         <label for="user_id" class="col-md-4 control-label">Usuario de destino *</label>
 
         <div class="col-md-6">
-            <select name="user_id" id="user_id" required class="form-control">
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
+            {!! Form::select('user_id', $users, $sponsor->user_id, ['class'=>'form-control','required','placeholder' => 'Seleccione un Usuario']) !!}
             @if ($errors->has('user_id'))
                 <span class="help-block">
                     <strong>{{ $errors->first('user_id') }}</strong>

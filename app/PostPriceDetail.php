@@ -11,6 +11,6 @@ class PostPriceDetail extends Model
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
   protected $fillable = [
-  	'title','excerpt','sponsor_price_id',
+  	'title','excerpt','post_price_id',
   ];
 }

@@ -6,7 +6,92 @@ $('.destroy').submit(function(evt){
    
 })
 
+
+// Validates that the input string is a valid date formatted as "mm/dd/yyyy"
+function isValidDate(dateString){
+  // First check for the pattern
+  if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString))
+      return false;
+
+  // Parse the date parts to integers
+  var parts = dateString.split("/");
+  var day = parseInt(parts[0], 10);
+  var month = parseInt(parts[1], 10);
+  var year = parseInt(parts[2], 10);
+
+  // Check the ranges of month and year
+  if(year < 2017 || year > 2050 || month == 0 || month > 12)
+      return false;
+
+  var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+  // Adjust for leap years
+  if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+      monthLength[1] = 29;
+
+  // Check the range of the day
+  return day > 0 && day <= monthLength[month - 1];
+}
+
+
+var toast_message=function(type,message){
+		$().toastmessage('showToast', {
+	    text     : "<p class='white-text'>"+message+"<p>",
+	    stayTime : 7000,
+	    sticky   : false,
+	    type     : type
+		});
+}
+
+
 $(document).ready(function() {
+
+
+
+	/*-----------------------------------/
+	/*	NEW PAY FOR PREMIUM POST
+	/*----------------------------------*/
+
+	if ($("#post-pay-create").length > 0){
+		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+		Vue.prototype.$http = axios
+		url_ = document.querySelector('#url').getAttribute('content')
+
+		new Vue({
+			el:"#post-pay-create",
+			data:{
+				post_price_id: null,
+				price: '',
+				user_id: null,
+				role_id: null,
+				method_payment: 'cash',
+				finish: '',
+			},
+			methods:{
+				selectPostPrice(){
+					this.$http.post(url_,{ppID:this.post_price_id})
+					.then(response => {
+						this.price = response.data.price
+						this.role_id = response.data.role_id
+						this.finish = response.data.finish
+				  }, response => {
+				    toast_message('error','Problemas con el servidor al buscar el premium requerido')
+				  });
+						// toast_message('success','Nuevo cliente guardado satisfactoriamente satisfctoriamente')
+				},
+				save(evt){
+					if(!isValidDate(this.finish)){
+						evt.preventDefault()
+				    toast_message('error','La fecha es incorrecta debe ser mayor a la fecha actual')
+					}
+				}
+			},
+		})
+	}
+
+
+
+
 	$('.select2').select2()
 
 	/*-----------------------------------/

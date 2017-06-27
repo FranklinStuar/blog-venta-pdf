@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	@yield('meta')
 	<!-- VENDOR CSS -->
 	<link rel="stylesheet" href="{{ url('plugins/bootstrap/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}">
@@ -23,6 +24,9 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ url('klorofil/img/apple-icon.png') }}">
 	{{-- <link rel="icon" type="image/png" sizes="96x96" href="{{ url('klorofil/img/favicon.png') }}"> --}}
 
+	<!--ToastMessage-->
+	<link href="{{url('plugins/jquery-toastmessage/css/jquery.toastmessage.css')}}" rel="stylesheet">
+	
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -40,15 +44,15 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form class="navbar-form navbar-left">
+				{{-- <form class="navbar-form navbar-left">
 					<div class="input-group">
 						<input type="text" value="" class="form-control" placeholder="Buscar opción...">
 						<span class="input-group-btn"><button type="button" class="btn btn-primary"> <span class="lnr lnr-magnifier"></span></button></span>
 					</div>
-				</form>
+				</form> --}}
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
+						{{-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>
 								<span class="badge bg-danger">5</span>
@@ -70,7 +74,7 @@
 								<li><a href="#">Security</a></li>
 								<li><a href="#">Troubleshooting</a></li>
 							</ul>
-						</li>
+						</li> --}}
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="{{ url('images/'.Auth::user()->avatar) }}" class="img-circle" alt="Avatar"> 
@@ -78,7 +82,7 @@
 										<i class="icon-submenu lnr lnr-chevron-down"></i>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
+								<li><a href="{{ route('profile') }}"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
 								<li><a href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                        	document.getElementById('logout-form').submit();">
@@ -128,11 +132,19 @@
 							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="premium-sponsors-menu" class="collapse ">
 								<ul class="nav">
-									<li><a href="{{ url('/neuro-admin') }}" class="">Nuevo Premium</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Lista de precios</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Realizar Pago</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Ver Lista Activa</a></li>
+									@if (Shinobi::can('post.admin.price.new'))
+											<li><a href="{{ route('premium-post.create') }}" class="">Nuevo Premium</a></li>
+									@endif
+									@if (Shinobi::can('post.admin.price.list'))
+										<li><a href="{{ route('premium-post.index') }}" class="">Lista de precios</a></li>
+									@endif
+									<li><hr></li>
+									@if (Shinobi::can('post.admin.pay.new'))
+										<li><a href="{{ route('pay-post.create') }}" class="">Nuevo Pago</a></li>
+									@endif
+									@if (Shinobi::can('post.admin.pay.list'))
+										<li><a href="{{ route('pay-post.index') }}" class="">Lista de pagos</a></li>
+									@endif
 								</ul>
 							</div>
 						</li>
@@ -281,6 +293,7 @@
 	<script src="{{ url('plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 	<script src="{{ url('plugins/chartist/js/chartist.min.js') }}"></script>
 	<script src="{{ url('plugins/Select2/js/select2.min.js') }}"></script>
+	<script src="{{url('plugins/jquery-toastmessage/jquery.toastmessage.js')}}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
 	@yield('script')
 </body>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Post;
-
+use \Carbon\Carbon;
 class HomeController extends Controller
 {
     /**
@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth',['only'=>['admin','showPDF']]);
+        Carbon::setLocale('es');
     }
 
     /**
@@ -24,13 +25,65 @@ class HomeController extends Controller
      */
     public function admin()
     {
+        // $table,$column,$status,$type_date,$date
+        // dd(Carbon::now()->format('Y-m-').'1');
+        $paysToday = \App\System::totalDay(
+                'sponsor_pays',
+                'price_month',
+                'active',
+                'created_at',
+                Carbon::now()->format('Y-m-d')
+            )->total +  
+            \App\System::totalDay(
+                'post_pays',
+                'price',
+                'active',
+                'created_at',
+                Carbon::now()->format('Y-m-d')
+            )->total;
+
+        $totalPays = \App\PostPay::where(
+                'status',
+                'active'
+            )->get()
+            ->count() + 
+            \App\SponsorPay::where(
+                'status',
+                'active'
+            )->get()
+            ->count();
+
+        $thisMonth = Carbon::now()->format('m');
+        $thisYear = Carbon::now()->format('Y');
+
+        $totalMonth = \App\System::totalBetweenDate(
+                'post_pays',
+                'price',
+                'active',
+                'created_at',
+                \Carbon\Carbon::create($thisYear, $thisMonth, '01'),
+                Carbon::now()
+            )->total +
+            \App\System::totalBetweenDate(
+                'sponsor_pays',
+                'price_month',
+                'active',
+                'created_at',
+                \Carbon\Carbon::create($thisYear, $thisMonth, '01'),
+                \Carbon\Carbon::now()
+            )->total; 
+        
+        // dd($totalMonth);
         return view('klorofil.index')
             ->with('users',\App\User::all())
             ->with('posts',Post::all())
             ->with('sponsors',\App\Sponsor::all())
             ->with('visit_posts',\App\PostVisit::all())
-            ->with('post_pays',\App\PostPay::all())
-            ->with('sponsor_pays',\App\SponsorPay::all())
+            ->with('post_pays',\App\PostPay::where('status','active')->get())
+            ->with('sponsor_pays',\App\SponsorPay::where('status','active')->get())
+            ->with('paysToday',$paysToday)
+            ->with('totalPays',$totalPays)
+            ->with('totalMonth',$totalMonth)
             ;
     }
     public function index(){

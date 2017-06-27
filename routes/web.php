@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/','HomeController@index')->name('home');
 Auth::routes();
 
@@ -30,7 +19,12 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::post('/premium-sponsor-detail/{premium_id}/add-category','PremiumSponsorsController@addCategory')->name('premium-sponsor.add-category');
 	Route::post('/premium-sponsor-detail/{detail_id}/quit-category','PremiumSponsorsController@quitCategory')->name('premium-sponsor.quit-category');
 
+	Route::post('premium-post/add-detail/{premium_id}','PremiumPostsController@addDetail')->name('premium-post.add-detail');
+	Route::post('premium-post/quit-detail/{premium_id}','PremiumPostsController@quitDetail')->name('premium-post.quit-detail');
+	Route::any('premium-post/get-detail','PremiumPostsController@getDetail')->name('premium-post.get-detail');
 	Route::resource('premium-post','PremiumPostsController');
+
+	Route::resource('pay-post', 'PostPaysController');
 
 	Route::resource('/sponsors','SponsorsController');
 	Route::get('/sponsors/historial/{id}','SponsorsController@historial')->name('sponsors.historial');
@@ -68,3 +62,7 @@ Route::get('categoria/{category}','HomeController@showCategory')->name('show-cat
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
 Route::get('{post_name}','HomeController@showPost')->name('show-post');
 Route::get('{post_name}/book','HomeController@showPDF')->name('show-pdf');
+
+
+
+// FInanciamiento puente

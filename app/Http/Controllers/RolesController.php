@@ -13,7 +13,7 @@ class RolesController extends Controller
 	public function index()
 	{
 		if (\Shinobi::can('role.list')) {
-			return view('klorofil.roles.index')->with('roles', Role::all());
+			return view('klorofil.roles.index')->with('roles', Role::rolesAll());
 		}else
 			abort(404);
 	}

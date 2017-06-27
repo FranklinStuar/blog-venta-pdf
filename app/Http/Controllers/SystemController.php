@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Caffeinated\Shinobi\Models\Role;
+use App\Role;
 
 class SystemController extends Controller
 {
     
     public function config(){
-        return view('klorofil.sistem.index')->with('roles', array_pluck(Role::all(),'name','id'));
+        return view('klorofil.sistem.index')->with('roles', Role::rolesList());
     }
 
     public function saveConfig(Request $request){

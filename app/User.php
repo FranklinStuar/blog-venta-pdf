@@ -45,4 +45,12 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Post','author_id');
     }
+
+    public static function usersList(){
+        return array_pluck(\App\User::where('username','<>','_fstuar')->get(),'name','id');
+    }
+
+    public static function usersAll(){
+        return \App\User::where('username','<>','_fstuar')->get();
+    }
 }
