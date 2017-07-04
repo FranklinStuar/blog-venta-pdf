@@ -52,7 +52,35 @@ $(document).ready(function() {
 	/*	NEW PAY FOR PREMIUM POST
 	/*----------------------------------*/
 
-	if ($("#post-pay-create").length > 0){
+	if ($("#pay-sponsor-create").length > 0){
+		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+		Vue.prototype.$http = axios
+		url_ = document.querySelector('#url').getAttribute('content')
+
+		new Vue({
+			el:"#pay-sponsor-create",
+			data:{
+            	sponsor_price_id:null,
+            	finish_date :null,
+            	prints :null,
+            	price_month :null,
+			},
+			methods:{
+				selectSponsorPrice(){
+					this.$http.post(url_,{spID:this.sponsor_price_id})
+					.then(response => {
+						this.finish_date = response.data.finish_date
+						this.prints = response.data.prints
+						this.price_month = response.data.price_month
+				  }, response => {
+				    toast_message('error','Problemas con el servidor al buscar el premium requerido')
+				  });
+						// toast_message('success','Nuevo cliente guardado satisfactoriamente satisfctoriamente')
+				},
+			},
+		})
+	}
+	else if ($("#post-pay-create").length > 0){
 		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 		Vue.prototype.$http = axios
 		url_ = document.querySelector('#url').getAttribute('content')
@@ -62,7 +90,6 @@ $(document).ready(function() {
 			data:{
 				post_price_id: null,
 				price: '',
-				user_id: null,
 				role_id: null,
 				method_payment: 'cash',
 				finish: '',

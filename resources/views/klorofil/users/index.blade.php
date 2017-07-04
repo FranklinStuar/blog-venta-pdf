@@ -4,7 +4,7 @@
 	<div class="panel">
 		<div class="panel-body">
 			<div class="col-sm-4">
-				@if (Shinobi::can('user.new') || Shinobi::can('dashboard.superadmin'))
+				@if (Shinobi::can('user.new'))
 					<a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo Usuario  <span class="lnr lnr-plus-circle"></span></a>
 				@endif
 			</div>
@@ -32,10 +32,13 @@
 							<td>{{ $user->email }}</td>
 							<td>{{ $user->getRole()['name'] }}</td>
 							<td>
-								@if (Shinobi::can('user.edit') || Shinobi::can('dashboard.superadmin'))
+								@if (Shinobi::can('user.edit'))
 									{!! link_to_route('users.edit', "",['i'=>$user->id], ['class' =>'glyphicon glyphicon-pencil']) !!}
 								@endif
-								@if (Shinobi::can('user.destroy') || Shinobi::can('dashboard.superadmin'))
+								@if (Shinobi::can('user.show'))
+									{!! link_to_route('users.show', "",['i'=>$user->id], ['class' =>'glyphicon glyphicon-eye-open']) !!}
+								@endif
+								@if (Shinobi::can('user.destroy'))
 									{!! Form::open(['action' => ['UsersController@destroy',$user->id],'method'=>'DELETE','style'=>'display: inline;','class'=>'destroy']) !!}
 										<button class="btn btn-link glyphicon glyphicon-trash" style="transform: none;"></button>
 									{!! Form::close() !!}

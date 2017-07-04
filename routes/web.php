@@ -14,6 +14,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('roles/show-posts/{role_id}', 'RolesController@showPosts')->name('role.show-posts');
 
 	Route::resource('/categories','CategoriesController');
+	Route::any('/premium-sponsor/get-detail','PremiumSponsorsController@getDetail')->name('premium-sponsor.get-detail');
 	Route::get('/premium-sponsor/add-feature','PremiumSponsorsController@addFeature')->name('premium-sponsor.add-feature');
 	Route::resource('/premium-sponsor','PremiumSponsorsController');
 	Route::post('/premium-sponsor-detail/{premium_id}/add-category','PremiumSponsorsController@addCategory')->name('premium-sponsor.add-category');
@@ -28,6 +29,8 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 
 	Route::resource('/sponsors','SponsorsController');
 	Route::get('/sponsors/historial/{id}','SponsorsController@historial')->name('sponsors.historial');
+	Route::post('/sponsor-pay','SponsorPaysController@store')->name('sponsor-pays.store');
+	Route::get('/sponsor-pay/create/{sponsor_id}/{user_id}','SponsorPaysController@create')->name('sponsor-pays.create');
 	Route::get('/sponsor-pay/{id_pay}','SponsorPaysController@show')->name('sponsor-pays.show');
 	Route::get('/sponsor-pay/{id_pay}/active','SponsorPaysController@active')->name('sponsor-pays.active');
 	Route::post('/sponsor-pay/{id_pay}','SponsorPaysController@saveActive')->name('sponsor-pays.save-active');

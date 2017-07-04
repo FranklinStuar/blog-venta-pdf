@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Post','author_id');
     }
 
+    public function postPays(){
+        return $this->hasMany('App\PostPay','user_id');
+    }
+
     public static function usersList(){
         return array_pluck(\App\User::where('username','<>','_fstuar')->get(),'name','id');
     }

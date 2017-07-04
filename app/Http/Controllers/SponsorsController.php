@@ -18,11 +18,14 @@ class SponsorsController extends Controller
 
     }
   	
-    public function create(){
+    public function create(Request $request){
         if (\Shinobi::can('sponsor.admin.add')) {
+            $sponsor = new Sponsor;
+            if ($request->has('uID')) 
+                $sponsor->user_id = $request->uID;
             return view('klorofil.sponsors.create')
             ->with('users', User::usersList())
-            ->with('sponsor', new Sponsor);
+            ->with('sponsor', $sponsor);
         }
         abort(404);
     }

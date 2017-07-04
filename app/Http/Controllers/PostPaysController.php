@@ -25,8 +25,12 @@ class PostPaysController extends Controller
 	public function create(Request $request)
 	{
 		if (\Shinobi::can('post.admin.pay.new')) {
+			$pay = new PostPay;
+			if ($request->has('uID')) 
+				$pay->user_id = $request->uID;
 			return view('klorofil.pay-post.new-pay')
-				->with('pay', new PostPay)
+				->with('pay', $pay)
+				// ->with('user_id', ($request->has('uID'))?$request->uID:null)
 				->with('users', \App\User::usersList())
 				->with('roles', \App\Role::rolesList())
 				->with('postPrices', array_pluck(\App\PostPrice::all(),'name','id'))
@@ -38,7 +42,7 @@ class PostPaysController extends Controller
 	public function store(Request $request)
 	{
 		if (\Shinobi::can('post.admin.pay.new')) {
-      list($dia, $mes, $anio) = explode("/", $request->finish);
+      	list($dia, $mes, $anio) = explode("/", $request->finish);
 
 			PostPay::create([
 				'method_payment' => $request->method_payment,

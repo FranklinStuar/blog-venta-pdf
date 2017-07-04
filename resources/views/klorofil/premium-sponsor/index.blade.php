@@ -16,8 +16,8 @@
 						<th></th>{{-- Favorito --}}
 						<th></th>
 						<th>Precio Mes</th>
-						<th>Precio Día</th>
-						<th>Meses de contrato</th>
+						<th># Impresiones </th>
+						<th>Tiempo de contrato</th>
 						<th>Detalles</th>
 						<th>Acciones</th>
 					</tr>
@@ -36,7 +36,7 @@
 							</td>
 							<td><img class="img-table" src="{{ url('images/'.$premium->avatar) }}" alt=""></td>
 							<td>$ {{ $premium->price_month }}</td>
-							<td>$ {{ $premium->price_day }}</td>
+							<td>{{ $premium->prints }}</td>
 							<td>{{ $premium->months }} mes(es)</td>
 							<td>
 								<ul>

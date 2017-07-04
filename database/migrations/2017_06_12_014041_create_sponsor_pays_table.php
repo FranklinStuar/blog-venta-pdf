@@ -15,7 +15,7 @@ class CreateSponsorPaysTable extends Migration
     {
         Schema::create('sponsor_pays', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('method_payment',['card','chash','deposit','paypal']);//metodo de pago solo para efectivo, depósito, paypal y tarjeta
+            $table->enum('method_payment',['card','cash','deposit','paypal']);//metodo de pago solo para efectivo, depósito, paypal y tarjeta
             $table->double('price_month',6,2)->default(0);//cantidad que paga el usuario, paga por mes pero usa solo lo que gasta
             $table->integer('author_id')->unsigned();//quien realiza la actividad
             $table->integer('sponsor_id')->unsigned();//el sponsor donde se realiza

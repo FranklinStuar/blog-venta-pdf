@@ -16,7 +16,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        if (\Shinobi::can('user.list') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('user.list')) {
             return view('klorofil.users.index')->with('users', User::usersAll());
         }else
             abort(404);
@@ -25,7 +25,7 @@ class UsersController extends Controller
     
     public function create()
     {
-        if (\Shinobi::can('user.new') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('user.new')) {
             return view('klorofil.users.create',[
                 'user'=> new User,
                 'roles'=> array_pluck(Role::rolesAll(),'name','id'),
@@ -56,12 +56,17 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        //
+        if (\Shinobi::can('user.show')) {
+            return view('klorofil.users.show',[
+                'user'=> User::find($id),
+            ]);
+        }else
+            abort(404);
     }
 
     public function edit($id)
     {
-        if (\Shinobi::can('user.edit') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('user.edit')) {
             return view('klorofil.users.edit',[
                 'user'=> User::find($id),
                 'roles'=> array_pluck(Role::rolesAll(),'name','id'),
@@ -102,7 +107,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         
-        if (\Shinobi::can('user.destroy') || \Shinobi::can('dashboard.superadmin')) {
+        if (\Shinobi::can('user.destroy')) {
             User::destroy($id);
             return redirect()->route('users.index');
         }else
@@ -127,5 +132,6 @@ class UsersController extends Controller
         \Auth::user()->update($request->all());
         return redirect()->route('profile');
     }
+
 
 }

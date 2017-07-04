@@ -83,6 +83,22 @@ class PremiumSponsorsController extends Controller
 			abort(404);
 	}
 
+	public function getDetail(Request $request){
+		if($request->json('spID') != null){
+			$sponsorPrice = SponsorPrice::find($request->json('spID'));
+			if ($sponsorPrice) {
+				$finish = \Carbon\Carbon::now()->addDays($sponsorPrice->months)->format('d/m/Y');
+				return response()->json([
+					'finish_date' => $finish,
+					'prints' => $sponsorPrice->prints,
+					'price_month' => $sponsorPrice->price_month,
+				]);
+			}
+			return response()->json('No se encontró Detalle solicitado',404);
+		}
+		abort(404);
+	}
+
 	public function addFeature(Request $request){
 		if (\Shinobi::can('sponsor.price.edit')) {
 			$premiums = SponsorPrice::where('featured',true)->get();
