@@ -25,7 +25,11 @@ class Post extends Model
   }
 
   public function visits(){
-  	return $this->hasMany('App\PostVisit','post_id');
+    return $this->hasMany('App\PostVisit','post_id');
+  }
+
+  public function oncePrices(){
+  	return $this->hasMany('App\PostOncePrice','post_id');
   }
 
   public function pays(){

@@ -1772,9 +1772,19 @@ ul.activity-timeline > li {
   max-height: 30px;
   border-radius: 50%;
 }
-.destroy{
+.inline-with-destroy, .destroy{
   display: inline;
 }
+.btn-link{
+  -moz-box-shadow: 0 0 rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 rgba(0, 0, 0, 0);
+  display: inline;
+  border-style: none;
+  padding: 0 4px;
+  border-radius: 0;
+}
+
 .destroy button, .destroy button:hover{
   color:#f44336;
 }

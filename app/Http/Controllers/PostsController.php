@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\PostOncePrice;
 use Illuminate\Support\Facades\Storage;
 use Caffeinated\Shinobi\Models\Role;
 use Carbon\Carbon;
@@ -43,18 +44,23 @@ class PostsController extends Controller
 				'title'     			=> 'required',
 				'excerpt'   			=> 'required',
 				'body'      			=> 'required',
-				'meta_description'=> 'required',
-				'meta_keywords'		=> 'required',
-				'roles'						=> 'required',
+				'meta_keywords'			=> 'required',
 			]);
 
 			// Nombre de como se va a guardar 
 			$file_name = str_slug(\Carbon\Carbon::now());
 
-		  //indicamos que queremos guardar un nuevo archivo en el disco local
-		  \Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-		  \Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+		  	//indicamos que queremos guardar un nuevo archivo en el disco local
+		  	\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+		  	\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
 		
+			if ($request->has('price') || $request->has('time') || $request->has('type_time')) {
+				$this->validate($request, [
+					'price'		=> 'required',
+					'time'		=> 'required',
+					'type_time' => 'required',
+				]);
+			}
 			$post = Post::create([
 				'author_id'=> \Auth::user()->id,
 				'title'=> $request->title,
@@ -64,12 +70,21 @@ class PostsController extends Controller
 				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
 				'slug'=> str_slug($request->title,'-'),
-				'meta_description'=> $request->meta_description,
+				'meta_description'=> $request->excerpt,
 				'meta_keywords'=> $request->meta_keywords,
 				'status'=> 'PUBLISHED',
 				'category_id'=> $request->category_id,
 			]);
-			$post->roles()->sync($request->roles);
+			if ($request->has('price') || $request->has('time') || $request->has('type_time')) {
+				PostOncePrice::create([
+					'price' => $request->price,
+					'time' => $request->time,
+					'type_time' => $request->type_time,
+					'post_id' => $post->id,
+				]);
+			}
+			if($request->has('roles'))
+				$post->roles()->sync($request->roles);
 			$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
 			return redirect()->route('posts.index');
 		}else
@@ -135,7 +150,7 @@ class PostsController extends Controller
 				]);
 			}
 			if($request->hasFile('pdf')){
-		  	\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+			\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
 			  $post->update([
 					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				]);
@@ -150,12 +165,12 @@ class PostsController extends Controller
 	public function destroy(Request $request, $id)
 	{
 		if (\Shinobi::can('post.destroy')) {
-      $post = Post::find($id);
-      $title = $post->title;
-      if($post->delete())
-        $request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
-      else
-        $request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
+	  		$post = Post::find($id);
+	  		$title = $post->title;
+		  	if($post->delete())
+				$request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
+		  	else
+				$request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
 			return redirect()->route('posts.index');
 		}else
 			abort(404);
@@ -164,14 +179,49 @@ class PostsController extends Controller
 	public function viewPDF($id){
 		
 		if (\Shinobi::can('post.pdf.show')) {
-      	$post = Post::find($id);
+		$post = Post::find($id);
 			if($post){
 				return view('pdf.view')
-	        ->with('post', $post);
+			->with('post', $post);
 			}
 			else
 				abort(404);
 		}else
 			abort(503);
+	}
+
+	/*Prices to Post*/
+
+	public function storePrice(Request $request,$post_id){
+		$this->validate($request, [
+			'price'		=> 'required',
+			'time'		=> 'required',
+			'type_time' => 'required',
+		]);
+		PostOncePrice::create([
+			'price' => $request->price,
+			'time' => $request->time,
+			'type_time' => $request->type_time,
+			'post_id' => $post_id,
+		]);
+		$request->session()->flash('success', 'Agregado un nuevo "precio" a la publicación');
+		return redirect()->back();
+	}
+
+	public function updatePrice(Request $request,$post_id,$once_price_id){
+		$this->validate($request, [
+			'price'		=> 'required',
+			'time'		=> 'required',
+			'type_time' => 'required',
+		]);
+		PostOncePrice::find($once_price_id)->update($request->all());
+		$request->session()->flash('success', '"Precio" actualizado');
+		return redirect()->back();
+	}
+
+	public function destroyPrice(Request $request,$post_id,$once_price_id){
+		PostOncePrice::destroy($once_price_id);
+		$request->session()->flash('success', 'Precio Eliminado correctamente');
+		return redirect()->back();
 	}
 }

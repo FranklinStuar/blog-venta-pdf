@@ -7,6 +7,9 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@admin')->name('admin');
 	Route::resource('/users','UsersController');
 	Route::get('/posts/{id}/pdf-view','PostsController@viewPDF')->name('posts.pdf-view');
+	Route::post('/posts/{post_id}/price','PostsController@storePrice')->name('posts.store-price');
+	Route::post('/posts/{post_id}/price/{price}/update','PostsController@updatePrice')->name('posts.update-price');
+	Route::delete('/posts/{post_id}/price/{price}/destroy','PostsController@destroyPrice')->name('posts.destroy-price');
 	Route::resource('/posts','PostsController');
 	Route::resource('/roles','RolesController');
 	Route::post('roles/add-permission/{role_id}', 'RolesController@addPermission')->name('role.add-permission');
@@ -14,7 +17,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('roles/show-posts/{role_id}', 'RolesController@showPosts')->name('role.show-posts');
 
 	Route::resource('/categories','CategoriesController');
-	Route::any('/premium-sponsor/get-detail','PremiumSponsorsController@getDetail')->name('premium-sponsor.get-detail');
+	Route::post('/premium-sponsor/get-detail','PremiumSponsorsController@getDetail')->name('premium-sponsor.get-detail');
 	Route::get('/premium-sponsor/add-feature','PremiumSponsorsController@addFeature')->name('premium-sponsor.add-feature');
 	Route::resource('/premium-sponsor','PremiumSponsorsController');
 	Route::post('/premium-sponsor-detail/{premium_id}/add-category','PremiumSponsorsController@addCategory')->name('premium-sponsor.add-category');
@@ -22,7 +25,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 
 	Route::post('premium-post/add-detail/{premium_id}','PremiumPostsController@addDetail')->name('premium-post.add-detail');
 	Route::post('premium-post/quit-detail/{premium_id}','PremiumPostsController@quitDetail')->name('premium-post.quit-detail');
-	Route::any('premium-post/get-detail','PremiumPostsController@getDetail')->name('premium-post.get-detail');
+	Route::post('premium-post/get-detail','PremiumPostsController@getDetail')->name('premium-post.get-detail');
 	Route::resource('premium-post','PremiumPostsController');
 
 	Route::resource('pay-post', 'PostPaysController');
