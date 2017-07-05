@@ -44,25 +44,30 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('/historial', 'SystemController@historial')->name('historial');
 });
 
+Route::group(['middleware' => ['auth']], function() {
+	Route::get('/profile', 'UsersController@profile')->name('profile');
+	Route::get('/profile/edit', 'UsersController@profileEdit')->name('profile.edit');
+	Route::post('/profile/edit', 'UsersController@profileSave')->name('profile.save');
+
+	Route::get('/publicidad', 'SponsorsController@listUser')->name('sponsor.list');
+	Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
+	Route::post('/publicidad/save-sponsor', 'SponsorsController@sponsorSave')->name('sponsor.save');
+	Route::get('/publicidad/payment', 'SponsorsController@payment')->name('sponsor.payment');
+	Route::get('/publicidad/payment-card', 'SponsorsController@makePaymentCard')->name('sponsor.make-payment-card');
+	Route::get('/publicidad/payment-paypal', 'SponsorsController@makePaymentPaypal')->name('sponsor.make-payment-paypal');
+	Route::get('/publicidad/editar/{id_sponsor}', 'SponsorsController@editSponsorUser')->name('sponsor.edit-user');
+	Route::get('/publicidad/{id_sponsor}', 'SponsorsController@showSponsor')->name('sponsor.show-user');
+	Route::post('/publicidad/{id_sponsor}', 'SponsorsController@saveEdit')->name('sponsor.save-edit');
+	Route::get('/publicidad/cancelar-pago/{id_sponsor}/{id_payment}', 'SponsorsController@cancelPaySponsor')->name('sponsor.cancel-pay');
+
+	Route::get('{post_id}/pago/{pago_id}','PostsController@payments')->name('post.payments');
+	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@makePaymentPaypal')->name('post.payment-paypal');
+	Route::get('{post_id}/pago/{pago_id}/card','PostsController@makePaymentCard')->name('post.payment-card');
+});
+
+
 
 Route::get('/init', 'InitController@index')->name('init');
-
-Route::get('/profile', 'UsersController@profile')->name('profile');
-Route::get('/profile/edit', 'UsersController@profileEdit')->name('profile.edit');
-Route::post('/profile/edit', 'UsersController@profileSave')->name('profile.save');
-
-Route::get('/publicidad', 'SponsorsController@listUser')->name('sponsor.list');
-Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
-Route::post('/publicidad/save-sponsor', 'SponsorsController@sponsorSave')->name('sponsor.save');
-Route::get('/publicidad/payment', 'SponsorsController@payment')->name('sponsor.payment');
-Route::get('/publicidad/payment-card', 'SponsorsController@makePaymentCard')->name('sponsor.make-payment-card');
-Route::get('/publicidad/payment-paypal', 'SponsorsController@makePaymentPaypal')->name('sponsor.make-payment-paypal');
-Route::get('/publicidad/editar/{id_sponsor}', 'SponsorsController@editSponsorUser')->name('sponsor.edit-user');
-Route::get('/publicidad/{id_sponsor}', 'SponsorsController@showSponsor')->name('sponsor.show-user');
-Route::post('/publicidad/{id_sponsor}', 'SponsorsController@saveEdit')->name('sponsor.save-edit');
-Route::get('/publicidad/cancelar-pago/{id_sponsor}/{id_payment}', 'SponsorsController@cancelPaySponsor')->name('sponsor.cancel-pay');
-
-
 Route::get('search','HomeController@search')->name('search');
 Route::get('categoria/{category}','HomeController@showCategory')->name('show-category');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');

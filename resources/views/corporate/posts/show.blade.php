@@ -28,21 +28,37 @@
 				<hr class="extra-margins">
 				@include('corporate.sponsors.print',['print'=>'all'])
 			</div>
-			<div class="col-sm-6	">
+			<div class="col-sm-6">
 				<?php
 					echo $post->body;
 				?>
-				<div>
-					<hr>
-					@if(Shinobi::can('post.pdf.show'))
-						<a href="{{ route('show-pdf',['pID'=>$post->slug]) }}">
-							<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
-						</a>
-					@else
-						<center><b>No tiene acceso al archivo adjunto</b></center>
-					@endif
-				</div>
 			</div>
+		</div>
+
+		<div class="container">
+			@if(Auth::user() && Auth::user()->postStatus($post->id) /*Shinobi::can('post.pdf.show')*/)
+				<a href="{{ route('show-pdf',['pID'=>$post->slug]) }}">
+					<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
+				</a>
+			@else
+				<div class="row">
+					@foreach($post->oncePrices as $price)
+						<div class="col-sm-6 col-md-4">
+							<div class="list-group list-prices">
+							  <div class="list-group-item item-time">
+							  	Plan de {{$price->timeView()}}
+						  	</div>
+							  <div class="list-group-item item-price">
+							  	$ {{$price->price}}
+							  </div>
+							  <div class="list-group-item item-link">
+						  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
+							  </div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+			@endif
 		</div>
 	</div>
 	<!--/.Main layout-->

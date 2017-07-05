@@ -57,4 +57,31 @@ class User extends Authenticatable
     public static function usersAll(){
         return \App\User::where('username','<>','_fstuar')->get();
     }
+
+    /**
+    * Son los posts que ha comprado
+    */
+    public function onlyPostPays(){
+        return $this->belongsToMany('App\Post','post_once_pays','user_id','post_id');
+    }
+    
+    /**
+    * Pagos hechos por el usuario
+    */
+    public function postOncePays(){
+        return $this->hasMany('App\PostOncePay');
+    }
+    
+    /**
+    * Busca si el post está activo o no
+    */
+    public function postStatus($post_id){
+        return \DB::table('post_once_pays')
+            ->where('post_id',$post_id)
+            ->where('user_id',$this->id)
+            ->where('status','active')
+            ->first();
+        
+    }
+
 }

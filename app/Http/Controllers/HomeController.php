@@ -98,6 +98,7 @@ class HomeController extends Controller
     }
     public function showPost($post_name){
         $post = Post::where('slug',$post_name)->first();
+        // dd(\Auth::user()->postStatus($post->id));
         if($post){
             return view('corporate.posts.show')
                 ->with('post',$post)

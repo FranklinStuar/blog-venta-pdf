@@ -224,4 +224,23 @@ class PostsController extends Controller
 		$request->session()->flash('success', 'Precio Eliminado correctamente');
 		return redirect()->back();
 	}
+
+	public function payments($post_id,$post_price_id){
+		return view('corporate.posts.only-pay')
+			->with('post_id',$post_id)
+			->with('price_id',$post_price_id);
+	}
+
+	public function makePaymentPaypal($post_id,$post_price_id){
+		return view('corporate.posts.only-pay')
+			->with('post_id',$post_id)
+			->with('price_id',$post_price_id);
+	}
+
+	public function makePaymentCard($post_id,$post_price_id){
+		return view('corporate.posts.only-pay')
+			->with('post_id',$post_id)
+			->with('price_id',$post_price_id);
+	}
+
 }
