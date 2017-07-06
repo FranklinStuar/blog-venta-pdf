@@ -31,7 +31,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.create',[
 				'post'=> new Post,
 				'categories'=> array_pluck(Category::all(),'name','id'),
-				'roles'=> \App\Role::rolesList()
+				'kits'=> \App\PostPrice::kitsList()
 			]);
 		}else
 			abort(404);
@@ -47,27 +47,26 @@ class PostsController extends Controller
 				'meta_keywords'			=> 'required',
 			]);
 
-			// Nombre de como se va a guardar 
-			$file_name = str_slug(\Carbon\Carbon::now());
-
-		  	//indicamos que queremos guardar un nuevo archivo en el disco local
-		  	\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-		  	\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
-		
-			if ($request->has('price') || $request->has('time') || $request->has('type_time')) {
+			if ($request->has('price') || $request->has('time')) {
 				$this->validate($request, [
 					'price'		=> 'required',
 					'time'		=> 'required',
 					'type_time' => 'required',
 				]);
 			}
+
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			//indicamos que queremos guardar un nuevo archivo en el disco local
+			\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+			
 			$post = Post::create([
 				'author_id'=> \Auth::user()->id,
 				'title'=> $request->title,
 				'seo_title'=> $request->title,
 				'excerpt'=> $request->excerpt,
 				'body'=> $request->body,
-				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
 				'slug'=> str_slug($request->title,'-'),
 				'meta_description'=> $request->excerpt,
@@ -75,7 +74,17 @@ class PostsController extends Controller
 				'status'=> 'PUBLISHED',
 				'category_id'=> $request->category_id,
 			]);
-			if ($request->has('price') || $request->has('time') || $request->has('type_time')) {
+
+			if($request->hasFile('pdf')){
+				\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+		
+				\App\Pdf::create([
+					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
+					'languaje'=>'es',
+					'post_id'=>$post->id,
+				]);
+			}
+			if ($request->has('price') || $request->has('time')) {
 				PostOncePrice::create([
 					'price' => $request->price,
 					'time' => $request->time,
@@ -83,8 +92,8 @@ class PostsController extends Controller
 					'post_id' => $post->id,
 				]);
 			}
-			if($request->has('roles'))
-				$post->roles()->sync($request->roles);
+			if($request->has('kits'))
+				$post->kits()->sync($request->kits);
 			$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
 			return redirect()->route('posts.index');
 		}else
@@ -108,7 +117,7 @@ class PostsController extends Controller
 			return view('klorofil.posts.edit',[
 				'post'=> Post::find($id),
 				'categories'=> array_pluck(Category::all(),'name','id'),
-				'roles'=> \App\Role::rolesList()
+				'kits'=> \App\PostPrice::kitsList()
 			]);
 		}else
 			abort(404);
@@ -121,41 +130,24 @@ class PostsController extends Controller
 				'title'     			=> 'required',
 				'excerpt'   			=> 'required',
 				'body'      			=> 'required',
-				'meta_description'=> 'required',
-				'meta_keywords'		=> 'required',
-				'roles'						=> 'required',
+				'meta_keywords'			=> 'required',
 			]);
 
 			$post = Post::find($id);
 			$post->update([
-				'author_id'=> \Auth::user()->id,
-				'title'=> $request->title,
-				'seo_title'=> $request->title,
-				'excerpt'=> $request->excerpt,
-				'body'=> $request->body,
-				'slug'=> str_slug($request->title,'-'),
-				'meta_description'=> $request->meta_description,
-				'meta_keywords'=> $request->meta_keywords,
-				'status'=> 'PUBLISHED',
-				'category_id'=> $request->category_id,
+				'author_id'			=> \Auth::user()->id,
+				'title'				=> $request->title,
+				'seo_title'			=> $request->title,
+				'excerpt'			=> $request->excerpt,
+				'body'				=> $request->body,
+				'slug'				=> str_slug($request->title,'-'),
+				'meta_description'	=> $request->excerpt,
+				'meta_keywords'		=> $request->meta_keywords,
+				'status'			=> 'PUBLISHED',
+				'category_id'		=> $request->category_id,
 			]);
-			// Nombre de como se va a guardar 
-			$file_name = str_slug(\Carbon\Carbon::now());
-
-			if($request->hasFile('image')){
-			  //indicamos que queremos guardar un nuevo archivo en el disco local
-			  \Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-			  $post->update([
-					'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
-				]);
-			}
-			if($request->hasFile('pdf')){
-			\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
-			  $post->update([
-					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
-				]);
-			}
-			$post->roles()->sync($request->roles);
+			
+			$post->kits()->sync($request->kits);
 			$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
 			return redirect()->route('posts.index');
 		}else
@@ -165,24 +157,66 @@ class PostsController extends Controller
 	public function destroy(Request $request, $id)
 	{
 		if (\Shinobi::can('post.destroy')) {
-	  		$post = Post::find($id);
-	  		$title = $post->title;
-		  	if($post->delete())
+			$post = Post::find($id);
+			$title = $post->title;
+			if($post->delete())
 				$request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
-		  	else
+			else
 				$request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
 			return redirect()->route('posts.index');
 		}else
 			abort(404);
 	}
 
-	public function viewPDF($id){
+	public function updateImage(Request $request, $post_id){
+
+		if($request->hasFile('image')){
+			$post = Post::find($post_id);
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+		  //indicamos que queremos guardar un nuevo archivo en el disco local
+		  \Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+		  $post->update([
+				'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+			]);
+			$request->session()->flash('success', 'Imagen actualizada');
+			return redirect()->back();
+		}
+		$request->session()->flash('success', 'No hay imagen para actualizar');
+		return redirect()->back();
+	}
+
+	public function addPdf(Request $request, $post_id){
+		if($request->hasFile('pdf')){
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+		  \App\Pdf::create([
+				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
+				'languaje'=>'es',
+				'post_id'=>$post_id,
+			]);
+			$request->session()->flash('success', 'Pdf agregado a la publicación');
+			return redirect()->back();
+		}
+		return redirect()->back();
+	}
+
+	public function destroyPdf(Request $request, $post_id, $pdf_id){
+		\App\Pdf::destroy($pdf_id);
+		$request->session()->flash('success', 'Pdf eliminado de la publicación');
+		return redirect()->back();
+	}
+
+	public function viewPDF($pdf_id){
 		
 		if (\Shinobi::can('post.pdf.show')) {
-		$post = Post::find($id);
-			if($post){
+			$pdf = \App\Pdf::find($pdf_id);
+			if($pdf){
 				return view('pdf.view')
-			->with('post', $post);
+					->with('post', $pdf);
 			}
 			else
 				abort(404);
@@ -231,16 +265,58 @@ class PostsController extends Controller
 			->with('price_id',$post_price_id);
 	}
 
-	public function makePaymentPaypal($post_id,$post_price_id){
-		return view('corporate.posts.only-pay')
-			->with('post_id',$post_id)
-			->with('price_id',$post_price_id);
+	public function paymentPaypal(Request $request,$post_id,$post_price_id){
+		$price = PostOncePrice::find($post_price_id);
+		if($price->type_time == "day")
+			$finish = \Carbon\Carbon::now()->addDays($price->time);
+		elseif($price->type_time == "month")
+			$finish = \Carbon\Carbon::now()->addMonths($price->time);
+		elseif($price->type_time == "year")
+			$finish = \Carbon\Carbon::now()->addYears($price->time);
+
+		\App\PostOncePay::create([
+			'user_id' => \Auth::user()->id,
+			'post_id' => $post_id,
+			'finish' => $finish,
+			'price' => $price->price,
+			'post_once_price_id' => $price->id,
+		]);
+		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 	}
 
-	public function makePaymentCard($post_id,$post_price_id){
-		return view('corporate.posts.only-pay')
-			->with('post_id',$post_id)
-			->with('price_id',$post_price_id);
+	public function paymentCard($post_id,$post_price_id){
+		return view('corporate.posts.payment-card')
+			->with('post',Post::find($post_id))
+			->with('price',PostOncePrice::find($post_price_id));
+	}
+	public function makePaymentCard(Request $request){
+		// 4770 4410 1188 2871
+		$date = $request->input('expiry-month') .'/20'. $request->input('expiry-year');
+		$this->validate($request, [
+			str_replace(" ", "-", 'credit-card-number') => 'required|ccn',
+			'expiry-month' => 'required',
+			'expiry-year' => 'required',
+			$date => 'ccd',
+			'credit-validation-code' => 'required|cvc',
+		]);
+		$price = PostOncePrice::find($request->prID);
+		if($price->type_time == "day")
+			$finish = \Carbon\Carbon::now()->addDays($price->time);
+		elseif($price->type_time == "month")
+			$finish = \Carbon\Carbon::now()->addMonths($price->time);
+		elseif($price->type_time == "year")
+			$finish = \Carbon\Carbon::now()->addYears($price->time);
+
+		\App\PostOncePay::create([
+			'user_id' => \Auth::user()->id,
+			'post_id' => $request->pstID,
+			'finish' => $finish,
+			'price' => $price->price,
+			'post_once_price_id' => $price->id,
+		]);
+		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+		return redirect()->route('show-post',['pID'=>Post::find($request->pstID)->slug]);
 	}
 
 }

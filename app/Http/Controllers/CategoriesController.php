@@ -34,13 +34,11 @@ class CategoriesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:categories|max:255',
-            'slug' => 'required|unique:categories|max:255',
         ]);
         if(Category::where('name',$request->name)->orWhere('slug',$request->slug)->first() == null){
             Category::create([
                 'name' => trim($request->name),
-                'slug' => str_slug(trim($request->slug)),
-                'parent_id' => ($request->has('parent_id'))?$request->parent_id:null,
+                'slug' => str_slug(trim($request->name)),
             ]);
             $request->session()->flash('success', 'Categoría "'.$request->name.'" guardado correctamente');
             return redirect()->action('CategoriesController@index');
@@ -66,12 +64,10 @@ class CategoriesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'slug' => 'required|max:255',
         ]);
         Category::find($id)->update([
             'name' => trim($request->name),
-            'slug' => str_slug(trim($request->slug)),
-            'parent_id' => ($request->has('parent_id'))?$request->parent_id:null,
+            'slug' => str_slug(trim($request->name)),
         ]);
         $request->session()->flash('success', 'Categoría "'.$request->name.'" editado correctamente');
         return redirect()->action('CategoriesController@index');

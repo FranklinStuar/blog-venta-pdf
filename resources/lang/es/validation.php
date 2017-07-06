@@ -12,7 +12,10 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
+    
+    'expiry-month'         => 'El mes es incorrecto',
+    'expiry-year'          => 'El año es incorrecto',
+    'ccn'                  => 'El numero de la tarjeta es incorrecto.',
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es una URL válida.',
     'after'                => 'El campo :attribute debe ser una fecha posterior a :date.',

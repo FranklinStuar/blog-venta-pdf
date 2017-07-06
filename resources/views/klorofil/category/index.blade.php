@@ -16,7 +16,7 @@
 						<th>#</th>
 						<th>Nombre</th>
 						<th>Slug</th>
-						<th>Categoría Padre</th>
+						{{-- <th>Categoría Padre</th> --}}
 						<th># Posts</th>
 						<th>Acciones</th>
 					</tr>
@@ -27,7 +27,7 @@
 							<td>{{ $index+1 }}</td>
 							<td>{{ $category->name }}</td>
 							<td>{{ $category->slug }}</td>
-							<td> @if($category->parent){{ $category->parent->name }}@endif</td>
+							{{-- <td> @if($category->parent){{ $category->parent->name }}@endif</td> --}}
 							<td>{{ $category->posts->count() }}</td>
 							<td>
 								@if (Shinobi::can('category.edit') || Shinobi::can('dashboard.superadmin'))

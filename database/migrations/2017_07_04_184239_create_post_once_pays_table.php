@@ -15,14 +15,18 @@ class CreatePostOncePaysTable extends Migration
     {
         Schema::create('post_once_pays', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('post_id')->unsigned();//post donde se coloca un precio
-            $table->integer('user_id')->unsigned();//post donde se coloca un precio
-            $table->foreign('post_id')->references('id')->on('posts');
-            $table->foreign('user_id')->references('id')->on('posts');
+            $table->double('price','6,2');
             $table->enum('status',['active','cancel','finished'])->default('active');//pagado, calcelado el servicio, finalizado
-            $table->softDeletes();
+            $table->integer('post_id')->unsigned();//post donde se coloca un precio
+            $table->integer('post_once_price_id')->unsigned();//post donde se coloca un precio
+            $table->integer('user_id')->unsigned();//post donde se coloca un precio
             $table->timestamp('finish')->nullable();//fecha en la que finaliza el pago
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('post_once_price_id')->references('id')->on('post_once_prices');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -34,8 +38,9 @@ class CreatePostOncePaysTable extends Migration
     public function down()
     {
         Schema::table('post_once_pays', function (Blueprint $table) {
-            $table->dropForeign(['post_id']);
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['post_id']);
+            $table->dropForeign(['post_once_prices']);
         });
         Schema::dropIfExists('post_once_pays');
     }

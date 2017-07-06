@@ -11,15 +11,18 @@ class PostPrice extends Model
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
   protected $fillable = [
-  	'name','price','time_use','type_use','role_id',
+  	'name','price','time_use','type_use',
   ];
 
   public function details(){
   	return $this->hasMany('\App\PostPriceDetail','post_price_id');
   }
   
-  public function role(){
-  	return $this->belongsTO('\App\Role','role_id');
+  public static function kitsList(){
+    return array_pluck(\App\PostPrice::all(),'name','id');
+  }
+  public function posts(){
+    return $this->belongsToMany('App\PostPrice','kit_post','post_price_id','post_id');
   }
 
   public function time(){

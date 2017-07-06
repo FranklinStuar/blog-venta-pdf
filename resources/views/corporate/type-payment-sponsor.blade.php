@@ -125,7 +125,7 @@
 					</a>
 					
 					<a href="{{ route('sponsor.make-payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="type-payment">
-						<i class="fa fa-paypal" aria-hidden="true"></i> 
+						<i class="fa fa-credit-card" aria-hidden="true"></i> 
 						<span>Tarjeta</span>
 					</a>
 				</div>

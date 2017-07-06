@@ -36,7 +36,7 @@
 		</div>
 
 		<div class="container">
-			@if(Auth::user() && Auth::user()->postStatus($post->id) /*Shinobi::can('post.pdf.show')*/)
+			@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
 				<a href="{{ route('show-pdf',['pID'=>$post->slug]) }}">
 					<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
 				</a>

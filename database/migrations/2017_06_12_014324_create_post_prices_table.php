@@ -18,10 +18,8 @@ class CreatePostPricesTable extends Migration
             $table->double('price',6,2);
             $table->integer('time_use')->default(1);//tiempo que va a usar
             $table->enum('type_use',['day','month','year'])->default('month');
-            $table->integer('role_id')->unsigned()->nullable();//rol asignado para visualizar los posts o categorías
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
     /**
@@ -37,9 +35,6 @@ class CreatePostPricesTable extends Migration
      */
     public function down()
     {
-        Schema::table('post_prices', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-        });
         Schema::dropIfExists('post_prices');
     }
 }

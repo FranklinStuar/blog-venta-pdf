@@ -10,14 +10,14 @@ class Post extends Model
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $table = "posts";
-  protected $fillable = ['author_id','category_id','title','seo_title','excerpt','body','pdf','image','slug','meta_description','meta_keywords','status','featured', ];
+  protected $fillable = ['author_id','category_id','title','seo_title','excerpt','body','image','slug','meta_description','meta_keywords','status','featured', ];
 
   public function category(){
   	return $this->belongsTo('App\Category','category_id');
   }
 
-  public function historialPost(){
-  	return $this->hasMany('App\PostHistorial','post_id');
+  public function pdfs(){
+  	return $this->hasMany('App\Pdf','post_id');
   }
 
   public function historialPDF(){
@@ -40,13 +40,9 @@ class Post extends Model
     return $this->belongsTo('App\User','author_id');
   }
 
-  public function roles(){
-    return $this->belongsToMany('Caffeinated\Shinobi\Models\Role');
+  public function kits(){
+    return $this->belongsToMany('App\PostPrice','kit_post','post_id','post_price_id');
   }
   
-  public function getRoles(){
-    return array_pluck($this->roles,'name','id');
-  }
-
 
 }

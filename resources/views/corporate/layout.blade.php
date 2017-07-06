@@ -18,6 +18,8 @@
 	<!-- Material Design Bootstrap -->
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
+	
+	@yield('style')
 
 </head>
 
@@ -48,9 +50,7 @@
 								@endforeach
 							</div>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link">Precios</a>
-						</li>
+						
 					</ul>
 					{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
 						<input name="search" class="form-control" type="text" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
@@ -202,6 +202,8 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="{{ url('corporate/js/mdb.min.js') }}"></script>
 	
+	@yield('script')
+
 	<script>
 	new WOW().init();
 	</script>

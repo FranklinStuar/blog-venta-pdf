@@ -1,8 +1,8 @@
 <div class="row">
-	{!! Form::open(['url' => $url,'method'=>$method, 'files' => true]) !!}
+	{!! Form::open(['url' => $url,'method'=>$method, 'files' => !$edit]) !!}
 		<div class="col-md-7">
 			<div class="panel panel-primary">
-		  	<div class="panel-heading">Detalles de la Publicación</div>
+			<div class="panel-heading">Detalles de la Publicación</div>
 				<div class="panel-body">
 					<div class="form-group">
 						{!! Form::label('title', 'Título del post *') !!}
@@ -28,20 +28,26 @@
 					</div>
 					
 					<div class="form-group">
-						{!! Form::label('roles[]', 'Roles') !!}
-						{!! Form::select('roles[]', $roles, array_pluck($post->roles,'id'),['class' => "select2 form-control",'multiple']) !!}
+						{!! Form::label('kits[]', 'Kits Premium') !!}
+						{!! Form::select('kits[]', $kits, array_pluck($post->kits,'id'),['class' => "select2 form-control",'multiple']) !!}
+						<small class="help-block">Si quiere agregar a una venta en específica puede ingresar aquí</small>
 					</div>
 
 				</div>
+				@if($edit)
 
-
+				<div class="panel-body">
+					<button class="btn btn-primary">Guardar</button>
+					{!! link_to_route('posts.index', $title = "Cerrar",null, ['class' =>'btn btn-danger']) !!}
+				</div>
+				@endif
 			</div>
 		</div>
 
 		@if(!$edit)
 			<div class="col-md-5">
 				<div class="panel panel-primary">
-			  	<div class="panel-heading">Precios</div>
+				<div class="panel-heading">Precios</div>
 					
 					<div class="panel-body">
 						<div class="row" >
@@ -73,64 +79,101 @@
 					</div>
 				</div>
 			</div>
-		@endif
-		
-		<div class="col-md-5">
-			<div class="panel">
-				<div class="panel-body">
 
-					<div class="form-group" style="overflow: hidden;">
-						@if($post->id != null && $post->image != null)
-							<label for="image" >
-								Imagen del post *
-								<br><br>
-								<img src="{{ url('/storage/'.$post->image) }}" style='max-with:100%; max-height: 150px; display: block; margin: auto; cursor: pointer;' alt="Background">
-							</label>
-							{!! Form::file('image',['id'=>'image','accept'=>'image/*']) !!}
-						@else
-							{!! Form::label('image', 'Imagen del post') !!}
+			<div class="col-md-5">
+				<div class="panel panel-primary">
+				<div class="panel-heading">Imagen * </div>
+					<div class="panel-body">
+
+						<div class="form-group" style="overflow: hidden;">
 							{!! Form::file('image',['accept'=>'image/*','required']) !!}
-						@endif
+						</div>
 					</div>
-					
-					<hr>
+				</div>
+			</div>
 
-					<div class="form-group" style="overflow: hidden;">
-						@if($post->id != null && $post->pdf != null)
-							<label for="pdf" >
-								PDF del post *
-							</label>
-							<br><br>
-							<a href="{{ route('posts.pdf-view',['pID'=>$post->id]) }}">
-								<img src="{{ url('images/pdf.png') }}" style='max-with:100%; max-height: 100px; display: block; margin: auto; cursor: pointer;' alt="pdf">
-							</a>
-							<br>
+			<div class="col-md-5">
+				<div class="panel panel-primary">
+				<div class="panel-heading">PDF del post</div>
+					<div class="panel-body">
+
+						<div class="form-group" style="overflow: hidden;">
 							{!! Form::file('pdf',['id'=>'pdf','accept'=>'.pdf']) !!}
-						@else
-							{!! Form::file('pdf',['id'=>'pdf','accept'=>'.pdf','required']) !!}
-							{!! Form::label('pdf', 'PDF del post') !!}
-						@endif
+							<small class="help-block">
+								Si la publicación tiene archivos para visualizar puede colocarlo, caso contrario deje vacío
+							</small>
+						</div>
+							
 					</div>
-					<hr>
-						
+				</div>
+			</div>
+
+			<div class="col-md-5">
+				<div class="panel panel-default">
 					<div class="panel-body">
 						<button class="btn btn-primary">Guardar</button>
 						{!! link_to_route('posts.index', $title = "Cancelar",null, ['class' =>'btn btn-danger']) !!}
 					</div>
-
 				</div>
 			</div>
-		</div>
+		@endif
+		
+
 	{!! Form::close() !!}
 		
 	
 	@if($edit)
 		<div class="col-md-5">
 			<div class="panel panel-primary">
+			  <div class="panel-heading">Imagen</div>
+			  <div class="panel-body select-file">
+					{!! Form::open(['route' => ['posts.update-image',$post->id], 'files' => true]) !!}
+			  		<img src="{{ url('/storage/'.$post->image) }}" class="image-post-form" alt="image">
+			  		<hr>
+						<div class="form-group">
+							{!! Form::file('image',['accept'=>'image/*','required']) !!}
+					  </div>
+						<center>
+							<button class="btn btn-primary btn-sm">Actualizar Imagen</button>
+						</center>
+					{!! Form::close() !!}
+			  </div>
+		  </div>
+	  </div>
+	  
+		<div class="col-md-5">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">Archivos</div>
+			  <div class="panel-body select-file">
+			  	@foreach($post->pdfs as $pdf)
+			  		<div class="img-pdf-form">
+		  				<a href="{{ route('posts.pdf-view',['pID'=>$pdf->id]) }}" title="Ver Archivo">
+			  				<img src="{{ url('images/pdf.png') }}" alt="">
+				  		</a>
+							{!! Form::open(['route' => ['posts.destroy-pdf',$post->id,$pdf->id],'class'=>'delete-file']) !!}
+								<button class="btn btn-link btn-link-danger btn-xs">Eliminar</button>
+							{!! Form::close() !!}
+			  		</div>
+			  	@endforeach
+		  		<hr>
+					{!! Form::open(['route' => ['posts.add-pdf',$post->id], 'files' => true]) !!}
+						<div class="form-group">
+							{!! Form::file('pdf',['id'=>'pdf','accept'=>'.pdf','required']) !!}
+					  </div>
+						<center>
+							<button class="btn btn-primary btn-sm">Actualizar Imagen</button>
+						</center>
+					{!! Form::close() !!}
+			  </div>
+		  </div>
+	  </div>
+
+		<div class="col-md-5">
+			<div class="panel panel-primary">
 			  <div class="panel-heading">Precios</div>
 			  <div class="panel-body">
-			  	@foreach($post->oncePrices as $price)
-				  	{!! Form::open(['route'=>['posts.update-price','pID'=>$post->id,'prID'=>$price->id],'class'=>'form-inline inline-with-destroy']) !!}
+				@foreach($post->oncePrices as $price)
+					{!! Form::open(['route'=>['posts.update-price','pID'=>$post->id,'prID'=>$price->id],'class'=>'form-inline inline-with-destroy']) !!}
 						  <div class="form-group">
 								{!! Form::text('price', $price->price,['class' => "form-control",'placeholder'=>"Precio",'required','size'=>'4']) !!}
 						  </div>
@@ -140,16 +183,16 @@
 						  <div class="form-group">
 								{!! Form::select('type_time', ['day'=>'Días','month'=>'Meses','year'=>'Años',], $price->type_time,['class' => "select2 form-control",'required']) !!}
 						  </div>
-					  	@if (Shinobi::can('post.show'))
+						@if (Shinobi::can('post.show'))
 								<button class="btn btn-link btn-sm glyphicon glyphicon-floppy-disk"></button>
 							@endif
 						{!! Form::close() !!}
 						@if (Shinobi::can('post.destroy'))
-				  		{!! Form::open(['route'=>['posts.destroy-price','pID'=>$post->id,'prID'=>$price->id],'method'=>'DELETE','class'=>'destroy']) !!}
+						{!! Form::open(['route'=>['posts.destroy-price','pID'=>$post->id,'prID'=>$price->id],'method'=>'DELETE','class'=>'destroy']) !!}
 								<button class="btn btn-link btn-sm glyphicon glyphicon-trash"></button>
 							{!! Form::close() !!}
 						@endif
-		  		@endforeach
+				@endforeach
 			  </div>
 				<div class="panel-body">
 					{!! Form::open(['route'=>['posts.store-price','pID'=>$post->id]]) !!}

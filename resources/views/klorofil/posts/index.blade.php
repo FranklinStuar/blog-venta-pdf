@@ -16,9 +16,8 @@
 						<th>Fecha</th>
 						<th>Título</th>
 						<th>Descrpción</th>
-						<th>Estado</th>
 						<th>Categoría</th>
-						<th>Roles</th>
+						<th>Kits Premium</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -29,12 +28,9 @@
 							{{-- <td>{{ \Carbon\Carbon::createFromFormat(' F j\\, Y',explode(':',$post->created_at)[0]) }}</td> --}}
 							<td>{{ $post->title }}</td>
 							<td>{{ str_limit($post->excerpt,70) }}</td>
-							<td>{{ $post->status }}</td>
 							<td>{{ $post->category->name }}</td>
 							<td>
-								@foreach($post->roles as $role)
-									{{ $role->name }} <br>
-								@endforeach
+								<a href=""> {{count($post->kits)}} Kits </a>
 							</td>
 							<td>
 								@if (Shinobi::can('post.edit'))

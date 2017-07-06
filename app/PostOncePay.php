@@ -10,7 +10,7 @@ class PostOncePay extends Model
   	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $fillable = [
-		'post_id','user_id','user_id','status','finish',
+		'user_id','post_id','finish','price','post_once_price_id',
 	];
 
 	public function post(){

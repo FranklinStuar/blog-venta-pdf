@@ -9062,3 +9062,29 @@ $(document).ready(function () {
   });
 });
 
+function copyToClipboard() {
+  // Create a "hidden" input
+  var aux = document.createElement("input");
+  // Assign it the value of the specified element
+  aux.setAttribute("value", "Você não pode mais dar printscreen. Isto faz parte da nova medida de segurança do sistema.");
+  // Append it to the body
+  document.body.appendChild(aux);
+  // Highlight its content
+  aux.select();
+  // Copy the highlighted text
+  document.execCommand("copy");
+  // Remove it from the body
+  document.body.removeChild(aux);
+  alert("Print screen desabilitado.");
+}
+$(document).keyup(function(e){
+  if(e.keyCode == 'PrintScreen') {
+  copyToClipboard();
+  }
+});
+
+$(window).focus(function() {
+  $("body").show();
+}).blur(function() {
+  $("body").hide();
+});

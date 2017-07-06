@@ -109,14 +109,27 @@
 					<ul class="nav">
 							<li><a href="{{ url('/neuro-admin') }}"><i class="lnr lnr-file-empty"></i> <span>Dashboard</span></a></li>
 
-						@if( Shinobi::can('cayegory.list') || Shinobi::can('post.new') || Shinobi::can('post.list'))
+						@if( Shinobi::can('category.list') || Shinobi::can('category.new'))
+							<li>
+								<a href="#categories-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Categorías</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="categories-menu" class="collapse ">
+									<ul class="nav">
+										@if (Shinobi::can('category.new'))
+											<li><a href="{{ route('categories.create') }}" class="">Nueva Categoría</a></li>
+										@endif
+										@if (Shinobi::can('category.list'))
+											<li><a href="{{ route('categories.index') }}" class="">Lista de Categorías</a></li>
+										@endif
+									</ul>
+								</div>
+							</li>
+						@endif
+						
+						@if(Shinobi::can('post.new') || Shinobi::can('post.list'))
 							<li>
 								<a href="#posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="posts-menu" class="collapse ">
 									<ul class="nav">
-										@if (Shinobi::can('category.list'))
-											<li><a href="{{ url('/neuro-admin/categories') }}" class="">Categorias</a></li>
-										@endif
 										@if (Shinobi::can('post.new'))
 											<li><a href="{{ url('/neuro-admin/posts/create') }}" class="">Nuevo Post</a></li>
 										@endif
@@ -129,16 +142,16 @@
 						@endif
 						
 						<li>
-							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Kits de Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="premium-sponsors-menu" class="collapse ">
 								<ul class="nav">
 									@if (Shinobi::can('post.admin.price.new'))
-											<li><a href="{{ route('premium-post.create') }}" class="">Nuevo Premium</a></li>
+											<li><a href="{{ route('premium-post.create') }}" class="">Nuevo kit</a></li>
 									@endif
 									@if (Shinobi::can('post.admin.price.list'))
-										<li><a href="{{ route('premium-post.index') }}" class="">Lista de precios</a></li>
+										<li><a href="{{ route('premium-post.index') }}" class="">Lista de kits</a></li>
 									@endif
-									<li><hr></li>
+									<li></li>
 									@if (Shinobi::can('post.admin.pay.new'))
 										<li><a href="{{ route('pay-post.create') }}" class="">Nuevo Pago</a></li>
 									@endif
@@ -167,11 +180,11 @@
 
 						@if (\Shinobi::can('sponsor.price.new') || \Shinobi::can('sponsor.price.list'))
 							<li>
-								<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Premium Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Precios Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="premium-posts-menu" class="collapse ">
 									<ul class="nav">
 										@if (Shinobi::can('sponsor.price.new'))
-											<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Premium</a></li>
+											<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Precio</a></li>
 										@endif
 										@if (Shinobi::can('sponsor.price.list'))
 											<li><a href="{{ route('premium-sponsor.index') }}" class="">Lista de precios</a></li>
@@ -188,7 +201,7 @@
 								<div id="users-menu" class="collapse ">
 									<ul class="nav">
 										@if (Shinobi::can('user.new'))
-											<li><a href="{{ url('/neuro-admin/users/create') }}" class="">Nuevo</a></li>
+											<li><a href="{{ url('/neuro-admin/users/create') }}" class="">Nuevo Usuario</a></li>
 										@endif
 										@if (Shinobi::can('user.list'))
 											<li><a href="{{ url('/neuro-admin/users') }}" class="">Lista de Usuarios</a></li>
@@ -211,9 +224,9 @@
 									@if(\Shinobi::can('system.edit'))
 										<li><a href="{{ route('historial') }}" class="">Historial de visitas</a></li>
 									@endif
-									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Posts</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Sponsors</a></li>
-									<li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas Usuarios</a></li>
+									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Posts</a></li> --}}
+									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Sponsors</a></li> --}}
+									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas Usuarios</a></li> --}}
 									@if(\Shinobi::can('lock'))
 										<li><a href="{{ url('/neuro-admin') }}" class="">Bloquear</a></li>
 									@endif
@@ -226,7 +239,7 @@
                   onclick="event.preventDefault();
                    	document.getElementById('logout-form').submit();">
 									<i class="lnr lnr-exit"></i> 
-									<span>Salir</span>
+									<span>Cerrar Sesion</span>
                	</a>
            	</li>
 					</ul>
@@ -296,6 +309,7 @@
 	<script src="{{url('plugins/jquery-toastmessage/jquery.toastmessage.js')}}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
 	@yield('script')
+	
 </body>
 
 </html>

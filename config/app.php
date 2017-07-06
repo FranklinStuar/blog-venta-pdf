@@ -184,6 +184,7 @@ return [
         App\Providers\AddSponsorServiceProvider::class,
         
         Collective\Html\HtmlServiceProvider::class,
+        Rap2hpoutre\LaravelCreditCardValidator\ServiceProvider::class,
 
     ],
 

@@ -6,10 +6,15 @@ Auth::routes();
 Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@admin')->name('admin');
 	Route::resource('/users','UsersController');
-	Route::get('/posts/{id}/pdf-view','PostsController@viewPDF')->name('posts.pdf-view');
+	Route::get('/posts/pdf-view/{pdf_id}','PostsController@viewPDF')->name('posts.pdf-view');
 	Route::post('/posts/{post_id}/price','PostsController@storePrice')->name('posts.store-price');
 	Route::post('/posts/{post_id}/price/{price}/update','PostsController@updatePrice')->name('posts.update-price');
 	Route::delete('/posts/{post_id}/price/{price}/destroy','PostsController@destroyPrice')->name('posts.destroy-price');
+	
+	Route::post('/posts/{post_id}/update-image','PostsController@updateImage')->name('posts.update-image');
+	Route::post('/posts/{post_id}/add-pdf','PostsController@addPdf')->name('posts.add-pdf');
+	Route::post('/posts/{post_id}/destroy-pdf/{pdf_id}','PostsController@destroyPdf')->name('posts.destroy-pdf');
+
 	Route::resource('/posts','PostsController');
 	Route::resource('/roles','RolesController');
 	Route::post('roles/add-permission/{role_id}', 'RolesController@addPermission')->name('role.add-permission');
@@ -61,8 +66,10 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/publicidad/cancelar-pago/{id_sponsor}/{id_payment}', 'SponsorsController@cancelPaySponsor')->name('sponsor.cancel-pay');
 
 	Route::get('{post_id}/pago/{pago_id}','PostsController@payments')->name('post.payments');
-	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@makePaymentPaypal')->name('post.payment-paypal');
-	Route::get('{post_id}/pago/{pago_id}/card','PostsController@makePaymentCard')->name('post.payment-card');
+	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@paymentPaypal')->name('post.payment-paypal');
+	Route::get('{post_id}/pago/{pago_id}/card','PostsController@paymentCard')->name('post.payment-card');
+	Route::post('payment/paypal','PostsController@makePaymentPaypal')->name('post.make-payment-card');
+	Route::post('payment/card','PostsController@makePaymentCard')->name('post.make-payment-card');
 });
 
 

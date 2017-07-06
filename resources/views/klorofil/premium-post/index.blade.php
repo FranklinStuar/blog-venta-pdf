@@ -1,11 +1,11 @@
 @extends('klorofil.layout')
 @section('content')
-	<h3 class="page-title">Precios para premium de los Posts</h3>
+	<h3 class="page-title">Precios de kits de los Posts</h3>
 	<div class="panel">
 		<div class="panel-body">
 			<div class="col-sm-4">
 				@if (Shinobi::can('post.admin.price.new'))
-					<a href="{{ route('premium-post.create') }}" class="btn btn-primary">Nuevo Precio  <span class="lnr lnr-plus-circle"></span></a>
+					<a href="{{ route('premium-post.create') }}" class="btn btn-primary">Nuevo kit  <span class="lnr lnr-plus-circle"></span></a>
 				@endif
 			</div>
 		</div>
@@ -17,8 +17,7 @@
 						<th>Nombre</th>
 						<th>Precio</th>
 						<th>Tiempo de uso</th>
-						<th>Rol para usuario</th>
-						<th>Detalles</th>
+						<th># Posts</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -28,17 +27,19 @@
 							<td>{{ $index+1 }}</td>
 							<td> {{ $premium->name }} </td>
 							<td> $ {{ $premium->price }} </td>
+							<td> {{ $premium->time() }} </td>
 							<td> 
-								{{ $premium->time() }}
+								<a href="#posts">
+									{{ count($premium->posts) }}  Posts
+								</a>
 							</td>
-							<td><span class="badge badge-info">{{ $premium->role->name }}</span></td>
-							<td>
+							{{-- <td>
 								<ul>
 										@foreach($premium->details as $detail)
 											<li>{{ str_limit($detail->title,'50') }}</li>
 										@endforeach
 								</ul>
-							</td>
+							</td> --}}
 							<td>
 								@if (Shinobi::can('post.admin.price.edit'))
 									{!! link_to_route('premium-post.edit', "",['i'=>$premium->id], ['class' =>'glyphicon glyphicon-pencil']) !!}

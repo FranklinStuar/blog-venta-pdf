@@ -45,7 +45,6 @@ class PremiumPostsController extends Controller
 				'price' => 'required|min:1|numeric',
 				'time_use' => 'required|min:1|integer',
 				'type_use' => 'required',
-				'role_id' => 'required',
 			]);
 
 			$postsPremium = PostPrice::create($request->all());
@@ -71,7 +70,6 @@ class PremiumPostsController extends Controller
 				'price' => 'required|min:1|numeric',
 				'time_use' => 'required|min:1|integer',
 				'type_use' => 'required',
-				'role_id' => 'required',
 			]);
 
 			PostPrice::find($id)->update($request->all());

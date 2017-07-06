@@ -35,6 +35,5 @@
 		<!--/.Main layout-->
 	</main>
 
-
 @endsection
 

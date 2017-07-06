@@ -1767,6 +1767,45 @@ ul.activity-timeline > li {
 
 /*Codificación propia*/
 
+.image-post-form{
+  display: block;
+  width: 100%;
+  border: 1px solid #2e2e2e;
+}
+
+.select-file{
+  display: block;
+  overflow: hidden;
+}
+
+.img-pdf-form{
+  width: 20%;
+  margin: auto;
+  padding: 2%;
+  display: inline-block;
+}
+
+.btn-link-danger, .btn-link-danger:hover, .btn-link-danger:focus{
+  color: #e53935;
+}
+
+.img-pdf-form img{
+  width: 100%;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+}
+
+.img-pdf-form .delete-file{
+  width: 100%;
+  margin: auto;
+  visibility: hidden;
+}
+
+.img-pdf-form:hover .delete-file{
+  visibility: visible;
+}
+
 .img-table{
   max-width: 30px;
   max-height: 30px;

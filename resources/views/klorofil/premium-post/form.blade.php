@@ -35,24 +35,12 @@
 						</div>
 				 	</div>
 
-				 	<hr>
-
-					<div class="form-group">
-						{!! Form::label('role_id', 'Rol', ['class' => 'col-sm-4 control-label']) !!}
-						<div class="col-sm-8">
-							{!! Form::select('role_id', $roles, $premium->role_id, ['class'=>'form-control','placeholder' => 'Elija un rol para el usuario','required']) !!}
-							<p class="help-block"><small>El rol del usuario contiene una lista de posts y permisos adecuados para las necesidades</small></p>
-						</div>
-					</div>
-
 					<hr>
 
 				<div class="panel-body">
 					<center>
-						<div class="btn-group " role="group" aria-label="...">
-							{!! Form::submit('Guardar',['class'=>'btn btn-primary']) !!}
-							{!! link_to_route('premium-post.index', "Cancelar",null, ['class' =>'btn btn-danger']) !!}
-						</div>
+						{!! Form::submit('Guardar',['class'=>'btn btn-primary']) !!}
+						{!! link_to_route('premium-post.index', "Cancelar",null, ['class' =>'btn btn-danger']) !!}
 					</center>
 				</div>
 			{!! Form::close() !!}
@@ -77,34 +65,33 @@
 				</div>
 			@endforeach
 		</div>
-	
-		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="panel-title">Agregar detalle</h3></div>
-			{!! Form::open(['route' => ['premium-post.add-detail',$premium->id],'class'=>'form-horizontal']) !!}
-				<div class="panel-body">
-
-					<div class="form-group">
-						{!! Form::label('title', 'Titulo', ['class' => 'col-sm-4 control-label']) !!}
-						<div class="col-sm-8">
-							{!! Form::text('title', null, ['class'=>'form-control','required']) !!} 
-					 	</div>
+		@if($edit)
+			<div class="panel panel-default">
+				<div class="panel-heading"><h3 class="panel-title">Agregar detalle</h3></div>
+				{!! Form::open(['route' => ['premium-post.add-detail',$premium->id],'class'=>'form-horizontal']) !!}
+					<div class="panel-body">
+						<div class="form-group">
+							{!! Form::label('title', 'Titulo', ['class' => 'col-sm-4 control-label']) !!}
+							<div class="col-sm-8">
+								{!! Form::text('title', null, ['class'=>'form-control','required']) !!} 
+						 	</div>
+						</div>
+						
+						<div class="form-group">
+							{!! Form::label('excerpt', 'Descripción', ['class' => 'col-sm-4 control-label']) !!}
+							<div class="col-sm-8">
+								{!! Form::text('excerpt', null, ['class'=>'form-control','required']) !!} 
+						 	</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-4">
+								{!! Form::submit('Agregar',['class'=>'btn btn-primary']) !!}
+						 	</div>
+						</div>
 					</div>
-					
-					<div class="form-group">
-						{!! Form::label('excerpt', 'Descripción', ['class' => 'col-sm-4 control-label']) !!}
-						<div class="col-sm-8">
-							{!! Form::text('excerpt', null, ['class'=>'form-control','required']) !!} 
-					 	</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-8 col-sm-offset-4">
-							{!! Form::submit('Agregar',['class'=>'btn btn-primary']) !!}
-					 	</div>
-					</div>
-
-				</div>
-			{!! Form::close() !!}
-		</div>
+				{!! Form::close() !!}
+			</div>
+		@endif
 
 	</div>
 </div>
