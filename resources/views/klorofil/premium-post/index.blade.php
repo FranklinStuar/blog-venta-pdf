@@ -29,7 +29,7 @@
 							<td> $ {{ $premium->price }} </td>
 							<td> {{ $premium->time() }} </td>
 							<td> 
-								<a href="#posts">
+								<a href="{{ route('premium-post.view-post',['kID'=>$premium->id]) }}">
 									{{ count($premium->posts) }}  Posts
 								</a>
 							</td>

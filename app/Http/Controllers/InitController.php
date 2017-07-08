@@ -43,6 +43,7 @@ class InitController extends Controller
                     ['name'=>'Eliminar Post Admin','slug'=>'post.destroy'],
                     ['name'=>'Listar Posts Admin','slug'=>'post.list'],
                     ['name'=>'Ver Historial Post Admin','slug'=>'post.history'],
+                    ['name'=>'Ver Precios en Lista Administrador','slug'=>'post.admin.kit.list'],
                 ],
                 'PDF'=>[
                     ['name'=>'Cambiar PDF Admin','slug'=>'post.pdf.change'],
@@ -59,6 +60,16 @@ class InitController extends Controller
                     ['name'=>'Ver Precio Admin','slug'=>'post.admin.price.show'],
                     ['name'=>'Eliminar Precio Admin','slug'=>'post.admin.price.destroy'],
                     ['name'=>'Listar Precios Admin','slug'=>'post.admin.price.list'],
+                    ['name'=>'Ver Posts de kits en Lista Administrador','slug'=>'premium-post.admin.post.list'],
+                    ['name'=>'Agregar Posts de kits en Lista Administrador','slug'=>'premium-post.admin.post.add'],
+                    ['name'=>'Quitar Posts de kits en Lista Administrador','slug'=>'premium-post.admin.post.quit'],
+                  ],
+                'Premium Admin Posts Individuales'=>[
+                    ['name'=>'Nuevo pago individual','slug'=>'post.admin.pay-once.new'],
+                    ['name'=>'Editar Precio Admin','slug'=>'post.admin.pay-once.edit'],
+                    ['name'=>'Ver Precio Admin','slug'=>'post.admin.pay-once.show'],
+                    ['name'=>'Eliminar Precio Admin','slug'=>'post.admin.pay-once.destroy'],
+                    ['name'=>'Listar Precios Admin','slug'=>'post.admin.pay-once.list'],
                   ],
                 'Pagos Posts Admin'=>[
                     ['name'=>'Realizar pago Admin','slug'=>'post.admin.pay.new'],

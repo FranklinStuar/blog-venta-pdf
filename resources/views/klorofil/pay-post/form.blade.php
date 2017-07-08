@@ -14,24 +14,16 @@
 	</div>
 
 	<div class="form-group{{ $errors->has('post_price_id') ? ' has-error' : '' }}">
-		{!! Form::label('post_price_id', 'Plan Premium',['class'=>"col-md-4 control-label"]) !!}
+		{!! Form::label('post_price_id', 'Kit de Posts',['class'=>"col-md-4 control-label"]) !!}
 		<div class="col-md-6">
-			{!! Form::select('post_price_id', $postPrices, $pay->post_price_id, ['class'=>'form-control','required','placeholder' => 'Seleccione un Plan','v-model'=>'post_price_id','@click'=>'selectPostPrice']) !!}
+			<select name="post_price_id" id="post_price_id" v-model="post_price_id" class="form-control">
+				@foreach($postPrices as $id => $name)
+					<option value="{{$id}}" @click="selectPostPrice" >{{$name}}</option>
+				@endforeach
+			</select>
 			@if ($errors->has('post_price_id'))
 				<span class="help-block">
 					<strong>{{ $errors->first('post_price_id') }}</strong>
-				</span>
-			@endif
-		</div>
-	</div>
-
-	<div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
-		{!! Form::label('role_id', 'Rol de usuario',['class'=>"col-md-4 control-label"]) !!}
-		<div class="col-md-6">
-			{!! Form::select('role_id', $roles, $pay->role_id, ['class'=>'form-control','required','placeholder' => 'Seleccione un Rol','v-model'=>'role_id']) !!}
-			@if ($errors->has('role_id'))
-				<span class="help-block">
-					<strong>{{ $errors->first('role_id') }}</strong>
 				</span>
 			@endif
 		</div>
@@ -65,7 +57,7 @@
 	<div class="form-group{{ $errors->has('finish') ? ' has-error' : '' }}">
 		{!! Form::label('finish', 'Fecha de finalización',['class'=>"col-md-4 control-label"]) !!}
 		<div class="col-md-6">
-			{!! Form::text('finish', $pay->finish,['class'=>'form-control','required','autofocus','v-model'=>'finish']) !!}
+			{!! Form::text('finish', ($pay->finish)?$pay->finish:null,['class'=>'form-control','required','autofocus','v-model'=>'finish','placeholder'=>'DD/MM/YYY']) !!}
 			@if ($errors->has('finish'))
 				<span class="help-block">
 					<strong>{{ $errors->first('finish') }}</strong>

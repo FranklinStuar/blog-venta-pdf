@@ -1,6 +1,6 @@
 @extends('klorofil.layout')
 @section('content')
-	<h3 class="page-title"><a href="{{ route('pay-post.index') }}">Pago de Premium para Posts </a></h3>
+	<h3 class="page-title"><a href="{{ route('only-pay-post.index') }}">Pago de Premium para Posts </a></h3>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel">
@@ -22,8 +22,8 @@
 					</div>
 
 					<div class="title-detail-2">
-						<span class="title">Premium</span>
-						<span class="detail">{{ $pay->postPrice->name }}</span>
+						<span class="title">Publicación</span>
+						<span class="detail">{{ $pay->post->title }}</span>
 					</div>
 
 					<div class="title-detail-2">
@@ -45,7 +45,26 @@
 							@endif
 						</span>
 					</div>
+					
+					@if($pay->method_payment == "deposit")
 
+						<div class="title-detail-2">
+							<span class="title">Banco del depósito</span>
+							<span class="detail">{{ $pay->deposit->bank }}</span>
+						</div>
+
+						<div class="title-detail-2">
+							<span class="title">Cuenta de banco</span>
+							<span class="detail">{{ $pay->deposit->account }}</span>
+						</div>
+
+						<div class="title-detail-2">
+							<span class="title">Numero de depósito</span>
+							<span class="detail">{{ $pay->deposit->number_deposit }}</span>
+						</div>
+
+					@endif
+					
 
 					<div class="title-detail-2">
 						<span class="title">Estado</span>
@@ -58,11 +77,6 @@
 								<span class="badge badge-danger">Finalizado</span>
 							@endif
 						</span>
-					</div>
-
-					<div class="title-detail-2">
-						<span class="title">Observación</span>
-						<span class="detail">{{ $pay->observations }}</span>
 					</div>
 
 

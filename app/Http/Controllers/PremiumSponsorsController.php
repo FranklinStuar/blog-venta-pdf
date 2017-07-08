@@ -87,7 +87,7 @@ class PremiumSponsorsController extends Controller
 		if($request->json('spID') != null){
 			$sponsorPrice = SponsorPrice::find($request->json('spID'));
 			if ($sponsorPrice) {
-				$finish = \Carbon\Carbon::now()->addDays($sponsorPrice->months)->format('d/m/Y');
+				$finish = \Carbon\Carbon::now()->addMonths($sponsorPrice->months)->format('d/m/Y');
 				return response()->json([
 					'finish_date' => $finish,
 					'prints' => $sponsorPrice->prints,

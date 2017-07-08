@@ -14,7 +14,10 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::post('/posts/{post_id}/update-image','PostsController@updateImage')->name('posts.update-image');
 	Route::post('/posts/{post_id}/add-pdf','PostsController@addPdf')->name('posts.add-pdf');
 	Route::post('/posts/{post_id}/destroy-pdf/{pdf_id}','PostsController@destroyPdf')->name('posts.destroy-pdf');
+	Route::post('/posts/get-once-prices','PostsController@getOncePrices')->name('posts.get-once-prices');
+	Route::post('/posts/get-once-prices/detail','PostOncePricesController@getDetail')->name('posts.get-detail-once-prices');
 
+	Route::get('/posts/{post_id}/view-kit','PostsController@viewKits')->name('posts.view-kit');
 	Route::resource('/posts','PostsController');
 	Route::resource('/roles','RolesController');
 	Route::post('roles/add-permission/{role_id}', 'RolesController@addPermission')->name('role.add-permission');
@@ -31,9 +34,15 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::post('premium-post/add-detail/{premium_id}','PremiumPostsController@addDetail')->name('premium-post.add-detail');
 	Route::post('premium-post/quit-detail/{premium_id}','PremiumPostsController@quitDetail')->name('premium-post.quit-detail');
 	Route::post('premium-post/get-detail','PremiumPostsController@getDetail')->name('premium-post.get-detail');
+	Route::get('/premium-post/{kit_id}/view-post','PremiumPostsController@viewPosts')->name('premium-post.view-post');
+	Route::delete('/premium-post/{kit_id}/kit/{post_id}','PremiumPostsController@destroyPosts')->name('premium-post.destroy-post');
+	Route::post('/premium-post/{kit_id}/kit','PremiumPostsController@addPosts')->name('premium-post.add-post');
 	Route::resource('premium-post','PremiumPostsController');
 
 	Route::resource('pay-post', 'PostPaysController');
+	
+	Route::post('only-pay-post/{pay_id}/get','PostOncePaysController@getShow')->name('posts-once-pay.get');
+	Route::resource('only-pay-post', 'PostOncePaysController');
 
 	Route::resource('/sponsors','SponsorsController');
 	Route::get('/sponsors/historial/{id}','SponsorsController@historial')->name('sponsors.historial');

@@ -39,12 +39,13 @@ class PostsController extends Controller
 
 	public function store(Request $request)
 	{
+		// dd($request->pdf->getClientOriginalName());
 		if (\Shinobi::can('post.new')) {
 			$this->validate($request, [
-				'title'     			=> 'required',
-				'excerpt'   			=> 'required',
-				'body'      			=> 'required',
-				'meta_keywords'			=> 'required',
+				'title'     	=> 'required',
+				'excerpt'   	=> 'required',
+				'body'      	=> 'required',
+				'meta_keywords'	=> 'required',
 			]);
 
 			if ($request->has('price') || $request->has('time')) {
@@ -80,8 +81,8 @@ class PostsController extends Controller
 		
 				\App\Pdf::create([
 					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
-					'languaje'=>'es',
 					'post_id'=>$post->id,
+					'name'=>$request->pdf->getClientOriginalName()
 				]);
 			}
 			if ($request->has('price') || $request->has('time')) {
@@ -197,6 +198,7 @@ class PostsController extends Controller
 				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				'languaje'=>'es',
 				'post_id'=>$post_id,
+				'name'=>$request->pdf->getClientOriginalName()
 			]);
 			$request->session()->flash('success', 'Pdf agregado a la publicación');
 			return redirect()->back();
@@ -223,6 +225,7 @@ class PostsController extends Controller
 		}else
 			abort(503);
 	}
+
 
 	/*Prices to Post*/
 
@@ -317,6 +320,27 @@ class PostsController extends Controller
 		]);
 		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
 		return redirect()->route('show-post',['pID'=>Post::find($request->pstID)->slug]);
+	}
+
+
+	public function viewKits($post_id){
+		if (\Shinobi::can('post.admin.kit.list')) {
+			return view('klorofil.posts.kits',[
+				'post'=> Post::find($post_id),
+			]);
+		}else
+			abort(404);
+	}
+
+	public function getOncePrices(Request $request){
+		if($request->json('pID') != null){
+			$post = Post::find($request->json('pID'));
+			if ($post) {
+				return response()->json($post->oncePricesList());
+			}
+			return response()->json('No se encontró la publicación solicitada',404);
+		}
+		abort(404);
 	}
 
 }

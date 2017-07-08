@@ -29,7 +29,25 @@ class Post extends Model
   }
 
   public function oncePrices(){
-  	return $this->hasMany('App\PostOncePrice','post_id');
+    return $this->hasMany('App\PostOncePrice','post_id');
+  }
+
+  public function oncePricesPluck(){
+    $list = \DB::table('post_once_prices')
+    ->where('post_id',$this->id)
+    ->where('deleted_at',null)
+    ->select('id',\DB::raw('CONCAT("$",price," - ",time, " ", type_time) as name'))
+    ->get();
+    return array_pluck($list,'name','id');
+  }
+
+  public function oncePricesList(){
+  	$list = \DB::table('post_once_prices')
+    ->where('post_id',$this->id)
+    ->where('deleted_at',null)
+    ->select('id',\DB::raw('CONCAT("$",price," - ",time, " ", type_time) as name'))
+    ->get();
+    return $list;
   }
 
   public function pays(){
@@ -42,6 +60,10 @@ class Post extends Model
 
   public function kits(){
     return $this->belongsToMany('App\PostPrice','kit_post','post_id','post_price_id');
+  }
+
+  public static function allPluck(){
+    return array_pluck(\App\Post::all(),'title','id');
   }
   
 

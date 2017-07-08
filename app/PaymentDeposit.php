@@ -5,14 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pdf extends Model
+class PaymentDeposit extends Model
 {
-    //
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
-	protected $table = "pdfs";
+	protected $table = "payment_deposits";
   	protected $fillable = [
-		'languaje','pdf','post_id', 'name',
+		'bank','account','number_deposit','user_id',
 	];
 
 }

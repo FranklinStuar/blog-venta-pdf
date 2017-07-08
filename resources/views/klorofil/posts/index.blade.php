@@ -30,7 +30,7 @@
 							<td>{{ str_limit($post->excerpt,70) }}</td>
 							<td>{{ $post->category->name }}</td>
 							<td>
-								<a href=""> {{count($post->kits)}} Kits </a>
+								<a href="{{ route('posts.view-kit',[$post->id]) }}"> {{count($post->kits)}} Kits </a>
 							</td>
 							<td>
 								@if (Shinobi::can('post.edit'))

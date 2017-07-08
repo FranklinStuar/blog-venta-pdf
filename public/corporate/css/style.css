@@ -94,25 +94,50 @@ main > .container{
   text-align: right;
 }
 
-.img-pdf-show{
- 	max-with:100%; 
- 	max-height: 100px; 
- 	display: block; 
- 	margin: auto; 
- 	cursor: pointer;
- }
+.img-show-post{
+	height: 15em;
+	max-width: 100%;
+	overflow: hidden;
+	padding-bottom: 2em;
+	position: relative;
+}
+.img-show-post img{
+	width: 100%
+}
 
- .list-prices > .list-group-item{
+.container-img-pdf{
+	padding-top: 2.5em;
+	border-top: 1px solid #bdbdbd;
+	display: block;
+	max-width: 80%;
+	margin: 2.5em auto;
+}
+
+.img-pdf-show{
+ 	max-with:10%; 
+ 	max-height: 6em; 
+ 	display: inline-block; 
+ 	cursor: pointer;
+}
+
+
+.list-prices{
+	width: 23%;
+	display: inline-block;
+	margin: 0 0.4em;
+}
+
+.list-prices > .list-group-item{
  	display: block;
  	text-align: center;
- }
+}
  
- .item-time{
+.item-time{
  	font-size: 1.3em;
  	background: #1565c0;
- 	color: #00e676;
- }
+ 	color: #fafafa;
+}
 
- .item-price{
+.item-price{
  	font-size: 1.8em;
- }
+}

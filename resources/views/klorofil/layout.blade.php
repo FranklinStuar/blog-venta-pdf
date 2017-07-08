@@ -84,12 +84,12 @@
 							<ul class="dropdown-menu">
 								<li><a href="{{ route('profile') }}"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
 								<li><a href="{{ route('logout') }}"
-                      onclick="event.preventDefault();
-                       	document.getElementById('logout-form').submit();">
-                     	<i class="lnr lnr-exit"></i> <span>Salir</span></a>
+					  onclick="event.preventDefault();
+						document.getElementById('logout-form').submit();">
+						<i class="lnr lnr-exit"></i> <span>Salir</span></a>
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                  </form>
+					  {{ csrf_field() }}
+				  </form>
 								</li>
 							</ul>
 						</li>
@@ -135,6 +135,22 @@
 										@endif
 										@if (Shinobi::can('post.list'))
 											<li><a href="{{ url('/neuro-admin/posts') }}" class="">Lista de Posts</a></li>
+										@endif
+									</ul>
+								</div>
+							</li>
+						@endif
+						
+						@if(Shinobi::can('post.admin.pay-once.new') || Shinobi::can('post.admin.pay-once.list'))
+							<li>
+								<a href="#once-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pagos individuales</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="once-posts-menu" class="collapse ">
+									<ul class="nav">
+										@if (Shinobi::can('post.admin.pay-once.new'))
+											<li><a href="{{ route('only-pay-post.create') }}" class="">Nuevo Pago individual</a></li>
+										@endif
+										@if (Shinobi::can('post.admin.pay-once.list'))
+											<li><a href="{{ route('only-pay-post.index') }}" class="">Lista de Pagos</a></li>
 										@endif
 									</ul>
 								</div>
@@ -236,12 +252,12 @@
 
 						{{-- <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li> --}}
 						<li><a href="{{ route('logout') }}"
-                  onclick="event.preventDefault();
-                   	document.getElementById('logout-form').submit();">
+				  onclick="event.preventDefault();
+					document.getElementById('logout-form').submit();">
 									<i class="lnr lnr-exit"></i> 
 									<span>Cerrar Sesion</span>
-               	</a>
-           	</li>
+				</a>
+			</li>
 					</ul>
 				</nav>
 			</div>

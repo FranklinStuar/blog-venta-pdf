@@ -16,6 +16,7 @@ class CreatePostOncePaysTable extends Migration
         Schema::create('post_once_pays', function (Blueprint $table) {
             $table->increments('id');
             $table->double('price','6,2');
+            $table->enum('method_payment',['card','cash','deposit','paypal']);//metodo de pago solo para efectivo, depósito, paypal y tarjeta
             $table->enum('status',['active','cancel','finished'])->default('active');//pagado, calcelado el servicio, finalizado
             $table->integer('post_id')->unsigned();//post donde se coloca un precio
             $table->integer('post_once_price_id')->unsigned();//post donde se coloca un precio

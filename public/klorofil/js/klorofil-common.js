@@ -52,7 +52,122 @@ $(document).ready(function() {
 	/*	NEW PAY FOR PREMIUM POST
 	/*----------------------------------*/
 
-	if ($("#pay-sponsor-create").length > 0){
+	if ($("#only-post-pay-edit").length > 0){
+		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+		Vue.prototype.$http = axios
+		url_ = document.querySelector('#url').getAttribute('content')
+		url_pr = document.querySelector('#url-pr').getAttribute('content')
+		url_py = document.querySelector('#url-py').getAttribute('content')
+		
+		new Vue({
+			el:"#only-post-pay-edit",
+			data:{
+				post_id:null,
+				post_once_price_id:null,
+				once_prices:[],
+				finish:null,
+				price:null,
+				status:null,
+				method_payment:'cash',
+				bank_deposit:null,
+				account_deposit:null,
+				number_deposit:null,
+			},
+			methods:{
+				searchPayment(){
+					var $post_once_price_id = null
+					var $post_id = null
+					this.$http.post(url_py)
+					.then(response => {
+						this.post_id = response.data.post_id
+						this.price = response.data.price
+						this.finish = response.data.finish
+						this.price = response.data.price
+						this.status = response.data.status
+						this.method_payment = response.data.method_payment
+						$post_once_price_id = response.data.post_once_price_id
+						$post_id = response.data.post_id
+						if(response.data.method_payment == 'deposit'){
+							this.bank_deposit = response.data.bank_deposit
+							this.account_deposit = response.data.account_deposit
+							this.number_deposit = response.data.number_deposit
+						}
+				  	}, response => {
+				    	toast_message('error','Problemas con el servidor al buscar los detalles del pago')
+				  	});
+
+					this.$http.post(url_,{pID:document.querySelector('#p').getAttribute('content')})
+					.then(response => {
+						this.once_prices = response.data
+						this.post_once_price_id = document.querySelector('#pop').getAttribute('content')
+				  	}, response => {
+				    	toast_message('error','Problemas con el servidor al buscar los precios del post')
+				  	});
+
+				},
+				selectPost(){
+					this.$http.post(url_,{pID:this.post_id})
+					.then(response => {
+						this.once_prices = response.data
+				  	}, response => {
+				    	toast_message('error','Problemas con el servidor al buscar los precios del post')
+				  	});
+				},
+				selectPostOncePrice(){
+					this.$http.post(url_pr,{popID:this.post_once_price_id})
+					.then(response => {
+						console.log(response.data)
+						this.finish = response.data.finish
+						this.price = response.data.price
+				  	}, response => {
+					    toast_message('error','Problemas con el servidor al buscar el premium requerido')
+					});
+				},
+			},
+			created(){
+				this.searchPayment()
+			}
+		})
+	}
+	else if ($("#only-post-pay-new").length > 0){
+		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+		Vue.prototype.$http = axios
+		url_ = document.querySelector('#url').getAttribute('content')
+		url_pr = document.querySelector('#url-pr').getAttribute('content')
+
+		new Vue({
+			el:"#only-post-pay-new",
+			data:{
+				post_id:null,
+				post_once_price_id:null,
+				once_prices:[],
+				finish:null,
+				price:null,
+				method_payment:'cash',
+			},
+			methods:{
+				selectPost(){
+					this.$http.post(url_,{pID:this.post_id})
+					.then(response => {
+						this.once_prices = response.data
+				  	}, response => {
+				    	toast_message('error','Problemas con el servidor al buscar los precios del post')
+				  	});
+				},
+				selectPostOncePrice(){
+					this.$http.post(url_pr,{popID:this.post_once_price_id})
+					.then(response => {
+						console.log(response.data)
+						this.finish = response.data.finish
+						this.price = response.data.price
+				  }, response => {
+				    toast_message('error','Problemas con el servidor al buscar el premium requerido')
+				  });
+				},
+			},
+		})
+	}
+	else if ($("#pay-sponsor-create").length > 0){
 		axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 		Vue.prototype.$http = axios
 		url_ = document.querySelector('#url').getAttribute('content')

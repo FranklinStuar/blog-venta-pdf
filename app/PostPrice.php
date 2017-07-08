@@ -22,7 +22,7 @@ class PostPrice extends Model
     return array_pluck(\App\PostPrice::all(),'name','id');
   }
   public function posts(){
-    return $this->belongsToMany('App\PostPrice','kit_post','post_price_id','post_id');
+    return $this->belongsToMany('App\Post','kit_post','post_price_id','post_id');
   }
 
   public function time(){

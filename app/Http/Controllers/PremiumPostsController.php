@@ -10,14 +10,6 @@ use \App\Role;
 class PremiumPostsController extends Controller
 {
 
-	/*'Premium Admin Posts'=>[
-			['name'=>'Nuevo Precio Admin','slug'=>'post.admin.price.new'],
-			['name'=>'Editar Precio Admin','slug'=>'post.admin.price.edit'],
-			['name'=>'Ver Precio Admin','slug'=>'post.admin.price.show'],
-			['name'=>'Eliminar Precio Admin','slug'=>'post.admin.price.destroy'],
-			['name'=>'Listar Precios Admin','slug'=>'post.admin.price.list'],
-		],*/
-
 		public function index()
 		{
 				if (\Shinobi::can('post.admin.price.list')) {
@@ -79,14 +71,14 @@ class PremiumPostsController extends Controller
 
 		public function destroy(Request $request, $id)
 		{
-				if (\Shinobi::can('post.admin.price.destroy')) {
-						if(PostPrice::destroy($id))
-								$request->session()->flash('success', 'Premium  eliminado correctamente');
-						else
-								$request->session()->flash('errors', 'Premium No se pudo eliminar');
-					return redirect()->back();
-				}else
-						abort(404);
+			if (\Shinobi::can('post.admin.price.destroy')) {
+				if(PostPrice::destroy($id))
+						$request->session()->flash('success', 'Premium  eliminado correctamente');
+				else
+						$request->session()->flash('errors', 'Premium No se pudo eliminar');
+				return redirect()->back();
+			}else
+				abort(404);
 		}
 
 
@@ -97,13 +89,13 @@ class PremiumPostsController extends Controller
 			]);
 			$premium = PostPrice::find($premium_id);
 			if($premium != null){
-						PostPriceDetail::create([
-							'title' => $request->title,
-							'excerpt' => $request->excerpt,
-							'post_price_id' => $premium_id,
-						]);
-						$request->session()->flash('success', 'Agregado detalle al premium');
-						return redirect()->back();
+				PostPriceDetail::create([
+					'title' => $request->title,
+					'excerpt' => $request->excerpt,
+					'post_price_id' => $premium_id,
+				]);
+				$request->session()->flash('success', 'Agregado detalle al premium');
+				return redirect()->back();
 			}else{
 				$request->session()->flash('errors', 'No existe el premiun designado');
 				return redirect()->route('premium-sponsor.index');
@@ -152,6 +144,39 @@ class PremiumPostsController extends Controller
 		abort(404);
 	}
 
+	public function viewPosts($kit_id){
+		if (\Shinobi::can('premium-post.admin.post.list')) {
+			$kit = PostPrice::find($kit_id);
+			$posts = \App\Post::whereNotIn('id',array_pluck($kit->posts, 'id'))->orderBy('id','asc')->get();
+			return view('klorofil.premium-post.posts',[
+				'kit'=> $kit,
+				'posts'=>array_pluck($posts,'title','id')
+			]);
+		}else
+			abort(404);
+	}
+
+
+	public function addPosts(Request $request,$kit_id){
+		if (\Shinobi::can('premium-post.admin.post.add')) {
+			$kit = PostPrice::find($kit_id);
+			$kit->posts()->attach($request->post_id);
+			$request->session()->flash('success', 'Post agreado correctamente');
+			return redirect()->back();
+		}else
+			abort(404);
+	}
+
+
+	public function destroyPosts(Request $request,$kit_id,$post_id){
+		if (\Shinobi::can('premium-post.admin.post.quit')) {
+			$kit = PostPrice::find($kit_id);
+			$kit->posts()->detach($post_id);
+			$request->session()->flash('success', 'Post removido correctamente');
+			return redirect()->back();
+		}else
+			abort(404);
+	}
 
 
 }

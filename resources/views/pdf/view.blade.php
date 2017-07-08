@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="google" content="notranslate">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $post->title }}</title>
+    <title>{{ $post->name }}</title>
     <meta name="url" id="url" content="{{ url('/') }}">
 		<meta name="section" id="section" content="{{ $post->id }}.null.{{ $post->pdf }}">
 
@@ -334,6 +334,44 @@
     <div id="printContainer"></div>
   </body>
   
+  <script>
+    
+$(document).ready(function () {
+  $("body").on("contextmenu",function(e){
+    return false;
+  });
+  $('body').bind('cut copy paste', function (e) {
+      e.preventDefault(); 
+  });
+});
+
+function copyToClipboard() {
+  // Create a "hidden" input
+  var aux = document.createElement("input");
+  // Assign it the value of the specified element
+  aux.setAttribute("value", "Você não pode mais dar printscreen. Isto faz parte da nova medida de segurança do sistema.");
+  // Append it to the body
+  document.body.appendChild(aux);
+  // Highlight its content
+  aux.select();
+  // Copy the highlighted text
+  document.execCommand("copy");
+  // Remove it from the body
+  document.body.removeChild(aux);
+  alert("Print screen desabilitado.");
+}
+$(document).keyup(function(e){
+  if(e.keyCode == 'PrintScreen') {
+  copyToClipboard();
+  }
+});
+
+$(window).focus(function() {
+  $("body").show();
+}).blur(function() {
+  $("body").hide();
+});
+  </script>
 
 </html>
 

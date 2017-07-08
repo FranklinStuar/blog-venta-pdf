@@ -48,7 +48,6 @@ class PostPaysController extends Controller
 				'method_payment' => $request->method_payment,
 				'price' => $request->price,
 				'user_id' => $request->user_id,
-				'role_id' => $request->role_id,
 				'post_price_id' => $request->post_price_id,
 				'finish' => \Carbon\Carbon::create($anio, $mes, $dia),
 				'created_at' => \Carbon\Carbon::now(),
@@ -88,13 +87,12 @@ class PostPaysController extends Controller
 	public function update(Request $request, $id)
 	{
 		if (\Shinobi::can('post.admin.pay.edit')) {
-      list($dia, $mes, $anio) = explode("/", $request->finish);
+      		list($dia, $mes, $anio) = explode("/", $request->finish);
 
 			PostPay::find($id)->update([
 				'method_payment' => $request->method_payment,
 				'price' => $request->price,
 				'user_id' => $request->user_id,
-				'role_id' => $request->role_id,
 				'post_price_id' => $request->post_price_id,
 				'finish' => \Carbon\Carbon::create($anio, $mes, $dia),
 				'created_at' => \Carbon\Carbon::now(),

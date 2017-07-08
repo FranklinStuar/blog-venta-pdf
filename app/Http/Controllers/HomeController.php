@@ -106,11 +106,11 @@ class HomeController extends Controller
         }else
         abort(404);
     }
-    public function showPDF($post_name){
+    public function showPDF($pdf_id){
          if (\Shinobi::can('post.pdf.show')) {
-            $post = Post::where('slug',$post_name)->first();
-            if($post){
-                return view('pdf.view')->with('post',$post);
+            $pdf = \App\Pdf::find($pdf_id);
+            if($pdf){
+                return view('pdf.view')->with('post',$pdf);
             }else
             abort(404);
         }else

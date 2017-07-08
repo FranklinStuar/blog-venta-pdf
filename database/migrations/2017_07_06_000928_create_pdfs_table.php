@@ -15,8 +15,9 @@ class CreatePdfsTable extends Migration
     {
         Schema::create('pdfs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('languaje',5)->nullable();//idioma del post
-            $table->string('pdf')->nullable();
+            $table->string('languaje',5)->default('es');//idioma del post
+            $table->string('pdf');
+            $table->string('name');
             $table->integer('post_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

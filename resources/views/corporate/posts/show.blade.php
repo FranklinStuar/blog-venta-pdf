@@ -5,9 +5,14 @@
 @endsection
 
 @section('container')
-	<img src="{{ url('/storage/'.$post->image) }}" class="img-fluid " alt="{{ $post->title }}">
-	<br>
+	
+	<div  class="img-show-post">
+		<img src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}">
+		{{-- <img src="{{ url('images/Google-Material-Design-840x473.jpg') }}" alt=""> --}}
+	</div>
+
 	<center><h1>{{ $post->title }}</h1></center>
+
 	<hr>
 
 	<!--Main layout-->
@@ -35,30 +40,35 @@
 			</div>
 		</div>
 
-		<div class="container">
-			@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
-				<a href="{{ route('show-pdf',['pID'=>$post->slug]) }}">
-					<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
-				</a>
-			@else
-				<div class="row">
+		<div class="container-img-pdf">
+			<center>
+				@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
+					@foreach($post->pdfs as $pdf)
+						<a href="{{ route('show-pdf',['pID'=>$pdf->id]) }}">
+							<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
+						</a>
+					@endforeach
+				</center>
+				@else
+					@if(count($post->oncePrices))
+						<h3>Accesa a los archivos para tener una mejor experiencia en su aprendizaje</h3>
+					@endif
+
 					@foreach($post->oncePrices as $price)
-						<div class="col-sm-6 col-md-4">
-							<div class="list-group list-prices">
-							  <div class="list-group-item item-time">
-							  	Plan de {{$price->timeView()}}
-						  	</div>
-							  <div class="list-group-item item-price">
-							  	$ {{$price->price}}
-							  </div>
-							  <div class="list-group-item item-link">
-						  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
-							  </div>
-							</div>
+						<div class="list-group list-prices">
+						  <div class="list-group-item item-time">
+						  	Plan de {{$price->timeView()}}
+					  	</div>
+						  <div class="list-group-item item-price">
+						  	$ {{$price->price}}
+						  </div>
+						  <div class="list-group-item item-link">
+					  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
+						  </div>
 						</div>
 					@endforeach
-				</div>
-			@endif
+				@endif
+			</center>
 		</div>
 	</div>
 	<!--/.Main layout-->

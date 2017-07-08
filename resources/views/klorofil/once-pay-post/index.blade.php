@@ -1,19 +1,23 @@
 @extends('klorofil.layout')
 @section('content')
-	<h3 class="page-title">Lista de pagos</h3>
+	<h3 class="page-title">Lista de pagos de publicaciones individuales</h3>
 	<div class="panel">
 		<div class="panel-body">
 			<div class="col-sm-4">
-				<a href="{{ route('pay-post.create') }}" class="btn btn-primary">Nuevo Pago  <span class="lnr lnr-plus-circle"></span></a>
+					@if (Shinobi::can('post.admin.pay-once.new'))
+						<a href="{{ route('only-pay-post.create') }}" class="btn btn-primary">Nuevo pago individual<span class="lnr lnr-plus-circle"></span></a>
+					@endif
+
 			</div>
 		</div>
+		{{-- 'user_id','post_id','finish','price','post_once_price_id', --}}
 		<div class="panel-body table-responsive">
 			<table class="table">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Usuario</th>
-						<th>Premium</th>
+						<th>Post</th>
 						<th>Precio</th>
 						<th>Estado</th>
 						<th>Acciones</th>
@@ -23,8 +27,8 @@
 					@foreach($pays as $index => $pay)
 						<tr>
 							<td>{{ $index + 1 }}</td>
-							<td>{{ $pay->user->name }}</td>
-							<td>{{ $pay->postPrice->name }}</td>
+							<td><a href="{{ route('users.show',[$pay->user->id]) }}">{{ $pay->user->name }}</a></td>
+							<td>{{ $pay->post->title }}</td>
 							<td>$ {{ $pay->price }}</td>
 							<td>
 								@if($pay->status == 'active')
@@ -36,15 +40,15 @@
 								@endif
 							</td>
 							<td>
-								@if (Shinobi::can('post.admin.pay.edit'))
-									{!! link_to_route('pay-post.edit', "",['i'=>$pay->id], ['class' =>'glyphicon glyphicon-pencil']) !!}
+								@if (Shinobi::can('post.admin.pay-once.edit'))
+									{!! link_to_route('only-pay-post.edit', "",['i'=>$pay->id], ['class' =>'glyphicon glyphicon-pencil']) !!}
 								@endif
-								@if (Shinobi::can('post.admin.pay.show'))
-									{!! link_to_route('pay-post.show', "",['i'=>$pay->id], ['class' =>'glyphicon glyphicon-eye-open']) !!}
+								@if (Shinobi::can('post.admin.pay-once.show'))
+									{!! link_to_route('only-pay-post.show', "",['i'=>$pay->id], ['class' =>'glyphicon glyphicon-eye-open']) !!}
 								@endif
-								@if (Shinobi::can('post.admin.pay.cancel'))
+								@if (Shinobi::can('post.admin.pay-once.cancel'))
 									@if($pay->status == "active")
-										{!! Form::open(['route' => ['pay-post.destroy',$pay->id],'method'=>'DELETE','class'=>'destroy']) !!}
+										{!! Form::open(['route' => ['only-pay-post.destroy',$pay->id],'method'=>'DELETE','class'=>'destroy']) !!}
 											<button class="btn btn-link glyphicon glyphicon-remove"></button>
 										{!! Form::close() !!}
 									@endif
@@ -57,3 +61,4 @@
 		</div>
 	</div>
 @endsection
+-
