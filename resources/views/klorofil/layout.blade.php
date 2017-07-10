@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="{{ url('plugins/linearicons/style.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/chartist/css/chartist-custom.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/Select2/css/select2.css') }}">
+  	<link rel="stylesheet" href="{{url('plugins/summernote/summernote.css')}}">
 
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/main.css') }}">
@@ -326,7 +327,10 @@
 	<script src="{{ url('plugins/chartist/js/chartist.min.js') }}"></script>
 	<script src="{{ url('plugins/Select2/js/select2.min.js') }}"></script>
 	<script src="{{url('plugins/jquery-toastmessage/jquery.toastmessage.js')}}"></script>
+	  <!-- include summernote -->
+	<script type="text/javascript" src="{{url('plugins/summernote/summernote.js')}}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
+
 	@yield('script')
 	
 </body>

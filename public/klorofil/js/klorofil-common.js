@@ -6,7 +6,6 @@ $('.destroy').submit(function(evt){
    
 })
 
-
 // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
 function isValidDate(dateString){
   // First check for the pattern
@@ -45,6 +44,10 @@ var toast_message=function(type,message){
 
 
 $(document).ready(function() {
+
+	$('.summernote').summernote({
+		height: 300
+	});
 
 
 
