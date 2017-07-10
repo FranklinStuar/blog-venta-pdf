@@ -1,8 +1,9 @@
 <div class="row">
 	{!! Form::open(['url' => $url,'method'=>$method, 'files' => !$edit]) !!}
-		<div class="col-md-7">
+		<div class="col-sm-12">
+			
 			<div class="panel panel-primary">
-			<div class="panel-heading">Detalles de la Publicación</div>
+				<div class="panel-heading">Detalles de la Publicación</div>
 				<div class="panel-body">
 					<div class="form-group">
 						{!! Form::label('title', 'Título del post *') !!}
@@ -11,12 +12,21 @@
 					<div class="form-group">
 						{!! Form::label('excerpt', 'Descripción corta *') !!}
 						{!! Form::textarea('excerpt', $post->excerpt,['class' => "form-control",'placeholder'=>"Descripción para mostrar en la página principal y para el SEO de los buscadores",'required','rows'=>'3']) !!}
+
 					</div>
 					<div class="form-group">
 						{!! Form::label('body', 'Descripción detallada *') !!}
-						{!! Form::textarea('body', $post->body,['class' => "form-control",'id'=>'','placeholder'=>"Descripción detallada",'required']) !!}
+						{!! Form::textarea('body', $post->body,['class' => "summernote form-control",'id'=>'contents','placeholder'=>"Descripción detallada",'required']) !!}
 					</div>
 
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+			<div class="panel-heading">Detalles SEO y organización</div>
+				<div class="panel-body">
+					
 					<div class="form-group">
 						{!! Form::label('meta_keywords', 'Palabras claves SEO *') !!}
 						{!! Form::text('meta_keywords', $post->meta_keywords,['class' => "form-control",'placeholder'=>"Palabras , claves, SEO",'required']) !!}
@@ -45,7 +55,7 @@
 		</div>
 
 		@if(!$edit)
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="panel panel-primary">
 				<div class="panel-heading">Precios</div>
 					
@@ -80,7 +90,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="panel panel-primary">
 				<div class="panel-heading">Imagen * </div>
 					<div class="panel-body">
@@ -92,7 +102,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="panel panel-primary">
 				<div class="panel-heading">PDF del post</div>
 					<div class="panel-body">
@@ -108,7 +118,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<button class="btn btn-primary">Guardar</button>
@@ -123,7 +133,7 @@
 		
 	
 	@if($edit)
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">Imagen</div>
 			  <div class="panel-body select-file">
@@ -141,7 +151,7 @@
 		  </div>
 	  </div>
 	  
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">Archivos</div>
 			  <div class="panel-body select-file">
@@ -168,7 +178,7 @@
 		  </div>
 	  </div>
 
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">Precios</div>
 			  <div class="panel-body">
