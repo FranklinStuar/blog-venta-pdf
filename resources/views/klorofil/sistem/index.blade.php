@@ -12,7 +12,7 @@
 
 	        <div class="col-md-6">
             <div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1"> http://www.facebook.con/ </span>
+						  <span class="input-group-addon" id="basic-addon1"> http://www.facebook.com/ </span>
 							  {!! Form::text('facebook', $system->facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
 						</div>
 
@@ -29,7 +29,7 @@
 
 	        <div class="col-md-6">
             <div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1"> http://www.instagram.con/ </span>
+						  <span class="input-group-addon" id="basic-addon1"> http://www.instagram.com/ </span>
 							  {!! Form::text('instagram', $system->instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
 						</div>
 
@@ -46,7 +46,7 @@
 
 	        <div class="col-md-6">
             <div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1"> http://www.youtube.con/ </span>
+						  <span class="input-group-addon" id="basic-addon1"> http://www.youtube.com/ </span>
 							  {!! Form::text('youtube', $system->youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
 						</div>
 
