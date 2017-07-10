@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'username', 'email', 'name', 'avatar', 'password','gender'
+        'username', 'email', 'name', 'avatar', 'password','gender',
     ];
 
     /**
@@ -31,7 +31,10 @@ class User extends Authenticatable
         if($this->id !=null){
             if (!is_null($this->roles)) {
                 $roles_temp = $this->roles->first();
+                if($roles_temp)
                 return ['id'=>$roles_temp->id,'name'=>$roles_temp->name];
+            else
+                return ['id'=>'2','name'=>'Sin usuario'];
             }
         }
         else

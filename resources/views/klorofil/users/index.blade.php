@@ -30,7 +30,11 @@
 							<td>{{ $user->name }}</td>
 							<td>{{ $user->username }}</td>
 							<td>{{ $user->email }}</td>
-							<td>{{ $user->getRole()['name'] }}</td>
+							<td>
+								@if(count($user->getRole()) > 0)
+									{{ $user->getRole()['name'] }}
+								@endif
+							</td>
 							<td>
 								@if (Shinobi::can('user.edit'))
 									{!! link_to_route('users.edit', "",['i'=>$user->id], ['class' =>'glyphicon glyphicon-pencil']) !!}

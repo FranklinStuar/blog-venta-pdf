@@ -77,7 +77,7 @@
 
         <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1"> https://www.facebook.con/ </span>
+              <span class="input-group-addon" id="basic-addon1"> https://www.facebook.com/ </span>
                   {!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
             </div>
             @if ($errors->has('url_facebook'))
@@ -93,7 +93,7 @@
 
         <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1"> https://www.instagram.con/ </span>
+              <span class="input-group-addon" id="basic-addon1"> https://www.instagram.com/ </span>
                   {!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
             </div>
             @if ($errors->has('url_instagram'))
@@ -109,7 +109,7 @@
 
         <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1"> https://www.twitter.con/ </span>
+              <span class="input-group-addon" id="basic-addon1"> https://www.twitter.com/ </span>
                   {!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
             </div>
             @if ($errors->has('url_twitter'))
@@ -125,7 +125,7 @@
 
         <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1"> https://www.youtube.con/ </span>
+              <span class="input-group-addon" id="basic-addon1"> https://www.youtube.com/ </span>
                   {!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
             </div>
             @if ($errors->has('url_youtube'))

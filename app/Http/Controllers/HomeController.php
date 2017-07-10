@@ -18,6 +18,10 @@ class HomeController extends Controller
         Carbon::setLocale('es');
     }
 
+    public function welcome(Request $request){
+        return view('home');
+    }
+
     /**
      * Show the application dashboard.
      *

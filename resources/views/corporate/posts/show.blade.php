@@ -63,10 +63,11 @@
 						  	$ {{$price->price}}
 						  </div>
 						  <div class="list-group-item item-link">
-					  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
+					  		{{-- <a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a> --}}
 						  </div>
 						</div>
 					@endforeach
+					<h4>Relice sus pagos en nuestras oficinas en {{ $system->direccion }} - Cuenca - Ecuador</h4>
 				@endif
 			</center>
 		</div>

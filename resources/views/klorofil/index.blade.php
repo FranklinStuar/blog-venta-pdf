@@ -1,196 +1,196 @@
 @extends('klorofil.layout')
 @section('content')
-			<!-- OVERVIEW -->
-			<div class="panel panel-headline">
+	<!-- OVERVIEW -->
+	<div class="panel panel-headline">
+		<div class="panel-heading">
+			<h3 class="panel-title">Descripción semanal</h3>
+			<p class="panel-subtitle">Periodo: {{ Carbon\Carbon::now()->subDays(7)->format(' F j\\, Y') }} - {{ Carbon\Carbon::now()->format(' F j\\, Y') }} </p>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-download"></i></span>
+						<p>
+							<span class="number">{{ $posts->count() }}</span>
+							<span class="title">Posts</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-shopping-bag"></i></span>
+						<p>
+							<span class="number">{{ $sponsors->count() }}</span>
+							<span class="title">Sponsors</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-eye"></i></span>
+						<p>
+							<span class="number">{{ $visit_posts->count() }}</span>
+							<span class="title">Visitas Post</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-bar-chart"></i></span>
+						<p>
+							<span class="number">{{ $users->count() }}</span>
+							<span class="title">Usuarios</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<div id="headline-chart" class="ct-chart"></div>
+				</div>
+				<div class="col-md-3">
+					<div class="weekly-summary text-right">
+						<span class="number">{{ $totalPays }}</span> 
+						{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $post_pays->count() }}%</span> --}}
+						<span class="info-label">Total Ventas</span>
+					</div>
+					<div class="weekly-summary text-right">
+						<span class="number">${{ $paysToday }}</span> 
+						{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $paysToday *100 / $totalMonth }}%</span> --}}
+						<span class="info-label">Ingreso Hoy</span>
+					</div>
+					<div class="weekly-summary text-right">
+						<span class="number">${{ $totalMonth }}</span> 
+						{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
+						<span class="info-label">Ingreso Mensual</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END OVERVIEW -->
+	<div class="row">
+		<div class="col-md-6">
+			<!-- RECENT PURCHASES -->
+			<div class="panel">
 				<div class="panel-heading">
-					<h3 class="panel-title">Descripción semanal</h3>
-					<p class="panel-subtitle">Periodo: {{ Carbon\Carbon::now()->subDays(7)->format(' F j\\, Y') }} - {{ Carbon\Carbon::now()->format(' F j\\, Y') }} </p>
+					<h3 class="panel-title">Ventas de Post Recientes</h3>
+					<div class="right">
+						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+					</div>
+				</div>
+				<div class="panel-body no-padding table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>Post</th>
+								<th>Precio</th>
+								<th>Fecha</th>
+							</tr>
+						</thead>
+						@foreach($post_pays as $index=> $post)
+						<tbody>
+							<tr>
+								<td><a href="{{ route('pay-post.show',['ppID'=>$post->id]) }}">{{ $index+1 }}</a></td>
+								<td>{{ $post->postPrice->name}}</td>
+								<td>$ {{ $post->price}}</td>
+								<td>{{ $post->created_at }}</td>
+							</tr>
+						</tbody>
+						<?php if($index == 4) break;?>
+						@endforeach
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="row">
+						<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Ultimos 5 Posts Vendidos</span></div>
+						<div class="col-md-6 text-right"><a href="{{ route('pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
+					</div>
+				</div>
+			</div>
+			<!-- END RECENT PURCHASES -->
+		</div>
+
+		<div class="col-md-6">
+			<!-- RECENT PURCHASES -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Pagos por Sponsors</h3>
+					<div class="right">
+						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+					</div>
+				</div>
+				<div class="panel-body no-padding table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>Título</th>
+								<th>Usuario</th>
+								<th>Fecha</th>
+							</tr>
+						</thead>
+						@foreach($sponsors as $index=> $sponsor)
+						<tbody>
+							<tr>
+								<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $index +1 }}</a></td>
+								<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $sponsor->name}}</a></td>
+								<td>{{ $sponsor->user->username}}</td>
+								<td>{{ $sponsor->created_at}}</td>
+							</tr>
+						</tbody>
+						<?php if($index == 4) break;?>
+						@endforeach
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="row">
+						<div class="col-md-6"><span class="panel-note"><i class="fa fa-list"></i> Ultimos 5 Sponsors Realizados</span></div>
+						<div class="col-md-6 text-right"><a href="{{ route('sponsors.index') }}" class="btn btn-primary">Ver todos los sponsors</a></div>
+					</div>
+				</div>
+			</div>
+			<!-- END RECENT PURCHASES -->
+		</div>
+	
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-6">
+			<!-- MULTI CHARTS -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Ventas Posts y Sponsors</h3>
+					<div class="right">
+						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+					</div>
 				</div>
 				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="metric">
-								<span class="icon"><i class="fa fa-download"></i></span>
-								<p>
-									<span class="number">{{ $posts->count() }}</span>
-									<span class="title">Posts</span>
-								</p>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="metric">
-								<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-								<p>
-									<span class="number">{{ $sponsors->count() }}</span>
-									<span class="title">Sponsors</span>
-								</p>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="metric">
-								<span class="icon"><i class="fa fa-eye"></i></span>
-								<p>
-									<span class="number">{{ $visit_posts->count() }}</span>
-									<span class="title">Visitas Post</span>
-								</p>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="metric">
-								<span class="icon"><i class="fa fa-bar-chart"></i></span>
-								<p>
-									<span class="number">{{ $users->count() }}</span>
-									<span class="title">Usuarios</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-9">
-							<div id="headline-chart" class="ct-chart"></div>
-						</div>
-						<div class="col-md-3">
-							<div class="weekly-summary text-right">
-								<span class="number">{{ $totalPays }}</span> 
-								{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $post_pays->count() }}%</span> --}}
-								<span class="info-label">Total Ventas</span>
-							</div>
-							<div class="weekly-summary text-right">
-								<span class="number">${{ $paysToday }}</span> 
-								{{-- <span class="percentage"><i class="fa fa-caret-up text-success"></i> {{ $paysToday *100 / $totalMonth }}%</span> --}}
-								<span class="info-label">Ingreso Hoy</span>
-							</div>
-							<div class="weekly-summary text-right">
-								<span class="number">${{ $totalMonth }}</span> 
-								{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
-								<span class="info-label">Ingreso Mensual</span>
-							</div>
-						</div>
-					</div>
+					<div id="visits-trends-chart" class="ct-chart"></div>
 				</div>
 			</div>
-			<!-- END OVERVIEW -->
-			<div class="row">
-				<div class="col-md-6">
-					<!-- RECENT PURCHASES -->
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">Ventas de Post Recientes</h3>
-							<div class="right">
-								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-							</div>
-						</div>
-						<div class="panel-body no-padding table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Post</th>
-										<th>Precio</th>
-										<th>Fecha</th>
-									</tr>
-								</thead>
-								@foreach($post_pays as $index=> $post)
-								<tbody>
-									<tr>
-										<td><a href="{{ route('pay-post.show',['ppID'=>$post->id]) }}">{{ $index+1 }}</a></td>
-										<td>{{ $post->postPrice->name}}</td>
-										<td>$ {{ $post->price}}</td>
-										<td>{{ $post->created_at }}</td>
-									</tr>
-								</tbody>
-								<?php if($index == 4) break;?>
-								@endforeach
-							</table>
-						</div>
-						<div class="panel-footer">
-							<div class="row">
-								<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Ultimos 5 Posts Vendidos</span></div>
-								<div class="col-md-6 text-right"><a href="{{ route('pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
-							</div>
-						</div>
+			<!-- END MULTI CHARTS -->
+		</div>
+		<div class="col-md-6">
+			<!-- VISIT CHART -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Visitas web</h3>
+					<div class="right">
+						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 					</div>
-					<!-- END RECENT PURCHASES -->
 				</div>
-
-				<div class="col-md-6">
-					<!-- RECENT PURCHASES -->
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">Pagos por Sponsors</h3>
-							<div class="right">
-								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-							</div>
-						</div>
-						<div class="panel-body no-padding table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Título</th>
-										<th>Usuario</th>
-										<th>Fecha</th>
-									</tr>
-								</thead>
-								@foreach($sponsors as $index=> $sponsor)
-								<tbody>
-									<tr>
-										<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $index +1 }}</a></td>
-										<td><a href="{{ route('sponsors.show',['pID'=>$sponsor->id]) }}">{{ $sponsor->name}}</a></td>
-										<td>{{ $sponsor->user->username}}</td>
-										<td>{{ $sponsor->created_at}}</td>
-									</tr>
-								</tbody>
-								<?php if($index == 4) break;?>
-								@endforeach
-							</table>
-						</div>
-						<div class="panel-footer">
-							<div class="row">
-								<div class="col-md-6"><span class="panel-note"><i class="fa fa-list"></i> Ultimos 5 Sponsors Realizados</span></div>
-								<div class="col-md-6 text-right"><a href="{{ route('sponsors.index') }}" class="btn btn-primary">Ver todos los sponsors</a></div>
-							</div>
-						</div>
-					</div>
-					<!-- END RECENT PURCHASES -->
+				<div class="panel-body">
+					<div id="visits-chart" class="ct-chart"></div>
 				</div>
-			
 			</div>
+			<!-- END VISIT CHART -->
+		</div>
 
-
-			<div class="row">
-				<div class="col-md-6">
-					<!-- MULTI CHARTS -->
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">Ventas Posts y Sponsors</h3>
-							<div class="right">
-								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-							</div>
-						</div>
-						<div class="panel-body">
-							<div id="visits-trends-chart" class="ct-chart"></div>
-						</div>
-					</div>
-					<!-- END MULTI CHARTS -->
-				</div>
-				<div class="col-md-6">
-					<!-- VISIT CHART -->
-					<div class="panel">
-						<div class="panel-heading">
-							<h3 class="panel-title">Visitas web</h3>
-							<div class="right">
-								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-							</div>
-						</div>
-						<div class="panel-body">
-							<div id="visits-chart" class="ct-chart"></div>
-						</div>
-					</div>
-					<!-- END VISIT CHART -->
-				</div>
-
-			</div>
+	</div>
 			
 @endsection
 @section('script')

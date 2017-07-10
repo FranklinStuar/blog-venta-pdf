@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/','HomeController@index')->name('home');
+Route::get('/welcome','HomeController@welcome')->name('home');
 Auth::routes();
 
 Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
