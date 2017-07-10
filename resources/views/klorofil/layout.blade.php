@@ -16,8 +16,12 @@
 
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/main.css') }}">
+	
+	@yield('style')
+	
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/demo.css') }}">
+	
 	<!-- GOOGLE FONTS -->
 	{{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"> --}}
 	<!-- ICONS -->
@@ -26,7 +30,6 @@
 
 	<!--ToastMessage-->
 	<link href="{{url('plugins/jquery-toastmessage/css/jquery.toastmessage.css')}}" rel="stylesheet">
-	
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 

@@ -1950,3 +1950,12 @@ div[data-role="editor-toolbar"] {
 .dropdown-menu a {
   cursor: pointer;
 }
+.note-btn{
+  display: inline-block;
+  padding: 2px 15px;
+  margin: 2px 10px;
+}
+.note-btn button{
+  padding: 1px;
+  text-align: center;
+}
