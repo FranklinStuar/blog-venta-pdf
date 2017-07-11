@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => 'smtp.mail.yahoo.com',
+    'host' => 'smtp.gmail.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => 465,
+    'port' => 587,
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'gomecatronica@yahoo.com',
-        'name' => 'Diego Naula de Neurocodigo',
+        'address' => 'franklinpenafiel1991@gmail.com',
+        'name' => 'Franklin de Neurocodigo',
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'gomecatronica@yahoo.com',
+    'username' => 'franklinpenafiel1991@gmail.com',
 
-    'password' => '453649CamiluAnto',
+    'password' => 'stuar123ABC!',
 
     /*
     |--------------------------------------------------------------------------
