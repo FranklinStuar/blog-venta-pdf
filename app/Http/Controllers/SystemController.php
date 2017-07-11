@@ -23,7 +23,12 @@ class SystemController extends Controller
         }
         else{
           return view('klorofil.sistem.index')
-          ->with('roles', Role::rolesList());
+          ->with('roles', Role::rolesList())
+          ->with('password_email',null)
+          ->with('host',null)
+          ->with('drive',null)
+          ->with('port',null)
+          ->with('encryption',null);
         }
     }
 
