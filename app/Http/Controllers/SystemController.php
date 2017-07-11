@@ -11,6 +11,7 @@ class SystemController extends Controller
     
     public function config(){
       $system = \App\System::first();
+      if($system->host){
         return view('klorofil.sistem.index')
           ->with('roles', Role::rolesList())
           ->with('password_email',decrypt($system->password_email))
@@ -19,6 +20,11 @@ class SystemController extends Controller
           ->with('port',decrypt($system->port))
           ->with('encryption',decrypt($system->encryption))
           ;
+        }
+        else{
+          return view('klorofil.sistem.index')
+          ->with('roles', Role::rolesList());
+        }
     }
 
     public function saveConfig(Request $request){
