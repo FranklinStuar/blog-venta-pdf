@@ -76,7 +76,7 @@
 				<div class="form-group{{ $errors->has('password_email') ? ' has-error' : '' }}">
 					<label for="password_email" class="col-md-4 control-label">Contraseña *</label>
 					<div class="col-md-6">
-						{!! Form::text('password_email', (Shinobi::can('post.admin.price.new'))?$password_email:null, ['class'=>'form-control','placeholder'=>'Contraseña del correo, usa encriptación']) !!}
+						{!! Form::text('password_email', (Shinobi::can('system.password'))?$password_email:null, ['class'=>'form-control','placeholder'=>'Contraseña del correo, usa encriptación']) !!}
 
 						@if ($errors->has('password_email'))
 							<span class="help-block">
