@@ -274,7 +274,7 @@
 	        <h4 class="modal-title" id="publicidadModalLabel">Acerca de la publicidad</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->cuentas_premium }}
+					{{ $system->publicidad }}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -292,7 +292,7 @@
 	        <h4 class="modal-title" id="politicasCondicionesModalLabel">Políticas y condiciones</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->cuentas_premium }}
+					{{ $system->politicas_condiciones }}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

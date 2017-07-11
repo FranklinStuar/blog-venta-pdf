@@ -73,6 +73,21 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('terminos_condiciones') ? ' has-error' : '' }}">
+                    <label for="terminos_condiciones" class="col-md-12 control-label">
+                    </label>
+
+                    <div class="col-md-12">
+                        {!! Form::checkbox('terminos_condiciones', 'acept',['class'=>'required']) !!}
+                        Acepto los <a href="#terminos_condiciones" data-toggle="modal" data-target="#politicasCondicionesModal">Terminos y condiciones</a>
+                        @if ($errors->has('terminos_condiciones'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('terminos_condiciones') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-12 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">
@@ -84,4 +99,25 @@
         </div>
     </div>
 </div>
+
+
+
+    <!-- Politicas y condiciones-->
+    <div class="modal fade" id="politicasCondicionesModal" tabindex="-1" role="dialog" aria-labelledby="politicasCondicionesModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="politicasCondicionesModalLabel">Políticas y condiciones</h4>
+          </div>
+          <div class="modal-body">
+                    {{ $system->politicas_condiciones }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 @endsection

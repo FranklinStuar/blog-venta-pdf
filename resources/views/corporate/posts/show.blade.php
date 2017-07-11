@@ -67,7 +67,7 @@
 						  </div>
 						</div>
 					@endforeach
-					<h4>Relice sus pagos en nuestras oficinas en {{ $system->direccion }} - Cuenca - Ecuador</h4>
+					<h4>Relice sus pagos en nuestras oficinas en {{ $system->direccion }} </h4>
 				@endif
 			</center>
 		</div>

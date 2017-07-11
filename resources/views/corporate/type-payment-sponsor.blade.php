@@ -114,7 +114,7 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6">
 					<span>Use nuestras formas de pago por internet o acérquese a las oficinas en 
-						{{ $system->direccion }} - Cuenca - Ecuador 
+						{{ $system->direccion }}
 					</span>
 					
 					<hr class="extra-margins">

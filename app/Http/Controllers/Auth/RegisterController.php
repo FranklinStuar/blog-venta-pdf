@@ -53,6 +53,7 @@ class RegisterController extends Controller
 			'name' => 'required|string|max:255',
 			'email' => 'required|string|email|max:255|unique:users',
 			'password' => 'required|string|min:6|confirmed',
+			'terminos_condiciones' => 'required',
 		]);
 	}
 
@@ -75,7 +76,7 @@ class RegisterController extends Controller
 		
     $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da la su cuenta personal");
 
-    $r= Mail::send('emails.users.register', $data, function ($message) {
+    $r= Mail::send('emails.users.register', $data, function ($message) use($user) {
         $message->from('franklinpenafiel1991@gmail.com', 'Neurocodigo');
         $message->to($user->email)->subject("Bienvenido");
     });
