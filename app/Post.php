@@ -66,5 +66,4 @@ class Post extends Model
     return array_pluck(\App\Post::all(),'title','id');
   }
   
-
 }

@@ -270,22 +270,33 @@ class PostsController extends Controller
 
 	public function paymentPaypal(Request $request,$post_id,$post_price_id){
 		$price = PostOncePrice::find($post_price_id);
-		if($price->type_time == "day")
-			$finish = \Carbon\Carbon::now()->addDays($price->time);
-		elseif($price->type_time == "month")
-			$finish = \Carbon\Carbon::now()->addMonths($price->time);
-		elseif($price->type_time == "year")
-			$finish = \Carbon\Carbon::now()->addYears($price->time);
+		$paypal = new \App\PayPalOnlyPost($price);
+		$payment = $paypal->generate();
+		return redirect($payment->getApprovalLink());
+		
+	}
+
+	public function paypalPaymentComplete(Request $request){
+		$oncePrice = PostOncePrice::find($request->popId);
+		$paypal = new \App\PayPalOnlyPost($oncePrice);
+		$paypal->execute($request->paymentId,$request->PayerID);
+
+		if($oncePrice->type_time == "day")
+			$finish = \Carbon\Carbon::now()->addDays($oncePrice->time);
+		elseif($oncePrice->type_time == "month")
+			$finish = \Carbon\Carbon::now()->addMonths($oncePrice->time);
+		elseif($oncePrice->type_time == "year")
+			$finish = \Carbon\Carbon::now()->addYears($oncePrice->time);
 
 		\App\PostOncePay::create([
 			'user_id' => \Auth::user()->id,
-			'post_id' => $post_id,
+			'post_id' => $request->pId,
 			'finish' => $finish,
-			'price' => $price->price,
-			'post_once_price_id' => $price->id,
+			'price' => $oncePrice->price,
+			'post_once_price_id' => $oncePrice->id,
 		]);
 		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
-		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+		return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
 	}
 
 	public function paymentCard($post_id,$post_price_id){
@@ -293,6 +304,7 @@ class PostsController extends Controller
 			->with('post',Post::find($post_id))
 			->with('price',PostOncePrice::find($post_price_id));
 	}
+
 	public function makePaymentCard(Request $request){
 		// 4770 4410 1188 2871
 		$date = $request->input('expiry-month') .'/20'. $request->input('expiry-year');

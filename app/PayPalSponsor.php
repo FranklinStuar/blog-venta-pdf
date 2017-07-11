@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Paypal extends Model
+class PayPalSponsor extends Model
 {
     //
 }

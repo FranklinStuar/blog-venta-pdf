@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::get('{post_id}/pago/{pago_id}','PostsController@payments')->name('post.payments');
 	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@paymentPaypal')->name('post.payment-paypal');
+	Route::get('post/paypal/payment-complete','PostsController@paypalPaymentComplete')->name('post.paypal-payment-complete');
 	Route::get('{post_id}/pago/{pago_id}/card','PostsController@paymentCard')->name('post.payment-card');
 	Route::post('payment/paypal','PostsController@makePaymentPaypal')->name('post.make-payment-card');
 	Route::post('payment/card','PostsController@makePaymentCard')->name('post.make-payment-card');

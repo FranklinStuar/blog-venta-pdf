@@ -14,7 +14,7 @@ class PostOncePrice extends Model
 	];
 
 	public function post(){
-		return $this->belongsTO('\App\Post','post_id');
+		return $this->belongsTo('\App\Post','post_id');
 	}
 	public static function allPluck(){
 		$list = \DB::table('post_once_prices')
@@ -37,5 +37,14 @@ class PostOncePrice extends Model
 			elseif($this->type_time == 'year') $time_view .= " Años";
 		return $time_view;
 	}
+
+  public function paypalItem(){
+    return \PaypalPayment::item()
+    	->setName('Pago por '.$this->timeView())
+    	->setDescription($this->post->title)
+    	->setCurrency('USD')
+    	->setQuantity(1)
+    	->setPrice($this->price);
+  }
 
 }

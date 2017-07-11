@@ -31,7 +31,8 @@ class HomeController extends Controller
      */
     public function admin()
     {
-
+        
+        
         // $table,$column,$status,$type_date,$date
         // dd(Carbon::now()->format('Y-m-').'1');
         $paysToday = \App\System::totalDay(

@@ -48,7 +48,7 @@
 							<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
 						</a>
 					@endforeach
-				</center>
+				
 				@else
 					@if(count($post->oncePrices))
 						<h3>Accesa a los archivos para tener una mejor experiencia en su aprendizaje</h3>
@@ -63,12 +63,26 @@
 						  	$ {{$price->price}}
 						  </div>
 						  <div class="list-group-item item-link">
-					  		{{-- <a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a> --}}
+					  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
 						  </div>
 						</div>
 					@endforeach
 					<h4>Relice sus pagos en nuestras oficinas en {{ $system->direccion }} </h4>
 				@endif
+				
+					@foreach($post->oncePrices as $price)
+						<div class="list-group list-prices">
+						  <div class="list-group-item item-time">
+						  	Plan de {{$price->timeView()}}
+					  	</div>
+						  <div class="list-group-item item-price">
+						  	$ {{$price->price}}
+						  </div>
+						  <div class="list-group-item item-link">
+					  		<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="btn btn-info">Obtener</a>
+						  </div>
+						</div>
+					@endforeach
 			</center>
 		</div>
 	</div>
