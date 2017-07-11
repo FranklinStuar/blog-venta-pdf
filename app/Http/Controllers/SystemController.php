@@ -33,7 +33,6 @@ class SystemController extends Controller
     }
 
     public function saveConfig(Request $request){
-      if (\Shinobi::can('system.edit')) {
         $this->validate($request, [
           'facebook'              => '|max:90',
           'instagram'             => '|max:90',
@@ -63,8 +62,6 @@ class SystemController extends Controller
         ]);
         $request->session()->flash('success', 'Configuración del sistema guardaddo correctamente');
         return redirect()->back();
-      }
-      abort(404);
     }
 
     public function historial(){

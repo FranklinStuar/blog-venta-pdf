@@ -39,6 +39,8 @@
 			
 			<!--Second row-->
 			<div class="row">
+		
+
 				@foreach($posts as $post)
 					<!-- Columnn-->
 					<div class="col-lg-4">
