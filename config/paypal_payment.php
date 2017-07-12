@@ -18,7 +18,8 @@ return array(
 	'Service' => array(
 		# For integrating with the live endpoint,
 		# change the URL to https://api.paypal.com!
-		'EndPoint' => 'https://api.sandbox.paypal.com',
+		// 'EndPoint' => 'https://api.paypal.com',
+		'EndPoint' => env('PAYPAL_END_POINT','https://api.sandbox.paypal.com')
 	),
 
 
@@ -30,7 +31,7 @@ return array(
 		# relative to the .php file that is the entry point
 		# for this request. You can also provide an absolute
 		# path here
-		'FileName' => '../PayPal.log',
+		// 'FileName' => '../PayPal.log',
 
 		# Logging level can be one of FINE, INFO, WARN or ERROR
 		# Logging is most verbose in the 'FINE' level and
@@ -39,5 +40,5 @@ return array(
 	),
 
 	# Define your application mode here
-	'mode' => 'sandbox'
+	'mode' => env('PAYPAL_MODE','sandbox')
 );

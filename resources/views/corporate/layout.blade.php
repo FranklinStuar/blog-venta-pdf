@@ -121,57 +121,59 @@
 
 		<!--Footer Links-->
 		<div class="container-fluid">
-			<div class="row">
-
-				<!--First column-->
-				<div class="col-md-3 offset-lg-1 hidden-lg-down">
-					
-				</div>
-				<!--/.First column-->
-
-				<hr class="hidden-md-up">
-
-				<!--Second column-->
-				<div class="col-lg-2 col-md-4 offset-lg-1">
-					<h5 class="title">Contactos</h5>
-					<ul>
-						<li><a href="http://www.facebook.com/{{ $system->facebook }}">Facebook</a></li>
-						<li><a href="http://www.instagram.com/{{ $system->instagram }}">Instagram</a></li>
-						<li><a href="http://www.youtube.com/{{ $system->youtube }}">Youtube</a></li>
-						<li><a href="#contactanos"  data-toggle="modal" data-target="#contactanosModal">Contáctanos</a></li>
-					</ul>
-				</div>
-				<!--/.Second column-->
-
-				<hr class="hidden-md-up">
-
-				<!--Third column-->
-				<div class="col-lg-2 col-md-4">
-					<h5 class="title">Acerca de</h5>
+		<style>
+			.group-social{
+				display: block;
+				margin: auto;
+				width: 80%;
+			}
+			.btn-social{
+				border-radius: 50%;
+				border: 1px solid #0d47a1;
+				padding: 0.5em;
+				margin: 0.8em;
+				font-size: 1.5em;
+				color: #fafafa;
+			}
+			.btn-social-facebook{
+				background: #1565c0;
+			}
+			.btn-social-instagram{
+				background: #f44336;
+			}
+			.btn-social-youtube{
+				background: #b71c1c;
+			}
+			.info-system{
+				display: block;
+				padding: 1.2em 0;
+			}
+			.info-system ul li{
+				display: inline-block;
+				margin: 0.1em 0.4em;
+			}
+			.info-system ul li a:hover{
+				text-decoration: underline;
+			}
+		</style>
+			<div class="group-social">
+				<center>
+					<a href="http://www.facebook.com/{{ $system->facebook }}" class="btn-social btn-social-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+					<a href="http://www.instagram.com/{{ $system->instagram }}" class="btn-social btn-social-instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+					<a href="http://www.youtube.com/{{ $system->youtube }}" class="btn-social btn-social-youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+				</center>
+			</div>
+			<div class="info-system">
+				<center>
 					<ul>
 						<li><a href="#quienes-somos" data-toggle="modal" data-target="#quienesSomosModal">Quienes somos</a></li>
 						<li><a href="#acerca-cuentas-premium" data-toggle="modal" data-target="#CuentasPremiumModal">Cuentas Premium</a></li>
 						<li><a href="#acerca-publicidad" data-toggle="modal" data-target="#publicidadModal">Publicidad</a></li>
 						<li><a href="#politicas-condiciones" data-toggle="modal" data-target="#politicasCondicionesModal">Politicas y condiciones</a></li>
 					</ul>
-				</div>
-				<!--/.Third column-->
-
-				{{-- <hr class="hidden-md-up">
-
-				<!--Fourth column-->
-				<div class="col-lg-2 col-md-4">
-					<h5 class="title">Third column</h5>
-					<ul>
-						<li><a href="#!">Link 1</a></li>
-						<li><a href="#!">Link 2</a></li>
-						<li><a href="#!">Link 3</a></li>
-						<li><a href="#!">Link 4</a></li>
-					</ul>
-				</div>
-				<!--/.Fourth column-->
- --}}
+				</center>
 			</div>
+			
 		</div>
 		<!--/.Footer Links-->
 
