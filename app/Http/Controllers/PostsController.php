@@ -279,24 +279,36 @@ class PostsController extends Controller
 	public function paypalPaymentComplete(Request $request){
 		$oncePrice = PostOncePrice::find($request->popId);
 		$paypal = new \App\PayPalOnlyPost($oncePrice);
-		$paypal->execute($request->paymentId,$request->PayerID);
+		$response = $paypal->execute($request->paymentId,$request->PayerID);
 
-		if($oncePrice->type_time == "day")
-			$finish = \Carbon\Carbon::now()->addDays($oncePrice->time);
-		elseif($oncePrice->type_time == "month")
-			$finish = \Carbon\Carbon::now()->addMonths($oncePrice->time);
-		elseif($oncePrice->type_time == "year")
-			$finish = \Carbon\Carbon::now()->addYears($oncePrice->time);
+		if($response->state == 'approved'){
+			$orderData = $response->payer->payer_info->shipping_address->toArray();
+			$orderData['email'] = $response->payer->payer_info->email;
+			$orderData['total'] = $oncePrice->price;
+			$orderData['user_id'] = \Auth::user()->id;
+			$payment_paypal = \App\PaymentPaypal::create($orderData);
 
-		\App\PostOncePay::create([
-			'user_id' => \Auth::user()->id,
-			'post_id' => $request->pId,
-			'finish' => $finish,
-			'price' => $oncePrice->price,
-			'post_once_price_id' => $oncePrice->id,
-		]);
-		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
-		return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
+			if($oncePrice->type_time == "day")
+				$finish = \Carbon\Carbon::now()->addDays($oncePrice->time);
+			elseif($oncePrice->type_time == "month")
+				$finish = \Carbon\Carbon::now()->addMonths($oncePrice->time);
+			elseif($oncePrice->type_time == "year")
+				$finish = \Carbon\Carbon::now()->addYears($oncePrice->time);
+
+			\App\PostOncePay::create([
+				'user_id' 				=> \Auth::user()->id,
+				'post_id' 				=> $request->pId,
+				'finish' 				=> $finish,
+				'price' 				=> $oncePrice->price,
+				'payment_paypal_id'		=> $payment_paypal->id,
+				'post_once_price_id' 	=> $oncePrice->id,
+			]);
+			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
+		}else{
+			$request->session()->flash('success', 'Pago rechazado, POr favor revise que tenga el monto necesario para realizar el pago');
+			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
+		}
 	}
 
 	public function paymentCard($post_id,$post_price_id){
