@@ -50,7 +50,7 @@
 							<!--Card image-->
 							<div class="view overlay hm-white-slight">
 								<img src="{{ url('/storage/'.$post->image) }}" class="img-fluid" alt="{{ $post->title }}">
-								<a href="#">
+								<a href="{{ route('show-post',['PN'=> $post->slug]) }}">
 									<div class="mask"></div>
 								</a>
 							</div>

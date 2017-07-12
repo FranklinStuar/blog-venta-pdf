@@ -93,9 +93,42 @@ main > .container{
 .text-right{
   text-align: right;
 }
+.title-post{
+	padding-top: 1em;
+	text-align: center;
+	border-bottom: 1px solid #bdbdbd;
+	background: #4fc3f7
+}
+
+.title-post h1{
+	margin-top: 1.2em;
+	margin-bottom: 1em;
+	font-weight: bolder;
+	font-size: 1.8em;
+}
+
+.title-post ul{
+	margin: 0;
+	display: block;
+	width: 100%;
+	background: rgba(42,42,42,.7);
+	padding-bottom: 1.2em;
+	color: #fafafa;
+}
+
+.title-post ul li{
+	display: inline-block;
+	padding: 0.5em 1.3em;
+}
+.title-post ul li a{
+	color: #fafafa;
+}
+
+.title-post ul li a:hover{
+	text-decoration: underline;
+}
 
 .img-show-post{
-	height: 15em;
 	max-width: 100%;
 	overflow: hidden;
 	padding-bottom: 2em;
@@ -107,22 +140,61 @@ main > .container{
 
 .container-img-pdf{
 	padding-top: 2.5em;
-	border-top: 1px solid #bdbdbd;
 	display: block;
 	max-width: 80%;
 	margin: 2.5em auto;
 }
+.container-img-pdf h3{
+	font-size: 1em
+}
 
+.container-img-pdf .time-premium{
+	color: #616161;
+}
+.link-pdf-show{
+ 	font-size: 0.8em;
+	border-bottom: 1px solid #bdbdbd;
+	display: block;
+}
 .img-pdf-show{
  	max-with:10%; 
- 	max-height: 6em; 
+ 	max-height: 4em; 
  	display: inline-block; 
  	cursor: pointer;
 }
+.title-other-post{
+	text-align: center;
+	font-weight: bolder;
+	margin-bottom: 1em;
+}
+.other-posts{
+	display: block;
+	/*border:1px solid #bdbdbd;*/
+	margin-bottom: 1em;
+}
+.other-posts .img, .other-posts .post-content{
+	display: inline-block;
+	width: 30%;
+}
+.other-posts .img {
+	overflow: hidden;
+}
+.other-posts .img img{
+	min-width: 100%;
+	min-height: 100%;
+}
 
+.other-posts .post-content{
+	width: 65%;
+	margin:0;
+	padding: 0;
+	font-size: 0.9em;
+	text-align:left;
+	position: relative;
+}
 
 .list-prices{
-	width: 23%;
+	width: 80%;
 	display: inline-block;
 	margin: 0 0.4em;
 }
@@ -159,4 +231,39 @@ main > .container{
     color: #f44336;
     font-size: 0.8em;
     margin-bottom: 0.8em;
+}
+.group-social{
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+.btn-social{
+	border-radius: 10%;
+	padding: 0.5em;
+	margin: 0.8em;
+	font-size: 1.5em;
+	color: #fafafa;
+}
+.btn-social-facebook{
+	border: 1px solid #0d47a1;
+	background: #1565c0;
+}
+.btn-social-instagram{
+	border: 1px solid #b71c1c;
+	background: #f44336;
+}
+.btn-social-youtube{
+	border: 1px solid #c62828;
+	background: #b71c1c;
+}
+.info-system{
+	display: block;
+	padding: 1.2em 0;
+}
+.info-system ul li{
+	display: inline-block;
+	margin: 0.1em 0.4em;
+}
+.info-system ul li a:hover{
+	text-decoration: underline;
 }

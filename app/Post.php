@@ -66,4 +66,7 @@ class Post extends Model
     return array_pluck(\App\Post::all(),'title','id');
   }
   
+  public function otherPosts(){
+    return Post::limit(5)->get();
+  }
 }
