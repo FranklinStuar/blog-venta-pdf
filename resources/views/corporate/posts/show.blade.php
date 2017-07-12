@@ -9,10 +9,15 @@
 <meta name="languaje" content="es">
 <meta name="revisit-after" content="30">
 <meta name="title" content="{{ $post->seo_title }}">
+
 @endsection
 
 @section('title')
 	{{ $post->title }}
+@endsection
+
+@section('google-script')
+	{!! $system->tag_script !!}
 @endsection
 
 @section('container')
@@ -38,7 +43,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8">
-				
+				{!! $system->tag_body !!}
 				<?php
 					echo $post->body;
 				?>

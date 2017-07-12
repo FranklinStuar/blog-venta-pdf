@@ -4,6 +4,9 @@
 	{{ $name }} | Neurocodigo
 @endsection
 
+@section('google-script')
+	{!! $system->tag_script !!}
+@endsection
 
 @section('container')
 	<main>
@@ -15,6 +18,8 @@
 			<hr class="extra-margins">
 
 			@include('corporate.sponsors.print')
+
+			{!! $system->tag_body !!}
 
 			<div class="row">
 				@foreach($posts as $post)

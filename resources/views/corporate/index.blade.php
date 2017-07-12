@@ -5,6 +5,10 @@
 @endsection
 
 
+@section('google-script')
+	{!! $system->tag_script !!}
+@endsection
+
 @section('container')
 	<main>
 		<!--Main layout-->
@@ -36,6 +40,7 @@
 			@endif
 
 			@include('corporate.sponsors.print')
+			{!! $system->tag_body !!}
 			
 			<!--Second row-->
 			<div class="row">

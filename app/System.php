@@ -9,7 +9,7 @@ class System extends Model
   public $timestamps = false;
 
   protected $fillable = [
-  	'facebook','instagram','youtube','email','direccion','telefono','celular','quienes_somos','cuentas_premium','publicidad','politicas_condiciones', 'role_id','password_email','host','drive','port','encryption',
+  	'facebook','instagram','youtube','email','direccion','telefono','celular','quienes_somos','cuentas_premium','publicidad','politicas_condiciones', 'role_id','password_email','host','drive','port','encryption','tag_script','tag_body',
   ];
 
 

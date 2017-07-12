@@ -63,6 +63,12 @@ class SystemController extends Controller
         $request->session()->flash('success', 'Configuración del sistema guardaddo correctamente');
         return redirect()->back();
     }
+    public function saveGoogleConfig(Request $request){
+        \App\System::first()->update($request->all());
+
+        $request->session()->flash('success', 'Configuración de los tags de google han sido guardaddos correctamente');
+        return redirect()->back();
+    }
 
     public function historial(){
       if (\Shinobi::can('system.history')) {

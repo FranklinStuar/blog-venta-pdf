@@ -56,6 +56,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 
 	Route::get('/config', 'SystemController@config')->name('config');
 	Route::post('/config', 'SystemController@saveConfig')->name('config.save');
+	Route::post('/config-google', 'SystemController@saveGoogleConfig')->name('config-google.save');
 	Route::get('/historial', 'SystemController@historial')->name('historial');
 });
 
