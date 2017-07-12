@@ -119,7 +119,7 @@
 					
 					<hr class="extra-margins">
 
-					<a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="type-payment">
+					<a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id,'sp'=>$sponsor->id]) }}" class="type-payment">
 						<i class="fa fa-paypal" aria-hidden="true"></i> 
 						<span>Paypal</span>
 					</a>

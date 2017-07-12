@@ -76,12 +76,71 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<center><h3>Estado de cuenta</h3></center>
-					<p>
-						Actualmente no tiene cuenta para disfrutar todos los beneficios que se le ofrece la página de Neurocodigo
-					</p>
-					<p>
-						Obtenga su cuenta y disfrute todos los beneficios que le ofrecemos en Neurocodigo
-					</p>
+					@if(count(Auth::user()->postOncePays->where('status','active')) > 0)
+						<div class="table-response">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Publicación</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								@foreach(Auth::user()->postOncePays->where('status','active') as $once_pay)
+									<tr>
+										<td> 
+											<a href="" data-toggle="modal" data-target="#myModal{{$once_pay->post->id}}">
+												{{ $once_pay->post->title }}
+											</a>
+											<div class="modal fade" id="myModal{{$once_pay->post->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											  <div class="modal-dialog modal-lg" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											        <h4 class="modal-title" id="myModalLabel">Detalles de la compra</h4>
+											      </div>
+											      <div class="modal-body">
+											        <table class="table">
+											        	<thead>
+											        		<tr>
+											        			<th>Publicación</th>
+											        			<th>Realizado</th>
+											        			<th>Finaliza</th>
+											        		</tr>
+											        	</thead>
+											        	<tbody>
+											        		<tr>
+											        			<td>{{ $once_pay->post->title }}</td>
+											        			<td>{{ $once_pay->created_at }}</td>
+											        			<td>{{ $once_pay->finish }}</td>
+											        		</tr>
+											        	</tbody>
+											        </table>
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+											        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+											      </div>
+											    </div>
+											  </div>
+											</div>
+										</td>
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
+						</div>
+					@else
+						<p>
+							Actualmente no tiene archivos o documentos comprados
+						</p>
+						<p>
+							Realice la compra de documentos o archivos a su elección y disfrute todos los beneficios que le ofrecemos en Neurocodigo
+						</p>
+					@endif
+					<small>
+						El estado de la cuenta le indica si ha comprado el acceso a los documentos o archivos de las publicaciones. Los pagos son únicos y no se vuelven a cobrar como una suscripción. Si la fecha de compra ha expirado tendrá que comprar nuevamente.
+					</small>
 				</div>
 
 				<div class="col-sm-6">

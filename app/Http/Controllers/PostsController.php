@@ -303,6 +303,13 @@ class PostsController extends Controller
 				'payment_paypal_id'		=> $payment_paypal->id,
 				'post_once_price_id' 	=> $oncePrice->id,
 			]);
+
+		    $data = array('post_name' => $oncePrice->post->title);
+		    $system = \App\System::first();
+			\Mail::send('emails.payments.post', $data, function ($message) use($system) {
+		        $message->from($system->email, 'Neurocodigo');
+		        $message->to(\Auth::user()->email)->subject('Pago realizado en Neurocodigo');
+		    });
 			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
 			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
 		}else{

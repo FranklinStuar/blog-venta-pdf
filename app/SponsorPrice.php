@@ -17,4 +17,13 @@ class SponsorPrice extends Model
   public function details(){
   	return $this->hasMany('\App\SponsorPriceDetail','sponsor_price_id');
   }
+
+  public function paypalItem(){
+    return \PaypalPayment::item()
+    	->setName('Pago por publicidad. '.$this->price_month.' Meses')
+    	->setDescription('Publicidad de '.$this->price_month.' Meses. '.$this->prints .' impresiones')
+    	->setCurrency('USD')
+    	->setQuantity(1)
+    	->setPrice($this->price_month);
+  }
 }

@@ -76,7 +76,7 @@ class RegisterController extends Controller
 		
     $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da la su cuenta personal");
 
-    $r= Mail::send('emails.users.register', $data, function ($message) use($user) {
+    Mail::send('emails.users.register', $data, function ($message) use($user) {
         $message->from('franklinpenafiel1991@gmail.com', 'Neurocodigo');
         $message->to($user->email)->subject("Bienvenido");
     });

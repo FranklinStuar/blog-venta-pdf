@@ -38,13 +38,13 @@ class PostOncePrice extends Model
 		return $time_view;
 	}
 
-  public function paypalItem(){
-    return \PaypalPayment::item()
-    	->setName('Pago por '.$this->timeView())
-    	->setDescription($this->post->title)
-    	->setCurrency('USD')
-    	->setQuantity(1)
-    	->setPrice($this->price);
-  }
+	public function paypalItem(){
+		return \PaypalPayment::item()
+			->setName('Pago por '.$this->timeView())
+			->setDescription($this->post->title)
+			->setCurrency('USD')
+			->setQuantity(1)
+			->setPrice($this->price);
+	}
 
 }
