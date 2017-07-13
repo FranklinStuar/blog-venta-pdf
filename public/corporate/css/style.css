@@ -41,6 +41,57 @@ main > .container{
 #edit-user .form-control{
 	padding-left: 15px;
 }
+#edit-user .input-group{
+	margin: 1em;
+}
+
+.profile-information{
+	background: #fff;
+}
+.white{
+	background: #fff;
+}
+.panel-information{
+	background: #fff;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.panel-information .panel-heading, .panel-information .panel-body{
+	padding: 2em
+}
+.panel-information .panel-heading{
+	border-bottom: 1px solid #bdbdbd;
+	font-size: 1.2em;
+	padding-top: 1em; 
+	padding-bottom: 1em;
+	text-align: center;
+}
+
+.panel-information .panel-heading span, .panel-information .panel-heading a{
+	display: inline-block;
+}
+.panel-information .panel-heading a{
+	float: right;
+}
+.panel-information .panel-body ul{
+	border-bottom: 1px solid #bdbdbd;
+	padding-top: 1em; 
+	padding-bottom: 1em;
+}
+.panel-information .panel-body ul li{
+	list-style-type: disc;
+}
+.panel-information .panel-body ul a{
+	color: #3f51b5;
+}
+.sponsor-list{
+	display: block;
+	padding: 0.5em 0;
+}
+.sponsor-list .badge{
+	float: right;
+}
+
 .type-payment{
 	text-align: center;
 	font-size: 2.1em;
@@ -58,9 +109,12 @@ main > .container{
   margin-bottom: 300px;
 }
 .image-profile{
-	max-width: 200px; 
+	max-width: 10em; 
 	border-radius: 50%;
+	float: right;
 }
+
+
 
 .title-detail{
 	display: block;
@@ -278,4 +332,81 @@ main > .container{
 }
 .info-system ul li a:hover{
 	text-decoration: underline;
+}
+body{
+	background: #f5f5f5;
+}
+.main-post{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.main-post .container{
+	margin-top: 2em;
+}
+.main-post .concept{
+	background: #fff;
+}
+.list-post .card{
+	color: #2e2e2e;
+	display: block;
+	margin-bottom: 2em;
+}
+.list-post .card .img, .list-post .card .content-post{
+	width: 30%;
+	display: inline-block;
+}
+.list-post .card .content-post{
+	position: absolute;
+	width: 65%;
+	padding-left: 0.7em;
+	padding-top: 0.5em;
+	padding-right: 0.7em;
+}
+.list-post .card .img{
+	min-height: 100%;
+}
+.list-post .card h2{
+	font-size: 1.2em;
+	font-weight: bolder;
+	top: 0;
+}
+.list-post .card p{
+	font-size: 0.9em;
+	top: 0;
+}
+.list-post .card .mask{
+	cursor: pointer;
+	height: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.list-post .card ul{
+	display: block;
+	position: relative;
+}
+.list-post .card ul .li-author{
+	float: left;
+}
+.list-post .card ul .li-date{
+	float: right;
+}
+.sponsor-show{
+	color: #2e2e2e;
+	display: block;
+	padding: 0.4em 0.2em;
+	background: #fff;
+	text-align: center;
+	max-width: 95%;
+}
+.sponsor-show img{
+	max-width: 100%;
+}
+.sponsor-show .title-sponsor{
+	font-weight: bolder;
+	font-size: 1em;
+	display: block;
+}
+.sponsor-show .description-sponsor{
+	font-size: 0.9em;
 }

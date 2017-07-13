@@ -17,7 +17,7 @@
 
 
 			<div class="row">
-				<div class="col-md-5">
+				<div class="col-md-5 white">
 					
 					<div class="title-detail">
 						<span class="title">Descripción</span>
@@ -85,11 +85,12 @@
 						</center>
 					</div>
 				</div>
-				<div class="col-md-7 text-center" >
+				<div class="col-md-7 text-center white" >
 					<h3>Historial de pagos</h3>
 					<hr class="extra-margins">
 					@if(Shinobi::can('sponsor.pay.list'))
 						@if($sponsor->pays->count() > 0)
+						<div class="table-responsive">
 							<table class="table table-compact">
 								<thead>
 									<tr>
@@ -124,6 +125,7 @@
 									@endforeach
 								</tbody>
 							</table>
+						</div>
 						@endif
 					@else
 							<p>No tiene acceso a visualizar su propia publicidad.</p>

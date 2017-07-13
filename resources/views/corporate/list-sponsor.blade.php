@@ -9,7 +9,9 @@
 	<main>
 		<!--Main layout-->
 		<div class="container">
-
+<style>
+	
+</style>
 			<center><h1>Lista de precios para publicidad</h1></center>
 
 			<br><br>
@@ -17,7 +19,7 @@
 			<div class="row">
 				@foreach($premiums as $premium)
 					<div class="col-sm-3">
-						<div class="panel panel-default">
+						<div class="panel panel-sponsor white">
 							<div class="panel-header">
 								<center>
 								  	@if($premium->featured)

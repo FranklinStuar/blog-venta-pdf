@@ -20,7 +20,6 @@
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
 	
 	@yield('style')
-
 </head>
 
 <body>

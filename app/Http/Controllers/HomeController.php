@@ -31,10 +31,6 @@ class HomeController extends Controller
      */
     public function admin()
     {
-        
-        
-        // $table,$column,$status,$type_date,$date
-        // dd(Carbon::now()->format('Y-m-').'1');
         $paysToday = \App\System::totalDay(
                 'sponsor_pays',
                 'price_month',
@@ -101,7 +97,6 @@ class HomeController extends Controller
             $featured = $posts[0];
         return view('welcome')
             ->with('posts',$posts)
-            ->with('featured',$featured )
         ;
     }
     public function showPost($post_name){

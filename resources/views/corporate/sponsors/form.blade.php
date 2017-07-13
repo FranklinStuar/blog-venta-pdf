@@ -2,7 +2,7 @@
 {!! Form::open(['url' => $url,'method' => $method]) !!}
 
   <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-	  {!! Form::text('name', $sponsor->name, ['class'=>'form-control', 'placeholder'=>"Titulo para la publicidad",'required']) !!}
+	  {!! Form::text('name', $sponsor->name, ['class'=>'form-control', 'placeholder'=>"Titulo para la publicidad",'required','autofocus']) !!}
   </div>
 	
   <div class="form-group{{ $errors->has('excerpt') ? ' has-error' : '' }}">
