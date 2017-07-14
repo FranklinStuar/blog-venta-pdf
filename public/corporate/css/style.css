@@ -151,7 +151,7 @@ main > .container{
 	padding-top: 1em;
 	text-align: center;
 	border-bottom: 1px solid #bdbdbd;
-	background: #4fc3f7 url('../img/background-post.jpg');
+	background: #000 url('../img/background-post.jpg');
   	background-repeat: no-repeat;
   	background-size: 100%;
 	background-position: top;
@@ -205,10 +205,8 @@ main > .container{
 	
 }
 .container-img-pdf{
-	padding-top: 2.5em;
 	display: block;
-	max-width: 80%;
-	margin: 2.5em auto;
+	max-width: 95%;
 }
 .container-img-pdf h3{
 	font-size: 1em
@@ -219,14 +217,19 @@ main > .container{
 }
 .link-pdf-show{
  	font-size: 0.8em;
-	border-bottom: 1px solid #bdbdbd;
 	display: block;
+	color: #040404;
+	/*font-weight: bolder;*/
+}
+.link-pdf-show .img-pdf-show, .link-pdf-show span{
+	display: inline-block;
+	width: 20%;
+}
+.link-pdf-show span{
+	width: 75%;
 }
 .img-pdf-show{
- 	max-with:10%; 
  	max-height: 4em; 
- 	display: inline-block; 
- 	cursor: pointer;
 }
 .title-other-post{
 	text-align: center;
@@ -391,11 +394,90 @@ body{
 .list-post .card ul .li-date{
 	float: right;
 }
+.panel-post-column{
+	background-color: #fff;
+	border: 1px solid #bdbdbd;
+	padding: 1em 0.5em;
+	margin-bottom: 1.3em;
+}
+.panel-post-column .panel-heading{
+	padding: 0 0.3em 0.5em 0.3em;
+	margin-bottom: 0.5em;
+	border-bottom: 1px solid #bdbdbd;
+	font-weight: bolder;
+}
+.group-list-sponsors{
+	width: 90%;
+	margin: 1em auto;
+	display: block;
+}
+.panel-sponsor{
+	max-width: 30%;
+	margin: auto;
+	background: inherit;
+	display: inline-block;
+	/*position: relative;*/
+}
+.panel-sponsor  > .panel{
+	display: block;
+	margin:  0.4em;
+	background-color: #fff;
+	border: 1px solid #bdbdbd;
+	margin-bottom: 1.3em;
+	border-radius: 4%;
+	overflow: hidden;
+}
+.panel-sponsor  > .panel .panel-header, .panel-sponsor  > .panel .panel-body{
+	padding: 1em 0.5em;
+	margin-bottom: 0.5em;
+}
+.panel-sponsor  > .panel .panel-header{
+	text-align: center;
+	/*padding: 0 0.3em 0.5em 0.3em;*/
+	border-bottom: 1px solid #bdbdbd;
+	font-weight: bolder;
+	background: #00897b;
+	color: #f5f5f5;
+}
+.panel-sponsor  > .panel .title-sponsor{
+	display: block;
+	font-weight: bolder;
+	font-size: 1em
+}
+.panel-sponsor-active  > .panel .panel-header{
+	background: #0277bd;
+	color: #f5f5f5;
+}
+.panel-sponsor-active  > .panel .title-sponsor{
+	display: block;
+	font-weight: bolder;
+	font-size: 1.4em;
+	color: #000;
+}
+.panel-sponsor  > .panel .panel-body ul{
+	padding-left: 1em;
+}
+.panel-sponsor  > .panel .panel-body ul li{
+	list-style-type: disc;
+}
+.panel-sponsor  > .panel .panel-body .btn{
+	border-radius: 5%
+}
+.panel-sponsor  > .panel .panel-body .btn{
+	border-radius: 5%;
+	background: #03a9f4;
+}
+.panel-sponsor  > .panel .panel-body .btn:hover{
+	text-decoration: underline;
+}
+.panel-sponsor-active  > .panel .panel-body .btn{
+	background: #26a69a;
+}
+
 .sponsor-show{
 	color: #2e2e2e;
 	display: block;
 	padding: 0.4em 0.2em;
-	background: #fff;
 	text-align: center;
 	max-width: 95%;
 }
@@ -407,6 +489,87 @@ body{
 	font-size: 1em;
 	display: block;
 }
+.sponsor-show:hover .title-sponsor{
+	text-decoration: underline;
+	color: #1565c0;
+}
 .sponsor-show .description-sponsor{
 	font-size: 0.9em;
+}
+#sponsorModal, #sponsorModal .modal-dialog , #sponsorModal .modal-body{
+	background: inherit;
+}
+.modal-sponsor{
+	display: block;
+	padding: 0;
+}
+
+.modal-sponsor .img-sponsor, 
+.modal-sponsor .btn-social-sponsor-group{
+	display: block;
+}
+
+.modal-sponsor .img-sponsor{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.modal-sponsor .btn-social-sponsor-group{
+	position: absolute;
+	top: -0.55em;
+	right: 0;
+	font-size: 1.5em;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-social-sponsor{
+	text-transform: none;
+	display: inline-block;
+	border-radius: 50%;
+	color: #fafafa;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-facebook{
+	padding: 0.33em 0.8em;
+	background: #0277bd;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-instagram{
+	padding: 0.33em 0.71em;
+	background: #f44336;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-youtube{
+	padding: 0.33em 0.7em;
+	background: #b71c1c;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-twitter{
+	padding: 0.33em 0.65em;
+	background: #1976d2;
+}
+
+.modal-sponsor .btn-social-sponsor-group .btn-web{
+	padding: 0.33em 0.75em;
+	background: #4caf50;
+}
+.modal-sponsor .title-sponsor{
+	position: absolute;
+	bottom: 0;
+	background: rgba(42,42,42,0.3);
+	color: #fafafa;
+	display: block;
+	width: 100%;
+	padding: 0 1em;
+}
+.modal-sponsor .title-sponsor .name{
+	font-size: 1em;
+	display: block;
+	font-weight: bolder;
+}
+.modal-sponsor .title-sponsor .info{
+	font-size: 0.8em;
+	display: block;
+}
+.modal-sponsor .title-sponsor .space-sponsor{
+	padding-left: 2em
 }

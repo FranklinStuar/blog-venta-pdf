@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-	@yield('google-script')
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -19,7 +18,8 @@
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
 	
-	@yield('style')
+	{{-- @yield('style') --}}
+	{{-- @yield('google-script') --}}
 </head>
 
 <body>

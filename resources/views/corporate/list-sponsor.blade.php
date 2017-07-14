@@ -9,52 +9,37 @@
 	<main>
 		<!--Main layout-->
 		<div class="container">
-<style>
-	
-</style>
 			<center><h1>Lista de precios para publicidad</h1></center>
 
 			<br><br>
 
-			<div class="row">
+			<div class="group-list-sponsors">
+			<div class="group-list-sponsors">
 				@foreach($premiums as $premium)
-					<div class="col-sm-3">
-						<div class="panel panel-sponsor white">
+					<div class="panel-sponsor @if($premium->featured) panel-sponsor-active @endif ">
+						<div class="panel ">
 							<div class="panel-header">
-								<center>
-								  	@if($premium->featured)
-								  		<h3><b>$ {{ $premium->price_month }} USD</b></h3>
-							  		@else
-								  		<h4>$ {{ $premium->price_month }} USD</h4>
-							  		@endif
-							  	<small>
+								<span class="title-sponsor">$ {{ $premium->price_month }} USD</span>
+							  	<span>
 							  		<b>{{ $premium->prints }}</b> impresiones x <b>{{ $premium->months }}</b>
-							  		@if($premium->months == 1)
-											Mes
-										@else
-											Meses
-							  		@endif
-							  	</small>
-						  	</center> 
-						  	<hr class="extra-margins">				  	
+							  		@if($premium->months == 1) Mes @else Meses @endif
+							  	</span>
 							</div>
 							<div class="panel-body">
-								@if(Shinobi::can('premium.detail.list'))
-							  	@foreach($premium->details as $detail)
-									  <center>
+								<ul>
+							  		@foreach($premium->details as $detail)
+										<li>
 										  	<b>{{ $detail->title }}</b> <br>
-										  	<small>{{ $detail->excerpt }}</small>
-									  </center>
-										<hr class="extra-margins">
-								  @endforeach
-								@endif
+										</li>
+								  	@endforeach
+								</ul>
 								<center>
 								@if(isset($sponsor))
-					  			<a href="{{ route('sponsor.payment',['sprice'=>$premium->id.'x'.$premium->price_month,'sp'=>$sponsor->id]) }}" class="btn @if(!$premium->featured) btn-success  btn-sm @else btn-primary @endif ">Hacer pedido</a>
+					  			<a href="{{ route('sponsor.payment',['sprice'=>$premium->id.'x'.$premium->price_month,'sp'=>$sponsor->id]) }}" class="btn ">Hacer pedido</a>
 								@else
-					  			<a href="{{ route('sponsor.create',['sprice'=>$premium->id.'x'.$premium->price_month]) }}" class="btn @if(!$premium->featured) btn-success  btn-sm @else btn-primary @endif ">Hacer pedido</a>
-					  		@endif
-					  		</center>
+					  			<a href="{{ route('sponsor.create',['sprice'=>$premium->id.'x'.$premium->price_month]) }}" class="btn ">Hacer pedido</a>
+					  			@endif
+						  		</center>
 							</div>
 						</div>
 					</div>

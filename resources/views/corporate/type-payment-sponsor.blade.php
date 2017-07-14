@@ -18,40 +18,9 @@
 
 			<br><br>
 			<div class="row">
-				<div class="col-sm-4">
-					<div class="panel panel-default">
-						<div class="panel-header">
-							<center>
-						  	@if($sponsor_premium->featured)
-						  		<h3><b>$ {{ $sponsor_premium->price_month }} USD</b></h3>
-					  		@else
-						  		<h4>$ {{ $sponsor_premium->price_month }} USD</h4>
-					  		@endif
-						  	<small>
-						  		<b>{{ $sponsor_premium->prints }}</b> impresiones x <b>{{ $sponsor_premium->months }}</b>
-						  		@if($sponsor_premium->months == 1)
-										Mes
-									@else
-										Meses
-						  		@endif
-						  	</small>
-					  	</center> 
-						</div>
-						<div class="panel-body">
-					  	@foreach($sponsor_premium->details as $detail)
-								<hr class="extra-margins">
-							  <center>
-								  	<b>{{ $detail->title }}</b> <br>
-								  	<small>{{ $detail->excerpt }}</small>
-							  </center>
-						  @endforeach
-						</div>
-					</div>
-
-					
-				</div>
-
-				<div class="col-sm-8">
+				
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 white">
 					
 					<div class="row">
 						<div class="col-sm-4">Titulo</div>
@@ -106,28 +75,65 @@
 						<div class="col-sm-8">http://www.youtube.com/{{ $sponsor->url_youtube }}</div>
 					</div>
 					<hr>
-
 				</div>
+
+				<div class="col-sm-3"></div>
+			</div>
+				<hr>
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 white">
+					<div class="panel panel-default">
+						<div class="panel-header">
+							<center>
+						  	@if($sponsor_premium->featured)
+						  		<h3><b>$ {{ $sponsor_premium->price_month }} USD</b></h3>
+					  		@else
+						  		<h4>$ {{ $sponsor_premium->price_month }} USD</h4>
+					  		@endif
+						  	<small>
+						  		<b>{{ $sponsor_premium->prints }}</b> impresiones x <b>{{ $sponsor_premium->months }}</b>
+						  		@if($sponsor_premium->months == 1)
+										Mes
+									@else
+										Meses
+						  		@endif
+						  	</small>
+					  	</center> 
+						</div>
+						<div class="panel-body">
+					  	@foreach($sponsor_premium->details as $detail)
+								<hr class="extra-margins">
+							  <center>
+								  	<b>{{ $detail->title }}</b> <br>
+								  	<small>{{ $detail->excerpt }}</small>
+							  </center>
+						  @endforeach
+						</div>
+					</div>
+				</div>
+
 			</div>
 			<hr class="extra-margins">
 			<div class="row">
 				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
+				<div class="col-sm-6 white">
 					<span>Use nuestras formas de pago por internet o acérquese a las oficinas en 
 						{{ $system->direccion }}
 					</span>
 					
 					<hr class="extra-margins">
-
-					<a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id,'sp'=>$sponsor->id]) }}" class="type-payment">
-						<i class="fa fa-paypal" aria-hidden="true"></i> 
-						<span>Paypal</span>
-					</a>
-					
+					<center>
+						<a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id,'sp'=>$sponsor->id]) }}" class="type-payment">
+							<i class="fa fa-paypal" aria-hidden="true"></i> 
+							<span>Paypal</span>
+						</a>
+					</center>
+					{{-- 
 					<a href="{{ route('sponsor.make-payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="type-payment">
 						<i class="fa fa-credit-card" aria-hidden="true"></i> 
 						<span>Tarjeta</span>
-					</a>
+					</a> --}}
 				</div>
 			</div>
 

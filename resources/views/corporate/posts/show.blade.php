@@ -70,32 +70,35 @@
 						})();
 						</script>
 						<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-						                            
+													
 					</div>
 				</div>
 
 				<div class="col-sm-4">
-					<div class="title-other-post">Publicaciones que pueden interesarte</div>
-					@foreach($post->otherPosts() as $other_post)
-						<div class="other-posts">
-							<div class="img">
-								<img src="{{ url('/storage/'.$other_post->image) }}" class="img-fluid " alt="{{ $other_post->title }}">
-							</div>
-							<div class="post-content">
-								<a href="{{ route('show-post',['PN'=> $other_post->slug]) }}">
-									{{ str_limit($other_post->title,30) }}
-								</a>
-								<p>{{ str_limit($other_post->excerpt,50) }}</p>
-							</div>
+					<div class="panel panel-post-column">
+						<div class="panel-heading">Publicaciones que pueden interesarte</div>
+						<div class="panel-body">
+							@foreach($post->otherPosts() as $other_post)
+								<div class="other-posts">
+									<div class="img">
+										<img src="{{ url('/storage/'.$other_post->image) }}" class="img-fluid " alt="{{ $other_post->title }}">
+									</div>
+									<div class="post-content">
+										<a href="{{ route('show-post',['PN'=> $other_post->slug]) }}">
+											{{ str_limit($other_post->title,30) }}
+										</a>
+										<p>{{ str_limit($other_post->excerpt,50) }}</p>
+									</div>
+								</div>
+							@endforeach
 						</div>
-					@endforeach
-					<hr>
-					@include('corporate.sponsors.print',['print'=>'all'])
-					
-					@if(count($post->pdfs) > 0)
-						<div class="container-img-pdf">
-								@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
-									<p>Acceda a los documentos y obtenga la mejor experiencia y el mejor conocimiento</p>
+					</div>
+					<div class="panel panel-post-column">
+						<div class="panel-heading">Documentos</div>
+							
+						@if(count($post->pdfs) > 0)
+							@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
+								<div class="panel-body container-img-pdf">
 									@foreach($post->pdfs as $pdf)
 										<ul>
 											<li>
@@ -106,12 +109,12 @@
 											</li>
 										</ul>
 									@endforeach
-								
-								@else
-									@if(count($post->oncePrices))
-										<h3>Accesa a los archivos para tener una mejor experiencia en su aprendizaje</h3>
-									@endif
-
+								</div>
+							@else
+								@if(count($post->oncePrices))
+									<div class="panel-heading">No tiene acceso a los documentos</div>
+								@endif
+								<div class="panel-body">
 									@foreach($post->oncePrices as $price)
 										<ul >
 											<li>
@@ -123,12 +126,13 @@
 										  </div>
 											</li>
 										</ul>
-									
 									@endforeach
-								@endif
-								
-						</div>
-					@endif
+								</div>
+							@endif
+						@endif
+					</div>
+					@include('corporate.sponsors.print',['print'=>'all'])
+
 				</div>
 			</div>
 		</div>
