@@ -13,6 +13,7 @@
             @endif
         </div>
     </div>
+    
     <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
         <label for="slug" class="col-md-4 control-label">Slug</label>
 
