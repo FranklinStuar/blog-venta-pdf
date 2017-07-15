@@ -74,7 +74,7 @@ class RegisterController extends Controller
 		]);
 		$user->assignRole($system->role_id);
 		
-    $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da la su cuenta personal");
+    $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da su cuenta personal");
 
     Mail::send('emails.users.register', $data, function ($message) use($user) {
         $message->from('franklinpenafiel1991@gmail.com', 'Neurocodigo');
