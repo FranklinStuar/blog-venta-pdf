@@ -1,7 +1,7 @@
 @if(Shinobi::can('sponsor.quit.others') == false && isset($sponsor_show)) 
 
-	<a href="#{{ str_slug($sponsor_show->name) }}" class="sponsor-show" data-toggle="modal" data-target="#sponsorModal">
-		<img src="{{ url('images/background-post.jpg') }}" alt="{{ $sponsor_show->name }}">
+	<a href="#{{ str_slug($sponsor_show->name) }}" class="sponsor-show " data-toggle="modal" data-target="#sponsorModal">	
+		<img src="{{ url('/storage/'.$sponsor_show->image) }}"  alt="{{ $sponsor_show->excerpt }}">
 		<span class="title-sponsor">{{ $sponsor_show->name }}</span>
 		{{-- <span class="description-sponsor">{{ $sponsor_show->excerpt }}</span> --}}
 	</a>
@@ -28,8 +28,7 @@
 						<span class="info"><b>Teléfono: </b>{{ $sponsor_show->phone }}</span>
 					@endif
 				</div>
-				<img src="{{ url('images/background-post.jpg') }}" alt="image" class="img-sponsor">
-
+				<img src="{{ url('/storage/'.$sponsor_show->image) }}"  alt="{{ $sponsor_show->excerpt }}" class="img-sponsor">
 				<div class="btn-social-sponsor-group" role="group" aria-label="...">
 					@if($sponsor_show->web)
 						<a href="http://{{ $sponsor_show->web }}"  target="_blank" class="btn-social-sponsor btn-web" title="{{ $sponsor_show->web }}">

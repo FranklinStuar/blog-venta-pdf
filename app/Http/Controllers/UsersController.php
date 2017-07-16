@@ -139,4 +139,22 @@ class UsersController extends Controller
     }
 
 
+    public function profileSavePassword(Request $request){
+         $this->validate($request, [
+            'actual_password'   => 'required',
+            'new_password'      => 'required',
+            'repeat_password'   => 'required',
+        ]);
+        if(\Hash::check($request->actual_password, \Auth::user()->password) && $request->new_password == $request->repeat_password){
+            \Auth::user()->update(['password' => bcrypt($request->new_password),]);
+        $request->session()->flash('success', 'Contraseña cambiada correctamente');
+            return redirect()->route('profile');
+        }
+
+        $request->session()->flash('success', 'Contraseña incorrecta');
+        return redirect()->back();
+
+    }
+
+
 }

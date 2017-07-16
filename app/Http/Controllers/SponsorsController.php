@@ -35,9 +35,19 @@ class SponsorsController extends Controller
 			$this->validate($request, [
 				'name' => 'required|max:50',
 				'excerpt' => 'required|max:80',
-				'web' => 'required|max:150',
+				'image' => 'required',
 			]);
-			Sponsor::create($request->all());
+			$sponsor = Sponsor::create($request->all());
+
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			//indicamos que queremos guardar un nuevo archivo en el disco local
+			\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+			
+			$sponsor->update([
+				'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+			]);
 			$request->session()->flash('success', 'Publicidad: "'.$request->name .'" guardado con éxito');
 			return redirect()->route('sponsors.index');
 		}
@@ -59,9 +69,22 @@ class SponsorsController extends Controller
 			$this->validate($request, [
 				'name' => 'required|max:50',
 				'excerpt' => 'required|max:80',
-				'web' => 'required|max:150',
 			]);
-			Sponsor::find($id)->update($request->all());
+
+			$sponsor = Sponsor::find($id);
+			
+			if($request->hasFile('image')){
+				// Nombre de como se va a guardar 
+				$file_name = str_slug(\Carbon\Carbon::now());
+
+				//indicamos que queremos guardar un nuevo archivo en el disco local
+				\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+			
+				$sponsor->update([
+					'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+				]);
+			}
+			$sponsor->update($request->except(['image']));
 			$request->session()->flash('success', 'Publicidad: "'.$request->name .'" editado con éxito');
 			return redirect()->route('sponsors.index');
 		}
@@ -159,8 +182,13 @@ class SponsorsController extends Controller
 			$this->validate($request, [
 				'name' => 'required|max:255',
 				'excerpt' => 'required|max:80',
-				'web' => 'required|max:150',
+				'image' => 'required',
 			]);
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			//indicamos que queremos guardar un nuevo archivo en el disco local
+			\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
 			$sponsor = Sponsor::create([
 				'name' => $request->name,
 				'excerpt' => $request->excerpt,
@@ -173,10 +201,11 @@ class SponsorsController extends Controller
 				'url_twitter' => $request->url_twitter,
 				'url_instagram' => $request->url_instagram,
 				'url_youtube' => $request->url_youtube,
+				'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
 			]);
 			return redirect()->route('sponsor.payment',['sprice'=>$request->sprice,'sp'=>$sponsor->id]);
 			
-			}
+		}
 		abort(404);
 	}
 
@@ -271,7 +300,23 @@ class SponsorsController extends Controller
 	public function saveEdit(Request $request, $id_sponsor){
 		$sponsor = Sponsor::find($id_sponsor);  
 		if($sponsor != null){
-			$sponsor->update($request->all());
+			// dd($sponsor);
+			$this->validate($request, [
+				'name' => 'required|max:255',
+				'excerpt' => 'required|max:80',
+			]);
+
+			if($request->hasFile('image')){
+				// Nombre de como se va a guardar 
+				$file_name = str_slug(\Carbon\Carbon::now());
+
+				//indicamos que queremos guardar un nuevo archivo en el disco local
+				$image = \Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+				$sponsor->update([
+					'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+				]);
+			}
+			$sponsor->update($request->except(['image']));
 				$request->session()->flash('success', 'Publicidad "'.$request->name.'" editado correctamente');
 			return redirect()->route('sponsor.show-user',['sID'=>$sponsor->id]);
 		}

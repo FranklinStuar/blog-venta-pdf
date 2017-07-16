@@ -38,10 +38,10 @@ main > .container{
 	margin-left: 5px ;
 	margin-right: 5px ;
 }
-#edit-user .form-control{
+.edit-user .form-control{
 	padding-left: 15px;
 }
-#edit-user .input-group{
+.edit-user .input-group{
 	margin: 1em;
 }
 
@@ -349,6 +349,9 @@ body{
 }
 .main-post .concept{
 	background: #fff;
+	border-radius: 2px;
+	overflow: hidden;
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.16), 0px 2px 10px rgba(0,0,0,0.12);
 }
 .list-post .card{
 	color: #2e2e2e;
@@ -483,6 +486,8 @@ body{
 }
 .sponsor-show img{
 	max-width: 100%;
+	border-radius: 2px;
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.16), 0px 2px 10px rgba(0,0,0,0.12);
 }
 .sponsor-show .title-sponsor{
 	font-weight: bolder;
@@ -502,6 +507,8 @@ body{
 .modal-sponsor{
 	display: block;
 	padding: 0;
+	border-radius: 4px;
+	overflow: hidden;
 }
 
 .modal-sponsor .img-sponsor, 
@@ -572,4 +579,18 @@ body{
 }
 .modal-sponsor .title-sponsor .space-sponsor{
 	padding-left: 2em
+}
+
+.image-fluid{
+    max-width: 100%;
+    max-width: 25em;
+    margin:auto;
+}
+.excerpt-post{
+	padding: 2em 1em;
+	border-bottom: 1px solid #eee;
+}
+.body-post{
+	padding-top: 3em;
+	padding-bottom: 3em;
 }

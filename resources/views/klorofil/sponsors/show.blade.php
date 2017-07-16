@@ -9,6 +9,10 @@
 						<div class="panel-body">
 							
 							<div class="title-detail">
+								<img src="{{ url('/storage/'.$sponsor->image) }}" class="image-fluid" alt="{{ $sponsor->excerpt }}">
+							</div>
+
+							<div class="title-detail">
 								<span class="title">Título</span>
 								<span class="detail">{{ $sponsor->name }}</span>
 							</div>

@@ -103,7 +103,7 @@ class User extends Authenticatable
             ->where('post_id',$post_id)
             ->where('user_id',$this->id)
             ->where('status','active')
-            ->where('finish', '>' ,\Carbon\Carbon::now())
+            ->whereDate('finish', '>' ,\Carbon\Carbon::now()->format('Y-m-d'))
             ->where('deleted_at', null)
             ->get();
         // $kits = \DB::table('post_pays as P')

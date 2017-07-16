@@ -1,8 +1,8 @@
-{!! Form::open(['url' => $url,'class'=>'form-horizontal','method'=>$method]) !!}
+{!! Form::open(['url' => $url,'class'=>'form-horizontal','method'=>$method, 'files' => true]) !!}
    
 
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-        <label for="name" class="col-md-4 control-label">Nombre *</label>
+        <label for="name" class="col-md-4 control-label">Titulo *</label>
 
         <div class="col-md-6">
             <input id="name" type="name" class="form-control" name="name" value="{{ $sponsor->name }}" required autofocus>
@@ -31,10 +31,10 @@
    
   
     <div class="form-group{{ $errors->has('web') ? ' has-error' : '' }}">
-        <label for="web" class="col-md-4 control-label">Sitio Web *</label>
+        <label for="web" class="col-md-4 control-label">Sitio Web</label>
 
         <div class="col-md-6">
-            <input id="web" type="text" class="form-control" name="web" value="{{ $sponsor->web }}" required autofocus>
+            <input id="web" type="text" class="form-control" name="web" value="{{ $sponsor->web }} a"utofocus>
 
             @if ($errors->has('web'))
                 <span class="help-block">
@@ -136,19 +136,50 @@
         </div>
     </div>
 
-    <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-        <label for="user_id" class="col-md-4 control-label">Usuario de destino *</label>
+
+        <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
+            <label for="user_id" class="col-md-4 control-label">Usuario de destino *</label>
+
+            <div class="col-md-6">
+                @if($edit)
+                    {!! Form::select('user', $users, $sponsor->user_id, ['class'=>'form-control disabled','disabled','placeholder' => 'Seleccione un Usuario']) !!}
+                @else
+                    {!! Form::select('user_id', $users, $sponsor->user_id, ['class'=>'form-control','required','placeholder' => 'Seleccione un Usuario']) !!}
+                @endif
+                @if ($errors->has('user_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('user_id') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+
+
+    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+        <label for="image" class="col-md-4 control-label">Imagen @if(!$edit) * @endif</label>
 
         <div class="col-md-6">
-            {!! Form::select('user_id', $users, $sponsor->user_id, ['class'=>'form-control','required','placeholder' => 'Seleccione un Usuario']) !!}
-            @if ($errors->has('user_id'))
+            @if($edit)
+                {!! Form::file('image',['id'=>'image','accept'=>'image/*']) !!}
+            @else
+                {!! Form::file('image',['id'=>'image','accept'=>'image/*','required']) !!}
+            @endif
+            @if ($errors->has('image'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('user_id') }}</strong>
+                    <strong>{{ $errors->first('image') }}</strong>
                 </span>
             @endif
         </div>
     </div>
 
+    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+        @if($edit)
+            <div class="col-md-6 col-md-offset-4">
+                <img src="{{ url('/storage/'.$sponsor->image) }}" class="image-fluid" alt="{{ $sponsor->excerpt }}">
+            </div>
+        @endif
+    </div>
 
     {!! Form::submit('Guardar',['class'=>'btn btn-primary']) !!}
     <a href="{{ route('sponsors.index') }}" class="btn btn-danger">Cancelar</a>

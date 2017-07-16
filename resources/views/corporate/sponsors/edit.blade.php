@@ -27,7 +27,7 @@
 					
 					<hr class="extra-margins">
 					
-					@include('corporate.sponsors.form',['url' => route('sponsor.save-edit',['sID'=>$sponsor->id]), 'method' => 'post'])
+					@include('corporate.sponsors.form',['url' => route('sponsor.save-edit',['sID'=>$sponsor->id]), 'method' => 'post','edit'=>true])
 				
 				</div>
 			</div>

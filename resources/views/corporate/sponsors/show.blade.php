@@ -85,7 +85,7 @@
 						</center>
 					</div>
 				</div>
-				<div class="col-md-7 text-center white" >
+				<div class="col-md-7 text-center concept" >
 					<h3>Historial de pagos</h3>
 					<hr class="extra-margins">
 					@if(Shinobi::can('sponsor.pay.list'))

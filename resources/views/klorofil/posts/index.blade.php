@@ -17,7 +17,7 @@
 						<th>Título</th>
 						<th>Descrpción</th>
 						<th>Categoría</th>
-						<th>Kits Premium</th>
+						{{-- <th>Kits Premium</th> --}}
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -29,9 +29,9 @@
 							<td>{{ $post->title }}</td>
 							<td>{{ str_limit($post->excerpt,70) }}</td>
 							<td>{{ $post->category->name }}</td>
-							<td>
-								<a href="{{ route('posts.view-kit',[$post->id]) }}"> {{count($post->kits)}} Kits </a>
-							</td>
+							{{-- <td> --}}
+								{{-- <a href="{{ route('posts.view-kit',[$post->id]) }}"> {{count($post->kits)}} Kits </a> --}}
+							{{-- </td> --}}
 							<td>
 								@if (Shinobi::can('post.edit'))
 									{!! link_to_route('posts.edit', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-pencil']) !!}

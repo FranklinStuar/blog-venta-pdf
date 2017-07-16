@@ -34,6 +34,14 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <style>
+        .image-fluid{
+            max-width: 100%;
+            max-width: 25em;
+            margin:auto;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -115,71 +123,28 @@
 						<li><a href="{{ route('send-email') }}">Enviar email</a></li>
 							<li><a href="{{ url('/neuro-admin') }}"><i class="lnr lnr-file-empty"></i> <span>Dashboard</span></a></li>
 					@endif
+					@if (Shinobi::can('category.list'))
+						<li><a href="{{ route('categories.index') }}" class="">Categorías</a></li>
+					@endif
+					@if (Shinobi::can('post.list'))
+						<li><a href="{{ url('/neuro-admin/posts') }}" class="">Posts</a></li>
+					@endif
 
-						@if( Shinobi::can('category.list') || Shinobi::can('category.new'))
-							<li>
-								<a href="#categories-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Categorías</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="categories-menu" class="collapse ">
-									<ul class="nav">
-										@if (Shinobi::can('category.new'))
-											<li><a href="{{ route('categories.create') }}" class="">Nueva Categoría</a></li>
-										@endif
-										@if (Shinobi::can('category.list'))
-											<li><a href="{{ route('categories.index') }}" class="">Lista de Categorías</a></li>
-										@endif
-									</ul>
-								</div>
-							</li>
-						@endif
-						
-						@if(Shinobi::can('post.new') || Shinobi::can('post.list'))
-							<li>
-								<a href="#posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="posts-menu" class="collapse ">
-									<ul class="nav">
-										@if (Shinobi::can('post.new'))
-											<li><a href="{{ url('/neuro-admin/posts/create') }}" class="">Nuevo Post</a></li>
-										@endif
-										@if (Shinobi::can('post.list'))
-											<li><a href="{{ url('/neuro-admin/posts') }}" class="">Lista de Posts</a></li>
-										@endif
-									</ul>
-								</div>
-							</li>
-						@endif
-						
-						@if(Shinobi::can('post.admin.pay-once.new') || Shinobi::can('post.admin.pay-once.list'))
-							<li>
-								<a href="#once-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pagos individuales</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="once-posts-menu" class="collapse ">
-									<ul class="nav">
-										@if (Shinobi::can('post.admin.pay-once.new'))
-											<li><a href="{{ route('only-pay-post.create') }}" class="">Nuevo Pago individual</a></li>
-										@endif
-										@if (Shinobi::can('post.admin.pay-once.list'))
-											<li><a href="{{ route('only-pay-post.index') }}" class="">Lista de Pagos</a></li>
-										@endif
-									</ul>
-								</div>
-							</li>
-						@endif
-						
 						<li>
-							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Kits de Posts</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#premium-sponsors-menu" data-toggle="collapse" class="collapsed">
+								<span>Publicaciones</span> <i class="icon-submenu lnr lnr-chevron-left"></i>
+							</a>
 							<div id="premium-sponsors-menu" class="collapse ">
 								<ul class="nav">
-									@if (Shinobi::can('post.admin.price.new'))
-											<li><a href="{{ route('premium-post.create') }}" class="">Nuevo kit</a></li>
+									
+									@if (Shinobi::can('post.admin.pay-once.list'))
+										<li><a href="{{ route('only-pay-post.index') }}" class="">Pagos Individuales</a></li>
 									@endif
 									@if (Shinobi::can('post.admin.price.list'))
-										<li><a href="{{ route('premium-post.index') }}" class="">Lista de kits</a></li>
-									@endif
-									<li></li>
-									@if (Shinobi::can('post.admin.pay.new'))
-										<li><a href="{{ route('pay-post.create') }}" class="">Nuevo Pago</a></li>
+										<li><a href="{{ route('premium-post.index') }}" class="">Kits</a></li>
 									@endif
 									@if (Shinobi::can('post.admin.pay.list'))
-										<li><a href="{{ route('pay-post.index') }}" class="">Lista de pagos</a></li>
+										<li><a href="{{ route('pay-post.index') }}" class="">Pagos Kits</a></li>
 									@endif
 								</ul>
 							</div>
@@ -190,34 +155,17 @@
 								<a href="#sponsors-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-layers"></i> <span>Sponsors</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="sponsors-menu" class="collapse ">
 									<ul class="nav">
-										@if (\Shinobi::can('sponsor.admin.add'))
-											<li><a href="{{ route('sponsors.create') }}" class="">Nuevo Sponsor</a></li>
-										@endif
 										@if (\Shinobi::can('sponsor.admin.list'))
-											<li><a href="{{ route('sponsors.index') }}" class="">Lista de Sponsors</a></li>
+											<li><a href="{{ route('sponsors.index') }}" class="">Sponsors</a></li>
+										@endif
+										@if (Shinobi::can('sponsor.price.list'))
+											<li><a href="{{ route('premium-sponsor.index') }}" class="">Precios</a></li>
 										@endif
 									</ul>
 								</div>
 							</li>
 						@endif
 
-						@if (\Shinobi::can('sponsor.price.new') || \Shinobi::can('sponsor.price.list'))
-							<li>
-								<a href="#premium-posts-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-diamond"></i> <span>Precios Sponsor</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="premium-posts-menu" class="collapse ">
-									<ul class="nav">
-										@if (Shinobi::can('sponsor.price.new'))
-											<li><a href="{{ route('premium-sponsor.create') }}" class="">Nuevo Precio</a></li>
-										@endif
-										@if (Shinobi::can('sponsor.price.list'))
-											<li><a href="{{ route('premium-sponsor.index') }}" class="">Lista de precios</a></li>
-										@endif
-										{{-- <li><a href="{{ route('payment-sponsor.index') }}" class="">Realizar Pago</a></li> --}}
-									</ul>
-								</div>
-							</li>
-						@endif
-						
 						@if( Shinobi::can('user.new') || Shinobi::can('user.lists') || Shinobi::can('role.list'))
 							<li>
 								<a href="#users-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Usuarios</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>

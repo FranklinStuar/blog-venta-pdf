@@ -49,6 +49,7 @@ class CreateHistorialServiceProvider extends ServiceProvider
                     $pay_sponsor = \App\SponsorPay::where('finish_date', '>' ,\Carbon\Carbon::now())
                         ->where('prints','>','print_count')
                         ->where('status','active')
+                        ->inRandomOrder()
                         ->first();
                     if($pay_sponsor != null)
                     {

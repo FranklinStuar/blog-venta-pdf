@@ -28,6 +28,7 @@
 			
 			<h1>{{ $post->title }}</h1>
 			<ul>
+				<li>Mecatronica-Cuenca</li>
 				<li>
 					<a href="{{ route('show-user',['uID'=>$post->author->username]) }}">{{ $post->author->name }}</a>
 				</li>
@@ -44,10 +45,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 concept" >
-					{!! $system->tag_body !!}
-					<?php
-						echo $post->body;
-					?>
+					<div class="excerpt-post">
+						{{ $post->excerpt }}
+					</div>
+					<div class="body-post">
+						{!! $system->tag_body !!}
+						<?php
+							echo $post->body;
+						?>
+					</div>
 					<div class="comments-post">
 						<h3>Comentarios</h3>
 						<div id="disqus_thread"></div>
@@ -75,7 +81,7 @@
 				</div>
 
 				<div class="col-sm-4">
-					<div class="panel panel-post-column">
+					<div class="panel panel-post-column concept">
 						<div class="panel-heading">Publicaciones que pueden interesarte</div>
 						<div class="panel-body">
 							@foreach($post->otherPosts() as $other_post)
@@ -93,11 +99,12 @@
 							@endforeach
 						</div>
 					</div>
-					<div class="panel panel-post-column">
+
+					<div class="panel panel-post-column concept">
 						<div class="panel-heading">Documentos</div>
 							
 						@if(count($post->pdfs) > 0)
-							@if(Auth::user() && Auth::user()->postStatus($post->id) /* && Shinobi::can('post.pdf.show')*/)
+							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0) /* && Shinobi::can('post.pdf.show')*/)
 								<div class="panel-body container-img-pdf">
 									@foreach($post->pdfs as $pdf)
 										<ul>
@@ -118,12 +125,11 @@
 									@foreach($post->oncePrices as $price)
 										<ul >
 											<li>
-													$ {{$price->price}} -
-													<span class="time-premium">Plan de {{$price->timeView()}}</span> 
+												$ {{$price->price}} -
+												<span class="time-premium">Plan de {{$price->timeView()}}</span> 
 												<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
 													Obtener acceso
 												</a>
-										  </div>
 											</li>
 										</ul>
 									@endforeach

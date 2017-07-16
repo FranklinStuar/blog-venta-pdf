@@ -11,7 +11,7 @@
 
 			<div class="row">
 				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
+				<div class="col-sm-6 concept">
 					<span>Use nuestras formas de pago por internet o acérquese a las oficinas en 
 						{{ $system->direccion }} 
 					</span>

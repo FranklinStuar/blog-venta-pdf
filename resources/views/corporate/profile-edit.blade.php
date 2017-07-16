@@ -1,7 +1,7 @@
 @extends('corporate.profile')
 
 @section('user')
-	{!! Form::open(['route' => 'profile.save', 'id' =>'edit-user']) !!}
+	{!! Form::open(['route' => 'profile.save', 'class' =>'edit-user']) !!}
 
 		    <div class="input-group">
 			  <span class="input-group-addon" id="basic-addon1">
@@ -38,5 +38,40 @@
 				</div>
 			</div>
 
+	{!! Form::close() !!}
+	<br>
+	<hr>
+	<br>
+	<h3>Cambiar Contraseña</h3>
+
+	{!! Form::open(['route' => 'profile.reset-password', 'class' =>'edit-user']) !!}
+
+		    <div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">
+			  	<i class="fa fa-odnoklassniki" aria-hidden="true"></i>
+			  </span>
+			  {!! Form::password('actual_password', ['class'=>'form-control', 'placeholder'=>"Contraseña acual",'required']) !!}
+			</div>
+
+		    <div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">
+			  	<i class="fa fa-odnoklassniki" aria-hidden="true"></i>
+			  </span>
+			  {!! Form::password('new_password', ['class'=>'form-control', 'placeholder'=>"Nueva contraseña",'required']) !!}
+			</div>
+
+		    <div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">
+			  	<i class="fa fa-odnoklassniki" aria-hidden="true"></i>
+			  </span>
+			  {!! Form::password('repeat_password', ['class'=>'form-control', 'placeholder'=>"Repetir contraseña",'required']) !!}
+			</div>
+
+			<div class="form-group">
+				<div class="btn-group" role="group" aria-label="...">
+				  <button class="btn btn-primary btn-sm">Cambiar contraseña</button>
+				  <a href="{{ route('profile') }}" class="btn btn-danger btn-sm">Cancelar</a>
+				</div>
+			</div>
 	{!! Form::close() !!}
 @endsection

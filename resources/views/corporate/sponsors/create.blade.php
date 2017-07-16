@@ -25,7 +25,7 @@
 					
 					<hr class="extra-margins">
 					
-					@include('corporate.sponsors.form',['url' => route('sponsor.save',['sprice'=>$premium->id.'x'.$premium->price_month]), 'method' => 'POST'])
+					@include('corporate.sponsors.form',['url' => route('sponsor.save',['sprice'=>$premium->id.'x'.$premium->price_month]), 'method' => 'POST','edit'=>false])
 					
 
 				</div>

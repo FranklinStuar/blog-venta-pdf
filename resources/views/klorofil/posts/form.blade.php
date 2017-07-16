@@ -151,9 +151,11 @@
 		  </div>
 	  </div>
 	  
+  	</div> {{-- / row --}}
+	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Archivos</div>
+			  <div class="panel-heading">Documentos PDF</div>
 			  <div class="panel-body select-file">
 			  	@foreach($post->pdfs as $pdf)
 			  		<div class="img-pdf-form">
@@ -171,13 +173,12 @@
 							{!! Form::file('pdf',['id'=>'pdf','accept'=>'.pdf','required']) !!}
 					  </div>
 						<center>
-							<button class="btn btn-primary btn-sm">Actualizar Imagen</button>
+							<button class="btn btn-primary btn-sm">Actualizar Documento</button>
 						</center>
 					{!! Form::close() !!}
 			  </div>
 		  </div>
 	  </div>
-
 		<div class="col-md-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">Precios</div>
