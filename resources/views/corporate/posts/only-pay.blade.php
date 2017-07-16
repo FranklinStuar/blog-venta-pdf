@@ -12,6 +12,17 @@
 			<div class="row">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 concept">
+					<h2>¡Importante!</h2><hr>
+					<p>Actualmente la página no consta con pagos en linea</p>
+					<p>Puede concatar directamente al correo 
+						<b><a href="mailto:{{$system->email}}">{{$system->email}}</a></b>
+					</p>
+					<p>Teléfonos: <b>{{$system->telefono}}</b> - <b>{{$system->celular}}</b></p>
+					<p>Dirección: <b>{{$system->direccion}}</b> </p>
+
+				</div>
+				{{-- 
+				<div class="col-sm-6 concept">
 					<span>Use nuestras formas de pago por internet o acérquese a las oficinas en 
 						{{ $system->direccion }} 
 					</span>
@@ -27,7 +38,7 @@
 						<i class="fa fa-credit-card" aria-hidden="true"></i> 
 						<span>Tarjeta</span>
 					</a>
-				</div>
+				</div> --}}
 			</div>
 
 

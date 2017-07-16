@@ -67,6 +67,6 @@ class Post extends Model
   }
   
   public function otherPosts(){
-    return Post::limit(5)->inRandomOrder()->get();
+    return Post::where('id','<>',$this->id)->limit(5)->inRandomOrder()->get();
   }
 }
