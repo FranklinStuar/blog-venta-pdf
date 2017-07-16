@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => 'smtp',
+    'driver' => env('MAIL_DRIVER','smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => 'smtp.gmail.com',
+    'host' => env('MAIL_HOST','smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => 587,
+    'port' => env('MAIL_PORT',587),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'franklinpenafiel1991@gmail.com',
-        'name' => 'Franklin de Neurocodigo',
+        'address' => env('MAIL_USERNAME','franklinpenafiel1991@gmail.com'),
+        'name' => ' Neurocodigo',
     ],
 
     /*
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => 'tls',
+    'encryption' => env('MAIL_ENCRYPTION','tls'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'franklinpenafiel1991@gmail.com',
+    'username' => env('MAIL_USERNAME','franklinpenafiel1991@gmail.com'),
 
-    'password' => 'stuar123ABC!',
+    'password' => env('MAIL_PASSWORD','stuar123ABC!'),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,6 +7,21 @@
 		<div class="panel-body">
 			{!! Form::open(['route' => 'config.save','class'=>'form-horizontal']) !!}
 
+				<div class="form-group{{ $errors->has('responsable') ? ' has-error' : '' }}">
+					<label for="responsable" class="col-md-3 control-label">Representante de la página *</label>
+					<div class="col-md-6">
+						{!! Form::text('responsable', $system->responsable, ['class'=>'form-control','placeholder' => 'Representante de la página']) !!}
+
+						@if ($errors->has('responsable'))
+							<span class="help-block">
+								<strong>{{ $errors->first('responsable') }}</strong>
+							</span>
+						@endif
+					</div>
+				</div>
+				
+				<hr>
+
 				<div class="form-group{{ $errors->has('facebook') ? ' has-error' : '' }}">
 					<label for="facebook" class="col-md-3 control-label">Facebook</label>
 

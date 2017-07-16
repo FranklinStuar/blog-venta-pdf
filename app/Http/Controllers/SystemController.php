@@ -50,7 +50,8 @@ class SystemController extends Controller
           'host'                  => 'required',
           'drive'                 => 'required',
           'port'                  => 'required',
-          'encryption' 						=> 'required',
+          'encryption'            => 'required',
+          'responsable' 					=> 'required',
         ]);
         \App\System::first()->update($request->all());
         \App\System::first()->update([

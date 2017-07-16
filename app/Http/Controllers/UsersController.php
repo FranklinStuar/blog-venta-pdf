@@ -26,12 +26,7 @@ class UsersController extends Controller
     public function create()
     {
         if (\Shinobi::can('user.new')) {
-            $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da su cuenta personal");
-
-            Mail::send('emails.users.register', $data, function ($message) use($user) {
-                $message->from('franklinpenafiel1991@gmail.com', 'Neurocodigo');
-                $message->to($user->email)->subject("Bienvenido");
-            });
+            
             return view('klorofil.users.create',[
                 'user'=> new User,
                 'roles'=> array_pluck(Role::rolesAll(),'name','id'),
@@ -51,6 +46,7 @@ class UsersController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'role_id' => 'required',
         ]);
+
         $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
@@ -58,6 +54,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password)
         ]);
         $user->assignRole($request->role_id);
+        $user->sendWelcome($request->password);
         $request->session()->flash('success', 'Usuario "'.$request->name.'" guardado correctamente');
         return redirect()->route('users.index');
     }

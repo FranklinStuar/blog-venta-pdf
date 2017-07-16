@@ -6,7 +6,6 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Mail;
 
 class RegisterController extends Controller
 {
@@ -73,14 +72,8 @@ class RegisterController extends Controller
 			'password' => bcrypt($data['password']),
 		]);
 		$user->assignRole($system->role_id);
+        $user->sendWelcome($data['password']);
 		
-    $data = array('contenido' => "Biervenido a Neurocodigo, desde hoy puede disfrutar de todas las ventajas que le da su cuenta personal");
-
-    Mail::send('emails.users.register', $data, function ($message) use($user) {
-        $message->from('franklinpenafiel1991@gmail.com', 'Neurocodigo');
-        $message->to($user->email)->subject("Bienvenido");
-    });
-   
 		return $user;
 	}
 }

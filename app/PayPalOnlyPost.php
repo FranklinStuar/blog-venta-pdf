@@ -10,6 +10,7 @@ class PayPalOnlyPost extends Model
 	private $postOncePrice; // El precio del post que se va a pagar
 
 	public function __construct($postOncePrice){
+		
 		$this->postOncePrice = $postOncePrice;
 		$this->_apiContext = PaypalPayment::ApiContext(config('paypal_payment.Account.ClientId'), config('paypal_payment.Account.ClientSecret'));
 	}

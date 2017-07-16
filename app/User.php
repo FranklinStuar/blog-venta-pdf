@@ -77,6 +77,17 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Post','post_once_pays','user_id','post_id');
     }
     
+    public function sendWelcome($password){
+        $system = \App\System::first();
+        $user = $this;
+
+        $data = array('user'=>$user,'system'=>$system,'password'=>$password);
+
+        \Mail::send('emails.users.register', $data, function ($message) use($user,$system,$password) {
+            $message->from($system->email, 'Neurocodigo');
+            $message->to($user->email)->subject("Bienvenido ".$user->name);
+        });
+    }
     /**
     * Pagos hechos por el usuario
     */

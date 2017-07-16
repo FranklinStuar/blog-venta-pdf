@@ -2,6 +2,10 @@
 
 Route::get('/','HomeController@index')->name('home');
 Route::get('/welcome','HomeController@welcome')->name('home');
+Route::get('/send-email',function(){
+	\Auth::user()->sendWelcome('123');
+	return redirect()->back();
+})->name('send-email');
 Auth::routes();
 
 Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
