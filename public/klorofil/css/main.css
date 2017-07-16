@@ -1779,10 +1779,9 @@ ul.activity-timeline > li {
 }
 
 .img-pdf-form{
-  width: 20%;
+  width: 80%;
   margin: auto;
   padding: 2%;
-  display: inline-block;
 }
 
 .btn-link-danger, .btn-link-danger:hover, .btn-link-danger:focus{
@@ -1790,10 +1789,17 @@ ul.activity-timeline > li {
 }
 
 .img-pdf-form img{
-  width: 100%;
+  width: 20%;
   cursor: pointer;
   margin: auto;
-  display: block;
+  display: inline-block;
+}
+
+.img-pdf-form span{
+  width: 75%;
+  cursor: pointer;
+  margin: auto;
+  display: inline-block;
 }
 
 .img-pdf-form .delete-file{

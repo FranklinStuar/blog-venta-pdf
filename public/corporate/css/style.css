@@ -357,6 +357,7 @@ body{
 	color: #2e2e2e;
 	display: block;
 	margin-bottom: 2em;
+	position: relative;
 }
 .list-post .card .img, .list-post .card .content-post{
 	width: 30%;

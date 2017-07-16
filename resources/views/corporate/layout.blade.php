@@ -175,24 +175,6 @@
 	</script>
 
 
-	<!-- Contactos -->
-	<div class="modal fade" id="contactanosModal" tabindex="-1" role="dialog" aria-labelledby="contactanosModalLabel">
-	  <div class="modal-dialog modal-lg" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="contactanosModalLabel">Contactanos</h4>
-	      </div>
-	      <div class="modal-body">
-					{{ $system->quienes_somos }}
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
 
 	<!-- Quienes somos -->
 	<div class="modal fade" id="quienesSomosModal" tabindex="-1" role="dialog" aria-labelledby="quienesSomosModalLabel">
@@ -203,7 +185,7 @@
 	        <h4 class="modal-title" id="quienesSomosModalLabel">Quienes somos</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->quienes_somos }}
+					{!! $system->quienes_somos !!}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -222,7 +204,7 @@
 	        <h4 class="modal-title" id="CuentasPremiumModalLabel">Acerca de las cuentas premium</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->cuentas_premium }}
+					{!! $system->cuentas_premium !!}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -240,7 +222,7 @@
 	        <h4 class="modal-title" id="publicidadModalLabel">Acerca de la publicidad</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->publicidad }}
+					{!! $system->publicidad !!}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -258,7 +240,7 @@
 	        <h4 class="modal-title" id="politicasCondicionesModalLabel">Políticas y condiciones</h4>
 	      </div>
 	      <div class="modal-body">
-					{{ $system->politicas_condiciones }}
+					{!! $system->politicas_condiciones !!}
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

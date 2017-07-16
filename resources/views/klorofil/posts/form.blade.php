@@ -135,65 +135,72 @@
 	@if($edit)
 		<div class="col-md-6">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Imagen</div>
-			  <div class="panel-body select-file">
+				<div class="panel-heading">Imagen</div>
+				<div class="panel-body select-file">
 					{!! Form::open(['route' => ['posts.update-image',$post->id], 'files' => true]) !!}
-			  		<img src="{{ url('/storage/'.$post->image) }}" class="image-post-form" alt="image">
-			  		<hr>
+						<img src="{{ url('/storage/'.$post->image) }}" class="image-post-form" alt="image">
+						<hr>
 						<div class="form-group">
 							{!! Form::file('image',['accept'=>'image/*','required']) !!}
-					  </div>
+						</div>
 						<center>
 							<button class="btn btn-primary btn-sm">Actualizar Imagen</button>
 						</center>
 					{!! Form::close() !!}
-			  </div>
-		  </div>
-	  </div>
-	  
-  	</div> {{-- / row --}}
+				</div>
+			</div>
+		</div>
+		
+		</div> {{-- / row --}}
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Documentos PDF</div>
-			  <div class="panel-body select-file">
-			  	@foreach($post->pdfs as $pdf)
-			  		<div class="img-pdf-form">
-		  				<a href="{{ route('posts.pdf-view',['pID'=>$pdf->id]) }}" title="Ver Archivo">
-			  				<img src="{{ url('images/pdf.png') }}" alt="">
-				  		</a>
+				<div class="panel-heading">Documentos PDF</div>
+				<div class="panel-body select-file">
+					@foreach($post->pdfs as $pdf)
+					<div>
+						<div class="img-pdf-form">
+							<a href="{{ route('posts.pdf-view',['pID'=>$pdf->id]) }}" title="Ver Archivo">
+								<img src="{{ url('images/pdf.png') }}" alt="">
+								<span>{{ $pdf->name }}</span>
+							</a>
 							{!! Form::open(['route' => ['posts.destroy-pdf',$post->id,$pdf->id],'class'=>'delete-file']) !!}
 								<button class="btn btn-link btn-link-danger btn-xs">Eliminar</button>
 							{!! Form::close() !!}
-			  		</div>
-			  	@endforeach
-		  		<hr>
+						</div>
+					</div>
+					@endforeach
+					<hr>
 					{!! Form::open(['route' => ['posts.add-pdf',$post->id], 'files' => true]) !!}
 						<div class="form-group">
 							{!! Form::file('pdf',['id'=>'pdf','accept'=>'.pdf','required']) !!}
-					  </div>
+						</div>
 						<center>
 							<button class="btn btn-primary btn-sm">Actualizar Documento</button>
 						</center>
 					{!! Form::close() !!}
-			  </div>
-		  </div>
-	  </div>
+				</div>
+			</div>
+		</div>
 		<div class="col-md-6">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Precios</div>
-			  <div class="panel-body">
+				<div class="panel-heading">Precios</div>
+				<div class="panel-body">
 				@foreach($post->oncePrices as $price)
 					{!! Form::open(['route'=>['posts.update-price','pID'=>$post->id,'prID'=>$price->id],'class'=>'form-inline inline-with-destroy']) !!}
-						  <div class="form-group">
+							<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">$</span>
 								{!! Form::text('price', $price->price,['class' => "form-control",'placeholder'=>"Precio",'required','size'=>'4']) !!}
-						  </div>
-						  <div class="form-group">
+							</div>
+
+							</div>
+							<div class="form-group">
 								{!! Form::text('time', $price->time,['class' => "form-control",'placeholder'=>"Tiempo",'required','size'=>'4']) !!}
-						  </div>
-						  <div class="form-group">
+							</div>
+							<div class="form-group">
 								{!! Form::select('type_time', ['day'=>'Días','month'=>'Meses','year'=>'Años',], $price->type_time,['class' => "select2 form-control",'required']) !!}
-						  </div>
+							</div>
 						@if (Shinobi::can('post.show'))
 								<button class="btn btn-link btn-sm glyphicon glyphicon-floppy-disk"></button>
 							@endif
@@ -204,7 +211,7 @@
 							{!! Form::close() !!}
 						@endif
 				@endforeach
-			  </div>
+				</div>
 				<div class="panel-body">
 					{!! Form::open(['route'=>['posts.store-price','pID'=>$post->id]]) !!}
 						<hr>
