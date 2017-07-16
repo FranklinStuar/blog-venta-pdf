@@ -111,8 +111,10 @@
 				<nav>
 				<br>
 					<ul class="nav">
-						<li><a href="{{ route('send-email') }}">Encviar email</a></li>
+					@if( Shinobi::can('send-mail'))
+						<li><a href="{{ route('send-email') }}">Enviar email</a></li>
 							<li><a href="{{ url('/neuro-admin') }}"><i class="lnr lnr-file-empty"></i> <span>Dashboard</span></a></li>
+					@endif
 
 						@if( Shinobi::can('category.list') || Shinobi::can('category.new'))
 							<li>
