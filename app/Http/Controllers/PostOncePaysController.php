@@ -15,22 +15,16 @@ class PostOncePaysController extends Controller
 	
 	public function index(Request $request)
 	{
-		if (\Shinobi::can('post.admin.pay-once.list')) {
-			return view('klorofil.once-pay-post.index')
-				->with('pays', PostOncePay::all());
-		}else
-			abort(404);
+		return view('klorofil.once-pay-post.index')
+			->with('pays', PostOncePay::all());
 	}
 
 	public function create()
 	{
-		if (\Shinobi::can('post.admin.pay-once.new')) {
-			return view('klorofil.once-pay-post.create')
-				->with('posts', \App\Post::allPluck())
-				->with('users', \App\User::usersList())
-				->with('pay', new PostOncePay);
-		}else
-			abort(404);
+		return view('klorofil.once-pay-post.create')
+			->with('posts', \App\Post::allPluck())
+			->with('users', \App\User::usersList())
+			->with('pay', new PostOncePay);
 	}
 
 	public function store(Request $request){
@@ -75,13 +69,10 @@ class PostOncePaysController extends Controller
 	}
 
 	public function edit($id){
-		if (\Shinobi::can('post.admin.pay-once.edit')) {
-			return view('klorofil.once-pay-post.edit')
-				->with('posts', \App\Post::allPluck())
-				->with('users', \App\User::usersList())
-				->with('pay', PostOncePay::find($id));
-		}else
-			abort(404);
+		return view('klorofil.once-pay-post.edit')
+			->with('posts', \App\Post::allPluck())
+			->with('users', \App\User::usersList())
+			->with('pay', PostOncePay::find($id));
 	}
 
 	public function update(Request $request,$id){
@@ -140,20 +131,14 @@ class PostOncePaysController extends Controller
 	}
 
 	public function show($id){
-		if (\Shinobi::can('post.admin.pay-once.show')) {
-			return view('klorofil.once-pay-post.show')
-				->with('pay', PostOncePay::find($id));
-		}else
-			abort(404);
+		return view('klorofil.once-pay-post.show')
+			->with('pay', PostOncePay::find($id));
 	}
 
 	public function destroy(Request $request,$id){
-		if (\Shinobi::can('post.admin.pay-once.destroy')) {
-			PostOncePay::find($id)->update(['status'=>'cancel']);
-			$request->session()->flash('success', 'Pago cancelado correctamente');
-			return redirect()->back();
-		}else
-			abort(404);
+		PostOncePay::find($id)->update(['status'=>'cancel']);
+		$request->session()->flash('success', 'Pago cancelado correctamente');
+		return redirect()->back();
 	}
 
 	public function getShow($pay_id){

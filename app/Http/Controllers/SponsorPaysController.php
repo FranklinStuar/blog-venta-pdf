@@ -9,20 +9,17 @@ class SponsorPaysController extends Controller
 {
 
     public function create($sponsor_id, $user_id){
-        if(\Shinobi::can('sponsor.pay.create')){
-            $sponsor = \App\Sponsor::find($sponsor_id);
-            $user = \App\User::find($user_id);
-            if($sponsor != null && $user != null){
-                $premiums = \DB::table('sponsor_prices')
-                    ->select(\DB::raw('CONCAT("$ ",price_month," - ",prints," impresiones") as name'), 'id')
-                    ->get();
-                return view('klorofil.sponsors.pay-create')
-                ->with('sponsor',$sponsor)
-                ->with('premiums', array_pluck($premiums,'name','id'))
-                ->with('user',$user);
-            }
+        $sponsor = \App\Sponsor::find($sponsor_id);
+        $user = \App\User::find($user_id);
+        if($sponsor != null && $user != null){
+            $premiums = \DB::table('sponsor_prices')
+                ->select(\DB::raw('CONCAT("$ ",price_month," - ",prints," impresiones") as name'), 'id')
+                ->get();
+            return view('klorofil.sponsors.pay-create')
+            ->with('sponsor',$sponsor)
+            ->with('premiums', array_pluck($premiums,'name','id'))
+            ->with('user',$user);
         }
-        abort(404);
     }
     
     public function store(Request $request){
@@ -47,46 +44,34 @@ class SponsorPaysController extends Controller
     }
     
     public function show($id_pay){
-    	if(\Shinobi::can('sponsor.pay.show')){
-    		$pay = SponsorPay::find($id_pay);
-    		if($pay != null){
-    			return view('klorofil.sponsors.pay-show')->with('pay',$pay);
-    		}
-    	}
-  		abort(404);
+		$pay = SponsorPay::find($id_pay);
+		if($pay != null){
+			return view('klorofil.sponsors.pay-show')->with('pay',$pay);
+		}
     }
     
     public function active($id_pay){
-    	if(\Shinobi::can('sponsor.pay.active')){
-    		$pay = SponsorPay::find($id_pay);
-    		if($pay != null){
-    			return view('klorofil.sponsors.pay-active')->with('pay',$pay);
-    		}
-    	}
-  		abort(404);
+		$pay = SponsorPay::find($id_pay);
+		if($pay != null){
+			return view('klorofil.sponsors.pay-active')->with('pay',$pay);
+		}
     }
     
     public function saveActive(Request $request, $id_pay){
-    	if(\Shinobi::can('sponsor.pay.active')){
-    		$pay = SponsorPay::find($id_pay);
-    		if($pay != null){
-    			$pay->update($request->all());
-    			$pay->update(['status'=>'active']);
-    			return redirect()->route('sponsor-pays.show',['pID'=>$pay->id]);
-    		}
-    	}
-  		abort(404);
+		$pay = SponsorPay::find($id_pay);
+		if($pay != null){
+			$pay->update($request->all());
+			$pay->update(['status'=>'active']);
+			return redirect()->route('sponsor-pays.show',['pID'=>$pay->id]);
+		}
     }
     
     public function cancel($id_pay){
-    	if(\Shinobi::can('sponsor.admin.pay.cancel')){
-    		$pay = SponsorPay::find($id_pay);
-    		if($pay != null){
-    			$pay->update(['status'=>'canceled']);
-    			return redirect()->back();
-    		}
-    	}
-  		abort(404);
+		$pay = SponsorPay::find($id_pay);
+		if($pay != null){
+			$pay->update(['status'=>'canceled']);
+			return redirect()->back();
+		}
     }
 
 }

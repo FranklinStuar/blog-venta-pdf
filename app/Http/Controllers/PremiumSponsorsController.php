@@ -11,20 +11,14 @@ class PremiumSponsorsController extends Controller
 	
 	public function index()
 	{
-		if (\Shinobi::can('sponsor.price.list')) {
-			return view('klorofil.premium-sponsor.index')->with('premiums', SponsorPrice::all());
-		}else
-			abort(404);
+		return view('klorofil.premium-sponsor.index')->with('premiums', SponsorPrice::all());
 	}
 
 	public function create()
 	{
-		if (\Shinobi::can('sponsor.price.new')) {
-			return view('klorofil.premium-sponsor.create',[
-				'premium'=> new SponsorPrice,
-			]);
-		}else
-			abort(404);
+		return view('klorofil.premium-sponsor.create',[
+			'premium'=> new SponsorPrice,
+		]);
 	}
 
 	public function store(Request $request)
@@ -48,12 +42,9 @@ class PremiumSponsorsController extends Controller
 
 	public function edit($id)
 	{
-		if (\Shinobi::can('sponsor.price.edit')) {
-			return view('klorofil.premium-sponsor.edit',[
-				'premium'=> SponsorPrice::find($id),
-			]);
-		}else
-			abort(404);
+		return view('klorofil.premium-sponsor.edit',[
+			'premium'=> SponsorPrice::find($id),
+		]);
 	}
 
 
@@ -73,14 +64,11 @@ class PremiumSponsorsController extends Controller
 
 	public function destroy(Request $request, $id)
 	{
-		if (\Shinobi::can('sponsor.price.destroy')) {
-			if(SponsorPrice::destroy($id))
-				$request->session()->flash('success', 'Premium  eliminado correctamente');
-			else
-				$request->session()->flash('errors', 'Premium No se pudo eliminar');
-			return redirect()->back();
-		}else
-			abort(404);
+		if(SponsorPrice::destroy($id))
+			$request->session()->flash('success', 'Premium  eliminado correctamente');
+		else
+			$request->session()->flash('errors', 'Premium No se pudo eliminar');
+		return redirect()->back();
 	}
 
 	public function getDetail(Request $request){
@@ -100,17 +88,13 @@ class PremiumSponsorsController extends Controller
 	}
 
 	public function addFeature(Request $request){
-		if (\Shinobi::can('sponsor.price.edit')) {
-			$premiums = SponsorPrice::where('featured',true)->get();
-			foreach ($premiums as $premium) 
-				$premium->update(['featured'=>false]);
-			if(SponsorPrice::find($request->pID)->update(['featured'=>true]))
-		  $request->session()->flash('success', 'Se destacó premium');
+		$premiums = SponsorPrice::where('featured',true)->get();
+		foreach ($premiums as $premium) 
+			$premium->update(['featured'=>false]);
+		if(SponsorPrice::find($request->pID)->update(['featured'=>true]))
+			$request->session()->flash('success', 'Se destacó premium');
 		return redirect()->back();
-	  }
 		  
-	  $request->session()->flash('errors', 'No se puedo detacar premium');
-	  return redirect()->back();
 
 	}
 
@@ -137,21 +121,18 @@ class PremiumSponsorsController extends Controller
 
 	public function quitCategory(Request $request, $id)
 	{
-		if (\Shinobi::can('sponsor.detail.destroy')) {
-			$detail = SponsorPriceDetail::find($id);
-			if($detail){
-				$name = $detail->title;
-				if($detail->delete())
-					$request->session()->flash('success', 'Detalle "'.$name.'" eliminado correctamente');
-				else
-					$request->session()->flash('errors', 'Detalle "'.$name.'" No se pudo eliminar');
-					return redirect()->back();
-			}else{
-					$request->session()->flash('success', 'No existe detalle');
-					return redirect()->back();
-			}
-		}else
-			abort(404);
+		$detail = SponsorPriceDetail::find($id);
+		if($detail){
+			$name = $detail->title;
+			if($detail->delete())
+				$request->session()->flash('success', 'Detalle "'.$name.'" eliminado correctamente');
+			else
+				$request->session()->flash('errors', 'Detalle "'.$name.'" No se pudo eliminar');
+				return redirect()->back();
+		}else{
+				$request->session()->flash('success', 'No existe detalle');
+				return redirect()->back();
+		}
 	}
 
 }

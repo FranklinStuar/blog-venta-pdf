@@ -11,125 +11,100 @@ use \App\User;
 class SponsorsController extends Controller
 {
 	public function index(){
-		if (\Shinobi::can('sponsor.admin.list')) {
-			return view('klorofil.sponsors.index')->with('sponsors', Sponsor::all());
-		}
-		abort(404);
+		return view('klorofil.sponsors.index')->with('sponsors', Sponsor::all());
 
 	}
 	
 	public function create(Request $request){
-		if (\Shinobi::can('sponsor.admin.add')) {
-			$sponsor = new Sponsor;
-			if ($request->has('uID')) 
-				$sponsor->user_id = $request->uID;
-			return view('klorofil.sponsors.create')
-			->with('users', User::usersList())
-			->with('sponsor', $sponsor);
-		}
-		abort(404);
+		$sponsor = new Sponsor;
+		if ($request->has('uID')) 
+			$sponsor->user_id = $request->uID;
+		return view('klorofil.sponsors.create')
+		->with('users', User::usersList())
+		->with('sponsor', $sponsor);
 	}
 
 	public function store(Request $request){
-		if (\Shinobi::can('sponsor.admin.add')) {
-			$this->validate($request, [
-				'name' => 'required|max:50',
-				'excerpt' => 'required|max:80',
-				'image' => 'required',
-			]);
-			$sponsor = Sponsor::create($request->all());
+		$this->validate($request, [
+			'name' => 'required|max:50',
+			'excerpt' => 'required|max:80',
+			'image' => 'required',
+		]);
+		$sponsor = Sponsor::create($request->all());
 
+		// Nombre de como se va a guardar 
+		$file_name = str_slug(\Carbon\Carbon::now());
+
+		//indicamos que queremos guardar un nuevo archivo en el disco local
+		\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+		
+		$sponsor->update([
+			'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+		]);
+		$request->session()->flash('success', 'Publicidad: "'.$request->name .'" guardado con éxito');
+		return redirect()->route('sponsors.index');
+	}
+
+	public function edit($id){
+		return view('klorofil.sponsors.edit')
+		->with('users', User::usersList())
+		->with('sponsor', Sponsor::find($id));
+
+	}
+
+	public function update(Request $request, $id){
+		$this->validate($request, [
+			'name' => 'required|max:50',
+			'excerpt' => 'required|max:80',
+		]);
+
+		$sponsor = Sponsor::find($id);
+		
+		if($request->hasFile('image')){
 			// Nombre de como se va a guardar 
 			$file_name = str_slug(\Carbon\Carbon::now());
 
 			//indicamos que queremos guardar un nuevo archivo en el disco local
 			\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-			
+		
 			$sponsor->update([
 				'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
 			]);
-			$request->session()->flash('success', 'Publicidad: "'.$request->name .'" guardado con éxito');
-			return redirect()->route('sponsors.index');
 		}
-		abort(404);
-	}
-
-	public function edit($id){
-		if (\Shinobi::can('sponsor.admin.edit')) {
-			return view('klorofil.sponsors.edit')
-			->with('users', User::usersList())
-			->with('sponsor', Sponsor::find($id));
-		}
-		abort(404);
-
-	}
-
-	public function update(Request $request, $id){
-		if (\Shinobi::can('sponsor.admin.add')) {
-			$this->validate($request, [
-				'name' => 'required|max:50',
-				'excerpt' => 'required|max:80',
-			]);
-
-			$sponsor = Sponsor::find($id);
-			
-			if($request->hasFile('image')){
-				// Nombre de como se va a guardar 
-				$file_name = str_slug(\Carbon\Carbon::now());
-
-				//indicamos que queremos guardar un nuevo archivo en el disco local
-				\Storage::disk('local')->put('public/users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-			
-				$sponsor->update([
-					'image'=> 'users/sponsor/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
-				]);
-			}
-			$sponsor->update($request->except(['image']));
-			$request->session()->flash('success', 'Publicidad: "'.$request->name .'" editado con éxito');
-			return redirect()->route('sponsors.index');
-		}
-		abort(404);
+		$sponsor->update($request->except(['image']));
+		$request->session()->flash('success', 'Publicidad: "'.$request->name .'" editado con éxito');
+		return redirect()->route('sponsors.index');
 	}
 
 	public function show($id){
-		if (\Shinobi::can('sponsor.admin.edit')) {
-			$sponsor = Sponsor::find($id);
-			if($sponsor != null){
-				return view('klorofil.sponsors.show')
-				->with('sponsor', $sponsor);
-			}
+		$sponsor = Sponsor::find($id);
+		if($sponsor != null){
+			return view('klorofil.sponsors.show')
+			->with('sponsor', $sponsor);
 		}
-		abort(404);
 	}
 
 	public function destroy(Request $request, $id){
-		if (\Shinobi::can('sponsor.admin.destroy')) {
-			$sponsor = Sponsor::find($id);
-			if($sponsor != null){
-				if(count($sponsor->pays) > 0){
-					$request->session()->flash('success', 'Tiene pagos realizados, se han cancelado todos los pagos y ya no están accesible para el usuario');
-					$sponsor->cancel();
-				}else{
-					$sponsor->delete();
-					$request->session()->flash('success', 'Sponsor eliminado de la lista');
-				}
-				return redirect()->back();
+		$sponsor = Sponsor::find($id);
+		if($sponsor != null){
+			if(count($sponsor->pays) > 0){
+				$request->session()->flash('success', 'Tiene pagos realizados, se han cancelado todos los pagos y ya no están accesible para el usuario');
+				$sponsor->cancel();
+			}else{
+				$sponsor->delete();
+				$request->session()->flash('success', 'Sponsor eliminado de la lista');
 			}
+			return redirect()->back();
 		}
-		abort(404);
 	}
 
 
 	public function historial($id){
-		if (\Shinobi::can('sponsor.admin.historial')) {
-			$sponsor = Sponsor::find($id);
-			if($sponsor != null){
-				return view('klorofil.sponsors.historial')
-				->with('sponsor', $sponsor);
-			}
+		$sponsor = Sponsor::find($id);
+		if($sponsor != null){
+			return view('klorofil.sponsors.historial')
+			->with('sponsor', $sponsor);
 		}
-		abort(404);
-
 	}
 
 
@@ -137,21 +112,18 @@ class SponsorsController extends Controller
 
 
 	public function listUser(Request $request){
-		if (\Shinobi::can('sponsor.price.list')) {
-			if($request->has('sp')){
-				$sponsor = Sponsor::find($request->sp);
-				if($sponsor != null && \Auth::user()->id == $sponsor->user_id){
-					return view('corporate.list-sponsor')
-						->with('sponsor', $sponsor)
-							->with('premiums',SponsorPrice::all());
-				}		    			
-				else
-					abort(404);
-			}
-			return view('corporate.list-sponsor')
-				->with('premiums',SponsorPrice::all());
+		if($request->has('sp')){
+			$sponsor = Sponsor::find($request->sp);
+			if($sponsor != null && \Auth::user()->id == $sponsor->user_id){
+				return view('corporate.list-sponsor')
+					->with('sponsor', $sponsor)
+						->with('premiums',SponsorPrice::all());
+			}		    			
+			else
+				abort(404);
 		}
-		abort(404);
+		return view('corporate.list-sponsor')
+			->with('premiums',SponsorPrice::all());
 	}
 
 	public function payment(Request $request){
@@ -169,16 +141,12 @@ class SponsorsController extends Controller
 
 	public function createSponsor(Request $request){
 		$premium = SponsorPrice::find(explode("x", $request->sprice)[0]);
-		if (\Shinobi::can('sponsor.add') && $premium != null) {
-			return view('corporate.sponsors.create')
-				->with('premium',$premium)
-				->with('sponsor', new Sponsor)
-				;
-			}
-		abort(404);
+		return view('corporate.sponsors.create')
+			->with('premium',$premium)
+			->with('sponsor', new Sponsor)
+			;
 	}
 	public function sponsorSave(Request $request){
-		if (\Shinobi::can('sponsor.add')) {
 			$this->validate($request, [
 				'name' => 'required|max:255',
 				'excerpt' => 'required|max:80',
@@ -205,8 +173,6 @@ class SponsorsController extends Controller
 			]);
 			return redirect()->route('sponsor.payment',['sprice'=>$request->sprice,'sp'=>$sponsor->id]);
 			
-		}
-		abort(404);
 	}
 
 	// 'price_month','author_id','sponsor_price_id','sponsor_id','method_payment','created_at',

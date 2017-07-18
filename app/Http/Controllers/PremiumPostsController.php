@@ -12,23 +12,17 @@ class PremiumPostsController extends Controller
 
 		public function index()
 		{
-				if (\Shinobi::can('post.admin.price.list')) {
-						return view('klorofil.premium-post.index')
-						->with('premiums', PostPrice::all());
-				}else
-						abort(404);
+			return view('klorofil.premium-post.index')
+			->with('premiums', PostPrice::all());
 		}
 
 
 		public function create()
 		{
-			if (\Shinobi::can('post.admin.price.new')) {
-				return view('klorofil.premium-post.create',[
-					'premium'=> new PostPrice,
-					'roles'=> array_pluck(Role::where('slug','<>','superadmin')->get(),'name','id'),
-				]);
-			}else
-					abort(404);
+			return view('klorofil.premium-post.create',[
+				'premium'=> new PostPrice,
+				'roles'=> array_pluck(Role::where('slug','<>','superadmin')->get(),'name','id'),
+			]);
 		}
 
 		public function store(Request $request){
@@ -46,13 +40,10 @@ class PremiumPostsController extends Controller
 
 		public function edit($id)
 		{
-			if (\Shinobi::can('post.admin.price.edit')) {
-				return view('klorofil.premium-post.edit',[
-					'premium'=> PostPrice::find($id),
-					'roles'=> array_pluck(Role::where('slug','<>','superadmin')->get(),'name','id'),
-				]);
-			}else
-				abort(404);
+			return view('klorofil.premium-post.edit',[
+				'premium'=> PostPrice::find($id),
+				'roles'=> array_pluck(Role::where('slug','<>','superadmin')->get(),'name','id'),
+			]);
 		}
 
 		public function update(Request $request,$id)
@@ -71,14 +62,11 @@ class PremiumPostsController extends Controller
 
 		public function destroy(Request $request, $id)
 		{
-			if (\Shinobi::can('post.admin.price.destroy')) {
-				if(PostPrice::destroy($id))
-						$request->session()->flash('success', 'Premium  eliminado correctamente');
-				else
-						$request->session()->flash('errors', 'Premium No se pudo eliminar');
-				return redirect()->back();
-			}else
-				abort(404);
+			if(PostPrice::destroy($id))
+					$request->session()->flash('success', 'Premium  eliminado correctamente');
+			else
+					$request->session()->flash('errors', 'Premium No se pudo eliminar');
+			return redirect()->back();
 		}
 
 
@@ -145,37 +133,28 @@ class PremiumPostsController extends Controller
 	}
 
 	public function viewPosts($kit_id){
-		if (\Shinobi::can('premium-post.admin.post.list')) {
-			$kit = PostPrice::find($kit_id);
-			$posts = \App\Post::whereNotIn('id',array_pluck($kit->posts, 'id'))->orderBy('id','asc')->get();
-			return view('klorofil.premium-post.posts',[
-				'kit'=> $kit,
-				'posts'=>array_pluck($posts,'title','id')
-			]);
-		}else
-			abort(404);
+		$kit = PostPrice::find($kit_id);
+		$posts = \App\Post::whereNotIn('id',array_pluck($kit->posts, 'id'))->orderBy('id','asc')->get();
+		return view('klorofil.premium-post.posts',[
+			'kit'=> $kit,
+			'posts'=>array_pluck($posts,'title','id')
+		]);
 	}
 
 
 	public function addPosts(Request $request,$kit_id){
-		if (\Shinobi::can('premium-post.admin.post.add')) {
-			$kit = PostPrice::find($kit_id);
-			$kit->posts()->attach($request->post_id);
-			$request->session()->flash('success', 'Post agreado correctamente');
-			return redirect()->back();
-		}else
-			abort(404);
+		$kit = PostPrice::find($kit_id);
+		$kit->posts()->attach($request->post_id);
+		$request->session()->flash('success', 'Post agreado correctamente');
+		return redirect()->back();
 	}
 
 
 	public function destroyPosts(Request $request,$kit_id,$post_id){
-		if (\Shinobi::can('premium-post.admin.post.quit')) {
-			$kit = PostPrice::find($kit_id);
-			$kit->posts()->detach($post_id);
-			$request->session()->flash('success', 'Post removido correctamente');
-			return redirect()->back();
-		}else
-			abort(404);
+		$kit = PostPrice::find($kit_id);
+		$kit->posts()->detach($post_id);
+		$request->session()->flash('success', 'Post removido correctamente');
+		return redirect()->back();
 	}
 
 

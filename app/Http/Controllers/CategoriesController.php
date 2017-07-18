@@ -11,22 +11,16 @@ class CategoriesController extends Controller
     
     public function index()
     {
-        if (\Shinobi::can('category.list')) {
-            return view('klorofil.category.index')->with('categories', Category::all());
-        }else
-            abort(404);
+        return view('klorofil.category.index')->with('categories', Category::all());
     }
 
    
     public function create()
     {
-        if (\Shinobi::can('category.new')) {
-            return view('klorofil.category.create',[
-                'category'=> new Category,
-                'categories'=> array_pluck(Category::all(),'name','id'),
-            ]);
-        }else
-            abort(404);
+        return view('klorofil.category.create',[
+            'category'=> new Category,
+            'categories'=> array_pluck(Category::all(),'name','id'),
+        ]);
     }
 
    
@@ -51,13 +45,10 @@ class CategoriesController extends Controller
 
     public function edit($id)
     {
-        if (\Shinobi::can('category.edit')) {
-            return view('klorofil.category.edit',[
-                'category'=> Category::find($id),
-                'categories'=> array_pluck(Category::where('id','<>',$id)->get(),'name','id'),
-            ]);
-        }else
-            abort(404);
+        return view('klorofil.category.edit',[
+            'category'=> Category::find($id),
+            'categories'=> array_pluck(Category::where('id','<>',$id)->get(),'name','id'),
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -76,15 +67,12 @@ class CategoriesController extends Controller
     
     public function destroy(Request $request, $id)
     {
-        if (\Shinobi::can('category.destroy')) {
-            $category = Category::find($id);
-            $name = $category->name;
-            if($category->delete())
-                $request->session()->flash('success', 'Categoría "'.$name.'" eliminado correctamente');
-            else
-                $request->session()->flash('errors', 'Categoría "'.$name.'" No se pudo eliminar');
-            return redirect()->action('CategoriesController@index');
-        }else
-            abort(404);
+        $category = Category::find($id);
+        $name = $category->name;
+        if($category->delete())
+            $request->session()->flash('success', 'Categoría "'.$name.'" eliminado correctamente');
+        else
+            $request->session()->flash('errors', 'Categoría "'.$name.'" No se pudo eliminar');
+        return redirect()->action('CategoriesController@index');
     }
 }

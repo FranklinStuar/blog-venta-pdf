@@ -19,154 +19,133 @@ class PostsController extends Controller
 	
 	public function index(Request $request)
 	{
-		if (\Shinobi::can('post.list')) {
-			return view('klorofil.posts.index')->with('posts', Post::all());
-		}else
-			abort(404);
+		return view('klorofil.posts.index')->with('posts', Post::all());
 	}
 
 	public function create()
 	{
-		if (\Shinobi::can('post.new')) {
-			return view('klorofil.posts.create',[
-				'post'=> new Post,
-				'categories'=> array_pluck(Category::all(),'name','id'),
-				'kits'=> \App\PostPrice::kitsList()
-			]);
-		}else
-			abort(404);
+		return view('klorofil.posts.create',[
+			'post'=> new Post,
+			'categories'=> array_pluck(Category::all(),'name','id'),
+			'kits'=> \App\PostPrice::kitsList()
+		]);
 	}
 
 	public function store(Request $request)
 	{
 		// dd($request->pdf->getClientOriginalName());
-		if (\Shinobi::can('post.new')) {
+		$this->validate($request, [
+			'title'     	=> 'required',
+			'excerpt'   	=> 'required',
+			'body'      	=> 'required',
+			'meta_keywords'	=> 'required',
+		]);
+
+		if ($request->has('price') || $request->has('time')) {
 			$this->validate($request, [
-				'title'     	=> 'required',
-				'excerpt'   	=> 'required',
-				'body'      	=> 'required',
-				'meta_keywords'	=> 'required',
+				'price'		=> 'required',
+				'time'		=> 'required',
+				'type_time' => 'required',
 			]);
+		}
 
-			if ($request->has('price') || $request->has('time')) {
-				$this->validate($request, [
-					'price'		=> 'required',
-					'time'		=> 'required',
-					'type_time' => 'required',
-				]);
-			}
+		// Nombre de como se va a guardar 
+		$file_name = str_slug(\Carbon\Carbon::now());
 
-			// Nombre de como se va a guardar 
-			$file_name = str_slug(\Carbon\Carbon::now());
-
-			//indicamos que queremos guardar un nuevo archivo en el disco local
-			\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
-			
-			$post = Post::create([
-				'author_id'=> \Auth::user()->id,
-				'title'=> $request->title,
-				'seo_title'=> $request->title,
-				'excerpt'=> $request->excerpt,
-				'body'=> $request->body,
-				'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
-				'slug'=> str_slug($request->title,'-'),
-				'meta_description'=> $request->excerpt,
-				'meta_keywords'=> $request->meta_keywords,
-				'status'=> 'PUBLISHED',
-				'category_id'=> $request->category_id,
-			]);
-
-			if($request->hasFile('pdf')){
-				\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+		//indicamos que queremos guardar un nuevo archivo en el disco local
+		\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
 		
-				\App\Pdf::create([
-					'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
-					'post_id'=>$post->id,
-					'name'=>$request->pdf->getClientOriginalName()
-				]);
-			}
-			if ($request->has('price') || $request->has('time')) {
-				PostOncePrice::create([
-					'price' => $request->price,
-					'time' => $request->time,
-					'type_time' => $request->type_time,
-					'post_id' => $post->id,
-				]);
-			}
-			if($request->has('kits'))
-				$post->kits()->sync($request->kits);
-			$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
-			return redirect()->route('posts.index');
-		}else
-			abort(404);
+		$post = Post::create([
+			'author_id'=> \Auth::user()->id,
+			'title'=> $request->title,
+			'seo_title'=> $request->title,
+			'excerpt'=> $request->excerpt,
+			'body'=> $request->body,
+			'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+			'slug'=> str_slug($request->title,'-'),
+			'meta_description'=> $request->excerpt,
+			'meta_keywords'=> $request->meta_keywords,
+			'status'=> 'PUBLISHED',
+			'category_id'=> $request->category_id,
+		]);
+
+		if($request->hasFile('pdf')){
+			\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+	
+			\App\Pdf::create([
+				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
+				'post_id'=>$post->id,
+				'name'=>$request->pdf->getClientOriginalName()
+			]);
+		}
+		if ($request->has('price') || $request->has('time')) {
+			PostOncePrice::create([
+				'price' => $request->price,
+				'time' => $request->time,
+				'type_time' => $request->type_time,
+				'post_id' => $post->id,
+			]);
+		}
+		if($request->has('kits'))
+			$post->kits()->sync($request->kits);
+		$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
+		return redirect()->route('posts.index');
 	}
 
 	public function show(Request $request,$id)
 	{
-		if (\Shinobi::can('post.edit')) {
-			return view('klorofil.posts.edit',[
-				'post'=> Post::find($id),
-				'categories'=> array_pluck(Category::all(),'name','id'),
-			]);
-		}else
-			abort(404);
+		return view('klorofil.posts.edit',[
+			'post'=> Post::find($id),
+			'categories'=> array_pluck(Category::all(),'name','id'),
+		]);
 	}
 
 	public function edit($id)
 	{
-		if (\Shinobi::can('post.edit')) {
-			return view('klorofil.posts.edit',[
-				'post'=> Post::find($id),
-				'categories'=> array_pluck(Category::all(),'name','id'),
-				'kits'=> \App\PostPrice::kitsList()
-			]);
-		}else
-			abort(404);
+		return view('klorofil.posts.edit',[
+			'post'=> Post::find($id),
+			'categories'=> array_pluck(Category::all(),'name','id'),
+			'kits'=> \App\PostPrice::kitsList()
+		]);
 	}
 
 	public function update(Request $request, $id)
 	{
-		if (\Shinobi::can('post.edit')) {
-			$this->validate($request, [
-				'title'     			=> 'required',
-				'excerpt'   			=> 'required',
-				'body'      			=> 'required',
-				'meta_keywords'			=> 'required',
-			]);
+		$this->validate($request, [
+			'title'     			=> 'required',
+			'excerpt'   			=> 'required',
+			'body'      			=> 'required',
+			'meta_keywords'			=> 'required',
+		]);
 
-			$post = Post::find($id);
-			$post->update([
-				'author_id'			=> \Auth::user()->id,
-				'title'				=> $request->title,
-				'seo_title'			=> $request->title,
-				'excerpt'			=> $request->excerpt,
-				'body'				=> $request->body,
-				'slug'				=> str_slug($request->title,'-'),
-				'meta_description'	=> $request->excerpt,
-				'meta_keywords'		=> $request->meta_keywords,
-				'status'			=> 'PUBLISHED',
-				'category_id'		=> $request->category_id,
-			]);
-			
-			$post->kits()->sync($request->kits);
-			$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
-			return redirect()->route('posts.index');
-		}else
-			abort(404);
+		$post = Post::find($id);
+		$post->update([
+			'author_id'			=> \Auth::user()->id,
+			'title'				=> $request->title,
+			'seo_title'			=> $request->title,
+			'excerpt'			=> $request->excerpt,
+			'body'				=> $request->body,
+			'slug'				=> str_slug($request->title,'-'),
+			'meta_description'	=> $request->excerpt,
+			'meta_keywords'		=> $request->meta_keywords,
+			'status'			=> 'PUBLISHED',
+			'category_id'		=> $request->category_id,
+		]);
+		
+		$post->kits()->sync($request->kits);
+		$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
+		return redirect()->route('posts.index');
 	}
 
 	public function destroy(Request $request, $id)
 	{
-		if (\Shinobi::can('post.destroy')) {
-			$post = Post::find($id);
-			$title = $post->title;
-			if($post->delete())
-				$request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
-			else
-				$request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
-			return redirect()->route('posts.index');
-		}else
-			abort(404);
+		$post = Post::find($id);
+		$title = $post->title;
+		if($post->delete())
+			$request->session()->flash('success', 'Post "'.$title.'" eliminado correctamente');
+		else
+			$request->session()->flash('errors', 'Post "'.$title.'" No se pudo eliminar');
+		return redirect()->route('posts.index');
 	}
 
 	public function updateImage(Request $request, $post_id){
@@ -214,16 +193,13 @@ class PostsController extends Controller
 
 	public function viewPDF($pdf_id){
 		
-		if (\Shinobi::can('post.pdf.show')) {
-			$pdf = \App\Pdf::find($pdf_id);
-			if($pdf){
-				return view('pdf.view')
-					->with('post', $pdf);
-			}
-			else
-				abort(404);
-		}else
-			abort(503);
+		$pdf = \App\Pdf::find($pdf_id);
+		if($pdf){
+			return view('pdf.view')
+				->with('post', $pdf);
+		}
+		else
+			abort(404);
 	}
 
 
@@ -355,12 +331,9 @@ class PostsController extends Controller
 
 
 	public function viewKits($post_id){
-		if (\Shinobi::can('post.admin.kit.list')) {
-			return view('klorofil.posts.kits',[
-				'post'=> Post::find($post_id),
-			]);
-		}else
-			abort(404);
+		return view('klorofil.posts.kits',[
+			'post'=> Post::find($post_id),
+		]);
 	}
 
 	public function getOncePrices(Request $request){
