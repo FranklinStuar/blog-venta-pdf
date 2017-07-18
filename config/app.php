@@ -185,7 +185,7 @@ return [
         
         Collective\Html\HtmlServiceProvider::class,
         Rap2hpoutre\LaravelCreditCardValidator\ServiceProvider::class,
-        // Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
+        Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
 
     ],
 

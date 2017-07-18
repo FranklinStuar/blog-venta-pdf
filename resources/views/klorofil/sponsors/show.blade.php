@@ -149,9 +149,7 @@
 							</tbody>
 						</table>
 						<div class="panel-body">
-							@if (Shinobi::can('sponsor.pay.create'))
 								<a href="{{ route('sponsor-pays.create',['sID'=>$sponsor->id,'uID'=>$sponsor->user->id]) }}">Nuevo pago</a>
-							@endif
 						</div>
 					</div>
 				</div>
