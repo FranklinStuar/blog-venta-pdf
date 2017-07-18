@@ -356,12 +356,15 @@ body{
 .list-post .card{
 	color: #2e2e2e;
 	display: block;
+	vertical-align: top;
+	min-height: 175px;
 	margin-bottom: 2em;
 	position: relative;
 }
 .list-post .card .img, .list-post .card .content-post{
 	width: 30%;
 	display: inline-block;
+	vertical-align: center;
 }
 .list-post .card .content-post{
 	position: absolute;
@@ -390,7 +393,7 @@ body{
 }
 .list-post .card ul{
 	display: block;
-	position: relative;
+	vertical-align: bottom;
 }
 .list-post .card ul .li-author{
 	float: left;
