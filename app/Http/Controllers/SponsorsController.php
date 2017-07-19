@@ -30,6 +30,11 @@ class SponsorsController extends Controller
 			'excerpt' => 'required|max:80',
 			'image' => 'required',
 		]);
+		if($request->has(phone)){
+			$this->validate($request, [
+				'phone' => 'max:20',
+			]);
+		}
 		$sponsor = Sponsor::create($request->all());
 
 		// Nombre de como se va a guardar 
@@ -58,6 +63,11 @@ class SponsorsController extends Controller
 			'excerpt' => 'required|max:80',
 		]);
 
+		if($request->has(phone)){
+			$this->validate($request, [
+				'phone' => 'max:20',
+			]);
+		}
 		$sponsor = Sponsor::find($id);
 		
 		if($request->hasFile('image')){
@@ -152,6 +162,12 @@ class SponsorsController extends Controller
 				'excerpt' => 'required|max:80',
 				'image' => 'required',
 			]);
+			
+			if($request->has(phone)){
+				$this->validate($request, [
+					'phone' => 'max:20',
+				]);
+			}
 			// Nombre de como se va a guardar 
 			$file_name = str_slug(\Carbon\Carbon::now());
 
@@ -272,6 +288,11 @@ class SponsorsController extends Controller
 				'excerpt' => 'required|max:80',
 			]);
 
+			if($request->has(phone)){
+				$this->validate($request, [
+					'phone' => 'max:20',
+				]);
+			}
 			if($request->hasFile('image')){
 				// Nombre de como se va a guardar 
 				$file_name = str_slug(\Carbon\Carbon::now());

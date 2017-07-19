@@ -10,14 +10,15 @@
 
 	<!-- Font Awesome -->
 	<link href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
 
 	<!-- Bootstrap core CSS -->
+	{{-- <link href="{{ url('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 	<link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
 
 	<!-- Material Design Bootstrap -->
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
-	
 	{{-- @yield('style') --}}
 	{{-- @yield('google-script') --}}
 </head>

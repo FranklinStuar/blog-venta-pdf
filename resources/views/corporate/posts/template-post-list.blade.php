@@ -4,7 +4,7 @@
 			@foreach($posts as $post)
 				<div class="card wow fadeIn" data-wow-delay="0.2s">
 					<div class="img view overlay hm-white-light z-depth-1-half">
-						<img src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}">
+						<img class="img-fluid" src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}">
 						<a  href="{{ route('show-post',['PN'=> $post->slug]) }}" title="{{ $post->title }}">
 							<div class="mask"></div>
 						</a>
@@ -13,7 +13,7 @@
 						<a  href="{{ route('show-post',['PN'=> $post->slug]) }}" title="{{ $post->title }}">
 							<h2 class="h2-responsive">{{ $post->title }}</h2>
 						</a>
-						<p>{{ str_limit($post->excerpt,250) }}</p>
+						<p>{{ str_limit($post->excerpt,150) }}</p>
 						<ul>
 							<li class="li-author">Publicado por: <a href="{{ route('show-user',[$post->author->username]) }}">{{ $post->author->name }}</a></li>
 							<li class="li-date">Realizado: {{ $post->created_at->diffForHumans() }}</li>

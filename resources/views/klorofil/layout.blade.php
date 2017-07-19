@@ -34,14 +34,6 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <style>
-        .image-fluid{
-            max-width: 100%;
-            max-width: 25em;
-            margin:auto;
-        }
-    </style>
-
 </head>
 
 <body>

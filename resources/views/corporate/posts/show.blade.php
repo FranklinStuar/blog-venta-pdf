@@ -104,7 +104,7 @@
 						<div class="panel-heading">Documentos</div>
 							
 						@if(count($post->pdfs) > 0)
-							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0) /* && Shinobi::can('post.pdf.show')*/)
+							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0))
 								<div class="panel-body container-img-pdf">
 									@foreach($post->pdfs as $pdf)
 										<ul>
@@ -116,6 +116,11 @@
 											</li>
 										</ul>
 									@endforeach
+								</div>
+							@elseif(!Auth::user() && count($post->oncePrices) == 0)
+								<div class="panel-body">
+									<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
+									Hay documentos gratuitos. Puede visulizar y disfrutar de los archivos con solo registrarse
 								</div>
 							@else
 								@if(count($post->oncePrices))
