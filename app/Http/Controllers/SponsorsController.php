@@ -30,7 +30,7 @@ class SponsorsController extends Controller
 			'excerpt' => 'required|max:80',
 			'image' => 'required',
 		]);
-		if($request->has(phone)){
+		if($request->has('phone')){
 			$this->validate($request, [
 				'phone' => 'max:20',
 			]);
@@ -63,7 +63,7 @@ class SponsorsController extends Controller
 			'excerpt' => 'required|max:80',
 		]);
 
-		if($request->has(phone)){
+		if($request->has('phone')){
 			$this->validate($request, [
 				'phone' => 'max:20',
 			]);
@@ -162,8 +162,8 @@ class SponsorsController extends Controller
 				'excerpt' => 'required|max:80',
 				'image' => 'required',
 			]);
-			
-			if($request->has(phone)){
+
+			if($request->has('phone')){
 				$this->validate($request, [
 					'phone' => 'max:20',
 				]);
@@ -288,7 +288,7 @@ class SponsorsController extends Controller
 				'excerpt' => 'required|max:80',
 			]);
 
-			if($request->has(phone)){
+			if($request->has('phone')){
 				$this->validate($request, [
 					'phone' => 'max:20',
 				]);

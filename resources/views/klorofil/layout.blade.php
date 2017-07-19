@@ -26,9 +26,9 @@
 	<!-- GOOGLE FONTS -->
 	{{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"> --}}
 	<!-- ICONS -->
-	<link rel="apple-touch-icon" sizes="76x76" href="{{ url('klorofil/img/apple-icon.png') }}">
-	{{-- <link rel="icon" type="image/png" sizes="96x96" href="{{ url('klorofil/img/favicon.png') }}"> --}}
-
+	<link rel="apple-touch-icon" sizes="64x64" href="{{ url('images/icon.png') }}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{{ url('images/icon.png') }}">
+	
 	<!--ToastMessage-->
 	<link href="{{url('plugins/jquery-toastmessage/css/jquery.toastmessage.css')}}" rel="stylesheet">
   <!-- CSRF Token -->
@@ -42,7 +42,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="{{ url('/') }}"><img src="{{ url('klorofil/img/logo.png') }}" alt="Klorofil Logo" class="img-responsive logo" style="max-height: 30px;"></a>
+				<a href="{{ url('/') }}"><img src="{{ url('images/logo.png') }}" alt="Klorofil Logo" class="img-responsive logo" style="max-height: 40px;"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">

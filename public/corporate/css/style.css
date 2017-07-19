@@ -566,7 +566,7 @@ body{
 .modal-sponsor .title-sponsor{
 	position: absolute;
 	bottom: 0;
-	background: rgba(42,42,42,0.3);
+	background: rgba(42,42,42,0.8);
 	color: #fafafa;
 	display: block;
 	width: 100%;
@@ -617,6 +617,12 @@ body{
 {
     color: #fff;
 }
+
+.navbar.navbar-dark .navbar-brand img
+{
+    max-height: 50px;
+}
+
 .navbar.navbar-dark .navbar-brand:hover,
 .navbar.navbar-dark .navbar-brand:focus {
     color: #5E5E5E;

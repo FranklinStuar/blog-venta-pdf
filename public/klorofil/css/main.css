@@ -1965,3 +1965,9 @@ div[data-role="editor-toolbar"] {
   padding: 1px;
   text-align: center;
 }
+
+.image-fluid{
+    max-width: 100%;
+    max-width: 25em;
+    margin:auto;
+}
