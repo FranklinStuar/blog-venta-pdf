@@ -149,4 +149,14 @@ class HomeController extends Controller
         abort(404);
     }
 
+    public function free(){
+        
+        return view('corporate.posts.post')
+            ->with('name','Publicaciones Gratis')
+            ->with('type','Publicaciones Gratis')
+            ->with('posts',Post::free())
+        ;
+        abort(404);
+    }
+
 }

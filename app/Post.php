@@ -69,4 +69,14 @@ class Post extends Model
   public function otherPosts(){
     return Post::where('id','<>',$this->id)->limit(5)->inRandomOrder()->get();
   }
+
+  public static function free(){
+    $posts = [];
+    $list = \App\Post::all();
+    for ($i=0; $i < count($list); $i++) { 
+      if(count($list[$i]->pdfs) > 0 && count($list[$i]->oncePrices) == 0)
+        array_push($posts, $list[$i]);
+    }
+    return $posts;
+  }
 }

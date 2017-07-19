@@ -37,13 +37,12 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<a class="navbar-brand" href="{{ url('/') }}">
-					{{-- <strong>Neurocódigo</strong> --}}
 					<img src="{{ url('images/logo.png') }}" alt="">
 				</a>
 				<div class="collapse navbar-collapse" id="navbarNav1">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active">
-							{{-- <a class="nav-link">Home <span class="sr-only">(current)</span></a> --}}
+						<li class="nav-item">
+							<a class="nav-link free" href="{{ route('post.free') }}"><span>Gratis</span></a>
 						</li>
 						<li class="nav-item dropdown btn-group">
 							<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
@@ -53,7 +52,7 @@
 								@endforeach
 							</div>
 						</li>
-						
+
 					</ul>
 					{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
 						<input name="search" class="form-control" type="text" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>

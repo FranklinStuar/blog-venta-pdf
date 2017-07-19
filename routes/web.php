@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 Route::get('/init', 'InitController@index')->name('init');
+Route::get('/free', 'HomeController@free')->name('post.free');
 Route::get('search','HomeController@search')->name('search');
 Route::get('categoria/{category}','HomeController@showCategory')->name('show-category');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');

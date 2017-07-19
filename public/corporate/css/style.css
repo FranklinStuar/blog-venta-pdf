@@ -627,3 +627,12 @@ body{
 .navbar.navbar-dark .navbar-brand:focus {
     color: #5E5E5E;
 }
+
+a.nav-link.free span{
+	color: #b71c1c;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-bottom: 1px solid #b71c1c;
+	font-family: 'Merriweather', serif;
+}
