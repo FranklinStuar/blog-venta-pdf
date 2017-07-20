@@ -15,8 +15,8 @@
 	<!-- Bootstrap core CSS -->
 	<link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
 
-	<link rel="apple-touch-icon" sizes="64x64" href="{{ url('images/icon.png') }}">
-	<link rel="icon" type="image/png" sizes="64x64" href="{{ url('images/icon.png') }}">
+	<link rel="apple-touch-icon" sizes="64x64" href="{{ url('images/favicon.png') }}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{{ url('images/favicon.png') }}">
 	
 	<!-- Material Design Bootstrap -->
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<a class="navbar-brand" href="{{ url('/') }}">
-					<img src="{{ url('images/logo.png') }}" alt="">
+					<img src="{{ url('images/neurocodigo.png') }}" alt="">
 				</a>
 				<div class="collapse navbar-collapse" id="navbarNav1">
 					<ul class="navbar-nav mr-auto">
