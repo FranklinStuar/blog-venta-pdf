@@ -105,6 +105,7 @@ class HomeController extends Controller
         if($post){
             return view('corporate.posts.show')
                 ->with('post',$post)
+                ->with('categories',\App\Category::all())
             ;
         }else
         abort(404);

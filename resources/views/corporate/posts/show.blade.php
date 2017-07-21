@@ -29,124 +29,132 @@
 			<h1>{{ $post->title }}</h1>
 			<ul>
 				<li>Mecatronica-Cuenca</li>
-				<li>
-					<a href="{{ route('show-user',['uID'=>$post->author->username]) }}">{{ $post->author->name }}</a>
-				</li>
-				<li>
-					<a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
-				</li>
-				<li>
-					{{ $post->created_at }}
-				</li>
 			</ul>
 		</div>
-
-		<!--Main layout-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-8 concept" >
-					<div class="excerpt-post">
-						{{ $post->excerpt }}
-					</div>
-					<div class="body-post">
-						{!! $system->tag_body !!}
-						<?php
-							echo $post->body;
-						?>
-					</div>
-					<div class="comments-post">
-						<h3>Comentarios</h3>
-						<div id="disqus_thread"></div>
-						<script>
-
-						/**
-						*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-						/*
-						var disqus_config = function () {
-						this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-						this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-						};
-						*/
-						(function() { // DON'T EDIT BELOW THIS LINE
-						var d = document, s = d.createElement('script');
-						s.src = 'https://neurocodigo.disqus.com/embed.js';
-						s.setAttribute('data-timestamp', +new Date());
-						(d.head || d.body).appendChild(s);
-						})();
-						</script>
-						<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-													
-					</div>
+		
+		<div class="body-post">
+			<div class="info-post">
+				<h6 class="option-info">Información</h6>
+				{{-- <img class="img-fluid" src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}"> --}}
+				<a class="link-post" href="{{ route('show-user',['uID'=>$post->author->username]) }}">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					{{ $post->author->name }}
+				</a>
+				<p class="link-post">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+					{{ $post->created_at->diffForHumans() }}
+				</p>
+				<h6 class="option-info">Categorias</h6>
+				<ul class="list-categories-post">
+					<li>
+						<a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
+					</li>
+				</ul>
+				
+				@include('corporate.sponsors.print',['print'=>'all'])
+			</div>
+			<div class="detail-post">
+				<div class="excerpt-post">
+					{{ $post->excerpt }}
 				</div>
+				{!! $system->tag_body !!}
+				<?php
+					echo $post->body;
+				?>
+			</div>
+			<div class="documents-post"></div>
 
-				<div class="col-sm-4">
-					<div class="panel panel-post-column concept">
-						<div class="panel-heading">Publicaciones que pueden interesarte</div>
-						<div class="panel-body">
-							@foreach($post->otherPosts() as $other_post)
-								<div class="other-posts">
-									<div class="img">
-										<img src="{{ url('/storage/'.$other_post->image) }}" class="img-fluid " alt="{{ $other_post->title }}">
-									</div>
-									<div class="post-content">
-										<a href="{{ route('show-post',['PN'=> $other_post->slug]) }}">
-											{{ str_limit($other_post->title,30) }}
+		</div>
+
+		<div class="extra-post">
+			
+			<div class="sugerence">
+				<div class="option-info">Te sugerimos</div>
+				<div class="posts-sugerent">
+					@foreach($post->otherPosts() as $i => $other_post)
+						<a href="{{ route('show-post',['PN'=> $other_post->slug]) }}" class="other-post" title="{{ str_limit($other_post->title) }}">
+							<i>{{ $i+1 }}</i> {{ str_limit($other_post->title) }} 
+						</a>
+					@endforeach
+				</div>
+			</div>
+			<div class="panel panel-post-column concept">
+				<div class="panel-heading">Documentos</div>
+					
+				@if(count($post->pdfs) > 0)
+					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0))
+						<div class="panel-body container-img-pdf">
+							@foreach($post->pdfs as $pdf)
+								<ul>
+									<li>
+										<a href="{{ route('show-pdf',['pID'=>$pdf->id]) }}" class="link-pdf-show">
+											<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
+											<span> {{ $pdf->name }} </span>
 										</a>
-										<p>{{ str_limit($other_post->excerpt,50) }}</p>
-									</div>
-								</div>
+									</li>
+								</ul>
 							@endforeach
 						</div>
-					</div>
-
-					<div class="panel panel-post-column concept">
-						<div class="panel-heading">Documentos</div>
-							
-						@if(count($post->pdfs) > 0)
-							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0))
-								<div class="panel-body container-img-pdf">
-									@foreach($post->pdfs as $pdf)
-										<ul>
-											<li>
-												<a href="{{ route('show-pdf',['pID'=>$pdf->id]) }}" class="link-pdf-show">
-													<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
-													<span> {{ $pdf->name }} </span>
-												</a>
-											</li>
-										</ul>
-									@endforeach
-								</div>
-							@elseif(!Auth::user() && count($post->oncePrices) == 0)
-								<div class="panel-body">
-									<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
-									Hay documentos gratuitos. Puede visulizar y disfrutar de los archivos con solo registrarse
-								</div>
-							@else
-								@if(count($post->oncePrices))
-									<div class="panel-heading">No tiene acceso a los documentos</div>
-								@endif
-								<div class="panel-body">
-									@foreach($post->oncePrices as $price)
-										<ul >
-											<li>
-												$ {{$price->price}} -
-												<span class="time-premium">Plan de {{$price->timeView()}}</span> 
-												<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
-													Obtener acceso
-												</a>
-											</li>
-										</ul>
-									@endforeach
-								</div>
-							@endif
+					@elseif(!Auth::user() && count($post->oncePrices) == 0)
+						<div class="panel-body">
+							<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
+							Hay documentos gratuitos. Puede visulizar y disfrutar de los archivos con solo registrarse
+						</div>
+					@else
+						@if(count($post->oncePrices))
+							<div class="panel-heading">No tiene acceso a los documentos</div>
 						@endif
-					</div>
-					@include('corporate.sponsors.print',['print'=>'all'])
-
+						<div class="panel-body">
+							@foreach($post->oncePrices as $price)
+								<ul >
+									<li>
+										$ {{$price->price}} -
+										<span class="time-premium">Plan de {{$price->timeView()}}</span> 
+										<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
+											Obtener acceso
+										</a>
+									</li>
+								</ul>
+							@endforeach
+						</div>
+					@endif
+				@endif
+			</div>
+			<div class="sugerence">
+				<div class="option-info">Categorías</div>
+				<div class="posts-sugerent">
+					@foreach($categories as $i => $category)
+						<a href="{{ route('show-category',['CN'=> $category->slug]) }}" class="other-post" title="{{ str_limit($category->name) }}">
+							<i>{{ $i+1 }}</i> {{ str_limit($category->name) }} 
+						</a>
+					@endforeach
 				</div>
 			</div>
 		</div>
-		<!--/.Main layout-->
+
+		<div class="comments-post">
+			<h3>Comentarios</h3>
+			<div id="disqus_thread"></div>
+			<script>
+
+			/**
+			*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+			*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+			/*
+			var disqus_config = function () {
+			this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+			this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			};
+			*/
+			(function() { // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
+			s.src = 'https://neurocodigo.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+			})();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		</div>
+
 	</div>
 @endsection

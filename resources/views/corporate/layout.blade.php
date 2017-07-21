@@ -10,7 +10,7 @@
 
 	<!-- Font Awesome -->
 	<link href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto|Lobster" rel="stylesheet">
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -21,8 +21,7 @@
 	<!-- Material Design Bootstrap -->
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
-	{{-- @yield('style') --}}
-	{{-- @yield('google-script') --}}
+	@yield('google-script')
 </head>
 
 <body>
@@ -37,7 +36,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<a class="navbar-brand" href="{{ url('/') }}">
-					<img src="{{ url('images/neurocodigo.png') }}" alt="">
+					<img src="{{ url('images/neurocodig.png') }}" alt="Neurocodigo">
 				</a>
 				<div class="collapse navbar-collapse" id="navbarNav1">
 					<ul class="navbar-nav mr-auto">
@@ -58,34 +57,37 @@
 						<input name="search" class="form-control" type="text" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
 					{!! Form::close() !!}
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item dropdown btn-group">
-							<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa fa-user" aria-hidden="true"></i> 
-								@if(!Auth::guest())
-									{{ Auth::user()->name }}
-								@endif
-							</a>
-							<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
-								@if(!Auth::user())
-									<a href="{{ url('login') }}" class="dropdown-item">Iniciar Sesion</a>
-									<a href="{{ url('register') }}" class="dropdown-item">Registrarse</a>
-								@else
-									<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
-									@if (Shinobi::can('dashboard.admin'))
-										<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
+						@if(Auth::user())
+							<li class="nav-item dropdown btn-group">
+								<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-user" aria-hidden="true"></i> 
+									@if(!Auth::guest())
+										{{ Auth::user()->name }}
 									@endif
-									<a href="{{ route('logout') }}" 
-                      onclick="event.preventDefault();
-                       	document.getElementById('logout-form').submit();">
-                      Salir
-                  </a>
+								</a>
+								<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+									
+								<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
+								@if (Shinobi::can('dashboard.admin'))
+									<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
+								
+								<a href="{{ route('logout') }}" 
+				                      onclick="event.preventDefault();
+				                       	document.getElementById('logout-form').submit();">
+				                      Salir
+				                  </a>
 
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                  </form>
-								@endif
-							</div>
-						</li>
+				                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				                      {{ csrf_field() }}
+				                  </form>
+									@endif
+								</div>
+							</li>
+						@endif
+						@if(!Auth::user())
+							<li class="nav-item"> <a href="{{ url('login') }}" class="nav-link">Iniciar Sesion</a> </li>
+							<li class="nav-item"> <a href="{{ url('register') }}" class="nav-link">Registrarse</a> </li>
+						@endif
 					</ul>
 				</div>
 			</div>

@@ -594,15 +594,11 @@ body{
 	padding: 2em 1em;
 	border-bottom: 1px solid #eee;
 }
-.body-post{
-	padding-top: 3em;
-	padding-bottom: 3em;
-}
 
 
 /* navbar */
 .navbar.navbar-dark {
-    background-color: #181d30;
+    background-color: #1e88e5;
     border-color: #000;
     padding-top: 0;
     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 4px 5px 0 rgba(0, 0, 0, 0.12);
@@ -635,4 +631,123 @@ a.nav-link.free span{
 	padding-right: 5px;
 	border-bottom: 1px solid #eee;
 	font-family: 'Merriweather', serif;
+}
+
+
+
+.body-post,.extra-post{
+	margin: 1em 0;
+	vertical-align: top;
+	padding: 0.8em 0.5em;
+	display: inline-block;
+	/*background: #2d2d2d;*/
+}
+.body-post{
+	width: 73%;
+}
+.extra-post{
+	width: 25%;
+}
+.excerpt-post{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.detail-post, .info-post{
+	display: inline-block;
+	width: 75%;
+	margin: 0.5em;
+	vertical-align: top;
+}
+.detail-post, 
+.comments-post{
+	background: #fff;
+	text-align: justify;
+	border-radius: 3px;
+	box-shadow: 0px 1px 1px  rgba(20,20,20,.16), 0px 2px 3px rgba(20,20,20,.12);
+	padding: 0.8em 2em;
+}
+.info-post{
+	width: 20%;
+}
+.link-post{
+	color: #ff5252;
+	display: block;
+	margin: 0.5em 0;
+	font-family: 'Lobster', cursive;
+}
+.link-post i{
+	color: #424242;
+	margin-right: 5px
+}
+.link-post:hover{
+	color: #d50000
+}
+.option-info{
+	text-align: left;
+	margin: 1.5em auto 0.5em;
+	padding: 0.5em 0;
+	border-bottom: 1px solid #242424;
+	font-family: 'Lobster', cursive;
+	color: #1e88e5
+}
+.list-categories-post {
+	padding-left: 1em;
+	font-family: 'Merriweather', serif;
+	font-size: 0.8em;
+}
+.list-categories-post li{
+	list-style-type: circle;
+}
+.list-categories-post li a{
+	background: #eee;
+	color: #424242;
+}
+.comments-post{
+	margin: 1em;
+}
+.posts-sugerent .other-post{
+	display: block;
+	width: 100%;
+	margin: 0.5em 0;
+	padding: 0.5em 0.5em;
+	background: #eeeeee;
+}
+.posts-sugerent .other-post {
+	color: #212121;
+	font-size: 0.8em;
+}
+.posts-sugerent .other-post:hover, .posts-sugerent .other-post:hover i{
+	color: #fafafa;
+	background: #0091ea;
+}
+.posts-sugerent .other-post i{
+	color: #757575;
+	font-size: 1.8em; margin: 0 0.3em
+}
+@media only screen and (max-width: 1200px) {
+	.body-post, .extra-post{
+		width: 95%;
+		margin: 1em auto;
+		display: block;
+		position: relative;
+	}
+	.detail-post, .info-post{
+		display: block;
+		width: 95%;
+		margin: 0.5em auto;
+		background: #fff;
+		text-align: justify;
+		border-radius: 3px;
+		box-shadow: 0px 1px 1px  rgba(20,20,20,.16), 0px 2px 3px rgba(20,20,20,.12);
+		padding: 0.8em 2em;
+
+	}	
+	.info-post{
+		padding-top: 2em 1em;
+	}
+	.info-post .link-post,
+	.list-categories-post li{
+		display: inline-block;
+		padding-right: 3em;
+	}
 }
