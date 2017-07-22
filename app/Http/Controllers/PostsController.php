@@ -53,7 +53,7 @@ class PostsController extends Controller
 		$file_name = str_slug(\Carbon\Carbon::now());
 
 		//indicamos que queremos guardar un nuevo archivo en el disco local
-		\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+		\Storage::disk('public')->put('posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
 		
 		$post = Post::create([
 			'author_id'=> \Auth::user()->id,
@@ -70,10 +70,10 @@ class PostsController extends Controller
 		]);
 
 		if($request->hasFile('pdf')){
-			\Storage::disk('local')->put('public/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
+			\Storage::disk('local')->put('files/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),  \File::get($request->pdf));
 	
 			\App\Pdf::create([
-				'pdf'=> 'pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
+				'pdf'=> 'files/pdf/'.$file_name.'.'.$request->pdf->getClientOriginalExtension(),
 				'post_id'=>$post->id,
 				'name'=>$request->pdf->getClientOriginalName()
 			]);
