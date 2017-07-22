@@ -2,6 +2,16 @@
 	<div class="col-sm-10">
 		<div class="list-post">
 			@foreach($posts as $post)
+				{{-- <div class="post-preview">
+					<a  href="{{ route('show-post',['PN'=> $post->slug]) }}" title="{{ $post->title }}">
+						<div class="img-post">
+							<img src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}">
+						</div>
+						<div class="title-post">
+							<h2>{{ $post->title }}</h2>
+						</div>
+					</a>
+				</div> --}}
 				<div class="card wow fadeIn" data-wow-delay="0.2s">
 					<div class="img view overlay hm-white-light z-depth-1-half">
 						<img class="img-fluid" src="{{ url('/storage/'.$post->image) }}" alt="{{ $post->title }}">

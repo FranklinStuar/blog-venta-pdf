@@ -360,6 +360,7 @@ body{
 	min-height: 150px;
 	margin-bottom: 2em;
 	position: relative;
+	overflow: hidden;
 }
 .list-post .card .img, .list-post .card .content-post{
 	width: 30%;
