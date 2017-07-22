@@ -12,9 +12,8 @@
                 </div>
             @endif
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
+            {!! Form::open(['route' => 'password.email','class'=>'form-horizontal','role'=>'form']) !!}
 
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email" class="col-md-12 control-label">Correo electrónico</label>
@@ -37,7 +36,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

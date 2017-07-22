@@ -6,9 +6,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">Registrarse</div>
         <div class="panel-body">
-            {!! Form::open(['route' => 'register',['class'=>'form-horizontal','role'=>'form']]) !!}
+            {!! Form::open(['route' => 'register','class'=>'form-horizontal','role'=>'form']) !!}
 
-            
+
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="username" class="col-md-12 control-label">Nombre de usuario</label>
 
