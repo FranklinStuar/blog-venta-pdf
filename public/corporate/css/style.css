@@ -309,23 +309,63 @@ main > .container{
 }
 .btn-social{
 	border-radius: 10%;
-	padding: 0.5em;
-	margin: 0.8em;
-	font-size: 1.5em;
+	padding: 0.3em 0.5;
+	margin: 0.5em;
+	font-size: 1.2em;
 	color: #fafafa;
+	position: relative;
+	display: block;
 }
-.btn-social-facebook{
-	border: 1px solid #0d47a1;
-	background: #1565c0;
+.btn-social span{
+	display: inline-block;
+	color: #fff
 }
-.btn-social-instagram{
-	border: 1px solid #b71c1c;
-	background: #f44336;
+
+.btn-social i{
+	font-size: 1.5em;
+	margin: 0 0.3em;
+	text-align:left;
 }
-.btn-social-youtube{
-	border: 1px solid #c62828;
-	background: #b71c1c;
+.btn-social-facebook i{
+	color: #1565c0;
 }
+.btn-social-instagram i{
+	color: #f44336;
+}
+.btn-social-youtube i{
+	color: #b71c1c;
+}
+
+@media only screen and (min-width: 350px) {
+	.btn-social{
+		display: inline-block;
+		padding: 0.5em;
+		margin: 0.8em;
+	}
+	.btn-social span{
+		font-size: 1.5em;
+		display: none;
+	}
+	.btn-social-facebook{
+		border: 1px solid #0d47a1;
+		background: #1565c0;
+	}
+	.btn-social-instagram{
+		border: 1px solid #b71c1c;
+		background: #f44336;
+	}
+	.btn-social-youtube{
+		border: 1px solid #c62828;
+		background: #b71c1c;
+	}
+
+	.btn-social i{
+		color: #fff;
+		font-size: 1em;
+	}
+
+}
+
 .info-system{
 	display: block;
 	padding: 1.2em 0;

@@ -127,9 +127,9 @@
 		<div class="container-fluid">
 			<div class="group-social">
 				<center>
-					<a href="http://www.facebook.com/{{ $system->facebook }}" class="btn-social btn-social-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-					<a href="http://www.instagram.com/{{ $system->instagram }}" class="btn-social btn-social-instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-					<a href="http://www.youtube.com/{{ $system->youtube }}" class="btn-social btn-social-youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+					<a href="http://www.facebook.com/{{ $system->facebook }}" class="btn-social btn-social-facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+					<a href="http://www.instagram.com/{{ $system->instagram }}" class="btn-social btn-social-instagram"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+					<a href="http://www.youtube.com/{{ $system->youtube }}" class="btn-social btn-social-youtube"><i class="fa fa-youtube" aria-hidden="true"></i><span>Youtube</span></a>
 				</center>
 			</div>
 			<div class="info-system">
