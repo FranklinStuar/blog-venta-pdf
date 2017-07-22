@@ -6,8 +6,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Iniciar Sesión</div>
         <div class="panel-body">
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            {!! Form::open(['route' => 'login',['class'=>'form-horizontal','role'=>'form']]) !!}
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="username" class="col-md-12 control-label">Nombre de usuario</label>
 
@@ -62,7 +61,7 @@
                         <br>
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
