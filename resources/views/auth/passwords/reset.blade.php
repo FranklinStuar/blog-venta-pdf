@@ -4,7 +4,7 @@
 
 <div class="container form-init-center">
     <div class="panel panel-default">
-        <div class="panel-heading">Recuperar contrasema</div>
+        <div class="panel-heading">Recuperar contraseña</div>
 
         <div class="panel-body">
             @if (session('status'))
@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <div class="col-md-12 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">
-                            Reiniciar contraseña
+                            Recuperar contraseña
                         </button>
                     </div>
                 </div>
