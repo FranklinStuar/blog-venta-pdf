@@ -361,9 +361,12 @@ function copyToClipboard() {
   alert("Print screen desabilitado.");
 }
 $(document).keyup(function(e){
-  if(e.keyCode == 'PrintScreen') {
-  copyToClipboard();
-  }
+  e.preventDefault()
+  
+});
+
+$(document).keydown(function(e){
+  e.preventDefault()
 });
 
 $(window).focus(function() {
