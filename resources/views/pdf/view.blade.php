@@ -360,12 +360,16 @@ function copyToClipboard() {
   document.body.removeChild(aux);
   alert("Print screen desabilitado.");
 }
-$(document).keyup(function(e){
+$('body').keyup(function(e){
   e.preventDefault()
   
 });
 
-$(document).keydown(function(e){
+$('body').keypress(function(e){
+  e.preventDefault()
+});
+
+$('body').keydown(function(e){
   e.preventDefault()
 });
 
