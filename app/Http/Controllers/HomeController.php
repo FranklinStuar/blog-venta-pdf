@@ -113,7 +113,11 @@ class HomeController extends Controller
     public function showPDF($pdf_id){
         $pdf = \App\Pdf::find($pdf_id);
         if($pdf){
-            return view('pdf.view')->with('post',$pdf);
+            // return view('pdf.view')->with('post',$pdf);
+            if($pdf->post->oncePrices->count() > 0)
+                return view('pdf.view')->with('post', $pdf);
+            else
+                return view('pdf.view-free')->with('post', $pdf);
         }else
         abort(404);
     }

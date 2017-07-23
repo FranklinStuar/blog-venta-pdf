@@ -78,11 +78,11 @@
 					@endforeach
 				</div>
 			</div>
-			<div class="panel panel-post-column concept">
-				<div class="panel-heading">Documentos</div>
+			@if(count($post->pdfs) > 0)
+				<div class="panel panel-post-column concept">
+					<div class="panel-heading">Documentos</div>
 					
-				@if(count($post->pdfs) > 0)
-					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0))
+					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')))
 						<div class="panel-body container-img-pdf">
 							@foreach($post->pdfs as $pdf)
 								<ul>
@@ -118,8 +118,8 @@
 							@endforeach
 						</div>
 					@endif
-				@endif
-			</div>
+				</div>
+			@endif
 			<div class="sugerence">
 				<div class="option-info">Categorías</div>
 				<div class="posts-sugerent">

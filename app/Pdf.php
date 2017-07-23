@@ -15,4 +15,7 @@ class Pdf extends Model
 		'languaje','pdf','post_id', 'name',
 	];
 
+	public function post(){
+		return $this->belongsTo('App\Post');
+	}
 }

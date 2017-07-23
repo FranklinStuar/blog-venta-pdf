@@ -195,8 +195,7 @@ class PostsController extends Controller
 		
 		$pdf = \App\Pdf::find($pdf_id);
 		if($pdf){
-			return view('pdf.view')
-				->with('post', $pdf);
+			return view('pdf.view-free')->with('post', $pdf);
 		}
 		else
 			abort(404);
