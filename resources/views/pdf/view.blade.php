@@ -29,7 +29,7 @@
 		
   </head>
 
-  <body tabindex="1" class="loadingInProgress" id="body">
+  <body tabindex="1" class="loadingInProgress" id="body" onMouseOut="window.clipboardData.clearData(); return false" onMouseOver="window.clipboardData.clearData(); return false">
     <div id="outerContainer" @keydown.prevent="print">
 
       <div id="sidebarContainer">
@@ -380,5 +380,22 @@ $(window).focus(function() {
 });
   </script>
 
+<script language="JavaScript1.2"> 
+<!-- 
+//Vacia el portapapeles con el uso del teclado 
+if (document.layers) 
+document.captureEvents(Event.KEYPRESS) 
+function backhome(e){ 
+window.clipboardData.clearData(); 
+} 
+//Vacia el portapapeles con el uso del mouse 
+document.onkeydown=backhome 
+function click(){ 
+if(event.button){ 
+window.clipboardData.clearData(); 
+} 
+} 
+document.onmousedown=click 
+//--> 
+</script> 
 </html>
-
