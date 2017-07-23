@@ -29,7 +29,7 @@
 		
   </head>
 
-  <body tabindex="1" class="loadingInProgress" id="body" onMouseOut="window.clipboardData.clearData(); return false" onMouseOver="window.clipboardData.clearData(); return false">
+  <body tabindex="1" class="loadingInProgress" id="body" >
     <div id="outerContainer" @keydown.prevent="print">
 
       <div id="sidebarContainer">
@@ -334,68 +334,78 @@
     <div id="printContainer"></div>
   </body>
   
-  <script>
+<script>
     
-$(document).ready(function () {
-  $("body").on("contextmenu",function(e){
-    return false;
+  $(document).ready(function () {
+    $("body").on("contextmenu",function(e){
+      return false;
+    });
+    $('body').bind('cut copy paste', function (e) {
+        e.preventDefault(); 
+    });
   });
-  $('body').bind('cut copy paste', function (e) {
-      e.preventDefault(); 
+
+  var contPrintScreen = 0; 
+
+  function clearClipbord(e) {
+    e.stopPropagation();
+    e.preventDefault();
+                  
+    var cd = e.originalEvent.clipboardData;
+    if(cd)
+      cd.setData("text/plain", "¿Buena copia verdad?");
+  }
+  $(document).on("copy", function(e){
+    e.stopPropagation();
+    e.preventDefault();
+                
+    var cd = e.originalEvent.clipboardData;
+    cd.setData("text/plain", "¿Buena copia verdad?");
   });
-});
 
-function copyToClipboard() {
-  // Create a "hidden" input
-  var aux = document.createElement("input");
-  // Assign it the value of the specified element
-  aux.setAttribute("value", "Você não pode mais dar printscreen. Isto faz parte da nova medida de segurança do sistema.");
-  // Append it to the body
-  document.body.appendChild(aux);
-  // Highlight its content
-  aux.select();
-  // Copy the highlighted text
-  document.execCommand("copy");
-  // Remove it from the body
-  document.body.removeChild(aux);
-  alert("Print screen desabilitado.");
-}
-$('body').keyup(function(e){
-  e.preventDefault()
-  
-});
+  document.addEventListener('keydown', (event) => {
+      event.preventDefault()
+      $("body").hide();
+      alert('Teclado desabilitado, Por favor utilice el cursor para interactuar con la página')
+      $("body").show();
+  })
 
-$('body').keypress(function(e){
-  e.preventDefault()
-});
-
-$('body').keydown(function(e){
-  e.preventDefault()
-});
-
-$(window).focus(function() {
-  $("body").show();
-}).blur(function() {
-  $("body").hide();
-});
-  </script>
+  document.addEventListener('keyup', (event) => {
+      event.preventDefault()
+      $("body").hide();
+      if(event.key == "PrintScreen"){
+        if(contPrintScreen < 2)
+          alert('Ha realizado una '+ ++contPrintScreen +'° captura de pantalla. En su tercer intento será exulsado del documento')
+        else{
+          alert('Ha realizado 3 intentos de captura de pantalle, en breve será expulsado de la visualización de este documento')
+          window.history.back();
+        }
+        $("body").show();
+      }
+  })
+  $(window).focus(function(e) {
+    $("body").show();
+    clearClipbord(e)
+  }).blur(function(e) {
+    $("body").hide();
+    clearClipbord(e)
+  });
+</script>
 
 <script language="JavaScript1.2"> 
-<!-- 
-//Vacia el portapapeles con el uso del teclado 
-if (document.layers) 
-document.captureEvents(Event.KEYPRESS) 
-function backhome(e){ 
-window.clipboardData.clearData(); 
-} 
-//Vacia el portapapeles con el uso del mouse 
-document.onkeydown=backhome 
-function click(){ 
-if(event.button){ 
-window.clipboardData.clearData(); 
-} 
-} 
-document.onmousedown=click 
-//--> 
+  //Vacia el portapapeles con el uso del teclado 
+  if (document.layers) 
+    document.captureEvents(Event.KEYPRESS) 
+  function backhome(e){ 
+    window.clipboardData.clearData(); 
+  } 
+  //Vacia el portapapeles con el uso del mouse 
+  document.onkeydown=backhome 
+  function click(e){ 
+    if(e.button){ 
+      window.clipboardData.clearData(); 
+    } 
+  } 
+  document.onmousedown=click 
 </script> 
 </html>
