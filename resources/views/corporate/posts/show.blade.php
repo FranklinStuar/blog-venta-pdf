@@ -82,7 +82,7 @@
 				<div class="panel panel-post-column concept">
 					<div class="panel-heading">Documentos</div>
 					
-					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')))
+					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
 						<div class="panel-body container-img-pdf">
 							@foreach($post->pdfs as $pdf)
 								<ul>

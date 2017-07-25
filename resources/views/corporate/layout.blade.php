@@ -70,7 +70,7 @@
 								<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
 								@if (Shinobi::can('dashboard.admin'))
 									<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
-								
+								@endif
 								<a href="{{ route('logout') }}" 
 				                      onclick="event.preventDefault();
 				                       	document.getElementById('logout-form').submit();">
@@ -80,7 +80,6 @@
 				                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 				                      {{ csrf_field() }}
 				                  </form>
-									@endif
 								</div>
 							</li>
 						@endif
