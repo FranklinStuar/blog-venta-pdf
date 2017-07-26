@@ -19,6 +19,8 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::post('/posts/{post_id}/update-image','PostsController@updateImage')->name('posts.update-image');
 	Route::post('/posts/{post_id}/add-pdf','PostsController@addPdf')->name('posts.add-pdf');
 	Route::post('/posts/{post_id}/destroy-pdf/{pdf_id}','PostsController@destroyPdf')->name('posts.destroy-pdf');
+	Route::post('/posts/{post_id}/add-zip','PostsController@addZip')->name('posts.add-zip');
+	Route::post('/posts/{post_id}/destroy-zip/{zip_id}','PostsController@destroyZip')->name('posts.destroy-zip');
 	Route::post('/posts/get-once-prices','PostsController@getOncePrices')->name('posts.get-once-prices');
 	Route::post('/posts/get-once-prices/detail','PostOncePricesController@getDetail')->name('posts.get-detail-once-prices');
 

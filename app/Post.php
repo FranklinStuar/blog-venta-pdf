@@ -17,7 +17,11 @@ class Post extends Model
   }
 
   public function pdfs(){
-  	return $this->hasMany('App\Pdf','post_id');
+    return $this->hasMany('App\Pdf','post_id');
+  }
+
+  public function zips(){
+  	return $this->hasMany('App\ZipFile','post_id');
   }
 
   public function historialPDF(){

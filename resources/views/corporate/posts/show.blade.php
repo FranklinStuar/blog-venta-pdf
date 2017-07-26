@@ -78,32 +78,62 @@
 					@endforeach
 				</div>
 			</div>
-			@if(count($post->pdfs) > 0)
+
+			@if(count($post->zips) > 0 || count($post->pdfs) > 0)
 				<div class="panel panel-post-column concept">
-					<div class="panel-heading">Documentos</div>
-					
-					@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
-						<div class="panel-body container-img-pdf">
-							@foreach($post->pdfs as $pdf)
-								<ul>
-									<li>
-										<a href="{{ route('show-pdf',['pID'=>$pdf->id]) }}" class="link-pdf-show">
-											<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
-											<span> {{ $pdf->name }} </span>
-										</a>
-									</li>
-								</ul>
-							@endforeach
-						</div>
-					@elseif(!Auth::user() && count($post->oncePrices) == 0)
-						<div class="panel-body">
-							<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
-							Hay documentos gratuitos. Puede visulizar y disfrutar de los archivos con solo registrarse
-						</div>
-					@else
-						@if(count($post->oncePrices))
-							<div class="panel-heading">No tiene acceso a los documentos</div>
+					@if(count($post->zips) > 0)
+						<div class="panel-heading">Archivos</div>
+						@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+							<div class="panel-body container-img-pdf">
+								@foreach($post->zips as $zip)
+									<ul>
+										<li>
+											<a href="{{ Storage::url($zip->file) }}" class="link-pdf-show">
+												<img src="{{ url('images/zip.png') }}" class="img-pdf-show" alt="{{ $zip->name }}">
+												<span> {{ $zip->name }} </span>
+											</a>
+										</li>
+									</ul>
+								@endforeach
+							</div>
+						@elseif(!Auth::user() && count($post->oncePrices) == 0)
+							<div class="panel-body">
+								<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
+								Hay archivos gratuitos. Puede visulizar y disfrutar de los archivos con solo registrarse
+							</div>
+						@else
+								<div class="panel-body">No tiene acceso a los archivos <hr></div>
 						@endif
+					@endif
+					
+					@if(count($post->pdfs) > 0)
+							<div class="panel-heading">Documentos</div>
+							
+							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+								<div class="panel-body container-img-pdf">
+									@foreach($post->pdfs as $pdf)
+										<ul>
+											<li>
+												<a href="{{ route('show-pdf',['pID'=>$pdf->id]) }}" class="link-pdf-show">
+													<img src="{{ url('images/pdf.png') }}" class="img-pdf-show" alt="Libro">
+													<span> {{ $pdf->name }} </span>
+												</a>
+											</li>
+										</ul>
+									@endforeach
+								</div>
+							@elseif(!Auth::user() && count($post->oncePrices) == 0)
+								<div class="panel-body">
+									<img src="{{ url('/images/gratis.png') }}" alt="gratis png" class="img-fluid">
+									Hay documentos gratuitos. Puede visulizar y disfrutar de los documentos con solo registrarse
+								</div>
+							@else
+								<div class="panel-body">No tiene acceso a los documentos <hr></div>
+							@endif
+					@endif
+
+					@if(count($post->pdfs) > 0 || count($post->zips) > 0  && !Auth::user() && !(Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+						
 						<div class="panel-body">
 							@foreach($post->oncePrices as $price)
 								<ul >
@@ -120,6 +150,8 @@
 					@endif
 				</div>
 			@endif
+			
+
 			<div class="sugerence">
 				<div class="option-info">Categorías</div>
 				<div class="posts-sugerent">

@@ -88,8 +88,7 @@
 				<div class="col-md-7 text-center concept" >
 					<h3>Historial de pagos</h3>
 					<hr class="extra-margins">
-					@if(Shinobi::can('sponsor.pay.list'))
-						@if($sponsor->pays->count() > 0)
+					@if($sponsor->pays->count() > 0)
 						<div class="table-responsive">
 							<table class="table table-compact">
 								<thead>
@@ -126,24 +125,16 @@
 								</tbody>
 							</table>
 						</div>
-						@endif
-					@else
-							<p>No tiene acceso a visualizar su propia publicidad.</p>
-							<p>Si cree que esto es un error contacte con nosotros en las opciones que se presentan en la parte baja de este sitio</p>
 					@endif
+					<hr class="extra-margins">
+				
+				
+					@if(count($sponsor->payActive)>0)
 						<hr class="extra-margins">
-				
-				
-					@if(Shinobi::can('sponsor.pay.new'))
-						@if(count($sponsor->payActive)>0)
-							<hr class="extra-margins">
-							Tiene pagos activos, no puede realizar otro pago a menos que cancele los pagos activos
-						@else
-							<h4>No tiene pagos activos</h4>
-							<a href="{{ route('sponsor.list',['sp'=>$sponsor->id]) }}" class="btn btn-info">Realizar pago</a>
-						@endif
+						Tiene pagos activos, no puede realizar otro pago a menos que cancele los pagos activos
 					@else
-						<p>No puede agregar publicidad a la página, si desea agregar publicidad cambie de plan y disfrute de este beneficio</p>
+						<h4>No tiene pagos activos</h4>
+						<a href="{{ route('sponsor.list',['sp'=>$sponsor->id]) }}" class="btn btn-info">Realizar pago</a>
 					@endif
 
 				</div>

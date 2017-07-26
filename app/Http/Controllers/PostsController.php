@@ -78,6 +78,15 @@ class PostsController extends Controller
 				'name'=>$request->pdf->getClientOriginalName()
 			]);
 		}
+		if($request->hasFile('zip')){
+			\Storage::disk('local')->put('public/zip/'.$file_name.'.'.$request->zip->getClientOriginalExtension(),  \File::get($request->zip));
+	
+			\App\ZipFile::create([
+				'file'=> 'zip/'.$file_name.'.'.$request->zip->getClientOriginalExtension(),
+				'post_id'=>$post->id,
+				'name'=>$request->zip->getClientOriginalName()
+			]);
+		}
 		if ($request->has('price') || $request->has('time')) {
 			PostOncePrice::create([
 				'price' => $request->price,
@@ -200,6 +209,34 @@ class PostsController extends Controller
 		else
 			abort(404);
 	}
+
+	/*Archivos Zip*/
+
+	public function addZip(Request $request, $post_id){
+		if($request->hasFile('zip')){
+			// Nombre de como se va a guardar 
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			\Storage::disk('local')->put('public/zip/'.$file_name.'.'.$request->zip->getClientOriginalExtension(),  \File::get($request->zip));
+		  \App\ZipFile::create([
+				'file'=> 'zip/'.$file_name.'.'.$request->zip->getClientOriginalExtension(),
+				'languaje'=>'es',
+				'post_id'=>$post_id,
+				'name'=>$request->zip->getClientOriginalName()
+			]);
+			$request->session()->flash('success', 'Zip agregado a la publicación');
+			return redirect()->back();
+		}
+		return redirect()->back();
+	}
+
+	public function destroyZip(Request $request, $post_id, $zip_id){
+		\App\ZipFile::destroy($zip_id);
+		$request->session()->flash('success', 'Zip eliminado de la publicación');
+		return redirect()->back();
+	}
+
+
 
 
 	/*Prices to Post*/
