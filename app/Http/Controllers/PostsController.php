@@ -19,7 +19,7 @@ class PostsController extends Controller
 	
 	public function index(Request $request)
 	{
-		return view('klorofil.posts.index')->with('posts', Post::all());
+		return view('klorofil.posts.index')->with('posts', Post::orderBy('created_at','desc')->paginate(10));
 	}
 
 	public function create()

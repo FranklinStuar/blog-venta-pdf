@@ -25,7 +25,6 @@
 					@foreach($posts as $post)
 						<tr>
 							<td>{{ $post->created_at->diffForHumans() }}</td>
-							{{-- <td>{{ \Carbon\Carbon::createFromFormat(' F j\\, Y',explode(':',$post->created_at)[0]) }}</td> --}}
 							<td>{{ $post->title }}</td>
 							<td>{{ str_limit($post->excerpt,70) }}</td>
 							<td>{{ $post->category->name }}</td>
@@ -49,6 +48,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{ $posts->links() }}
 		</div>
 	</div>
 @endsection

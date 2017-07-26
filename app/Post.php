@@ -78,7 +78,7 @@ class Post extends Model
     $posts = [];
     $list = \App\Post::all();
     for ($i=0; $i < count($list); $i++) { 
-      if(count($list[$i]->pdfs) > 0 && count($list[$i]->oncePrices) == 0)
+      if((count($list[$i]->pdfs) > 0 || count($list[$i]->zips) > 0) && count($list[$i]->oncePrices) == 0)
         array_push($posts, $list[$i]);
     }
     return $posts;

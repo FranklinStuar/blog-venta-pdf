@@ -323,9 +323,6 @@
 		  </div>
 		</div>	
 
-
-
-
 		<!-- Documento -->
 		<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel">
 		  <div class="modal-dialog modal-lg" role="document">
