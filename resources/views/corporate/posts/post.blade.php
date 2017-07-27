@@ -13,7 +13,7 @@
 		<!--Main layout-->
 		<div class="container">
 
-			<h1>{{ $type }}: {{ $name }}</h1>
+			<h1 class="title-items">{{ $type }}: {{ $name }}</h1>
 
 			<hr class="extra-margins">
 

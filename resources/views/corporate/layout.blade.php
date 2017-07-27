@@ -10,7 +10,7 @@
 
 	<!-- Font Awesome -->
 	<link href="{{ url('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto|Lobster" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto|Lobster|Montserrat" rel="stylesheet">
 
 	<!-- Bootstrap core CSS -->
 	<link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -31,64 +31,62 @@
 
 		<!--Navbar-->
 		<nav class="navbar navbar-toggleable-md navbar-dark">
-			<div class="container">
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">
-					<img src="{{ url('images/neurocodig.png') }}" alt="Neurocodigo">
-				</a>
-				<div class="collapse navbar-collapse" id="navbarNav1">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a class="nav-link free" href="{{ route('post.free') }}"><span>Gratis</span></a>
-						</li>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="{{ url('/') }}">
+				<img src="{{ url('images/neurocodigo.png') }}" alt="Neurocodigo">
+			</a>
+			<div class="collapse navbar-collapse" id="navbarNav1">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link free" href="{{ route('post.free') }}"><span>Gratis</span></a>
+					</li>
+					<li class="nav-item dropdown btn-group">
+						<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
+						<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+							@foreach($categories as $category)
+								<a href="{{ route('show-category',['cID'=>$category->slug]) }}" class="dropdown-item">{{ $category->name }}</a>
+							@endforeach
+						</div>
+					</li>
+
+				</ul>
+				{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
+					<input name="search" class="form-control" type="text" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
+				{!! Form::close() !!}
+				<ul class="navbar-nav ">
+					@if(Auth::user())
 						<li class="nav-item dropdown btn-group">
-							<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
+							<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user" aria-hidden="true"></i> 
+								@if(!Auth::guest())
+									{{ Auth::user()->name }}
+								@endif
+							</a>
 							<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
-								@foreach($categories as $category)
-									<a href="{{ route('show-category',['cID'=>$category->slug]) }}" class="dropdown-item">{{ $category->name }}</a>
-								@endforeach
+								
+							<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
+							@if (Shinobi::can('dashboard.admin'))
+								<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
+							@endif
+							<a href="{{ route('logout') }}" 
+			                      onclick="event.preventDefault();
+			                       	document.getElementById('logout-form').submit();">
+			                      Salir
+			                  </a>
+
+			                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+			                      {{ csrf_field() }}
+			                  </form>
 							</div>
 						</li>
-
-					</ul>
-					{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
-						<input name="search" class="form-control" type="text" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
-					{!! Form::close() !!}
-					<ul class="navbar-nav mr-auto">
-						@if(Auth::user())
-							<li class="nav-item dropdown btn-group">
-								<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fa fa-user" aria-hidden="true"></i> 
-									@if(!Auth::guest())
-										{{ Auth::user()->name }}
-									@endif
-								</a>
-								<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
-									
-								<a href="{{ url('profile') }}" class="dropdown-item">Ver Perfil</a>
-								@if (Shinobi::can('dashboard.admin'))
-									<a href="{{ route('admin') }}" class="dropdown-item">Administrar</a>
-								@endif
-								<a href="{{ route('logout') }}" 
-				                      onclick="event.preventDefault();
-				                       	document.getElementById('logout-form').submit();">
-				                      Salir
-				                  </a>
-
-				                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-				                      {{ csrf_field() }}
-				                  </form>
-								</div>
-							</li>
-						@endif
-						@if(!Auth::user())
-							<li class="nav-item"> <a href="{{ url('login') }}" class="nav-link">Iniciar Sesion</a> </li>
-							<li class="nav-item"> <a href="{{ url('register') }}" class="nav-link">Registrarse</a> </li>
-						@endif
-					</ul>
-				</div>
+					@endif
+					@if(!Auth::user())
+						<li class="nav-item"> <a href="{{ url('login') }}" class="nav-link">Iniciar Sesion</a> </li>
+						<li class="nav-item"> <a href="{{ url('register') }}" class="nav-link">Registrarse</a> </li>
+					@endif
+				</ul>
 			</div>
 		</nav>
 		<!--/.Navbar-->

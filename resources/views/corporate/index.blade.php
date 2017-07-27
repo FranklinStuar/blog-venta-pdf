@@ -14,10 +14,8 @@
 </style>
 	<main>
 		<!--Main layout-->
-		<div class="container">
 			{{-- Lista de posts con publicidad --}}
 			@include('corporate.posts.template-post-list')
-		</div>
 		<!--/.Main layout-->
 	</main>
 
