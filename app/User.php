@@ -99,6 +99,7 @@ class User extends Authenticatable
     * Busca si el post está activo o no
     */
     public function postStatus($post_id){
+        
         if(!$post_id) return false;
         $pays = \DB::table('post_once_pays')
             ->where('post_id',$post_id)

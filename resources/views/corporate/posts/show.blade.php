@@ -83,7 +83,8 @@
 				<div class="panel panel-post-column concept">
 					@if(count($post->zips) > 0)
 						<div class="panel-heading">Archivos</div>
-						@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+
+						@if(Auth::user() !=null && (count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')) || (Auth::user() != null && Auth::user()->postStatus($post->id)))
 							<div class="panel-body container-img-pdf">
 								@foreach($post->zips as $zip)
 									<ul>
@@ -109,7 +110,7 @@
 					@if(count($post->pdfs) > 0)
 							<div class="panel-heading">Documentos</div>
 							
-							@if(Auth::user() && (Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+							@if(Auth::user() != null && ((Auth::user() != null && Auth::user()->postStatus($post->id)) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
 								<div class="panel-body container-img-pdf">
 									@foreach($post->pdfs as $pdf)
 										<ul>
@@ -132,7 +133,7 @@
 							@endif
 					@endif
 
-					@if(count($post->pdfs) > 0 || count($post->zips) > 0  && !Auth::user() && !(Auth::user()->postStatus($post->id) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+					@if(count($post->pdfs) > 0 || count($post->zips) > 0  && !Auth::user() && !((Auth::user() != null && Auth::user()->postStatus($post->id)) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
 						
 						<div class="panel-body">
 							@foreach($post->oncePrices as $price)

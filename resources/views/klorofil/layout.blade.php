@@ -42,7 +42,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="{{ url('/') }}"><img src="{{ url('images/eurocodigo.png') }}" alt="Nerucodigo Logo" class="img-responsive logo" style="max-height: 40px;"></a>
+				<a href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="Nerucodigo Logo" class="img-responsive logo" style="max-height: 40px;"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
