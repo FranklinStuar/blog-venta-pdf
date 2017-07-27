@@ -133,7 +133,7 @@
 							@endif
 					@endif
 
-					@if(count($post->pdfs) > 0 || count($post->zips) > 0  && !Auth::user() && !((Auth::user() != null && Auth::user()->postStatus($post->id)) || count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')))
+					@if(count($post->pdfs) > 0 || count($post->zips) > 0  && !Auth::user() && !((Auth::user() != null && Auth::user()->postStatus($post->id)) || count($post->oncePrices) == 0 ||(Auth::user && Auth::user()->isRole('superadmin'))||(Auth::user() && Auth::user()->isRole('admin'))))
 						
 						<div class="panel-body">
 							@foreach($post->oncePrices as $price)
