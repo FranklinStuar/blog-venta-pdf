@@ -13,6 +13,7 @@
 <style>
 </style>
 	<main>
+	{!! $system->tag_body !!}
 		<!--Main layout-->
 			{{-- Lista de posts con publicidad --}}
 			@include('corporate.posts.template-post-list')

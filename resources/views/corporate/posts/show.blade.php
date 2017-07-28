@@ -84,7 +84,7 @@
 					@if(count($post->zips) > 0)
 						<div class="panel-heading">Archivos</div>
 
-						@if(Auth::user() !=null && (count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin')) || (Auth::user() != null && Auth::user()->postStatus($post->id)))
+						@if(Auth::user() && (count($post->oncePrices) == 0 ||Auth::user()->isRole('superadmin')||Auth::user()->isRole('admin') || (Auth::user()->postStatus($post->id))))
 							<div class="panel-body container-img-pdf">
 								@foreach($post->zips as $zip)
 									<ul>
