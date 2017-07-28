@@ -50,6 +50,12 @@
 						<a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
 					</li>
 				</ul>
+				<h6 class="option-info"></h6>
+				<ul class="list-categories-post">
+					<li>
+						{!! $system->tag_body !!}
+					</li>
+				</ul>
 				
 				@include('corporate.sponsors.print',['print'=>'all'])
 			</div>
@@ -57,7 +63,7 @@
 				<div class="excerpt-post">
 					{{ $post->excerpt }}
 				</div>
-				{!! $system->tag_body !!}
+				
 				<?php
 					echo $post->body;
 				?>
