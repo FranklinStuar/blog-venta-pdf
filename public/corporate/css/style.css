@@ -889,3 +889,11 @@ a.nav-link.free span{
 		width: 90%;
 	}
 }
+.sponsor-google-list{
+	max-width: 300px;
+	max-height: 200px;
+}
+.sponsor-google-show{
+	max-width: 200px;
+	max-height: 100px;
+}
