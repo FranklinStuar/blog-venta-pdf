@@ -5,8 +5,13 @@
 }
 
 @font-face {
-    font-family: neuropolitical;
+    font-family: "neuropolitical";
     src: url(../font/NEURPOLI.TTF);
+}
+
+@font-face {
+    font-family: "Royal Crescent";
+    src: url(../font/Royal-Crescent-demo.otf);
 }
 
 body{
@@ -658,7 +663,7 @@ main > .container{
 /* Title */
 .navbar.navbar-dark .navbar-brand strong{
 	color: #eeeeee;
-	font-family: neuropolitical;
+	font-family: "Royal Crescent";
 }
 .navbar.navbar-dark .navbar-brand:hover strong
 {
@@ -739,7 +744,7 @@ a.nav-link.free span{
 	margin: 1.5em auto 0.5em;
 	padding: 0.5em 0;
 	border-bottom: 1px solid #242424;
-	font-family: 'neuropolitical',serif;
+	font-family: "Royal Crescent",serif;
 	color: #1e88e5
 }
 .list-categories-post {
@@ -827,7 +832,8 @@ a.nav-link.free span{
 
 
 .title-items{
-	font-family: neuropolitical;
+	font-family: "Royal Crescent";
+	font-size: 1.5em;
 }
 
 .list-post{
@@ -865,7 +871,7 @@ a.nav-link.free span{
 	text-align: center;
 	font-weight: normal;
 	color: #fafafa;
-	background: rgba(200,200,200,0.3);
+	background: rgba(42,42,42,0.8);
 	position: absolute;
 	width: 97.6%;
 	bottom: 0;
