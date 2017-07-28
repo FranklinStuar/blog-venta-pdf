@@ -895,6 +895,5 @@ a.nav-link.free span{
 	margin: auto;
 }
 .sponsor-google-show{
-	max-width: 150px;
-	max-height: 80px;
+	max-width: 100%;
 }

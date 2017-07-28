@@ -50,13 +50,10 @@
 						<a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
 					</li>
 				</ul>
-				<h6 class="option-info"></h6>
-				<ul class="list-categories-post">
-					<li>
+				<div class="sponsor-google-show">
 						{!! $system->tag_body !!}
-					</li>
-				</ul>
-				
+				</div>
+					
 				@include('corporate.sponsors.print',['print'=>'all'])
 			</div>
 			<div class="detail-post">
