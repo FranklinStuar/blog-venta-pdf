@@ -12,7 +12,7 @@
 				@include('corporate.sponsors.print')
 			</div>
 		@endif
-		@if(($index+1) % 12 ==0)
+		@if(($index+1) % 8 ==0)
 			<div class="preview-post preview-sponsor">
 				{!! $system->tag_body !!}
 			</div>
