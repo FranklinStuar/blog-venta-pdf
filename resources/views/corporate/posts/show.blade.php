@@ -50,9 +50,6 @@
 						<a href="{{ route('show-category',['cID'=>$post->category->slug]) }}">{{ $post->category->name }}</a>
 					</li>
 				</ul>
-				<div class="sponsor-google-show">
-						{!! $system->tag_body !!}
-				</div>
 					
 				@include('corporate.sponsors.print',['print'=>'all'])
 			</div>
@@ -71,6 +68,9 @@
 
 		<div class="extra-post">
 			
+				<div class="sponsor-google-show">
+						{!! $system->tag_body !!}
+				</div>
 			<div class="sugerence">
 				<div class="option-info">Te sugerimos</div>
 				<div class="posts-sugerent">
