@@ -13,7 +13,7 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6 concept">
 					<h2>¡Importante!</h2><hr>
-					<p>Actualmente la página no consta con pagos en linea</p>
+					<p>Actualmente la página dispone solo de pagos en paypal</p>
 					<p>Puede concatar directamente al correo 
 						<b><a href="mailto:{{$system->email}}">{{$system->email}}</a></b>
 					</p>
@@ -21,7 +21,8 @@
 					<p>Dirección: <b>{{$system->direccion}}</b> </p>
 
 				</div>
-				{{-- 
+
+				
 				<div class="col-sm-6 concept">
 					<span>Use nuestras formas de pago por internet o acérquese a las oficinas en 
 						{{ $system->direccion }} 
@@ -33,12 +34,12 @@
 						<i class="fa fa-paypal" aria-hidden="true"></i> 
 						<span>Paypal</span>
 					</a>
-					
+					{{-- 
 					<a href="{{ route('post.payment-card',['pID'=>$post_id,'prID'=>$price_id]) }}" class="type-payment">
 						<i class="fa fa-credit-card" aria-hidden="true"></i> 
 						<span>Tarjeta</span>
-					</a>
-				</div> --}}
+					</a> --}}
+				</div>
 			</div>
 
 

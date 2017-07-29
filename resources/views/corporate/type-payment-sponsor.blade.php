@@ -126,11 +126,11 @@
 					
 					<hr class="extra-margins">
 					<center>
-						Para activar los pagos por favor comuniquese con el adminisrador del sistema en <b>{{$system->email}}</b> o llame al los teléfonos <b>{{$system->celular}}</b> - <b>{{$system->telefono}}</b> 
-						{{-- <a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id,'sp'=>$sponsor->id]) }}" class="type-payment">
+						Para activar los pagos por favor comuníquese con el adminisrador del sistema en <b>{{$system->email}}</b> o llame al los teléfonos <b>{{$system->celular}}</b> - <b>{{$system->telefono}}</b> 
+						<a href="{{ route('sponsor.make-payment-paypal',['sprice'=>$sponsor_premium->id,'sp'=>$sponsor->id]) }}" class="type-payment">
 							<i class="fa fa-paypal" aria-hidden="true"></i> 
 							<span>Paypal</span>
-						</a> --}}
+						</a>
 					</center>
 					{{-- 
 					<a href="{{ route('sponsor.make-payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="type-payment">
