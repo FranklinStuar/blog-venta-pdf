@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://neurocodigo.com'),
+    'url' => env('APP_URL', 'https://neurocodigo.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -185,8 +185,7 @@ return [
         
         Collective\Html\HtmlServiceProvider::class,
         Rap2hpoutre\LaravelCreditCardValidator\ServiceProvider::class,
-        Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
-
+        Laravel\Cashier\CashierServiceProvider::class,
     ],
 
     /*
@@ -238,7 +237,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
-        'PaypalPayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
     ],
 
 ];

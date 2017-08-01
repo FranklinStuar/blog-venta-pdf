@@ -66,6 +66,6 @@ class PayPalOnlyPost extends Model
 	public function execute($paymentId, $payerId){
 		$payment = PaypalPayment::getById($paymentId,$this->_apiContext);
 		$execution = PaypalPayment::PaymentExecution()->setPayerId($payerId);
-		return $payment->execute($execution,$this->_apiContext);
+		dd( $payment->execute($execution,$this->_apiContext));
 	}
 }
