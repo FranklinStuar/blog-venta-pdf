@@ -36,7 +36,6 @@ main {
 footer.page-footer {
 	background-color: #3b3b3f;
 	margin-top: 2rem;
- 
 }
 
 /* PROPIO */
@@ -896,4 +895,27 @@ a.nav-link.free span{
 }
 .sponsor-google-show{
 	width: 100%;
+}
+.card .content-post{
+	padding: 15px 10px 8px 10px;
+}
+.card .content-post p{
+	font-size: 0.9em;	
+}
+.card .content-post li{
+	display: inline-block;
+}
+.li-date{
+	float: right
+}
+.card .content-post li a,.card .content-post li {
+	font-size: 0.85em;
+}
+.h2-responsive{
+	font-size: 1em;
+	color: #424242;
+	font-weight: bolder;
+}
+.card:hover .content-post .h2-responsive{
+	color: #2979ff;
 }
