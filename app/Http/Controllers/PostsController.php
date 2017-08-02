@@ -336,32 +336,39 @@ class PostsController extends Controller
 		// dd($request->all());
 		\Stripe\Stripe::setApiKey("sk_live_9xeSt1pqIyvkBM0DCUrfspbk");
 		$price = PostOncePrice::find($post_price_id);
-		$charge = \Stripe\Charge::create(array(
-		  "amount" => $price->price*100,
-		  "currency" => "usd",
-		  "description" => $price->post->title,
-		  "source" => $request->stripeToken,
-		));
-		if($charge){
-			if($price->type_time == "day")
-				$finish = \Carbon\Carbon::now()->addDays($price->time);
-			elseif($price->type_time == "month")
-				$finish = \Carbon\Carbon::now()->addMonths($price->time);
-			elseif($price->type_time == "year")
-				$finish = \Carbon\Carbon::now()->addYears($price->time);
+		try {
+			$charge = \Stripe\Charge::create(array(
+			  "amount" => $price->price*100,
+			  "currency" => "usd",
+			  "description" => $price->post->title,
+			  "source" => $request->stripeToken,
+			));
+			if($charge){
+				if($price->type_time == "day")
+					$finish = \Carbon\Carbon::now()->addDays($price->time);
+				elseif($price->type_time == "month")
+					$finish = \Carbon\Carbon::now()->addMonths($price->time);
+				elseif($price->type_time == "year")
+					$finish = \Carbon\Carbon::now()->addYears($price->time);
 
-			\App\PostOncePay::create([
-				'user_id' => \Auth::user()->id,
-				'post_id' => $post_id,
-				'finish' => $finish,
-				'price' => $price->price,
-				'post_once_price_id' => $price->id,
-			]);
-			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+				\App\PostOncePay::create([
+					'user_id' => \Auth::user()->id,
+					'post_id' => $post_id,
+					'finish' => $finish,
+					'price' => $price->price,
+					'post_once_price_id' => $price->id,
+				]);
+				$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+				return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+			}
+			$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
+			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+		} catch (Exception $e) {
+		    // echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+		    $request->session()->flash('errors',$e->getMessage());
+		    $request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
 			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 		}
-		$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
-		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 	}
 
 	public function makePaymentCard(Request $request){
