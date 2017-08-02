@@ -4,12 +4,12 @@
 <meta name="description" content="{{ str_limit($post->meta_description,160) }}">
 <meta name="keywords" content="{{ $post->meta_keywords }}">
 <meta name="robots" content="Index,Follow">
-<meta name="author" content="{{ $post->author->name }}">
+<meta name="author" content="neurocodigo.com">
+<meta name="owner" content="{{ $post->author->name }}">
 <meta name="subjetc" content="{{ $post->seo_title }}">
 <meta name="languaje" content="es">
 <meta name="revisit-after" content="30">
 <meta name="title" content="{{ $post->seo_title }}">
-
 @endsection
 
 @section('title')
