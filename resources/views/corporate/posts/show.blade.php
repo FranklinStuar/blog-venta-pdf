@@ -148,7 +148,7 @@
 										{!! Form::open(['route' => ['post.payment-card',$post->id,$price->id]]) !!}
 										  <script
 										    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-										    data-key="pk_test_Xd2SuziRV4jSvH72of9UYKvP"
+										    data-key="pk_live_EeYbQY9AdMOY66ZqbsckdOUr"
 										    data-name="Neurocodigo"
 										    data-email="{{ Auth::user()->email }}"
 										    data-amount="{{ $price->price*100 }}"

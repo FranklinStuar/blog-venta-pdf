@@ -334,7 +334,7 @@ class PostsController extends Controller
 
 	public function paymentCard(Request $request,$post_id,$post_price_id){
 		// dd($request->all());
-		\Stripe\Stripe::setApiKey("sk_test_GPuHeuIE4wXz34bTp0btvuSp");
+		\Stripe\Stripe::setApiKey("sk_live_9xeSt1pqIyvkBM0DCUrfspbk");
 		$price = PostOncePrice::find($post_price_id);
 		$charge = \Stripe\Charge::create(array(
 		  "amount" => $price->price*100,
