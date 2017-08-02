@@ -9,9 +9,8 @@
 		@endif
 		@if(($index+1) % 8 ==0)
 			<div class="col-md-6 col-lg-3 col-md-4">
-				<div class="preview-post preview-sponsor">
 					{!! $system->tag_body !!}
-				</div>
+				
 			</div>
 		@endif
 		<div class="col-md-6 col-lg-3 col-md-4">
