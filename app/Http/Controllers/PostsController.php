@@ -363,12 +363,12 @@ class PostsController extends Controller
 			}
 			$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
 			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
-		} catch (Exception $e) {
-		    // echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-		    $request->session()->flash('errors',$e->getMessage());
-		    $request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
-			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+		} catch (\Stripe\Error\Card $e) {
+		    $request->session()->flash('error',$e->getMessage());
+		} catch (\Exeption $e) {
+		    $request->session()->flash('error',$e->getMessage());
 		}
+		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 	}
 
 	public function makePaymentCard(Request $request){
