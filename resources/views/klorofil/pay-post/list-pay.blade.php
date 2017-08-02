@@ -54,6 +54,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{ $pays->links() }}
 		</div>
 	</div>
 @endsection

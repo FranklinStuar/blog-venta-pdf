@@ -8,47 +8,11 @@
 		</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-3">
-					<div class="metric">
-						<span class="icon"><i class="fa fa-download"></i></span>
-						<p>
-							<span class="number">{{ $posts->count() }}</span>
-							<span class="title">Posts</span>
-						</p>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="metric">
-						<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-						<p>
-							<span class="number">{{ $sponsors->count() }}</span>
-							<span class="title">Sponsors</span>
-						</p>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="metric">
-						<span class="icon"><i class="fa fa-eye"></i></span>
-						<p>
-							<span class="number">{{ $visit_posts->count() }}</span>
-							<span class="title">Visitas Post</span>
-						</p>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="metric">
-						<span class="icon"><i class="fa fa-bar-chart"></i></span>
-						<p>
-							<span class="number">{{ $users->count() }}</span>
-							<span class="title">Usuarios</span>
-						</p>
-					</div>
-				</div>
+				
 			</div>
 			<div class="row">
-				<div class="col-md-9">
-					<div id="headline-chart" class="ct-chart"></div>
-				</div>
+					{{-- <div id="headline-chart" class="ct-chart"></div> --}}
+
 				<div class="col-md-3">
 					<div class="weekly-summary text-right">
 						<span class="number">{{ $totalPays }}</span> 
@@ -65,6 +29,74 @@
 						{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
 						<span class="info-label">Ingreso Mensual</span>
 					</div>
+					<div class="weekly-summary text-right">
+						<span class="number">${{ $totalAll }}</span> 
+						{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
+						<span class="info-label">Ingreso Total</span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-shopping-bag"></i></span>
+						<p>
+							<span class="number">{{ $historial }}</span>
+							<span class="title">Visitas página</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-eye"></i></span>
+						<p>
+							<span class="number">{{ $visit_posts }}</span>
+							<span class="title">Visitas Post</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-eye"></i></span>
+						<p>
+							<span class="number">{{ $visit_pdf }}</span>
+							<span class="title">Visitas Documents</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-download"></i></span>
+						<p>
+							<span class="number">{{ $posts->count() }}</span>
+							<span class="title">Posts</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-download"></i></span>
+						<p>
+							<span class="number">{{ $kits }}</span>
+							<span class="title">Kits</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-shopping-bag"></i></span>
+						<p>
+							<span class="number">{{ $sponsors->count() }}</span>
+							<span class="title">Sponsors</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-bar-chart"></i></span>
+						<p>
+							<span class="number">{{ $users }}</span>
+							<span class="title">Usuarios</span>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -75,7 +107,7 @@
 			<!-- RECENT PURCHASES -->
 			<div class="panel">
 				<div class="panel-heading">
-					<h3 class="panel-title">Ventas de Post Recientes</h3>
+					<h3 class="panel-title">Ventas Individuales Recientes</h3>
 					<div class="right">
 						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 					</div>
@@ -90,11 +122,11 @@
 								<th>Fecha</th>
 							</tr>
 						</thead>
-						@foreach($post_pays as $index=> $post)
+						@foreach($post_only_pays as $index=> $post)
 						<tbody>
 							<tr>
 								<td><a href="{{ route('pay-post.show',['ppID'=>$post->id]) }}">{{ $index+1 }}</a></td>
-								<td>{{ $post->postPrice->name}}</td>
+								<td>{{ $post->post->title}}</td>
 								<td>$ {{ $post->price}}</td>
 								<td>{{ $post->created_at }}</td>
 							</tr>
@@ -106,7 +138,7 @@
 				<div class="panel-footer">
 					<div class="row">
 						<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Ultimos 5 Posts Vendidos</span></div>
-						<div class="col-md-6 text-right"><a href="{{ route('pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
+						<div class="col-md-6 text-right"><a href="{{ route('only-pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
 					</div>
 				</div>
 			</div>
@@ -155,9 +187,51 @@
 			<!-- END RECENT PURCHASES -->
 		</div>
 	
+		<div class="col-md-6">
+			<!-- RECENT PURCHASES -->
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Ventas de Kits Recientes</h3>
+					<div class="right">
+						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+					</div>
+				</div>
+				<div class="panel-body no-padding table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>Post</th>
+								<th>Precio</th>
+								<th>Fecha</th>
+							</tr>
+						</thead>
+						@foreach($post_pays as $index=> $post)
+						<tbody>
+							<tr>
+								<td><a href="{{ route('pay-post.show',['ppID'=>$post->id]) }}">{{ $index+1 }}</a></td>
+								<td>{{ $post->postPrice->name}}</td>
+								<td>$ {{ $post->price}}</td>
+								<td>{{ $post->created_at }}</td>
+							</tr>
+						</tbody>
+						<?php if($index == 4) break;?>
+						@endforeach
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="row">
+						<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Ultimos 5 kits Vendidos</span></div>
+						<div class="col-md-6 text-right"><a href="{{ route('pay-post.index') }}" class="btn btn-primary">Ver todas las ventas</a></div>
+					</div>
+				</div>
+			</div>
+			<!-- END RECENT PURCHASES -->
+		</div>
+
 	</div>
 
-
+{{-- 
 	<div class="row">
 		<div class="col-md-6">
 			<!-- MULTI CHARTS -->
@@ -172,6 +246,7 @@
 					<div id="visits-trends-chart" class="ct-chart"></div>
 				</div>
 			</div>
+			
 			<!-- END MULTI CHARTS -->
 		</div>
 		<div class="col-md-6">
@@ -191,7 +266,7 @@
 		</div>
 
 	</div>
-			
+		 --}}	
 @endsection
 @section('script')
 <script>

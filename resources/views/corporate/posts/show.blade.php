@@ -142,11 +142,23 @@
 							@foreach($post->oncePrices as $price)
 								<ul >
 									<li>
+
 										$ {{$price->price}} -
 										<span class="time-premium">Plan de {{$price->timeView()}}</span> 
-										<a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
+										{!! Form::open(['route' => ['post.payment-card',$post->id,$price->id]]) !!}
+										  <script
+										    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+										    data-key="pk_test_Xd2SuziRV4jSvH72of9UYKvP"
+										    data-name="Neurocodigo"
+										    data-email="{{ Auth::user()->email }}"
+										    data-amount="{{ $price->price*100 }}"
+										    {{-- data-image="https://stripe.com/img/documentation/checkout/marketplace.png" --}}
+										    >
+										  </script>
+										  {!! Form::close() !!}
+										{{-- <a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
 											Obtener acceso
-										</a>
+										</a> --}}
 									</li>
 								</ul>
 							@endforeach

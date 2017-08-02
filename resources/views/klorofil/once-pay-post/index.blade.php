@@ -15,7 +15,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Usuario</th>
 						<th>Post</th>
 						<th>Precio</th>
@@ -26,7 +25,6 @@
 				<tbody>
 					@foreach($pays as $index => $pay)
 						<tr>
-							<td>{{ $index + 1 }}</td>
 							<td><a href="{{ route('users.show',[$pay->user->id]) }}">{{ $pay->user->name }}</a></td>
 							<td>{{ $pay->post->title }}</td>
 							<td>$ {{ $pay->price }}</td>
@@ -58,6 +56,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{ $pays->links() }}
 		</div>
 	</div>
 @endsection

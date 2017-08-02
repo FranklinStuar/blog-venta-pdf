@@ -15,7 +15,7 @@ class PostPaysController extends Controller
 	
 	public function index(Request $request)
 	{
-		return view('klorofil.pay-post.list-pay')->with('pays', PostPay::all());
+		return view('klorofil.pay-post.list-pay')->with('pays', PostPay::paginate(10));
 	}
 
 	

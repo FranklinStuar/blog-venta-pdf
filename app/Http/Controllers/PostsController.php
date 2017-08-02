@@ -277,7 +277,9 @@ class PostsController extends Controller
 	public function payments($post_id,$post_price_id){
 		return view('corporate.posts.only-pay')
 			->with('post_id',$post_id)
-			->with('price_id',$post_price_id);
+			->with('price_id',$post_price_id)
+			->with('price',PostOncePrice::find($post_price_id))
+			;
 	}
 
 	public function paymentPaypal(Request $request,$post_id,$post_price_id){
@@ -325,19 +327,44 @@ class PostsController extends Controller
 			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
 			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
 		}else{
-			$request->session()->flash('success', 'Pago rechazado, POr favor revise que tenga el monto necesario para realizar el pago');
+			$request->session()->flash('success', 'Pago rechazado, Por favor revise que tenga el monto necesario para realizar el pago');
 			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
 		}
 	}
 
-	public function paymentCard($post_id,$post_price_id){
-		return view('corporate.posts.payment-card')
-			->with('post',Post::find($post_id))
-			->with('price',PostOncePrice::find($post_price_id));
+	public function paymentCard(Request $request,$post_id,$post_price_id){
+		// dd($request->all());
+		\Stripe\Stripe::setApiKey("sk_test_GPuHeuIE4wXz34bTp0btvuSp");
+		$price = PostOncePrice::find($post_price_id);
+		$charge = \Stripe\Charge::create(array(
+		  "amount" => $price->price*100,
+		  "currency" => "usd",
+		  "description" => $price->post->title,
+		  "source" => $request->stripeToken,
+		));
+		if($charge){
+			if($price->type_time == "day")
+				$finish = \Carbon\Carbon::now()->addDays($price->time);
+			elseif($price->type_time == "month")
+				$finish = \Carbon\Carbon::now()->addMonths($price->time);
+			elseif($price->type_time == "year")
+				$finish = \Carbon\Carbon::now()->addYears($price->time);
+
+			\App\PostOncePay::create([
+				'user_id' => \Auth::user()->id,
+				'post_id' => $post_id,
+				'finish' => $finish,
+				'price' => $price->price,
+				'post_once_price_id' => $price->id,
+			]);
+			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
+			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+		}
+		$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
+		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 	}
 
 	public function makePaymentCard(Request $request){
-		// 4770 4410 1188 2871
 		$date = $request->input('expiry-month') .'/20'. $request->input('expiry-year');
 		$this->validate($request, [
 			str_replace(" ", "-", 'credit-card-number') => 'required|ccn',
@@ -346,23 +373,6 @@ class PostsController extends Controller
 			$date => 'ccd',
 			'credit-validation-code' => 'required|cvc',
 		]);
-		$price = PostOncePrice::find($request->prID);
-		if($price->type_time == "day")
-			$finish = \Carbon\Carbon::now()->addDays($price->time);
-		elseif($price->type_time == "month")
-			$finish = \Carbon\Carbon::now()->addMonths($price->time);
-		elseif($price->type_time == "year")
-			$finish = \Carbon\Carbon::now()->addYears($price->time);
-
-		\App\PostOncePay::create([
-			'user_id' => \Auth::user()->id,
-			'post_id' => $request->pstID,
-			'finish' => $finish,
-			'price' => $price->price,
-			'post_once_price_id' => $price->id,
-		]);
-		$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
-		return redirect()->route('show-post',['pID'=>Post::find($request->pstID)->slug]);
 	}
 
 

@@ -44,6 +44,13 @@ class HomeController extends Controller
                 'active',
                 'created_at',
                 Carbon::now()->format('Y-m-d')
+            )->total+  
+            \App\System::totalDay(
+                'post_once_pays',
+                'price',
+                'active',
+                'created_at',
+                Carbon::now()->format('Y-m-d')
             )->total;
 
         $totalPays = \App\PostPay::where(
@@ -52,6 +59,11 @@ class HomeController extends Controller
             )->get()
             ->count() + 
             \App\SponsorPay::where(
+                'status',
+                'active'
+            )->get()
+            ->count() +
+            \App\PostOncePay::where(
                 'status',
                 'active'
             )->get()
@@ -75,18 +87,29 @@ class HomeController extends Controller
                 'created_at',
                 \Carbon\Carbon::create($thisYear, $thisMonth, '01'),
                 \Carbon\Carbon::now()
+            )->total+
+            \App\System::totalBetweenDate(
+                'post_once_pays',
+                'price',
+                'active',
+                'created_at',
+                \Carbon\Carbon::create($thisYear, $thisMonth, '01'),
+                \Carbon\Carbon::now()
             )->total; 
-        
-        // dd($totalMonth);
         return view('klorofil.index')
-            ->with('users',\App\User::all())
+            ->with('users',\App\User::count())
             ->with('posts',Post::all())
+            ->with('kits',\App\PostPrice::count())
             ->with('sponsors',\App\Sponsor::all())
-            ->with('visit_posts',\App\PostVisit::all())
+            ->with('visit_posts',\App\PostVisit::count())
+            ->with('visit_pdf',\App\PdfView::count())
+            ->with('historial',\App\Historial::count())
             ->with('post_pays',\App\PostPay::where('status','active')->get())
+            ->with('post_only_pays',\App\PostOncePay::where('status','active')->get())
             ->with('sponsor_pays',\App\SponsorPay::where('status','active')->get())
             ->with('paysToday',$paysToday)
             ->with('totalPays',$totalPays)
+            ->with('totalAll', \App\System::countPays())
             ->with('totalMonth',$totalMonth)
             ;
     }

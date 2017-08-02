@@ -4,6 +4,7 @@
 	@endforeach
 </div> --}}
 {{-- <div class="sponsor-google-list">{!! $system->tag_body !!}</div> --}}
+{{-- div.category --}}
 <div class="list-post">
 	@foreach($posts as $index =>$post)
 
@@ -32,3 +33,4 @@
 	@endforeach
 	
 </div>
+

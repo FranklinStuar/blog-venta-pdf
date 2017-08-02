@@ -31,5 +31,31 @@ class System extends Model
       ->first();
   }
 
+  public static function countPays(){
+    $total = 0.0;
+    $onlyPosts = \DB::table('post_once_pays')
+      ->select(\DB::raw('SUM(price) as total'))
+      ->where("status","active")
+      ->orWhere("status","finished")
+      ->first();
+    $kits = \DB::table('post_pays')
+      ->select(\DB::raw('SUM(price) as total'))
+      ->where("status","active")
+      ->orWhere("status","finished")
+      ->first();
+    $sponsor = \DB::table('sponsor_pays')
+      ->select(\DB::raw('SUM(price_month) as total'))
+      ->where("status","active")
+      ->orWhere("status","finish")
+      ->first();
+      // dd($onlyPosts,$kits,$sponsor);
+      if($onlyPosts->total)
+        $total += $onlyPosts->total;
+      if($kits->total)
+        $total += $kits->total;
+      if($sponsor->total)
+        $total += $sponsor->total;
+    return $total;
+  }
 }
 

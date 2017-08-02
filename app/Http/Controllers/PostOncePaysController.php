@@ -16,7 +16,7 @@ class PostOncePaysController extends Controller
 	public function index(Request $request)
 	{
 		return view('klorofil.once-pay-post.index')
-			->with('pays', PostOncePay::all());
+			->with('pays', PostOncePay::orderby('status','asc')->paginate(10));
 	}
 
 	public function create()

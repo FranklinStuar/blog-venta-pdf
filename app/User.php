@@ -7,12 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\MailResetPasswordToken;
-
+use Laravel\Cashier\Billable;
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
     use ShinobiTrait;
+    use Billable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
