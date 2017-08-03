@@ -60,7 +60,7 @@
 						<li class="nav-item dropdown btn-group">
 							<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-user" aria-hidden="true"></i> 
-								@if(!Auth::guest())
+								@if(Auth::user())
 									{{ Auth::user()->name }}
 								@endif
 							</a>

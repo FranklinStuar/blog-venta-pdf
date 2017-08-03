@@ -51,7 +51,7 @@
 					</li>
 				</ul>
 					
-				@include('corporate.sponsors.print',['print'=>'all'])
+				@include('corporate.sponsors.print',['sponsor_show'=>$system->sponsorRandom()])
 			</div>
 			<div class="detail-post">
 				<div class="excerpt-post">

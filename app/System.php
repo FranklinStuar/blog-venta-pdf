@@ -23,7 +23,6 @@ class System extends Model
   }
   
   public static function totalBetweenDate($table,$column,$status,$type_date,$date_init,$date_finish){
-    // dd($date_init);
     return \DB::table($table)
       ->select(\DB::raw('SUM('.$column.') as total'))
       ->where("status",$status)
@@ -31,6 +30,28 @@ class System extends Model
       ->first();
   }
 
+  public function sponsorRandom(){
+    $pay_sponsor = \App\SponsorPay::where('finish_date', '>' ,\Carbon\Carbon::now())
+      ->where('prints','>','print_count')
+      ->where('status','active')
+      ->inRandomOrder()
+      ->first();
+    $historial = \App\Historial::create([
+      'user_agent'=>"null",
+      'languaje'=>"null",
+      'path'=>"null",
+      'ip'=>"null",
+      'created_at'=>\Carbon\Carbon::now(),
+    ]);
+    \App\SponsorPrint::create([
+      'sponsor_id' => $pay_sponsor->sponsor->id,
+      'created_at' => \Carbon\Carbon::now(),
+      'historial_id' => $historial->id,
+    ]);
+
+    return $pay_sponsor->sponsor;
+  }
+  
   public static function countPays(){
     $total = 0.0;
     $onlyPosts = \DB::table('post_once_pays')

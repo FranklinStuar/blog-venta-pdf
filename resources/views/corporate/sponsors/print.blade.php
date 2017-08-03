@@ -1,4 +1,3 @@
-@if(Shinobi::can('sponsor.quit.others') == false && isset($sponsor_show)) 
 
 	<a href="#{{ str_slug($sponsor_show->name) }}" class="sponsor-show " data-toggle="modal" data-target="#sponsorModal">	
 		<img src="{{ url('/storage/'.$sponsor_show->image) }}"  alt="{{ $sponsor_show->excerpt }}">
@@ -61,4 +60,3 @@
 		 
 	</div>
 </div>
-@endif

@@ -1,10 +1,8 @@
 <div class="row">
 	@foreach($posts as $index =>$post)
-		@if(($index==2 || ($index>9 && ($index+1) % 5 ==0)) && isset($sponsor_show))
+		@if(($index==2 || ($index>9 && ($index+1) % 5 ==0)) )
 			<div class="col-md-6 col-lg-3 col-md-4">
-				<div class="preview-post preview-sponsor">
-					@include('corporate.sponsors.print')
-				</div>
+					@include('corporate.sponsors.print',['sponsor_show'=>$system->sponsorRandom()])
 			</div>
 		@endif
 		@if(($index+1) % 8 ==0)
@@ -25,10 +23,9 @@
 					<a  href="{{ route('show-post',['PN'=> $post->slug]) }}" title="{{ $post->title }}">
 						<h2 class="h2-responsive">{{ $post->title }}</h2>
 					</a>
-					<p>{{ str_limit($post->excerpt,250) }}</p>
+					<p>{{ str_limit($post->excerpt,150) }}</p>
 					<ul>
-						<li class="li-author"><a href="{{ route('show-user',[$post->author->username]) }}">{{ $post->author->name }}</a></li>
-						<li class="li-date">{{ $post->created_at->diffForHumans() }}</li>
+						<li class="li-author"><a href="{{ route('show-category',[$post->category->slug]) }}">{{ $post->category->name }}</a></li>
 					</ul>
 				</div>
 			</div>
