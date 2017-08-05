@@ -2,10 +2,6 @@
 @section('content')
 	<!-- OVERVIEW -->
 	<div class="panel panel-headline">
-		<div class="panel-heading">
-			<h3 class="panel-title">Descripción semanal</h3>
-			<p class="panel-subtitle">Periodo: {{ Carbon\Carbon::now()->subDays(7)->format(' F j\\, Y') }} - {{ Carbon\Carbon::now()->format(' F j\\, Y') }} </p>
-		</div>
 		<div class="panel-body">
 			<div class="row">
 				
@@ -33,15 +29,6 @@
 						<span class="number">${{ $totalAll }}</span> 
 						{{-- <span class="percentage"><i class="fa fa-caret-down text-danger"></i> {{ $post_pays->count() }}%</span> --}}
 						<span class="info-label">Ingreso Total</span>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="metric">
-						<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-						<p>
-							<span class="number">{{ $historial }}</span>
-							<span class="title">Visitas página</span>
-						</p>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -231,42 +218,7 @@
 
 	</div>
 
-{{-- 
-	<div class="row">
-		<div class="col-md-6">
-			<!-- MULTI CHARTS -->
-			<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Ventas Posts y Sponsors</h3>
-					<div class="right">
-						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-					</div>
-				</div>
-				<div class="panel-body">
-					<div id="visits-trends-chart" class="ct-chart"></div>
-				</div>
-			</div>
-			
-			<!-- END MULTI CHARTS -->
-		</div>
-		<div class="col-md-6">
-			<!-- VISIT CHART -->
-			<div class="panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Visitas web</h3>
-					<div class="right">
-						<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-					</div>
-				</div>
-				<div class="panel-body">
-					<div id="visits-chart" class="ct-chart"></div>
-				</div>
-			</div>
-			<!-- END VISIT CHART -->
-		</div>
 
-	</div>
-		 --}}	
 @endsection
 @section('script')
 <script>

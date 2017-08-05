@@ -24,11 +24,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function admin()
     {
         $paysToday = \App\System::totalDay(
@@ -113,7 +108,17 @@ class HomeController extends Controller
             ->with('totalMonth',$totalMonth)
             ;
     }
-    public function index(){
+
+    public function index(Request $request){
+        \App\Historial::create([
+            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+            'path'=>$request->url(),
+            'ip'=>$request->ip(),
+            'created_at'=>\Carbon\Carbon::now(),
+            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+        ]);
+
         $posts = Post::orderBy('updated_at','desc')->get();
         $featured = Post::where('featured',true)->first();
         if($featured == null && count($posts)>0)
@@ -122,9 +127,24 @@ class HomeController extends Controller
             ->with('posts',$posts)
         ;
     }
-    public function showPost($post_name){
+    public function showPost(Request $request,$post_name){
         $post = Post::where('slug',$post_name)->first();
-        // dd(\Auth::user()->postStatus($post->id));
+
+        \App\PostHistorial::create([
+            'user_id' => (\Auth::user())? \Auth::user()->id: null,
+            'post_id' => $post->id,
+            'activity' => 'visit',
+            'details' => (\Auth::user())? 'Visita desde usuario': 'Visita sin usuario',
+            'historial_id' => \App\Historial::create([
+                'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+                'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+                'path'=>$request->url(),
+                'ip'=>$request->ip(),
+                'created_at'=>\Carbon\Carbon::now(),
+                'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+            ])->id
+        ]);
+
         if($post){
             return view('corporate.posts.show')
                 ->with('post',$post)
@@ -133,10 +153,25 @@ class HomeController extends Controller
         }else
         abort(404);
     }
-    public function showPDF($pdf_id){
+    public function showPDF(Request $request,$pdf_id){
         $pdf = \App\Pdf::find($pdf_id);
-        if($pdf){
-            // return view('pdf.view')->with('post',$pdf);
+
+        if($pdf){            
+            \App\PdfView::create([
+                'path_pdf' => $pdf->pdf,
+                'post_id' => $pdf->id,
+                'user_id' => \Auth::user()->id,
+                'created_at' => \Carbon\Carbon::now(),
+                'historial_id' => \App\Historial::create([
+                    'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+                    'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+                    'path'=>$request->url(),
+                    'ip'=>$request->ip(),
+                    'created_at'=>\Carbon\Carbon::now(),
+                    'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+                ])->id,
+            ]);
+            
             if($pdf->post->oncePrices->count() > 0)
                 return view('pdf.view')->with('post', $pdf);
             else
@@ -144,7 +179,16 @@ class HomeController extends Controller
         }else
         abort(404);
     }
+
     public function search(Request $request){
+        \App\Historial::create([
+            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+            'path'=>$request->url(),
+            'ip'=>$request->ip(),
+            'created_at'=>\Carbon\Carbon::now(),
+            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+        ]);
         return view('corporate.posts.post')
             ->with('posts',Post::where('title','like','%'.$request->search.'%')->orWhere('body','like','%'.$request->search.'%')->get())
                 ->with('name',$request->search)
@@ -153,7 +197,15 @@ class HomeController extends Controller
         ;
     }
     
-    public function showCategory($category_slug){
+    public function showCategory(Request $request,$category_slug){
+        \App\Historial::create([
+            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+            'path'=>$request->url(),
+            'ip'=>$request->ip(),
+            'created_at'=>\Carbon\Carbon::now(),
+            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+        ]);
         $category = \App\Category::where('slug',$category_slug)->first();
         if($category != null){
             return view('corporate.posts.post')
@@ -165,7 +217,15 @@ class HomeController extends Controller
         abort(404);
     }
 
-    public function showUser($username){
+    public function showUser(Request $request,$username){
+        \App\Historial::create([
+            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+            'path'=>$request->url(),
+            'ip'=>$request->ip(),
+            'created_at'=>\Carbon\Carbon::now(),
+            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+        ]);
         $user = \App\User::where('username',$username)->first();
         if($user){
             return view('corporate.posts.post')
@@ -177,8 +237,16 @@ class HomeController extends Controller
         abort(404);
     }
 
-    public function free(){
+    public function free(Request $request){
         
+        \App\Historial::create([
+            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+            'path'=>$request->url(),
+            'ip'=>$request->ip(),
+            'created_at'=>\Carbon\Carbon::now(),
+            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+        ]);
         return view('corporate.posts.post')
             ->with('name','Publicaciones Gratis')
             ->with('type','Publicaciones Gratis')
