@@ -156,10 +156,10 @@ class HomeController extends Controller
     public function showPDF(Request $request,$pdf_id){
         $pdf = \App\Pdf::find($pdf_id);
 
-        if($pdf){            
+        if($pdf){        
             \App\PdfView::create([
                 'path_pdf' => $pdf->pdf,
-                'post_id' => $pdf->id,
+                'post_id' => $pdf->post->id,
                 'user_id' => \Auth::user()->id,
                 'created_at' => \Carbon\Carbon::now(),
                 'historial_id' => \App\Historial::create([
