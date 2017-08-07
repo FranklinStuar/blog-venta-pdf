@@ -129,28 +129,28 @@ class HomeController extends Controller
     }
     public function showPost(Request $request,$post_name){
         $post = Post::where('slug',$post_name)->first();
-        $historial = \App\Historial::create([
-            'user_agent'=>$request->server()['HTTP_USER_AGENT'],
-            'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
-            'path'=>$request->url(),
-            'ip'=>$request->ip(),
-            'created_at'=>\Carbon\Carbon::now(),
-            'user_id'=>(\Auth::user())?\Auth::user()->id:null,
-        ])->id
-        \App\PostVisit::create([
-            'user_id' => (\Auth::user())? \Auth::user()->id: null,
-            'post_id' => $post->id,
-            'historial_id' => $historial;
-        ]);
-        \App\PostHistorial::create([
-            'user_id' => (\Auth::user())? \Auth::user()->id: null,
-            'post_id' => $post->id,
-            'activity' => 'visit',
-            'details' => (\Auth::user())? 'Visita desde usuario': 'Visita sin usuario',
-            'historial_id' => $historial;
-        ]);
 
         if($post){
+            $historial = \App\Historial::create([
+                'user_agent'=>$request->server()['HTTP_USER_AGENT'],
+                'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
+                'path'=>$request->url(),
+                'ip'=>$request->ip(),
+                'created_at'=>\Carbon\Carbon::now(),
+                'user_id'=>(\Auth::user())?\Auth::user()->id:null,
+            ])->id;
+            \App\PostVisit::create([
+                'user_id' => (\Auth::user())? \Auth::user()->id: null,
+                'post_id' => $post->id,
+                'historial_id' => $historial
+            ]);
+            \App\PostHistorial::create([
+                'user_id' => (\Auth::user())? \Auth::user()->id: null,
+                'post_id' => $post->id,
+                'activity' => 'visit',
+                'details' => (\Auth::user())? 'Visita desde usuario': 'Visita sin usuario',
+                'historial_id' => $historial
+            ]);
             return view('corporate.posts.show')
                 ->with('post',$post)
                 ->with('categories',\App\Category::all())
