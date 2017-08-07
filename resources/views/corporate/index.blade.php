@@ -26,7 +26,7 @@
 <meta name="twitter:creator" content="@author_handle">
 
 <-- Twitter Summary card images. Igual o superar los 200x200px -->
-<meta name="twitter:image" content=" <a href='{{ url('images/favicon.png') }}'>{{ url('images/favicon.png') }}</a>">
+<meta name="twitter:image" content="{{ url('images/favicon.png') }}">
 
 <!-- Open Graph data -->
 <meta property="og:title" content="Neurocodigo" />
@@ -34,7 +34,7 @@
 <meta property="og:url" content=" {{ url('/') }}" />
 <meta property="og:image" content=" {{ url('images/favicon.png') }}" />
 <meta property="og:description" content="Innovación, nuestro compromiso" />
-<meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="ID de Facebook" />
+<meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="1311771035" />
 
 @endsection
 

@@ -19,7 +19,7 @@
         <label for="excerpt" class="col-md-4 control-label">Detalles *</label>
 
         <div class="col-md-6">
-            <input id="excerpt" type="text" class="form-control" name="excerpt" value="{{ $sponsor->excerpt }}" required autofocus>
+            <input id="excerpt" type="text" class="form-control" name="excerpt" value="{{ $sponsor->excerpt }}" required >
 
             @if ($errors->has('excerpt'))
                 <span class="help-block">
@@ -34,7 +34,7 @@
         <label for="web" class="col-md-4 control-label">Sitio Web</label>
 
         <div class="col-md-6">
-            <input id="web" type="text" class="form-control" name="web" value="{{ $sponsor->web }} a"utofocus>
+            <input id="web" type="text" class="form-control" name="web" value="{{ $sponsor->web }}">
 
             @if ($errors->has('web'))
                 <span class="help-block">
@@ -48,7 +48,7 @@
         <label for="phone" class="col-md-4 control-label">Teléfono</label>
 
         <div class="col-md-6">
-            <input id="phone" type="text" class="form-control" name="phone" value="{{ $sponsor->phone }}" autofocus>
+            <input id="phone" type="text" class="form-control" name="phone" value="{{ $sponsor->phone }}">
 
             @if ($errors->has('phone'))
                 <span class="help-block">
@@ -62,7 +62,7 @@
         <label for="address" class="col-md-4 control-label">Dirección</label>
 
         <div class="col-md-6">
-            <input id="address" type="text" class="form-control" name="address" value="{{ $sponsor->address }}" autofocus>
+            <input id="address" type="text" class="form-control" name="address" value="{{ $sponsor->address }}">
 
             @if ($errors->has('address'))
                 <span class="help-block">
@@ -78,7 +78,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.facebook.com/ </span>
-                  {!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
+                  {!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
             </div>
             @if ($errors->has('url_facebook'))
                 <span class="help-block">
@@ -94,7 +94,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.instagram.com/ </span>
-                  {!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
+                  {!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
             </div>
             @if ($errors->has('url_instagram'))
                 <span class="help-block">
@@ -110,7 +110,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.twitter.com/ </span>
-                  {!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
+                  {!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
             </div>
             @if ($errors->has('url_twitter'))
                 <span class="help-block">
@@ -126,7 +126,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.youtube.com/ </span>
-                  {!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo",'autofocus']) !!}
+                  {!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
             </div>
             @if ($errors->has('url_youtube'))
                 <span class="help-block">

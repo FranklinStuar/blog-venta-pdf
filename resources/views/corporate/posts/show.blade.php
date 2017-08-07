@@ -1,6 +1,9 @@
 @extends('corporate.layout')
 
 @section('meta')
+@endsection
+
+@section('meta')
 <meta name="description" content="{{ str_limit($post->meta_description,160) }}">
 <meta name="keywords" content="{{ $post->meta_keywords }}">
 <meta name="robots" content="Index,Follow">
@@ -10,6 +13,26 @@
 <meta name="languaje" content="es">
 <meta name="revisit-after" content="30">
 <meta name="title" content="{{ $post->seo_title }}">
+
+
+<!-- Twitter Card data -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="{{ $post->title }}">
+<meta name="twitter:description" content="{{ str_limit($post->meta_description,160) }}">
+<meta name="twitter:creator" content="@author_handle">
+
+<-- Twitter Summary card images. Igual o superar los 200x200px -->
+<meta name="twitter:image" content="{{ url('storage/'.$post->image) }}">
+
+<!-- Open Graph data -->
+<meta property="og:title" content="{{ $post->title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{ url($post->slug) }}" />
+<meta property="og:image" content="{{ url('storage/'.$post->image) }}" />
+<meta property="og:description" content="{{ str_limit($post->meta_description,160) }}" />
+<meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="1311771035" />
+
 @endsection
 
 @section('title')
@@ -23,9 +46,7 @@
 @section('container')
 
 	<div class="main-post">
-		
 		<div class="title-post">
-			
 			<h1>{{ $post->title }}</h1>
 			<ul>
 				<li>Mecatronica-Cuenca</li>
