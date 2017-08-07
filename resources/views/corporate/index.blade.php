@@ -5,7 +5,7 @@
 @endsection
 
 
-@section('meta')
+@section('metas')
 <meta name="description" content="Innovación, nuestro compromiso">
 <meta name="keywords" content="neurocodigo, neuro, codigo, mecatronica, tecnología, innovacion, futuro">
 <meta name="robots" content="Index,Follow">
@@ -25,8 +25,6 @@
 <meta name="twitter:description" content="Innovación, nuestro compromiso">
 <meta name="twitter:creator" content="@author_handle">
 
-<-- Twitter Summary card images. Igual o superar los 200x200px -->
-<meta name="twitter:image" content="{{ url('images/favicon.png') }}">
 
 <!-- Open Graph data -->
 <meta property="og:title" content="Neurocodigo" />
@@ -36,6 +34,8 @@
 <meta property="og:description" content="Innovación, nuestro compromiso" />
 <meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="1311771035" />
 
+<!-- Twitter Summary card images. Igual o superar los 200x200px -->
+<meta name="twitter:image" content="{{ url('images/favicon.png') }}">
 @endsection
 
 @section('google-script')

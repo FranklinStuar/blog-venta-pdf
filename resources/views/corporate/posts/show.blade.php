@@ -1,9 +1,6 @@
 @extends('corporate.layout')
 
-@section('meta')
-@endsection
-
-@section('meta')
+@section('metas')
 <meta name="description" content="{{ str_limit($post->meta_description,160) }}">
 <meta name="keywords" content="{{ $post->meta_keywords }}">
 <meta name="robots" content="Index,Follow">
@@ -22,8 +19,6 @@
 <meta name="twitter:description" content="{{ str_limit($post->meta_description,160) }}">
 <meta name="twitter:creator" content="@author_handle">
 
-<-- Twitter Summary card images. Igual o superar los 200x200px -->
-<meta name="twitter:image" content="{{ url('storage/'.$post->image) }}">
 
 <!-- Open Graph data -->
 <meta property="og:title" content="{{ $post->title }}" />
@@ -33,6 +28,8 @@
 <meta property="og:description" content="{{ str_limit($post->meta_description,160) }}" />
 <meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="1311771035" />
 
+<!-- Twitter Summary card images. Igual o superar los 200x200px -->
+<meta name="twitter:image" content="{{ url('storage/'.$post->image) }}">
 @endsection
 
 @section('title')

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	@yield('meta')
+	
 	<title>@yield('title')</title>
 
 	<!-- Font Awesome -->
@@ -22,6 +22,7 @@
 	<link href="{{ url('corporate/css/mdb.min.css') }}" rel="stylesheet">
 	<link href="{{ url('corporate/css/style.css') }}" rel="stylesheet">
 	@yield('google-script')
+	@yield('metas')
 </head>
 
 <body>
