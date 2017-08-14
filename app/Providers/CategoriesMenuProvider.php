@@ -14,7 +14,7 @@ class CategoriesMenuProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('corporate.*', function ($view) {
+        View::composer(['flat.*','corporate.*'], function ($view) {
             $view->with('categories', \App\Category::all());
         });
     }

@@ -100,8 +100,11 @@ class User extends Authenticatable
     * Busca si el post está activo o no
     */
     public function postStatus($post_id){
-        
         if(!$post_id) return false;
+        
+        if(\Auth::user()->isRole('admin') || \Auth::user()->isRole('superadmin'))
+            return true;
+
         $pays = \DB::table('post_once_pays')
             ->where('post_id',$post_id)
             ->where('user_id',$this->id)
@@ -109,6 +112,10 @@ class User extends Authenticatable
             ->whereDate('finish', '>=' ,\Carbon\Carbon::now()->format('Y-m-d'))
             ->where('deleted_at', null)
             ->get();
+        
+        if (count($pays)>0)
+            return true;
+
         // $kits = \DB::table('post_pays as P')
         //     // ->join('roles as R','R.id','P.role_id')
         //     ->join('post_role as PR','PR.role_id','P.role_id')
@@ -118,7 +125,6 @@ class User extends Authenticatable
         //     ->where('P.finish', '>' ,\Carbon\Carbon::now())
         //     ->get();
         // dd($kits);
-        return (count($pays)>0)?true:false;
     }
     // 'price','observations','user_id','role_id','post_price_id','method_payment','status','finish','created_at',
 

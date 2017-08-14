@@ -120,7 +120,7 @@ class UsersController extends Controller
     }
 
     public function profile(){
-        return view('corporate.profile');
+        return view('flat.profile');
     }
 
     public function profileEdit(){

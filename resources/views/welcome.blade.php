@@ -1,1 +1,1 @@
-@extends('corporate.index')
+@extends('blueline.index')

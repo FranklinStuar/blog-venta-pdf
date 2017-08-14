@@ -119,15 +119,12 @@ class HomeController extends Controller
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
 
-        $posts = Post::orderBy('updated_at','desc')->get();
-        $featured = Post::where('featured',true)->first();
-        if($featured == null && count($posts)>0)
-            $featured = $posts[0];
-        return view('welcome')
+        $posts = Post::orderBy('created_at','desc')->paginate(6);
+        return view('flat.index')
             ->with('posts',$posts)
         ;
     }
-    public function showPost(Request $request,$post_name){
+    public function showPost(Request $request,$category_slug,$post_name){
         $post = Post::where('slug',$post_name)->first();
 
         if($post){
@@ -151,17 +148,39 @@ class HomeController extends Controller
                 'details' => (\Auth::user())? 'Visita desde usuario': 'Visita sin usuario',
                 'historial_id' => $historial
             ]);
-            return view('corporate.posts.show')
+
+            return view('flat.posts.show')
                 ->with('post',$post)
                 ->with('categories',\App\Category::all())
+                ->with('token',\Session::get('_token'))
             ;
         }else
         abort(404);
     }
-    public function showPDF(Request $request,$pdf_id){
+
+    public function downloadZip(Request $request,$service,$post_slug,$zip_id){
+        $post = Post::where('slug',$post_slug)->first();
+        if(!$post)
+            abort(404,'Publicación no encontrada');
+        if(\Auth::user() && !\Auth::user()->postStatus($post->id))
+            abort(403,'Permiso denegado');
+        if(\Session::get('_token') != $request->token)
+            abort(403,'Permiso denegado');
+        $zip = \App\ZipFile::find($zip_id);
+        if($zip && $zip->post_id == $post->id){ 
+            return redirect(\Storage::url($zip->file));
+        }
+        
+    }
+    public function showPDF(Request $request,$service,$post_slug,$pdf_name,$pdf_id){
+        $post = Post::where('slug',$post_slug)->first();
+        if(!$post)
+            abort(404,'Publicación no encontrada');
+        if(\Auth::user() && !\Auth::user()->postStatus($post->id))
+            abort(403,'Permiso denegado');
         $pdf = \App\Pdf::find($pdf_id);
 
-        if($pdf){        
+        if($pdf && $pdf->post_id == $post->id){        
             \App\PdfView::create([
                 'path_pdf' => $pdf->pdf,
                 'post_id' => $pdf->post->id,
@@ -194,11 +213,10 @@ class HomeController extends Controller
             'created_at'=>\Carbon\Carbon::now(),
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
-        return view('corporate.posts.post')
-            ->with('posts',Post::where('title','like','%'.$request->search.'%')->orWhere('body','like','%'.$request->search.'%')->get())
-                ->with('name',$request->search)
-                ->with('type','Resultados de la busqueda')
-            ->with('search',$request->search)
+        return view('flat.posts.post')
+        ->with('posts',Post::where('title','like','%'.$request->search.'%')->orWhere('body','like','%'.$request->search.'%')->paginate(5))
+        ->with('name',"Resultados de :".$request->search)
+        ->with('search',$request->search)
         ;
     }
     
@@ -213,10 +231,10 @@ class HomeController extends Controller
         ]);
         $category = \App\Category::where('slug',$category_slug)->first();
         if($category != null){
-            return view('corporate.posts.post')
+            return view('flat.posts.post')
                 ->with('name',$category->name)
                 ->with('type','Categoría')
-                ->with('posts',$category->posts)
+                ->with('posts',Post::where('category_id',$category->id)->paginate(5))
             ;
         }
         abort(404);
@@ -233,10 +251,10 @@ class HomeController extends Controller
         ]);
         $user = \App\User::where('username',$username)->first();
         if($user){
-            return view('corporate.posts.post')
+            return view('flat.posts.post')
                 ->with('name',$user->name)
                 ->with('type','Autor')
-                ->with('posts',$user->posts)
+                ->with('posts',Post::where('author_id',$user->id)->paginate(5))
             ;
         }
         abort(404);
@@ -252,7 +270,7 @@ class HomeController extends Controller
             'created_at'=>\Carbon\Carbon::now(),
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
-        return view('corporate.posts.post')
+        return view('flat.posts.post')
             ->with('name','Publicaciones Gratis')
             ->with('type','Publicaciones Gratis')
             ->with('posts',Post::free())

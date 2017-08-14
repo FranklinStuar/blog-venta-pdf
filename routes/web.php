@@ -98,10 +98,14 @@ Route::get('/init', 'InitController@index')->name('init');
 Route::get('/free', 'HomeController@free')->name('post.free');
 Route::get('search','HomeController@search')->name('search');
 Route::get('categoria/{category}','HomeController@showCategory')->name('show-category');
+Route::get('{category}','HomeController@showCategory')->name('show-service');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
-Route::get('{post_name}','HomeController@showPost')->name('show-post');
-Route::get('{post_name}/book','HomeController@showPDF')->name('show-pdf');
+Route::get('/autor/{username}','HomeController@showUser')->name('show-author');
+// Route::get('{post_name}','HomeController@showPost')->name('show-post');
+Route::get('{service}/{post_name}','HomeController@showPost')->name('show-post');
+Route::get('{service}/{post_name}/leer-gratis/{book_name}','HomeController@showFreePDF')->name('free-pdf');
+Route::get('{service}/{post_name}/leer/{book_name}/{pdf_id}','HomeController@showPDF')->name('show-pdf');
+Route::get('{service}/{post_name}/{zip_id}/download','HomeController@downloadZip')->name('download-zip');
 
 
 
-// FInanciamiento puente
