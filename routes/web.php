@@ -24,6 +24,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::post('/posts/get-once-prices','PostsController@getOncePrices')->name('posts.get-once-prices');
 	Route::post('/posts/get-once-prices/detail','PostOncePricesController@getDetail')->name('posts.get-detail-once-prices');
 
+	Route::post('/posts/{post_id}/kits','PostsController@updateKits')->name('posts.kit.update');
 	Route::get('/posts/{post_id}/view-kit','PostsController@viewKits')->name('posts.view-kit');
 	Route::resource('/posts','PostsController');
 	Route::resource('/roles','RolesController');
@@ -32,6 +33,8 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('roles/show-posts/{role_id}', 'RolesController@showPosts')->name('role.show-posts');
 
 	Route::resource('/categories','CategoriesController');
+	Route::post('/subcategories/{category_id}','CategoriesController@sucategoriesArrayPluck');
+	Route::resource('/category/{parent_id}/sub-category','SubCategoriesController');
 	Route::post('/premium-sponsor/get-detail','PremiumSponsorsController@getDetail')->name('premium-sponsor.get-detail');
 	Route::get('/premium-sponsor/add-feature','PremiumSponsorsController@addFeature')->name('premium-sponsor.add-feature');
 	Route::resource('/premium-sponsor','PremiumSponsorsController');

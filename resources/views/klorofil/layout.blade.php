@@ -6,6 +6,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	{{-- CSRF Token --}}
+	<meta name="csrf-token" id="token" content="{{ csrf_token() }}">
+	
 	@yield('meta')
 	<!-- VENDOR CSS -->
 	<link rel="stylesheet" href="{{ url('plugins/bootstrap/css/bootstrap.min.css') }}">
@@ -14,6 +17,9 @@
 	<link rel="stylesheet" href="{{ url('plugins/chartist/css/chartist-custom.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/Select2/css/select2.css') }}">
   	<link rel="stylesheet" href="{{url('plugins/summernote/summernote.css')}}">
+
+	{{-- sweetalert2 --}}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.css">
 
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/main.css') }}">
@@ -36,7 +42,7 @@
 
 </head>
 
-<body>
+<body data-u="{{ url('/') }}">
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<!-- NAVBAR -->
@@ -205,12 +211,15 @@
 	<script src="{{ url('plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 	<script src="{{ url('plugins/chartist/js/chartist.min.js') }}"></script>
 	<script src="{{ url('plugins/Select2/js/select2.min.js') }}"></script>
-	<script src="{{url('plugins/jquery-toastmessage/jquery.toastmessage.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.js"></script>
 	  <!-- include summernote -->
 	<script type="text/javascript" src="{{url('plugins/summernote/summernote.js')}}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
-
+	<script src="{{ url('klorofil/js/script.js') }}"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	@yield('script')
+    @stack('scripts')
 	
 </body>
 

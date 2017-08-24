@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title>@yield('title','Inicio') - Neurocodigo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name='robots' content='noodp' />
+    <meta name="googlebot" content="noodp">
+    <meta name="”slurp”" content="noodp">
+    <meta name="”msnbot”" content="noodp">
+    <meta name="msapplication-tooltip" content="Tecnología y avances para su educación"/>
+    <meta name="msapplication-starturl" content="{{ url('/') }}"/>
+    <meta property="fb:pages" content="323152764504875" />
+    <meta property="fb:api_id" content="197798067417693" />
+   @yield('metas')
     <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/prettyPhoto.css') }}" rel="stylesheet">
@@ -21,9 +30,28 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url('images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url('images/ico/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ url('images/ico/apple-touch-icon-57-precomposed.png') }}">
-   
+    @yield('google-script')
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '197798067417693',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/es_ES/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 </head><!--/head-->
 <body>
+    @yield('fb')
     <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -129,10 +157,10 @@
                         @foreach($categories as $category)
                             <div class="media">
                                 <div class="pull-left">
-                                    <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}">
+                                    <img class="img-show-category" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}">
                                 </div>
                                 <div class="media-body">
-                                    <span class="media-heading"><a href="{{ $category->slug }}">{{ $category->name }}</a></span>
+                                    <span class="media-heading"><a href="{{ route('show-service',[$category->slug]) }}">{{ $category->name }}</a></span>
                                 </div>
                             </div>
                         @endforeach

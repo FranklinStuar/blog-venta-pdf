@@ -154,3 +154,35 @@
 .sponsor .fa-globe{
     margin: 9px 0;
 }
+.img-show-category{
+    max-width: 40px;
+    max-height: 40px;
+}
+.other-post{
+    border:1px solid #e2e2e2;
+    background: #fafafa;
+    margin: 5px 0;
+    padding: 0;
+}
+.other-post h5{
+    font-size: 13px;
+    color: #424242;
+}
+.other-post p{
+    font-size: 10px;
+    color: #2e2e2e;
+}
+.other-post a.read-more{
+    float: right;
+    color: #e53935;
+    font-size: 11px;
+}
+.other-post:hover a.link-more h5{
+    color: #101010;
+}
+.other-post a.link-more:hover h5{
+    text-decoration: underline;
+}
+.other-post .col-sm-4{
+  vertical-align: middle;
+}

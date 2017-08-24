@@ -26,19 +26,24 @@
 										<div class="input-group">
 											<input type="text" name="search" class="form-control" autocomplete="off" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
 												<span class="input-group-btn">
-													<button class="btn btn-danger" type="button"><i class="icon-search"></i></button>
+													<button class="btn btn-danger" type="button"><i class="fa fa-search"></i></button>
 												</span>
 										</div>
 									{!! Form::close() !!}
 								</div><!--/.search-->
+
 								@include('flat.sponsors.print',['section'=>'lateral','sponsor'=>$system->sponsorRandom()])
-										<hr>
 								
-								@yield('files')
+								@yield('widget-more-options')
+
+								<hr>
 								<div class="widget google">
-										{{-- codigo para google --}}                   
+										{!! $system->tag_body !!}                 
 								</div><!--/.categories-->
 								@yield('tags')
+								<hr>
+								<h4>Visitanos en Facebook</h4>
+								<div class="fb-page" data-href="https://www.facebook.com/gomecatronica/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/gomecatronica/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gomecatronica/">Mecatronica</a></blockquote></div>
 						</aside>        
 						<div class="col-sm-8 col-sm-pull-4">
 								@yield('content-post')

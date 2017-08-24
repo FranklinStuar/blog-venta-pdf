@@ -233,6 +233,7 @@ class HomeController extends Controller
         if($category != null){
             return view('flat.posts.post')
                 ->with('name',$category->name)
+                ->with('subCategories',$category->subCategories)
                 ->with('type','Categoría')
                 ->with('posts',Post::where('category_id',$category->id)->paginate(5))
             ;

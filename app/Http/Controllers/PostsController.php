@@ -26,9 +26,17 @@ class PostsController extends Controller
 	{
 		return view('klorofil.posts.create',[
 			'post'=> new Post,
-			'categories'=> array_pluck(Category::all(),'name','id'),
+			'categories'=> array_pluck(Category::where('parent_id',null)->get(),'name','id'),
 			'kits'=> \App\PostPrice::kitsList()
 		]);
+	}
+
+	public function updateKits(Request $request,$post_id)
+	{
+		$post = Post::find($post_id);
+		$post->kits()->sync($request->kits);
+		$request->session()->flash('success', 'Kits seleccionados');
+		return redirect()->back();
 	}
 
 	public function store(Request $request)
@@ -97,6 +105,8 @@ class PostsController extends Controller
 		}
 		if($request->has('kits'))
 			$post->kits()->sync($request->kits);
+		if($request->has('subcategories'))
+			$post->subcategories()->sync($request->subcategories);
 		$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
 		return redirect()->route('posts.index');
 	}
@@ -105,7 +115,7 @@ class PostsController extends Controller
 	{
 		return view('klorofil.posts.edit',[
 			'post'=> Post::find($id),
-			'categories'=> array_pluck(Category::all(),'name','id'),
+			'categories'=> array_pluck(Category::where('parent_id',null)->get(),'name','id'),
 		]);
 	}
 
