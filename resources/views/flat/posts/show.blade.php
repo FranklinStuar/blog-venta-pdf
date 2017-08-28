@@ -140,7 +140,7 @@
 												</div>
 											</li>
 											<li class="plan-action">
-											<button class="btn btn-primary btn-md btn-sm show-card">Tarjeta</button>
+												<a href="{{ route('post.payments',[$post->slug,$price->id.'.'.str_random(16)]) }}" class="btn btn-primary btn-md btn-sm show-card"> Tarjeta</a>
 												<a href="#" class="btn btn-primary btn-md btn-sm">Paypal 	</a>
 											</li>
 										</ul>
@@ -195,62 +195,6 @@
 		</div><!--/.blog-item-->
 	</div>
 
-
-	<section class="credit-card-container">
-		{{-- {!! Form::open(['route' => ['post.payment-card',$post->id,$price->id]]) !!} --}}
-			<div class="credit-card-background"></div>
-			<div class="theCard">
-			  <figure class="theCardFront">
-				<div class="instructionsCards">
-					<div class="variousCards"> 
-						
-					</div>
-				</div>
-				
-				<br class="clear" />
-				<div class="cardNumber"><font color="#f7f8f6" size="-1">NUMERO DE TARJETA</font><br/>
-					<input id="credit-card-number" class="firstfour" input placeholder="Ingrese el código de 16 dígitos" maxlength="16" />
-					
-				</div>
-				<div class="credit-card-select cardExpiration"><font color="#f7f8f6" size="-1">EXPIRACION</font><br/>
-					<select class="credit-card-select">
-						<option value="volvo">Mes</option>
-						<option value="saab">Enero</option>
-						<option value="mercedes">Febrero</option>
-						<option value="audi">Marzo</option>
-						<option value="volvo">Abril</option>
-						<option value="saab">Mayo</option>
-						<option value="mercedes">Junio</option>
-						<option value="audi">Julio</option>
-						<option value="volvo">Agosti</option>
-						<option value="saab">Septiembre</option>
-						<option value="mercedes">Ocutubre</option>
-						<option value="audi">Noviembre</option>
-						<option value="volvo">Diciembre</option>
-					  
-					</select>
-					<select  class="credit-card-select" name="select">
-						<option value="volvo">Año</option>
-						<option value="audi">2017</option>
-						<option value="volvo">2018</option>
-						<option value="saab">2019</option>
-						<option value="mercedes">2020</option>
-						<option value="mercedes">2021</option>
-						<option value="mercedes">2022</option>
-						<option value="mercedes">2023</option>
-				  </select>
-				  <span class="cardSecurity">
-					  <input class="csc" placeholder="CVC" maxlength="3"/>
-					</span>
-				</div>
-				<center>
-					<button class="btn btn-sm btn-primary">Pagar</button>
-					<button class="btn btn-sm btn-danger cancel" type="button">Cancelar</button>
-				</center>
-			</div>
-	  {{-- {!! Form::close() !!} --}}
-	</section>
-
 @endsection
 
 @section('widget-more-options')
@@ -277,24 +221,4 @@
 
 @push('scripts')
 	<script type="text/javascript" src="{{ url('plugins/creditCardValidator/jquery.creditCardValidator.js') }}"></script>
-
-<script>
-
-	$('.credit-card-container .cancel').click(function(){
-		$(".credit-card-container").css({display: 'none'});
-	})
-	$('.show-card').click(function(){
-		$(".credit-card-container").css({display: 'block'});
-	})
-    $(function() {
-        $('#credit-card-number').validateCreditCard(function(result) {
-            $('.log').html('Card type: ' + (result.card_type == null ? '-' : result.card_type.name)
-                     + '<br>Valid: ' + result.valid
-                     + '<br>Length valid: ' + result.length_valid
-                     + '<br>Luhn valid: ' + result.luhn_valid);
-        });
-
-    });
-</script>
-
 @endpush

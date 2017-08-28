@@ -14,7 +14,7 @@
     <meta name="msapplication-starturl" content="{{ url('/') }}"/>
     <meta property="fb:pages" content="323152764504875" />
     <meta property="fb:api_id" content="197798067417693" />
-   @yield('metas')
+    @yield('metas')
     <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/prettyPhoto.css') }}" rel="stylesheet">
@@ -85,14 +85,22 @@
                                     <li><a href="{{ route('admin') }}">Administrar</a></li>
                                 @endif
                                 <li class="divider"></li>
-                                <li><a href="{{ url('logout') }}">Cerrar sesión</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="lnr lnr-exit"></i> <span>Cerrar Sesion</span></a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                              {{ csrf_field() }}
+                                          </form>
+                                </li>
                             </ul>
                         </li>
                     @else
                         <li><a href="{{ url('login') }}">Iniciar Sesión</a></li>
                         <li><a href="{{ url('register') }}">Registrarse</a></li>
                     @endif
-                    <li><a href="contact-us.html">Contactos</a></li>
+                    <li><a href="{{ route('show-service',['contacts']) }}">Contactos</a></li>
                 </ul>
             </div>
         </div>
@@ -138,55 +146,59 @@
                     <h4>Company</h4>
                     <div>
                         <ul class="arrow">
-                            <li><a href="#">Company Overview</a></li>
-                            <li><a href="#">Meet The Team</a></li>
-                            <li><a href="#">Our Awesome Partners</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Frequently Asked Questions</a></li>
-                            <li><a href="#">Conatct Us</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Copyright</a></li>
+                            <li><a href="{{ route('show-service',['quienes-somos']) }}">Quienes Somos</a></li>
+                            <li><a href="{{ route('show-service',['politicas-condiciones']) }}">Políticas y condiciones</a></li>
+                            <li><a href="{{ route('show-service',['cuentas-premium']) }}">Cuentas de pago</a></li>
+                            <li><a href="{{ route('show-service',['partners']) }}">Publicidad y Partners</a></li>
+                            <li><a href="{{ route('show-service',['contacts']) }}">Contactanos</a></li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
-
                 <div class="col-md-3 col-sm-6">
+                    <h4>Dirección</h4>
+                    <address>
+                        <strong>{{ $system->direccion  }}</strong><br>
+                        <abbr title="Teléfono">Tlf:</abbr> {{ $system->telefono }}
+                    </address>
+
+                    <div class="social-media">
+                        <h4>Contactanos en nuestras redes sociales</h4>
+    
+                        <a class="facebook" href="https://www.facebook.com/{{ $system->facebook }}">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                            <span>Facebook</span>
+                        </a>
+                        
+                        <a class="instagram" href="https://www.instagram.com/{{ $system->instagram }}">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                            <span>Instagram</span>
+                        </a>
+                        
+                        <a class="youtube" href="https://www.youtube.com/{{ $system->youtube }}">
+                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                            <span>Youtube</span>
+                        </a>
+
+                    </div>
+                </div> <!--/.col-md-3-->
+                
+                <div class="col-md-6 col-sm-6">
                     <h4>Nuestros servicios</h4>
-                    <div>
+                    <div class="row">
                         @foreach($categories as $category)
-                            <div class="media">
-                                <div class="pull-left">
-                                    <img class="img-show-category" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}">
-                                </div>
-                                <div class="media-body">
-                                    <span class="media-heading"><a href="{{ route('show-service',[$category->slug]) }}">{{ $category->name }}</a></span>
+                            <div class="col-md-4">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img class="img-show-category" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}">
+                                    </div>
+                                    <div class="media-body">
+                                        <span class="media-heading"><a href="{{ route('show-service',[$category->slug]) }}">{{ $category->name }}</a></span>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>  
-                </div><!--/.col-md-3-->
-
-                <div class="col-md-3 col-sm-6">
-                    <h4>Dirección</h4>
-                    <address>
-                        <strong>{{ $system->direccion }}</strong><br>
-                        <abbr title="Teléfono">Tlf:</abbr> {{ $system->telefono }}
-                    </address>
-                </div> <!--/.col-md-3-->
-                
-                <div class="col-md-3 col-sm-6">
-                    <h4>Noticias</h4>
-                    <form role="form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" autocomplete="off" placeholder="Ingrese su correo">
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="button">Ir!</button>
-                            </span>
-                        </div>
-                    </form>
-                    <span class="media-heading">Suscribase a nuestro boletín semanal y se le indicará lo más nuevo de Neurocodigo</span>
-                </div> <!--/.col-md-3-->
+                </div><!--/.col-md-6-->
 
             </div>
         </div>

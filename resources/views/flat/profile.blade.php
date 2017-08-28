@@ -19,10 +19,15 @@
 		<div id="meet-the-team" class="row">
 			<div class="col-md-3">
 				<div class="center">
-					<p><img class="img-responsive img-thumbnail img-circle" src="{{ url('images/'.Auth::user()->avatar) }}" width="150px" alt="{{ Auth::user()->name }}" ></p>
+					<p>
+						@if(Auth::user()->avatar == 'avatar.png')
+							<img class="img-responsive img-thumbnail img-circle" src="{{ url('images/'.Auth::user()->avatar) }}" width="150px" alt="{{ Auth::user()->name }}" >
+						@else
+							<img class="img-responsive img-thumbnail img-circle" src="{{ url('storage/'.Auth::user()->avatar) }}" width="150px" alt="{{ Auth::user()->name }}" >
+						@endif
+					</p>
 					<h4>
-						<small class="designation muted"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Cambiar Imagen</a></small>
-						<small class="designation muted"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></small>
+						<small class="designation muted"><a href="{{ route('profile.edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></small>
 						<hr>
 						{{ Auth::user()->name }} <br>
 						<span class="designation muted">{{ Auth::user()->username }}</span>

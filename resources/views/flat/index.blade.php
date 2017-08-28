@@ -108,10 +108,10 @@
 			</div><!--/.carousel-inner-->
 		</div><!--/.carousel-->
 		<a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-			<i class="icon-angle-left"></i>
+			<i class="fa fa-angle-left"></i>
 		</a>
 		<a class="next hidden-xs" href="#main-slider" data-slide="next">
-			<i class="icon-angle-right"></i>
+			<i class="fa fa-angle-right"></i>
 		</a>
 	</section><!--/#main-slider-->
 
@@ -121,7 +121,7 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="media">
 						<div class="pull-left">
-							<i class="icon-time icon-md"></i>
+							<i class="icon-md fa fa-clock"></i>
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">Atención permanente</h3>
@@ -132,7 +132,7 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="media">
 						<div class="pull-left">
-							<i class="icon-user icon-md"></i>
+							<i class="fa fa-user icon-md"></i>
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">Asesoría Personalizada</h3>
@@ -143,7 +143,7 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="media">
 						<div class="pull-left">
-							<i class="icon-youtube-play icon-md"></i>
+							<i class="fa fa-youtube-play icon-md"></i>
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">Capacitaciónes gratuitas</h3>

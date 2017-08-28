@@ -174,9 +174,6 @@
 										    >
 										  </script>
 										  {!! Form::close() !!}
-										{{-- <a href="{{ route('post.payments',['pID'=>$post->id,'prID'=>$price->id]) }}" class="">
-											Obtener acceso
-										</a> --}}
 									</li>
 								</ul>
 							@endforeach

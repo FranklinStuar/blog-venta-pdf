@@ -40,7 +40,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|string|max:255|unique:users|alpha_num',
+            'username' => 'required|string|max:255|unique:users|regex:/^\S*$/u',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -83,7 +83,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'username' => 'required|string|max:255|alpha_num',
+            'username' => 'required|string|max:255|regex:/^\S*$/u',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'role_id' => 'required',
@@ -124,17 +124,60 @@ class UsersController extends Controller
     }
 
     public function profileEdit(){
-        return view('corporate.profile-edit');
+        return view('flat.profile-edit');
+    }
+
+    public function profileChangeImage(Request $request){
+        $this->validate($request, [
+            'image' => 'required|max:1024',
+        ]);
+        $file_name = 'profile/'.\Auth::user()->id.'/'.\Auth::user()->username.'.'.$request->image->getClientOriginalExtension();
+            \Storage::disk('public')->put($file_name,  \File::get($request->image));
+
+        $user = User::find(\Auth::user()->id);
+        $user->update([
+            'avatar'=> $file_name,
+        ]);
+
+        $request->session()->flash('success', 'Imagen actualizada correctamente');
+        return redirect()->back();
+        
+    }
+
+    public function profileChangePassword(Request $request){
+        $this->validate($request, [
+            'actual_password'       => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if(\Hash::check($request->actual_password, \Auth::user()->password)){
+            \Auth::user()->update(['password' => bcrypt($request->new_password),]);
+            $request->session()->flash('success', 'Contraseña cambiada correctamente');
+            return redirect()->route('profile');
+        }
+
+        $request->session()->flash('error', 'Contraseña actual incorrecta');
+        return redirect()->back();
+
     }
 
     public function profileSave(Request $request){
          $this->validate($request, [
-            'username' => 'required|string|max:255|alpha_num',
+            'username' => 'required|string|max:255|regex:/^\S*$/u',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'gender' => 'required',
         ]);
-        \Auth::user()->update($request->all());
+        $username = User::where('username',$request->username)->where('username','<>',\Auth::user()->username)->first();
+        if ($username) {
+            $request->session()->flash('error', 'Username ya existente en otro usuario');
+            return redirect()->back();
+        }
+        \Auth::user()->update([
+            'username'  => $request->username,
+            'name'      => $request->name,
+            'mail'      => $request->mail,
+        ]);
+        $request->session()->flash('success', 'Datos actualizados correctamente');
         return redirect()->route('profile');
     }
 

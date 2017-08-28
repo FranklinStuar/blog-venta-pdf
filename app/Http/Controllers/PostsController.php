@@ -41,7 +41,6 @@ class PostsController extends Controller
 
 	public function store(Request $request)
 	{
-		// dd($request->pdf->getClientOriginalName());
 		$this->validate($request, [
 			'title'     	=> 'required',
 			'excerpt'   	=> 'required',
@@ -284,9 +283,19 @@ class PostsController extends Controller
 		return redirect()->back();
 	}
 
-	public function payments($post_id,$post_price_id){
-		return view('corporate.posts.only-pay')
-			->with('post_id',$post_id)
+	public function payments(Request $request,$post_slug,$post_price_id){
+		$post = Post::where('slug',$post_slug)->first();
+		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
+		if(!$post || !$price){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
+		if($price->post->id != $post->id){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
+		return view('flat.payment.post-card')
+			->with('post_slug',$post_slug)
 			->with('price_id',$post_price_id)
 			->with('price',PostOncePrice::find($post_price_id))
 			;
@@ -343,15 +352,15 @@ class PostsController extends Controller
 	}
 
 	public function paymentCard(Request $request,$post_id,$post_price_id){
-		// dd($request->all());
-		\Stripe\Stripe::setApiKey("sk_live_9xeSt1pqIyvkBM0DCUrfspbk");
-		$price = PostOncePrice::find($post_price_id);
+		// dd($request->all(),$request->mounth.'/'.$request->year);
+		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
+		\Stripe\Stripe::setApiKey("sk_test_GPuHeuIE4wXz34bTp0btvuSp");
 		try {
 			$charge = \Stripe\Charge::create(array(
 			  "amount" => $price->price*100,
 			  "currency" => "usd",
 			  "description" => $price->post->title,
-			  "source" => $request->stripeToken,
+			  "source" => 'pk_test_Xd2SuziRV4jSvH72of9UYKvP',
 			));
 			if($charge){
 				if($price->type_time == "day")

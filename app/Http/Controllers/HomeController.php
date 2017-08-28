@@ -220,7 +220,35 @@ class HomeController extends Controller
         ;
     }
     
-    public function showCategory(Request $request,$category_slug){
+    public function showPageOrService(Request $request,$page){
+
+        if($page == 'quienes-somos' || $page == 'cuentas-premium' || $page == 'politicas-condiciones' || $page == 'partners'){
+            $system = \App\System::first();
+            if($page == 'quienes-somos'){
+                $title = 'Quienes Somos';
+                $context = $system->quienes_somos;
+            }
+            else if($page == 'cuentas-premium'){
+                $title = 'Cuentas de pago';
+                $context = $system->    cuentas_premium;
+            }
+            else if($page == 'politicas-condiciones'){
+                $title = 'Políticas y condiciones';
+                $context = $system->politicas_condiciones;
+            }
+            else  if($page == 'partners'){
+                $title = 'Acerca de como hacer publicidad y ser partenr';
+                $context = $system->publicidad;
+            }
+            return view('flat.system-page',[
+                'title'=> $title,
+                'context'=>$context,
+                'page'=>$page,
+            ]);
+        }
+        if($page == 'contacts'){
+            return view('flat.contacts');
+        }
         \App\Historial::create([
             'user_agent'=>$request->server()['HTTP_USER_AGENT'],
             'languaje'=>$request->server()['HTTP_ACCEPT_LANGUAGE'],
@@ -229,7 +257,7 @@ class HomeController extends Controller
             'created_at'=>\Carbon\Carbon::now(),
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
-        $category = \App\Category::where('slug',$category_slug)->first();
+        $category = \App\Category::where('slug',$page)->first();
         if($category != null){
             return view('flat.posts.post')
                 ->with('name',$category->name)

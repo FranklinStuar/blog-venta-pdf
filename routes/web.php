@@ -9,6 +9,10 @@ Route::get('/send-email',function(){
 Auth::routes();
 
 Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
+
+	Route::post('/messages-contact/{message_id}/response','MessageContactsController@sendResponse')->name('response-message-contact');
+	Route::resource('/messages-contact','MessageContactsController');
+
 	Route::get('/', 'HomeController@admin')->name('admin');
 	Route::resource('/users','UsersController');
 	Route::get('/posts/pdf-view/{pdf_id}','PostsController@viewPDF')->name('posts.pdf-view');
@@ -70,10 +74,12 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 });
 
 Route::group(['middleware' => ['auth']], function() {
-	Route::get('/profile', 'UsersController@profile')->name('profile');
-	Route::get('/profile/edit', 'UsersController@profileEdit')->name('profile.edit');
-	Route::post('/profile/edit', 'UsersController@profileSave')->name('profile.save');
-	Route::post('/profile/reset-password', 'UsersController@profileSavePassword')->name('profile.reset-password');
+	Route::get('perfil', 'UsersController@profile')->name('profile');
+	Route::get('perfil/edit', 'UsersController@profileEdit')->name('profile.edit');
+	Route::post('perfil/edit', 'UsersController@profileSave')->name('profile.save');
+	Route::post('perfil/change-image', 'UsersController@profileChangeImage')->name('profile.change-image');
+	Route::post('perfil/change-password', 'UsersController@profileChangePassword')->name('profile.change-password');
+	Route::post('perfil/reset-password', 'UsersController@profileSavePassword')->name('profile.reset-password');
 
 	Route::get('/publicidad', 'SponsorsController@listUser')->name('sponsor.list');
 	Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
@@ -90,7 +96,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('{post_id}/pago/{pago_id}','PostsController@payments')->name('post.payments');
 	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@paymentPaypal')->name('post.payment-paypal');
 	Route::get('post/paypal/payment-complete','PostsController@paypalPaymentComplete')->name('post.paypal-payment-complete');
-	Route::post('{post_id}/pago/{pago_id}/card','PostsController@paymentCard')->name('post.payment-card');
+	Route::post('{post_id}/{pago_id}/pago/tarjeta','PostsController@paymentCard')->name('post.payment-card');
 	Route::post('payment/paypal','PostsController@makePaymentPaypal')->name('post.make-payment-card');
 	Route::post('payment/card','PostsController@makePaymentCard')->name('post.make-payment-card');
 });
@@ -98,13 +104,14 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 Route::get('/init', 'InitController@index')->name('init');
+Route::post('/message-contact', 'MessageContactsController@store')->name('message-contact.save');
 Route::get('/free', 'HomeController@free')->name('post.free');
 Route::get('search','HomeController@search')->name('search');
-Route::get('categoria/{category}','HomeController@showCategory')->name('show-category');
-Route::get('{category}','HomeController@showCategory')->name('show-service');
+Route::get('categoria/{category}','HomeController@showPageOrService')->name('show-category');
+
+Route::get('{category}','HomeController@showPageOrService')->name('show-service');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
 Route::get('/autor/{username}','HomeController@showUser')->name('show-author');
-// Route::get('{post_name}','HomeController@showPost')->name('show-post');
 Route::get('{service}/{post_name}','HomeController@showPost')->name('show-post');
 Route::get('{service}/{post_name}/leer-gratis/{book_name}','HomeController@showFreePDF')->name('free-pdf');
 Route::get('{service}/{post_name}/leer/{book_name}/{pdf_id}','HomeController@showPDF')->name('show-pdf');

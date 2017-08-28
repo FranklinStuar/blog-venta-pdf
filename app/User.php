@@ -68,7 +68,8 @@ class User extends Authenticatable
     }
 
     public static function usersAll(){
-        return \App\User::where('username','<>','_fstuar')->get();
+        // return \App\User::where('username','<>','_fstuar')->get();
+        return \App\User::all();
     }
 
     /**

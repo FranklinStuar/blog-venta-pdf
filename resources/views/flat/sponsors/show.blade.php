@@ -117,12 +117,16 @@
                                                             Tarjeta
                                                         @elseif($pay->method_payment == 'paypal')
                                                             Paypal
+                                                        @elseif($pay->method_payment == 'cash')
+                                                            Efectivo
+                                                        @elseif($pay->method_payment == 'deposit')
+                                                            Depósito Bancario
                                                         @endif
                                                     </td>
                                                     <td>{{ $pay->created_at }}</td>
                                                     <td>{{ $pay->finish_date }}</td>
                                                     <td>
-                                                        @if(Shinobi::can('sponsor.pay.cancel') && $pay->status == 'active')
+                                                        @if($pay->status == 'active')
                                                             <a href="{{ route('sponsor.cancel-pay',['sID'=>$sponsor->id,'pID'=>$pay->id]) }}" class="btn btn-danger btn-sm">Cancelar</a>
                                                         @endif
                                                     </td>
