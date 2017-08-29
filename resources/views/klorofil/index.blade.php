@@ -35,6 +35,15 @@
 					<div class="metric">
 						<span class="icon"><i class="fa fa-eye"></i></span>
 						<p>
+							<span class="number">{{ $historial }}</span>
+							<span class="title">Visitas Página</span>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="metric">
+						<span class="icon"><i class="fa fa-eye"></i></span>
+						<p>
 							<span class="number">{{ $visit_posts }}</span>
 							<span class="title">Visitas Post</span>
 						</p>
