@@ -12,7 +12,7 @@ class PayPalOnlyPost extends Model
 	public function __construct($postOncePrice){
 		
 		$this->postOncePrice = $postOncePrice;
-		$this->_apiContext = PaypalPayment::ApiContext(config('paypal_payment.Account.ClientId'), config('paypal_payment.Account.ClientSecret'));
+		$this->_apiContext = PaypalPayment::ApiContext('AS5KH5wQ2W1txXFHo7RecAwZR3B0M_wa9AJbF2fj8iPIvKeBzcQziqE4R1EnJBgjBlSHPfeQGehRjSha', 'EBvSqnpdWzD9TlFFsiSTk4o5Gafr28ktExutfvwY-en3_9SEup27itD-RtGjnb-6075weI60D_VPq5SI');
 	}
 	public function generate(){
 		$payment = PaypalPayment::payment()->setIntent('sale')
@@ -22,9 +22,12 @@ class PayPalOnlyPost extends Model
 		try{
 			$payment->create($this->_apiContext);
 		} catch(\Exception $ex){
-			dd($ex);
 			exit(1);
-		}
+            echo "error";
+		} catch (\PPConnectionException $ex) {
+            exit(1);
+            echo "error";
+        }
 		return $payment;
 	}
 
@@ -37,8 +40,8 @@ class PayPalOnlyPost extends Model
 		// Return urls's info
 		$baseUrl = url('/');
 		return PaypalPayment::redirectUrls()
-			->setReturnUrl(route('post.paypal-payment-complete',['popId'=>$this->postOncePrice->id,'pId'=>$this->postOncePrice->post->id]))
-			->setCancelUrl(route('show-post',['pID'=>$this->postOncePrice->post->slug]));
+			->setReturnUrl(route('post.paypal-payment-complete',[$this->postOncePrice->post->slug,$this->postOncePrice->id]))
+			->setCancelUrl(route('show-post',[$this->postOncePrice->post->category->slug,$this->postOncePrice->post->slug]));
 	}
 
 	public function transaction(){
@@ -53,8 +56,8 @@ class PayPalOnlyPost extends Model
 
 	public function amount(){
 		return PaypalPayment::amount()
-							->setCurrency('USD')
-							->setTotal($this->postOncePrice->price);
+			->setCurrency('USD')
+			->setTotal($this->postOncePrice->price);
 	}
 
 	public function items(){
@@ -66,6 +69,6 @@ class PayPalOnlyPost extends Model
 	public function execute($paymentId, $payerId){
 		$payment = PaypalPayment::getById($paymentId,$this->_apiContext);
 		$execution = PaypalPayment::PaymentExecution()->setPayerId($payerId);
-		dd( $payment->execute($execution,$this->_apiContext));
+		return $payment->execute($execution,$this->_apiContext);
 	}
 }

@@ -140,8 +140,8 @@
 												</div>
 											</li>
 											<li class="plan-action">
-												<a href="{{ route('post.payments',[$post->slug,$price->id.'.'.str_random(16)]) }}" class="btn btn-primary btn-md btn-sm show-card"> Tarjeta</a>
-												<a href="#" class="btn btn-primary btn-md btn-sm">Paypal 	</a>
+												<a href="{{ route('post.payments',[$post->slug,$price->id.'.'.str_random(16)]) }}" class="btn btn-primary btn-md btn-sm "> Tarjeta</a>
+												<a href="{{ route('post.payment-paypal',[$post->slug,$price->id.'.'.str_random(16)]) }}" class="btn btn-primary btn-md btn-sm "> Paypal</a>
 											</li>
 										</ul>
 									</div><!--/.col-md-4-->

@@ -93,9 +93,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/publicidad/{id_sponsor}', 'SponsorsController@saveEdit')->name('sponsor.save-edit');
 	Route::get('/publicidad/cancelar-pago/{id_sponsor}/{id_payment}', 'SponsorsController@cancelPaySponsor')->name('sponsor.cancel-pay');
 
-	Route::get('{post_id}/pago/{pago_id}','PostsController@payments')->name('post.payments');
-	Route::get('{post_id}/pago/{pago_id}/paypal','PostsController@paymentPaypal')->name('post.payment-paypal');
-	Route::get('post/paypal/payment-complete','PostsController@paypalPaymentComplete')->name('post.paypal-payment-complete');
+	Route::get('{post_id}/card/{pago_id}','PostsController@payments')->name('post.payments');
+	Route::get('paypal/only-payment/{post_slug}/{post_once_price}','PostsController@paymentPaypal')->name('post.payment-paypal');
+	Route::get('{post_id}/paypal/{pago_id} /payment-complete','PostsController@paypalPaymentComplete')->name('post.paypal-payment-complete');
 	Route::post('{post_id}/{pago_id}/pago/tarjeta','PostsController@paymentCard')->name('post.payment-card');
 	Route::post('payment/paypal','PostsController@makePaymentPaypal')->name('post.make-payment-card');
 	Route::post('payment/card','PostsController@makePaymentCard')->name('post.make-payment-card');
