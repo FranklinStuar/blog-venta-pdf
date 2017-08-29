@@ -206,9 +206,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="center">
-						<h2>Nuestros patrocinadores</h2>
-						<p>Neurocodigo crece ayudando a sus clientes, por ese motivo se ha decidido brindar un espacio para que sus clientes se promocionen obteniendo beneficios extras al formar parte de la comunidad del crecimiento</p>
+						<h2>Última publicaciones</h2>
 					</div>
+
 					<div class="gap"></div>
 					<div  class="carousel slide">
 						<div class="carousel-inner">
@@ -218,8 +218,17 @@
 										<div class="row">
 											@endif
 											<div class="col-xs-2">
-												<img class="img-responsive" src="{{ url('storage/'.$post->image) }}" alt="">
-												{{-- codigo para abrir la publicidad --}}
+												<div class="portfolio-item">
+													<div class="item-inner">
+														<img class="img-responsive" src="{{ url('storage/'.$post->image) }}" alt="">
+														<h5>
+															{{ $post->title }}
+														</h5>
+														<div class="overlay">
+															<a class="preview btn btn-danger" title="{{ $post->title }}" href="{{ route('show-post',[$post->category->slug,$post->slug]) }}"><i class="fa fa-eye"></i></a>
+														</div>
+													</div>
+												</div>
 											</div>   
 
 											@if((($index+1)%6)==0)
@@ -229,7 +238,10 @@
 							@endforeach
 						</div>
 					</div>
-					<center>publicidad de google</center>
+					
+					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+						<center>{!! $system->tag_body !!}</center>
+					</div>
 				</div>
 			</div>
 		</div>

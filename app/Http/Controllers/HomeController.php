@@ -119,7 +119,7 @@ class HomeController extends Controller
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
 
-        $posts = Post::orderBy('created_at','desc')->paginate(6);
+        $posts = Post::orderBy('created_at','desc')->limit(10)->get();
         return view('flat.index')
             ->with('posts',$posts)
         ;
