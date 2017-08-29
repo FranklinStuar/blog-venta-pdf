@@ -38,7 +38,7 @@
 
 								<hr>
 								<div class="widget google">
-										{!! $system->tag_body !!}                 
+									{!! $system->tag_body !!}                 
 								</div><!--/.categories-->
 								@yield('tags')
 								<hr>

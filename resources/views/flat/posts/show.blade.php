@@ -188,7 +188,29 @@
 					{!! $system->tag_body !!}
 				</div>
 				<div id="comments">
-					<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5" data-width="100%"></div>
+					{{-- <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5" data-width="100%"></div> --}}
+					<div id="disqus_thread"></div>
+					<script>
+
+					/**
+					*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+					*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+					/*
+					var disqus_config = function () {
+					this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+					this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+					};
+					*/
+					(function() { // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = 'https://neurocodigo.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+					})();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				
+
 				</div>
 				
 			</div>
@@ -206,7 +228,7 @@
 					<a class="link-more" href="{{ route('show-post',[$other->category_slug,$other->slug]) }}" title="{{ $other->title }}">
 						<h5>{{ str_limit($other->title,40) }}</h5>
 					</a>
-					<p>{{ $other->excerpt }}</p>
+					<p>{{ str_limit($other->excerpt,150) }}</p>
 					<a class="read-more" href="{{ route('show-post',[$other->category_slug,$other->slug]) }}">Leer más</a>
 				</div>
 				<div class="col-sm-5">
