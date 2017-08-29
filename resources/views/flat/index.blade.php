@@ -239,7 +239,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-2 col-md-offset-8">
+					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 						<center>{!! $system->tag_body !!}</center>
 					</div>
 				</div>
