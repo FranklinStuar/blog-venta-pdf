@@ -25,11 +25,13 @@
     <script src="{{ url('js/html5shiv.js') }}"></script>
     <script src="{{ url('js/respond.min.js') }}"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{ url('images/ico/favicon.ico') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('images/ico/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url('images/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url('images/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ url('images/ico/apple-touch-icon-57-precomposed.png') }}">
+    
+    <link rel="apple-touch-icon" sizes="64x64" href="{{ url('images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url('images/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('images/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url('images/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url('images/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ url('images/favicon.png') }}">
     {!! $system->tag_script !!}
     <script>
   window.fbAsyncInit = function() {

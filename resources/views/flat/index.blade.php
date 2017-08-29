@@ -121,7 +121,7 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="media">
 						<div class="pull-left">
-							<i class="icon-md fa fa-clock"></i>
+							<i class="icon-md fa fa-clock-o"></i>
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">Atención permanente</h3>
@@ -239,7 +239,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+					<div class="col-md-2 col-md-offset-8">
 						<center>{!! $system->tag_body !!}</center>
 					</div>
 				</div>
