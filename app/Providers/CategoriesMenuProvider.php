@@ -14,8 +14,12 @@ class CategoriesMenuProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('corporate.*', function ($view) {
-            $view->with('categories', \App\Category::all());
+        View::composer(['flat.*','corporate.*'], function ($view) {
+            $view->with('categories', \App\Category::where('parent_id',null)->get());
+        });
+        View::composer(['klorofil.*'], function ($view) {
+            $view->with('messagesContact',\App\MessageContact::where('status','sin_revisar')->orWhere('status','revisado')->limit(5)->get());
+            $view->with('messagesNoView',\App\MessageContact::where('status','sin_revisar')->get()->count());
         });
     }
 

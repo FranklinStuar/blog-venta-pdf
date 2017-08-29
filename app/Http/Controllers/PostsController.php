@@ -26,14 +26,21 @@ class PostsController extends Controller
 	{
 		return view('klorofil.posts.create',[
 			'post'=> new Post,
-			'categories'=> array_pluck(Category::all(),'name','id'),
+			'categories'=> array_pluck(Category::where('parent_id',null)->get(),'name','id'),
 			'kits'=> \App\PostPrice::kitsList()
 		]);
 	}
 
+	public function updateKits(Request $request,$post_id)
+	{
+		$post = Post::find($post_id);
+		$post->kits()->sync($request->kits);
+		$request->session()->flash('success', 'Kits seleccionados');
+		return redirect()->back();
+	}
+
 	public function store(Request $request)
 	{
-		// dd($request->pdf->getClientOriginalName());
 		$this->validate($request, [
 			'title'     	=> 'required',
 			'excerpt'   	=> 'required',
@@ -97,6 +104,8 @@ class PostsController extends Controller
 		}
 		if($request->has('kits'))
 			$post->kits()->sync($request->kits);
+		if($request->has('subcategories'))
+			$post->subcategories()->sync($request->subcategories);
 		$request->session()->flash('success', 'Post "'.$request->title.'" guardado correctamente');
 		return redirect()->route('posts.index');
 	}
@@ -105,7 +114,7 @@ class PostsController extends Controller
 	{
 		return view('klorofil.posts.edit',[
 			'post'=> Post::find($id),
-			'categories'=> array_pluck(Category::all(),'name','id'),
+			'categories'=> array_pluck(Category::where('parent_id',null)->get(),'name','id'),
 		]);
 	}
 
@@ -274,24 +283,44 @@ class PostsController extends Controller
 		return redirect()->back();
 	}
 
-	public function payments($post_id,$post_price_id){
-		return view('corporate.posts.only-pay')
-			->with('post_id',$post_id)
+	public function payments(Request $request,$post_slug,$post_price_id){
+		$post = Post::where('slug',$post_slug)->first();
+		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
+		if(!$post || !$price){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
+		if($price->post->id != $post->id){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
+		return view('flat.payment.post-card')
+			->with('post_slug',$post_slug)
 			->with('price_id',$post_price_id)
 			->with('price',PostOncePrice::find($post_price_id))
 			;
 	}
 
-	public function paymentPaypal(Request $request,$post_id,$post_price_id){
-		$price = PostOncePrice::find($post_price_id);
+	public function paymentPaypal(Request $request,$post_slug,$post_price_id){
+		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
+		$post = Post::where('slug',$post_slug)->first();
+		if(!$post || !$price){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
+		if($price->post->id != $post->id){
+			$request->session()->flash('error', 'Problemas al encontrar la página buscada');
+			return abort(404);
+		}
 		$paypal = new \App\PayPalOnlyPost($price);
 		$payment = $paypal->generate();
-		return redirect($payment->getApprovalLink());
-		
+		return redirect($payment->getApprovalLink());		
 	}
 
-	public function paypalPaymentComplete(Request $request){
-		$oncePrice = PostOncePrice::find($request->popId);
+	public function paypalPaymentComplete(Request $request,$post_slug,$post_once_price){
+		// dd($request->all());
+		$post = Post::where('slug',$post_slug)->first();
+		$oncePrice = PostOncePrice::find($post_once_price);
 		$paypal = new \App\PayPalOnlyPost($oncePrice);
 		$response = $paypal->execute($request->paymentId,$request->PayerID);
 
@@ -311,32 +340,41 @@ class PostsController extends Controller
 
 			\App\PostOncePay::create([
 				'user_id' 				=> \Auth::user()->id,
-				'post_id' 				=> $request->pId,
+				'post_id' 				=> $post->id,
 				'finish' 				=> $finish,
 				'price' 				=> $oncePrice->price,
 				'payment_paypal_id'		=> $payment_paypal->id,
 				'post_once_price_id' 	=> $oncePrice->id,
 			]);
 
-		    $data = array('post_name' => $oncePrice->post->title);
 		    $system = \App\System::first();
-			\Mail::send('emails.payments.post', $data, function ($message) use($system) {
-		        $message->from($system->email, 'Neurocodigo');
-		        $message->to(\Auth::user()->email)->subject('Pago realizado en Neurocodigo');
-		    });
+	        $user = \Auth::user();
+	        $data = array('post'=>$post,'price'=>$oncePrice);
+	        \Mail::send('emails.payment-only-post', $data, function ($message) use($system,$user) {
+	            $message->from($system->email, 'Neurocodigo');
+	            $message->to($user->email)->subject("Pago confirmado");
+	        });
+
 			$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
-			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
 		}else{
-			$request->session()->flash('success', 'Pago rechazado, Por favor revise que tenga el monto necesario para realizar el pago');
-			return redirect()->route('show-post',['pID'=>Post::find($request->pId)->slug]);
+			$request->session()->flash('error', 'Pago rechazado, Por favor revise que tenga el monto necesario para realizar el pago');
 		}
+		return redirect()->route('show-post',[$post->category->slug,$post->slug]);
 	}
 
+<<<<<<< HEAD
 	public function paymentCard(Request $request,$post_id,$post_price_id){
 		dd($request->all());
 		\Stripe\Stripe::setApiKey("sk_live_9xeSt1pqIyvkBM0DCUrfspbk");
 		$price = PostOncePrice::find($post_price_id);
 		
+=======
+	public function paymentCard(Request $request,$post_slug,$post_price_id){
+		// dd($request->all());
+		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
+		\Stripe\Stripe::setApiKey("sk_test_GPuHeuIE4wXz34bTp0btvuSp");
+		$post = Post::where('slug',$post_slug)->first();
+>>>>>>> flat
 		try {
 			$charge = \Stripe\Charge::create(array(
 			  "amount" => $price->price*100,
@@ -354,22 +392,30 @@ class PostsController extends Controller
 
 				\App\PostOncePay::create([
 					'user_id' => \Auth::user()->id,
-					'post_id' => $post_id,
+					'post_id' => $post->id,
 					'finish' => $finish,
 					'price' => $price->price,
 					'post_once_price_id' => $price->id,
 				]);
-				$request->session()->flash('success', 'Pago realizado correctamente. Ahora pude disfrutar de lo beneficios de tener una cuenta premium');
-				return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+
+			    $system = \App\System::first();
+		        $user = \Auth::user();
+		        $data = array('post'=>$post,'price'=>$oncePrice);
+		        \Mail::send('emails.payment-only-post', $data, function ($message) use($system,$user) {
+		            $message->from($system->email, 'Neurocodigo');
+		            $message->to($user->email)->subject("Pago confirmado");
+		        });
+
+				$request->session()->flash('success', 'Pago realizado correctamente. Ahora puede disfrutar de lo beneficios de tener una cuenta premium');
+				return redirect()->route('show-post',[$post->category->slug,$post->slug]);
 			}
 			$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
-			return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
 		} catch (\Stripe\Error\Card $e) {
 		    $request->session()->flash('error',$e->getMessage());
 		} catch (\Exeption $e) {
 		    $request->session()->flash('error',$e->getMessage());
 		}
-		return redirect()->route('show-post',['pID'=>Post::find($post_id)->slug]);
+		return redirect()->route('show-post',[$post->category->slug,$post->slug]);
 	}
 
 	public function makePaymentCard(Request $request){

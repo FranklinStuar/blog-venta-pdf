@@ -183,9 +183,11 @@ return [
         App\Providers\AddSystemServicesProvider::class,
         App\Providers\AddSponsorServiceProvider::class,
         
+        Anouar\Paypalpayment\PaypalpaymentServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Rap2hpoutre\LaravelCreditCardValidator\ServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
+
     ],
 
     /*
@@ -237,6 +239,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
+        'PaypalPayment' => Anouar\Paypalpayment\Facades\PaypalPayment::class,
+
     ],
 
 ];

@@ -1,12 +1,16 @@
-@extends('corporate.layout')
+
+@extends('flat.layout')
+@section('title')
+    Inciar Sesion
+@endsection
 
 @section('container')
 
-<div class=" form-init-center">
-    <div class="panel panel-default">
-        <div class="panel-heading">Iniciar Sesión</div>
-        <div class="panel-body">
-            {!! Form::open(['route' => 'login','class'=>'form-horizontal','role'=>'form']) !!}
+    <div class="gap"></div>
+    <section id="registration" class="container">
+        {!! Form::open(['route' => 'login','class'=>'center ','role'=>'form']) !!}
+            <fieldset class="registration-form">
+                
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="username" class=" control-label">Nombre de usuario</label>
 
@@ -20,6 +24,7 @@
                         @endif
                     </div>
                 </div>
+
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <label for="password" class=" control-label">Contraseña</label>
@@ -35,6 +40,7 @@
                     </div>
                 </div>
 
+
                 <div class="form-group">
                     <div class="">
                         <div class="checkbox">
@@ -45,24 +51,26 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary">
-                            Iniciar Sesion
-                        </button>
 
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            ¿Olvidó su contraseña?
-                        </a>
-                        <br>
-                        <a class="btn btn-link" href="{{ route('register') }}">
-                            Aún no tengo cuenta
-                        </a>
-                        <br>
-                    </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-md btn-block">
+                        Iniciar Sesion
+                    </button>
                 </div>
-            {!! Form::close() !!}
-        </div>
-    </div>
-</div>
+
+                <a class="btn btn-link" href="{{ route('password.request') }}">
+                    ¿Olvidó su contraseña?
+                </a>
+                <br>
+                <a class="btn btn-link" href="{{ route('register') }}">
+                    Aún no tengo cuenta
+                </a>
+            </fieldset>
+        {!! Form::close() !!}
+    </section><!--/#registration-->
+    <div class="gap"></div>
+
 @endsection
+
+

@@ -16,6 +16,10 @@ class Post extends Model
   	return $this->belongsTo('App\Category','category_id');
   }
 
+  public function subCategories(){
+    return $this->belongsToMany('App\Category','category_post','post_id','category_id');
+  }
+
   public function pdfs(){
     return $this->hasMany('App\Pdf','post_id');
   }
@@ -71,7 +75,18 @@ class Post extends Model
   }
   
   public function otherPosts(){
-    return Post::where('id','<>',$this->id)->limit(5)->inRandomOrder()->get();
+    // dd($this->visits->count());
+    $others = \DB::table('posts as p')
+    ->join('categories as c','p.category_id','c.id')
+    // ->join('post_visits as v','v.post_id','p.id')
+    ->where('c.id',$this->category_id)
+    ->where('p.id','<>',$this->id)
+    ->select('p.title','p.excerpt','p.slug','p.image','c.slug as category_slug')
+    ->inRandomOrder()
+    ->limit(5)
+    ->get();
+    return $others;
+    // return Post::where('id','<>',$this->id)->limit(5)->inRandomOrder()->get();
   }
 
   public static function free(){

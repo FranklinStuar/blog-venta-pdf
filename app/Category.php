@@ -10,14 +10,18 @@ class Category extends Model
   use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $table = "categories";
-  protected $fillable = ['parent_id','order','name','slug', ];
+  protected $fillable = ['parent_id','order','name','slug','description','image' ];
 
   public function parent(){
   	return $this->belongsTo('App\Category','parent_id');
   }
   
   public function posts(){
-  	return $this->hasMany('App\Post','category_id');
+    return $this->hasMany('App\Post','category_id');
+  }
+
+  public function subCategories(){
+  	return $this->hasMany('App\Category','parent_id');
   }
 
 }

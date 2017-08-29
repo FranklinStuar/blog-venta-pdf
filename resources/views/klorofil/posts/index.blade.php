@@ -32,17 +32,11 @@
 								{{-- <a href="{{ route('posts.view-kit',[$post->id]) }}"> {{count($post->kits)}} Kits </a> --}}
 							{{-- </td> --}}
 							<td>
-								@if (Shinobi::can('post.edit'))
-									{!! link_to_route('posts.edit', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-pencil']) !!}
-								@endif
-								@if (Shinobi::can('post.show'))
-									{!! link_to_route('posts.show', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-open-eye']) !!}
-								@endif
-								@if (Shinobi::can('post.destroy'))
-									{!! Form::open(['route' => ['posts.destroy',$post->id],'method'=>'DELETE','class'=>'destroy']) !!}
-										<button class="btn btn-link glyphicon glyphicon-trash"></button>
-									{!! Form::close() !!}
-								@endif
+								{!! link_to_route('posts.edit', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-pencil']) !!}
+								{!! link_to_route('posts.show', "",['i'=>$post->id], ['class' =>'glyphicon glyphicon-open-eye']) !!}
+								{!! Form::open(['route' => ['posts.destroy',$post->id],'method'=>'DELETE','class'=>'destroy']) !!}
+									<button class="btn btn-link glyphicon glyphicon-trash"></button>
+								{!! Form::close() !!}
 							</td>
 						</tr>
 					@endforeach

@@ -1,13 +1,17 @@
-@extends('corporate.layout')
+
+
+@extends('flat.layout')
+@section('title')
+    Inciar Sesion
+@endsection
 
 @section('container')
 
-<div class="container form-init-center">
-    <div class="panel panel-default">
-        <div class="panel-heading">Registrarse</div>
-        <div class="panel-body">
-            {!! Form::open(['route' => 'register','class'=>'form-horizontal','role'=>'form']) !!}
-
+    <div class="gap"></div>
+    <section id="registration" class="container">
+        {!! Form::open(['route' => 'register','class'=>'center','role'=>'form']) !!}
+            <fieldset class="registration-form">
+            
 
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="username" class="col-md-12 control-label">Nombre de usuario</label>
@@ -79,7 +83,7 @@
 
                     <div class="col-md-12">
                         {!! Form::checkbox('terminos_condiciones', 'acept',['class'=>'required']) !!}
-                        Acepto los <a href="#terminos_condiciones" data-toggle="modal" data-target="#politicasCondicionesModal">Terminos y condiciones</a>
+                        Acepto los <a href="#terminos_condiciones" data-toggle="modal" data-target="#politicasCondicionesModal"><u>Terminos y condiciones</u></a>
                         @if ($errors->has('terminos_condiciones'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('terminos_condiciones') }}</strong>
@@ -95,12 +99,11 @@
                         </button>
                     </div>
                 </div>
-            {!! Form::close() !!}
-        </div>
-    </div>
-</div>
 
-
+            </fieldset>
+        {!! Form::close() !!}
+    </section><!--/#registration-->
+    <div class="gap"></div>
 
     <!-- Politicas y condiciones-->
     <div class="modal fade" id="politicasCondicionesModal" tabindex="-1" role="dialog" aria-labelledby="politicasCondicionesModalLabel">
@@ -121,3 +124,5 @@
     </div>
 
 @endsection
+
+

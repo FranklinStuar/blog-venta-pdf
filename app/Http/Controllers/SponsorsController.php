@@ -125,14 +125,14 @@ class SponsorsController extends Controller
 		if($request->has('sp')){
 			$sponsor = Sponsor::find($request->sp);
 			if($sponsor != null && \Auth::user()->id == $sponsor->user_id){
-				return view('corporate.list-sponsor')
+				return view('flat.sponsors.list-sponsor')
 					->with('sponsor', $sponsor)
 						->with('premiums',SponsorPrice::all());
 			}		    			
 			else
 				abort(404);
 		}
-		return view('corporate.list-sponsor')
+		return view('flat.sponsors.list-sponsor')
 			->with('premiums',SponsorPrice::all());
 	}
 
@@ -140,7 +140,7 @@ class SponsorsController extends Controller
 		$premium = SponsorPrice::find(explode("x", $request->sprice)[0]);
 		$sponsor = Sponsor::find($request->sp);
 		if ($premium != null && $sponsor != null && \Auth::user()->id == $sponsor->user_id){
-			return view('corporate.type-payment-sponsor',[
+			return view('flat.sponsors.type-payment-sponsor',[
 				'sponsor' => $sponsor, 
 				'sponsor_premium' => $premium
 				]);
@@ -151,7 +151,7 @@ class SponsorsController extends Controller
 
 	public function createSponsor(Request $request){
 		$premium = SponsorPrice::find(explode("x", $request->sprice)[0]);
-		return view('corporate.sponsors.create')
+		return view('flat.sponsors.create')
 			->with('premium',$premium)
 			->with('sponsor', new Sponsor)
 			;
@@ -208,7 +208,7 @@ class SponsorsController extends Controller
 				'finish_date' => \Carbon\Carbon::now()->addMonths($premium->months),
 			]);
 			$request->session()->flash('success', 'Pago a la publicidad: '. $sponsor->name .". Realizado con éxito");
-			return view('corporate.profile');
+			return redirect()->route('profile');
 		}else{
 			abort(404);
 		}
@@ -254,17 +254,17 @@ class SponsorsController extends Controller
 			});
 
 			$request->session()->flash('success', 'Pago a la publicidad: '. $sponsor->name .". Realizado con éxito");
-			return view('corporate.profile');
+			return redirect()->route('profile');
 		}else{
 			$request->session()->flash('success', 'Pago rechazado, Por favor revise que tenga el monto necesario para realizar el pago');
-			return view('corporate.profile');
+			return redirect()->route('profile');
 		}
 	}
 
 	public function editSponsorUser($id_sponsor){
 		$sponsor = Sponsor::find($id_sponsor);	
 		if($sponsor != null && \Auth::user()->id == $sponsor->user_id){
-			return view('corporate.sponsors.edit')
+			return view('flat.sponsors.edit')
 				->with('sponsor',$sponsor);
 		}else
 		abort(404);
@@ -273,7 +273,7 @@ class SponsorsController extends Controller
 	public function showSponsor($id_sponsor){
 		$sponsor = Sponsor::find($id_sponsor);	
 		if($sponsor != null && \Auth::user()->id == $sponsor->user_id){
-			return view('corporate.sponsors.show')
+			return view('flat.sponsors.show')
 				->with('sponsor',$sponsor);
 		}else
 		abort(404);

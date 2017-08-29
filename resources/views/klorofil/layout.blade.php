@@ -6,6 +6,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	{{-- CSRF Token --}}
+	<meta name="csrf-token" id="token" content="{{ csrf_token() }}">
+	
 	@yield('meta')
 	<!-- VENDOR CSS -->
 	<link rel="stylesheet" href="{{ url('plugins/bootstrap/css/bootstrap.min.css') }}">
@@ -14,6 +17,9 @@
 	<link rel="stylesheet" href="{{ url('plugins/chartist/css/chartist-custom.css') }}">
 	<link rel="stylesheet" href="{{ url('plugins/Select2/css/select2.css') }}">
   	<link rel="stylesheet" href="{{url('plugins/summernote/summernote.css')}}">
+
+	{{-- sweetalert2 --}}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.css">
 
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('klorofil/css/main.css') }}">
@@ -36,7 +42,7 @@
 
 </head>
 
-<body>
+<body data-u="{{ url('/') }}">
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<!-- NAVBAR -->
@@ -52,6 +58,39 @@
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+								<i class="lnr lnr-envelope"></i>
+								@if($messagesNoView)
+									<span class="badge bg-danger">{{ $messagesNoView }}</span>
+								@endif
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li><a href="{{ route('messages-contact.index') }}" class="more">Mensajes directos</a></li>
+								@foreach($messagesContact as $message)
+									<li>
+									<a href="{{ route('messages-contact.show',[$message->id]) }}" class="notification-item">
+										@if($message->status=='sin_revisar')
+											<span class="dot bg-success"></span>
+										@elseif($message->status=='revisado')
+											<span class="dot bg-info"></span>
+										@endif
+										{{ str_limit($message->message,35) }}
+									</a>
+									</li>
+								@endforeach
+								{{-- <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li> --}}
+								{{-- <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li> --}}
+								{{-- <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li> --}}
+								{{-- <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li> --}}
+								@if($messagesNoView > 5)
+									<li><a href="{{ route('messages-contact.index') }}" class="more">Ver todos los mensajes</a></li>
+								@endif
+							</ul>
+						</li>
+
+
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="{{ url('images/'.Auth::user()->avatar) }}" class="img-circle" alt="Avatar"> 
@@ -61,18 +100,15 @@
 							<ul class="dropdown-menu">
 								<li><a href="{{ route('profile') }}"><i class="lnr lnr-user"></i> <span>Mi Perfil</span></a></li>
 								<li><a href="{{ route('logout') }}"
-					  onclick="event.preventDefault();
-						document.getElementById('logout-form').submit();">
-						<i class="lnr lnr-exit"></i> <span>Salir</span></a>
+								  onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									<i class="lnr lnr-exit"></i> <span>Salir</span></a>
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-					  {{ csrf_field() }}
-				  </form>
+										  {{ csrf_field() }}
+									  </form>
 								</li>
 							</ul>
 						</li>
-						<!-- <li>
-							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -205,12 +241,15 @@
 	<script src="{{ url('plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 	<script src="{{ url('plugins/chartist/js/chartist.min.js') }}"></script>
 	<script src="{{ url('plugins/Select2/js/select2.min.js') }}"></script>
-	<script src="{{url('plugins/jquery-toastmessage/jquery.toastmessage.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.js"></script>
 	  <!-- include summernote -->
 	<script type="text/javascript" src="{{url('plugins/summernote/summernote.js')}}"></script>
 	<script src="{{ url('klorofil/js/klorofil-common.js') }}"></script>
-
+	<script src="{{ url('klorofil/js/script.js') }}"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	@yield('script')
+    @stack('scripts')
 	
 </body>
 
