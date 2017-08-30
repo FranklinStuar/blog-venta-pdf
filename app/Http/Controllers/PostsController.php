@@ -363,9 +363,11 @@ class PostsController extends Controller
 	}
 
 	public function paymentCard(Request $request,$post_slug,$post_price_id){
+      	$system = \App\System::first();
 		// dd($request->all());
+		
 		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
-		\Stripe\Stripe::setApiKey("sk_test_GPuHeuIE4wXz34bTp0btvuSp");
+		\Stripe\Stripe::setApiKey($system->sdk_stripe);
 		$post = Post::where('slug',$post_slug)->first();
 		try {
 			$charge = \Stripe\Charge::create(array(
@@ -392,7 +394,7 @@ class PostsController extends Controller
 
 			    $system = \App\System::first();
 		        $user = \Auth::user();
-		        $data = array('post'=>$post,'price'=>$oncePrice);
+		        $data = array('post'=>$post,'price'=>$price);
 		        \Mail::send('emails.payment-only-post', $data, function ($message) use($system,$user) {
 		            $message->from($system->email, 'Neurocodigo');
 		            $message->to($user->email)->subject("Pago confirmado");

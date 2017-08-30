@@ -10,7 +10,7 @@
 	@endif
 	
 	
-	<ul class="portfolio-items col-2">
+	<ul class="portfolio-items col-3">
 		@foreach($posts as $post)
 
 			<li class="portfolio-item
@@ -28,6 +28,7 @@
 			</li><!--/.portfolio-item-->
 		@endforeach
 	</ul>
+	{{ $posts->links() }}
 </section><!--/#portfolio-->
 
 <div class="sponsor-google-show">

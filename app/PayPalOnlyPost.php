@@ -11,8 +11,9 @@ class PayPalOnlyPost extends Model
 
 	public function __construct($postOncePrice){
 		
+      	$system = \App\System::first();
 		$this->postOncePrice = $postOncePrice;
-		$this->_apiContext = PaypalPayment::ApiContext('AS5KH5wQ2W1txXFHo7RecAwZR3B0M_wa9AJbF2fj8iPIvKeBzcQziqE4R1EnJBgjBlSHPfeQGehRjSha', 'EBvSqnpdWzD9TlFFsiSTk4o5Gafr28ktExutfvwY-en3_9SEup27itD-RtGjnb-6075weI60D_VPq5SI');
+		$this->_apiContext = PaypalPayment::ApiContext($system->sdk_paypal, $system->pk_paypal);
 	}
 	public function generate(){
 		$payment = PaypalPayment::payment()->setIntent('sale')

@@ -68,6 +68,7 @@ Route::group(['prefix' => 'neuro-admin','middleware' => ['auth']], function() {
 	Route::get('/sponsor-pay/{id_pay}/cancele','SponsorPaysController@cancel')->name('sponsor-pays.cancel');
 
 	Route::get('/config', 'SystemController@config')->name('config');
+	Route::post('/config-information', 'SystemController@saveInformation')->name('config.information.save');
 	Route::post('/config', 'SystemController@saveConfig')->name('config.save');
 	Route::post('/config-google', 'SystemController@saveGoogleConfig')->name('config-google.save');
 	Route::get('/historial', 'SystemController@historial')->name('historial');
