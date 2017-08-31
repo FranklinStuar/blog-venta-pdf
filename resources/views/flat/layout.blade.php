@@ -138,8 +138,8 @@
 
         @yield('container')
         
-        <div class="container-fluid">
-            <center>{!! $system->tag_body !!}</center>
+        <div style="width: 728px; height: 90px; background: white; margin: auto; display: block;">
+            {!! $system->tag_body !!}
         </div>
     </main>
 
