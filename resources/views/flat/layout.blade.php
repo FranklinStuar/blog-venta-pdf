@@ -138,9 +138,9 @@
 
         @yield('container')
         
-            <div class="col-sm-6 col-sm-offset-3">
-                <center>{!! $system->tag_body !!}</center>
-            </div>
+        <div class="container-fluid">
+            <center>{!! $system->tag_body !!}</center>
+        </div>
     </main>
 
     <section id="bottom" class="wet-asphalt">
