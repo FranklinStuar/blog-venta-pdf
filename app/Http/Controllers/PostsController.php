@@ -364,11 +364,10 @@ class PostsController extends Controller
 
 	public function paymentCard(Request $request,$post_slug,$post_price_id){
       	$system = \App\System::first();
-		// dd($request->all());
 		
 		$price = PostOncePrice::find(explode('.',$post_price_id)[0]);
-		\Stripe\Stripe::setApiKey($system->sdk_stripe);
 		$post = Post::where('slug',$post_slug)->first();
+		\Stripe\Stripe::setApiKey($system->sdk_stripe);
 		try {
 			$charge = \Stripe\Charge::create(array(
 			  "amount" => $price->price*100,

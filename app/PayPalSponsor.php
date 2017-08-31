@@ -13,9 +13,10 @@ class PayPalSponsor extends Model
 	private $sponsor; // El sponsor al que se le va a hacer el pago
 
 	public function __construct($sponsorPrice,$sponsor){
+      	$system = \App\System::first();
 		$this->sponsorPrice = $sponsorPrice;
 		$this->sponsor = $sponsor;
-		$this->_apiContext = PaypalPayment::ApiContext(config('paypal_payment.Account.ClientId'), config('paypal_payment.Account.ClientSecret'));
+		$this->_apiContext = PaypalPayment::ApiContext($system->sdk_paypal, $system->pk_paypal);
 	}
 	public function generate(){
 		$payment = PaypalPayment::payment()->setIntent('sale')

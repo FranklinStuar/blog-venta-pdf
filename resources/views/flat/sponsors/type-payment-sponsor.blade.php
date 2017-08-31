@@ -88,12 +88,12 @@ Pago Publicidad
 					  	@endforeach
 
                         <li class="plan-action">
-                            <a href="{{ route('sponsor.make-payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="btn btn-primary btn-md">
+                            <a href="{{ route('sponsor.payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="btn btn-primary btn-md">
 								<i class="fa fa-credit-card" aria-hidden="true"></i> 
 								<span>Tarjeta</span>
 							</a>
 							
-                            <a href="{{ route('sponsor.make-payment-card',['sprice'=>$sponsor_premium->id.'x'.$sponsor_premium->price_month,'sp'=>$sponsor->id]) }}" class="btn btn-primary btn-md">
+                            <a href="{{ route('sponsor.make-payment-paypal',[$sponsor_premium->id,$sponsor->id]) }}" class="btn btn-primary btn-md">
 								<i class="fa fa-paypal" aria-hidden="true"></i> 
 								<span>Paypal</span>
 							</a>

@@ -86,8 +86,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
 	Route::post('/publicidad/save-sponsor', 'SponsorsController@sponsorSave')->name('sponsor.save');
 	Route::get('/publicidad/payment', 'SponsorsController@payment')->name('sponsor.payment');
-	Route::get('/publicidad/payment-card', 'SponsorsController@makePaymentCard')->name('sponsor.make-payment-card');
-	Route::get('/publicidad/payment-paypal/{sponsor_id}/{price_id}', 'SponsorsController@paymentPaypal')->name('sponsor.make-payment-paypal');
+	Route::get('/publicidad/payment-card', 'SponsorsController@paymentCard')->name('sponsor.payment-card');
+	Route::post('/publicidad/payment-card/{price_id}/{sponsor_id}', 'SponsorsController@makePaymentCard')->name('sponsor.make-payment-card');
+	Route::get('/publicidad/payment-paypal/{price_id}/{sponsor_id}', 'SponsorsController@paymentPaypal')->name('sponsor.make-payment-paypal');
 	Route::get('/publicidad/payment-paypal', 'SponsorsController@makePaymentPaypal')->name('sponsor.complete-payment-paypal');
 	Route::get('/publicidad/editar/{id_sponsor}', 'SponsorsController@editSponsorUser')->name('sponsor.edit-user');
 	Route::get('/publicidad/{id_sponsor}', 'SponsorsController@showSponsor')->name('sponsor.show-user');
