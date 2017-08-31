@@ -138,7 +138,7 @@
 
         @yield('container')
         
-        <div style="width: 320px; height: 100px; background: white; margin: auto; display: block;">
+        <div style="width: 320px; height: 250px; background: white; margin: auto; display: block;">
             {!! $system->tag_body !!}
         </div>
     </main>
