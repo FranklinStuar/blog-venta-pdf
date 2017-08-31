@@ -239,9 +239,6 @@
 						</div>
 					</div>
 					
-					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-						<center>{!! $system->tag_body !!}</center>
-					</div>
 				</div>
 			</div>
 		</div>

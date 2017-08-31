@@ -37,10 +37,10 @@ class System extends Model
       ->inRandomOrder()
       ->first();
     $historial = \App\Historial::create([
-      'user_agent'=>"null",
-      'languaje'=>"null",
-      'path'=>"null",
-      'ip'=>"null",
+      'user_agent'=>"-",
+      'languaje'=>"-",
+      'path'=>"-",
+      'ip'=>"-",
       'created_at'=>\Carbon\Carbon::now(),
     ]);
     \App\SponsorPrint::create([
@@ -48,7 +48,9 @@ class System extends Model
       'created_at' => \Carbon\Carbon::now(),
       'historial_id' => $historial->id,
     ]);
-
+    $pay_sponsor->update([
+      'print_count'=> $pay_sponsor->print_count +1
+    ]);
     return $pay_sponsor->sponsor;
   }
   

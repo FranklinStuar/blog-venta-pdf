@@ -30,7 +30,3 @@
 	</ul>
 	{{ $posts->links() }}
 </section><!--/#portfolio-->
-
-<div class="sponsor-google-show">
-		{!! $system->tag_body !!}
-</div>
