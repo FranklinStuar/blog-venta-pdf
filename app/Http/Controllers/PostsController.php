@@ -122,7 +122,7 @@ class PostsController extends Controller
 	{
 		return view('klorofil.posts.edit',[
 			'post'=> Post::find($id),
-			'categories'=> array_pluck(Category::all(),'name','id'),
+			'categories'=> array_pluck(Category::where('parent_id',null)->get(),'name','id'),
 			'kits'=> \App\PostPrice::kitsList()
 		]);
 	}
@@ -135,7 +135,6 @@ class PostsController extends Controller
 			'body'      			=> 'required',
 			'meta_keywords'			=> 'required',
 		]);
-
 		$post = Post::find($id);
 		$post->update([
 			'author_id'			=> \Auth::user()->id,
@@ -147,9 +146,21 @@ class PostsController extends Controller
 			'meta_description'	=> $request->excerpt,
 			'meta_keywords'		=> $request->meta_keywords,
 			'status'			=> 'PUBLISHED',
-			'category_id'		=> $request->category_id,
 		]);
-		
+		if ($request->category_id) {
+			$post->update([
+				'category_id'	=> $request->category_id,
+			]);
+		}
+		if($request->hasFile('image')){
+			$file_name = str_slug(\Carbon\Carbon::now());
+
+			\Storage::disk('local')->put('public/posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),  \File::get($request->image));
+			$post->update([
+				'image'=> 'posts/'.$file_name.'.'.$request->image->getClientOriginalExtension(),
+			]);
+		}
+
 		$post->kits()->sync($request->kits);
 		$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
 		return redirect()->route('posts.index');

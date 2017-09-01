@@ -1,4 +1,4 @@
-{!! Form::open(['url' => $url,'method'=>$method, 'role'=>'form', 'files' => !$edit]) !!}
+{!! Form::open(['url' => $url,'method'=>$method, 'role'=>'form', 'files' => true]) !!}
 <style>
 	.img-post-form{
 		max-height: 200px;
@@ -15,6 +15,10 @@
 				@if($edit)
 					<div class="panel-body">
 						<img class="img-post-form" src="{{ url('storage/'.$post->image) }}" alt="{{ $post->name }}">
+						<div class="form-group">
+							{!! Form::file('image',['accept'=>'image/*']) !!}
+						</div>
+						<hr>
 					</div>
 				@endif
 				<div class="panel-body">
@@ -38,7 +42,11 @@
 							<div id="category_vue">
 								<div class="form-group">
 									{!! Form::label('category_id', 'Categoría *') !!}
-									{!! Form::select('category_id', $categories, $post->category_id,['class' => "form-control",'placeholder'=>"Escoja una categoría",'required','v-model'=>'category','@click'=>'select_category']) !!}
+									@if($edit)
+										{!! Form::select('category_id', $categories, $post->category_id,['class' => "form-control",'placeholder'=>"Escoja una categoría",'v-model'=>'category','@click'=>'select_category']) !!}
+									@else
+										{!! Form::select('category_id', $categories, $post->category_id,['class' => "form-control",'placeholder'=>"Escoja una categoría",'required','v-model'=>'category','@click'=>'select_category']) !!}
+									@endif
 
 								</div>
 								<div class="form-group">

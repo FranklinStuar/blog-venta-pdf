@@ -43,7 +43,7 @@ class UsersController extends Controller
             'username' => 'required|string|max:255|unique:users|regex:/^\S*$/u',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|regex:/^\S*$/u|confirmed',
             'role_id' => 'required',
         ]);
 
@@ -90,7 +90,7 @@ class UsersController extends Controller
         ]);
         if($request->has('password') || $request->has('password_confirmation')){
             $this->validate($request,[
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6|regex:/^\S*$/u|confirmed',
             ]);
         }
         $user = User::find($id);
@@ -147,7 +147,7 @@ class UsersController extends Controller
     public function profileChangePassword(Request $request){
         $this->validate($request, [
             'actual_password'       => 'required',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|regex:/^\S*$/u|confirmed',
         ]);
 
         if(\Hash::check($request->actual_password, \Auth::user()->password)){
@@ -184,9 +184,9 @@ class UsersController extends Controller
 
     public function profileSavePassword(Request $request){
          $this->validate($request, [
-            'actual_password'   => 'required',
-            'new_password'      => 'required',
-            'repeat_password'   => 'required',
+            'actual_password'   => 'required|regex:/^\S*$/u',
+            'new_password'      => 'required|regex:/^\S*$/u',
+            'repeat_password'   => 'required|regex:/^\S*$/u',
         ]);
         if(\Hash::check($request->actual_password, \Auth::user()->password) && $request->new_password == $request->repeat_password){
             \Auth::user()->update(['password' => bcrypt($request->new_password),]);

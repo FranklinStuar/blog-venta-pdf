@@ -21,7 +21,6 @@ $(function(){
 			},
 			methods:{
 				select_category(){
-					
 					if(this.category!= null && this.category!=""){
 
 						axios.post($("body" ).data( "u")+'/neuro-admin/subcategories/'+this.category)
@@ -36,7 +35,7 @@ $(function(){
 						});
 					}
 				},
-			}
+			},
 		})
 	}
 })
