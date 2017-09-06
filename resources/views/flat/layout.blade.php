@@ -77,6 +77,7 @@
                             @endforeach
                         </ul>
                     </li>
+                    <li><a href="">Precios</a></li>
                     <li><a href="{{ url('https://youtube.com/'.$system->youtube) }}">Youtube</a></li>
                     @if(Auth::user())
                         <li class="dropdown">
@@ -102,6 +103,7 @@
                         <li><a href="{{ url('login') }}">Iniciar Sesión</a></li>
                         <li><a href="{{ url('register') }}">Registrarse</a></li>
                     @endif
+                    <li><a href="{{ route('show-service',['faq']) }}">FAQ</a></li>
                     <li><a href="{{ route('show-service',['contacts']) }}">Contactos</a></li>
                 </ul>
             </div>
@@ -138,8 +140,8 @@
 
         @yield('container')
         
-        <div style="width: 320px; height: 150px; background: white; margin: auto; display: block;">
-            {!! $system->tag_body !!}
+        <div>
+            <center>{!! $system->tag_body !!}</center>
         </div>
     </main>
 
@@ -156,6 +158,7 @@
                             <li><a href="{{ route('show-service',['cuentas-premium']) }}">Cuentas de pago</a></li>
                             <li><a href="{{ route('show-service',['partners']) }}">Publicidad y Partners</a></li>
                             <li><a href="{{ route('show-service',['contacts']) }}">Contactanos</a></li>
+                            <li><a href="{{ route('show-service',['faq']) }}">Preguntas Frecuentes</a></li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->

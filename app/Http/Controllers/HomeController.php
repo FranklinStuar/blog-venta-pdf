@@ -119,7 +119,7 @@ class HomeController extends Controller
             'user_id'=>(\Auth::user())?\Auth::user()->id:null,
         ]);
 
-        $posts = Post::orderBy('created_at','desc')->limit(10)->get();
+        $posts = Post::orderBy('created_at','desc')->paginate(30);
         return view('flat.index')
             ->with('posts',$posts)
         ;
@@ -248,6 +248,9 @@ class HomeController extends Controller
         }
         if($page == 'contacts'){
             return view('flat.contacts');
+        }
+        if($page == 'faq'){
+            return view('flat.faq')->with('faqs',\App\Faq::all());
         }
         \App\Historial::create([
             'user_agent'=>$request->server()['HTTP_USER_AGENT'],

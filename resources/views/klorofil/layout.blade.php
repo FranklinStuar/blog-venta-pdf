@@ -157,14 +157,12 @@
 							<a href="#system-menu" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i> <span>Sistema</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="system-menu" class="collapse ">
 								<ul class="nav">
-										<li><a href="{{ route('config') }}" class="">Configuración</a></li>
-										<li><a href="{{ route('historial') }}" class="">Historial de visitas</a></li>
+									<li><a href="{{ route('config') }}" class="">Configuración</a></li>
+									<li><a href="{{ route('historial') }}" class="">Historial de visitas</a></li>
 									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Posts</a></li> --}}
 									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas de Sponsors</a></li> --}}
 									{{-- <li><a href="{{ url('/neuro-admin') }}" class="">Estadisticas Usuarios</a></li> --}}
-									@if(\Shinobi::can('lock'))
-										<li><a href="{{ url('/neuro-admin') }}" class="">Bloquear</a></li>
-									@endif
+									<li><a href="{{ url('/neuro-admin/faqs') }}" class="">Faq</a></li>
 								</ul>
 							</div>
 						</li>

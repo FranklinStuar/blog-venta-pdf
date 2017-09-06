@@ -198,3 +198,6 @@
 #bottom .social-media a:active span{
     text-decoration: underline;
 }
+.item-inner h6{
+    text-align: right;
+}
