@@ -77,7 +77,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li><a href="">Precios</a></li>
+                    <li><a href="{{ route('kits.list') }}">Precios</a></li>
                     <li><a href="{{ url('https://youtube.com/'.$system->youtube) }}">Youtube</a></li>
                     @if(Auth::user())
                         <li class="dropdown">

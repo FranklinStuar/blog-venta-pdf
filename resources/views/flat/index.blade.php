@@ -1,4 +1,4 @@
-@extends('flat.posts.template')
+@extends('flat.layout')
 
 @section('metas')
 	<meta name="title" content="Neurocodigo">
@@ -36,6 +36,45 @@
 
 @endsection
 
-@section('content-post')
-    @include('flat.posts.list-index')
+@section('container')
+
+	<section id="blog" class="container">
+			<div class="row">
+					<aside class="col-sm-4 col-sm-push-8">
+							<div class="widget search">
+								{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
+									<div class="input-group">
+										<input type="text" name="search" class="form-control" autocomplete="off" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
+											<span class="input-group-btn">
+												<button class="btn btn-danger" type="button"><i class="fa fa-search"></i></button>
+											</span>
+									</div>
+								{!! Form::close() !!}
+							</div><!--/.search-->
+
+							@include('flat.sponsors.print',['section'=>'lateral','sponsor'=>$system->sponsorRandom()])
+							
+							@yield('widget-more-options')
+
+							<hr>
+							<div class="widget google">
+								{!! $system->tag_body !!}                 
+							</div><!--/.categories-->
+							@yield('tags')
+							<hr>
+							<h4>Visitanos en Facebook</h4>
+							<div class="fb-page" data-href="https://www.facebook.com/gomecatronica/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/gomecatronica/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gomecatronica/">Mecatronica</a></blockquote></div>
+					</aside>        
+					<div class="col-sm-8 col-sm-pull-4">
+							@include('flat.posts.list-index')
+					</div><!--/.col-md-8-->
+			</div><!--/.row-->
+	</section><!--/#blog-->
+
 @endsection
+
+
+
+
+
+

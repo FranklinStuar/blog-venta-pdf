@@ -38,8 +38,8 @@
 		</div>
 	</div>
 </div>
+<h2>Publicaciones</h2>
 <section id="portfolio" class="container">
-	<h2>Publicaciones</h2>
 	<ul class="portfolio-items col-3">
 		@foreach($posts as $post)
 

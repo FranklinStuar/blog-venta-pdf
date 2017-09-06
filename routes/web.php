@@ -84,6 +84,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('perfil/change-password', 'UsersController@profileChangePassword')->name('profile.change-password');
 	Route::post('perfil/reset-password', 'UsersController@profileSavePassword')->name('profile.reset-password');
 
+	Route::get('/kits', 'KitsController@list')->name('kits.list');
+	
 	Route::get('/publicidad', 'SponsorsController@listUser')->name('sponsor.list');
 	Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
 	Route::post('/publicidad/save-sponsor', 'SponsorsController@sponsorSave')->name('sponsor.save');
