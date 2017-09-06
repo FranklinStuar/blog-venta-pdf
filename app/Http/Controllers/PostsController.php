@@ -161,6 +161,8 @@ class PostsController extends Controller
 			]);
 		}
 
+		if($request->has('subcategories'))
+			$post->subcategories()->sync($request->subcategories);
 		$post->kits()->sync($request->kits);
 		$request->session()->flash('success', 'Post "'.$request->title.'" editado correctamente');
 		return redirect()->route('posts.index');
