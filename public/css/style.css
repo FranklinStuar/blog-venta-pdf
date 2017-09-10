@@ -198,8 +198,19 @@
 #bottom .social-media a:active span{
     text-decoration: underline;
 }
+.portfolio-items > div{
+    overflow: hidden;
+}
+.portfolio-item {
+    max-width: 100%;
+}
 .item-inner h6{
     text-align: right;
+}
+
+.item-inner img{
+    max-width: 100%;
+    width: 100%;
 }
 
 #main-slider .carousel-inner{
@@ -215,4 +226,7 @@
 }
 .move-slider{
     margin-left: 20px;
+}
+.carousel-inner{
+    width: 100%;
 }

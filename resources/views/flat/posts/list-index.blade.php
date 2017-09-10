@@ -4,13 +4,13 @@
 	</div>
 	<div class="row">
 		
-		<div class="col-md-1">
+		<div class="col-lg-2 col-md-1">
 			<div class="btn-group">
 				<a class="btn btn-danger btn-xs" href="#scroller" data-slide="prev"><i class="fa fa-angle-left"></i></a>
 				<a class="btn btn-danger btn-xs" href="#scroller" data-slide="next"><i class="fa fa-angle-right"></i></a>
 			</div>
 		</div>
-		<div class="col-md-11">
+		<div class="col-lg-10 col-md-11">
 			<div id="scroller" class="carousel slide">
 				<div class="carousel-inner">
 					@foreach($categories as $index => $category)
@@ -18,15 +18,15 @@
 							<div class="item @if($index == 0) active @endif">
 								<div class="row">
 						@endif
-									<div class="col-md-3 col-xs-6">
+									<div class="col-lg-3 col-md-6">
 										<div class="portfolio-item">
 											<div class="item-inner">
-												<img class="img-responsive" src="{{ url('storage/'.$category->image) }}" alt="">
+												<img class="img-responsive" src="{{ url('storage/'.$category->image) }}" alt="{{ $category->name }}">
 												<h5>
 													{{ $category->name }}
 												</h5>
 												<div class="overlay">
-													<a class="preview btn btn-danger" title="{{ $category->excerpt }}" href="{{ route('show-service',[$category->slug]) }}"><i class="fa fa-eye"></i></a>
+													<a class="preview btn btn-danger" title="{{ $category->excerpt }}" href="{{ route('show-service',[$category->slug]) }}" title="{{ $category->name }}"><i class="fa fa-eye"></i></a>
 												</div>
 											</div>
 										</div>
@@ -42,7 +42,7 @@
 		</div>
 	</div>
 </section>
-<hr>
+<hr class="alizarin">
 <section id="portfolio" class="container">
 	<h2>Publicaciones</h2>
 	<div class="row">
@@ -50,15 +50,19 @@
 		<ul class="portfolio-items ">
 			@foreach($posts as $post)
 
-				<li class="portfolio-item col-md-4 co-xs-12">
-					<div class="item-inner">
-						<img src="{{ url('storage/'.$post->image) }}" alt="">
-						<h5>{{ $post->title }}</h5>
-						<h6><u>{{ $post->category->name }}</u></h6>
-						<div class="overlay">
-							<a class="preview btn btn-danger" href="{{ route('show-post',[$post->category->slug,$post->slug]) }}"><i class="fa fa-eye"></i></a>              
+				<li class="col-md-4 co-xs-12">
+					<div class="portfolio-item">
+						
+						<div class="item-inner">
+							<img src="{{ url('storage/'.$post->image) }}" alt="{{ $post->title }}">
+							<h5>{{ str_limit($post->title,30) }}</h5>
+							<h3 class="hidden">{{ $post->excerpt }}</h3>
+							<h6><u>{{ $post->category->name }}</u></h6>
+							<div class="overlay">
+								<a class="preview btn btn-danger" href="{{ route('show-post',[$post->category->slug,$post->slug]) }}" title="{{ $post->title }}"><i class="fa fa-eye"></i></a>              
+							</div>           
 						</div>           
-					</div>           
+					</div>
 				</li><!--/.portfolio-item-->
 			@endforeach
 		</ul>
