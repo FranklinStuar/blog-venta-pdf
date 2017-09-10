@@ -191,10 +191,10 @@
 
         <div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-6 col-sm-offset-1">
                 	<a class="navbar-bran" href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="logo"></a>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<section id="recent-works">
 						<div class="container">
 							<div class="row">
@@ -203,11 +203,11 @@
 									<div id="scroller" class="carousel slide">
 										<div class="carousel-inner">
 											@foreach($categories as $index => $category)
-												@if($index == 0 || ($index%8)==0)
+												@if($index == 0 || ($index%4)==0)
 													<div class="item @if($index == 0) active @endif">
 														<div class="row">
 												@endif
-															<div class="col-md-2 col-sm-4 col-xs-4 item-access">
+															<div class="col-md-3 col-sm-4 col-xs-4 item-access">
 																<div class="portfolio-item">
 																	<div class="item-inner">
 																		<img class="img-responsive" src="{{ url('storage/'.$category->image) }}" alt="{{ $category->name }}">
@@ -221,7 +221,7 @@
 																</div>
 															</div>   
 
-												@if((($index+1)%8)==0 || $index == count($categories)-1)
+												@if((($index+1)%4)==0 || $index == count($categories)-1)
 														</div><!--/.row-->
 													</div><!--/.item-->
 												@endif
