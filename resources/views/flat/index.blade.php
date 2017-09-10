@@ -49,7 +49,7 @@
 								<a class="btn btn-danger btn-xs" href="#scroller" data-slide="prev"><i class="fa fa-angle-left"></i></a>
 								<a class="btn btn-danger btn-xs" href="#scroller" data-slide="next"><i class="fa fa-angle-right"></i></a>
 							</div>
-							<p><small>Esté siempre actualizado con las atividades que le brinda Neurocodigo</small></p>
+							<p><small>Esté siempre actualizado con las actividades que le brinda Neurocodigo</small></p>
 						</div>
 						<div class="col-md-9 scroller-slider ">
 							<div id="scroller" class="carousel slide">
