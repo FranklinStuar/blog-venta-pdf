@@ -18,7 +18,7 @@
 							<div class="item @if($index == 0) active @endif">
 								<div class="row">
 						@endif
-									<div class="col-lg-3 col-md-6">
+									<div class="col-lg-3 col-xs-6">
 										<div class="portfolio-item">
 											<div class="item-inner">
 												<img class="img-responsive" src="{{ url('storage/'.$category->image) }}" alt="{{ $category->name }}">

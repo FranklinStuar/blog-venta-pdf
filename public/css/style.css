@@ -230,3 +230,6 @@
 .carousel-inner{
     width: 100%;
 }
+.navbar-brand img{
+    max-width: 200px
+}

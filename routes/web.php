@@ -84,7 +84,6 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('perfil/change-password', 'UsersController@profileChangePassword')->name('profile.change-password');
 	Route::post('perfil/reset-password', 'UsersController@profileSavePassword')->name('profile.reset-password');
 
-	Route::get('/kits', 'KitsController@list')->name('kits.list');
 	
 	Route::get('/publicidad', 'SponsorsController@listUser')->name('sponsor.list');
 	Route::get('/publicidad/nueva-publicidad', 'SponsorsController@createSponsor')->name('sponsor.create');
@@ -114,6 +113,7 @@ Route::post('/message-contact', 'MessageContactsController@store')->name('messag
 Route::get('/free', 'HomeController@free')->name('post.free');
 Route::get('search','HomeController@search')->name('search');
 Route::get('categoria/{category}','HomeController@showPageOrService')->name('show-category');
+Route::get('/kits', 'KitsController@list')->name('kits.list');
 
 Route::get('{category}','HomeController@showPageOrService')->name('show-service');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
