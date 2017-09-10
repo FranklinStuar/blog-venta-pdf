@@ -37,114 +37,252 @@
 @endsection
 
 @section('container')
-	<section id="main-slider" class="no-margin">
-		<div class="carousel slide wet-asphalt">
-			<ol class="carousel-indicators">
-					<li data-target="#main-slider" data-slide-to="0" class="active"></li>
-					<li data-target="#main-slider" data-slide-to="1"></li>
-					<li data-target="#main-slider" data-slide-to="2"></li>
-					<li data-target="#main-slider" data-slide-to="3"></li>
-			</ol>
-			<div class="carousel-inner">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8">
+			<section id="recent-works">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<h4 title="title-scroll">Lo último en Neurocodigo</h4>
+							<div class="btn-group scroller-move">
+								<a class="btn btn-danger btn-xs" href="#scroller" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+								<a class="btn btn-danger btn-xs" href="#scroller" data-slide="next"><i class="fa fa-angle-right"></i></a>
+							</div>
+							<p><small>Esté siempre actualizado con las atividades que le brinda Neurocodigo</small></p>
+						</div>
+						<div class="col-md-9 scroller-slider ">
+							<div id="scroller" class="carousel slide">
+								<div class="carousel-inner">
+									@foreach($categories as $index => $category)
+										@if($index == 0 || ($index%8)==0)
+											<div class="item @if($index == 0) active @endif">
+												<div class="row">
+										@endif
+													<div class="col-md-2 col-sm-4 col-xs-4 item-access">
+														<div class="portfolio-item">
+															<div class="item-inner">
+																<img class="img-responsive" src="{{ url('storage/'.$category->image) }}" alt="{{ $category->name }}">
+																<h5>
+																	{{ $category->name }}
+																</h5>
+																<div class="overlay">
+																	<a class="preview btn btn-danger" title="{{ $category->excerpt }}" href="{{ route('show-service',[$category->slug]) }}" title="{{ $category->name }}"><i class="fa fa-eye"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>   
 
-				<div class="item active" style="background-image: url({{ url('images/slider/bg1.jpg') }})">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="carousel-content centered">
-									<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
-									<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
-									<br>
-									<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+										@if((($index+1)%8)==0 || $index == count($categories)-1)
+												</div><!--/.row-->
+											</div><!--/.item-->
+										@endif
+									@endforeach
 								</div>
 							</div>
 						</div>
+					</div><!--/.row-->
+				</div>
+			</section><!--/#recent-works-->
+		</div>
+		<div class="col-md-4">
+			<div class="widget search">
+				{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
+					<div class="input-group">
+						<input type="text" name="search" class="form-control" autocomplete="off" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
+							<span class="input-group-btn">
+								<button class="btn btn-danger" type="button"><i class="fa fa-search"></i></button>
+							</span>
 					</div>
-				</div><!--/.item-->
+				{!! Form::close() !!}
+			</div><!--/.search-->
 
-				<div class="item" style="background-image: url({{ url('images/slider/bg3.jpeg') }})">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="carousel-content center centered">
-									<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
-									<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
+		</div>
+	</div>
+
+	<div class="space emerald"></div>
+	<div class="row">
+		<div class="col-md-8">
+			<section id="main-slider" class="no-margin">
+				<div class="carousel slide wet-asphalt">
+					<ol class="carousel-indicators">
+							<li data-target="#main-slider" data-slide-to="0" class="active"></li>
+							<li data-target="#main-slider" data-slide-to="1"></li>
+							<li data-target="#main-slider" data-slide-to="2"></li>
+							<li data-target="#main-slider" data-slide-to="3"></li>
+					</ol>
+					<div class="carousel-inner">
+
+						<div class="item active" style="background-image: url({{ url('images/slider/bg1.jpg') }})">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="carousel-content centered">
+											<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
+											<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
+											<br>
+											<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div><!--/.item-->
+						</div><!--/.item-->
 
-				<div class="item" style="background-image: url({{ url('images/slider/bg2.jpeg') }})">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="carousel-content centered">
-									<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
-									<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
-									<br>
-									<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+						<div class="item" style="background-image: url({{ url('images/slider/bg3.jpeg') }})">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="carousel-content center centered">
+											<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
+											<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div><!--/.item-->
+						</div><!--/.item-->
 
-				<div class="item" style="background-image: url({{ url('images/slider/bg4.jpeg') }})">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="carousel-content centered">
-									<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
-									<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
-									<br>
-									<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+						<div class="item" style="background-image: url({{ url('images/slider/bg2.jpeg') }})">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="carousel-content centered">
+											<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
+											<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
+											<br>
+											<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+										</div>
+									</div>
 								</div>
 							</div>
+						</div><!--/.item-->
+
+						<div class="item" style="background-image: url({{ url('images/slider/bg4.jpeg') }})">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="carousel-content centered">
+											<h2 class="boxed animation animated-item-1">Capacitación gratuita</h2><br>
+											<p class="boxed animation animated-item-2">Aprovecha nuestra capacitación gratuita llevando al máximo las redes sociales</p>
+											<br>
+											<a class="btn btn-md animation animated-item-3" href="{{ url('https://youtube.com/'.$system->youtube) }}">Ir a youtube</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!--/.item-->
+
+					</div><!--/.carousel-inner-->
+				</div><!--/.carousel-->
+				<a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+					<i class="fa fa-angle-left"></i>
+				</a>
+				<a class="next hidden-xs" href="#main-slider" data-slide="next">
+					<i class="fa fa-angle-right"></i>
+				</a>
+			</section><!--/#main-slider-->
+		</div>
+		<div class="col-md-4">
+			<aside class="">
+				
+				@include('flat.sponsors.print',['section'=>'lateral','sponsor'=>$system->sponsorRandom()])
+				
+				@yield('widget-more-options')
+
+				<hr>
+				<div class="widget google">
+					{!! $system->tag_body !!}                 
+				</div><!--/.categories-->
+				@yield('tags')
+				<hr>
+				<h4>Visitanos en Facebook</h4>
+				<div class="fb-page" data-href="https://www.facebook.com/gomecatronica/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/gomecatronica/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gomecatronica/">Mecatronica</a></blockquote></div>
+		</aside>        
+		</div>
+	</div>
+
+</div>
+
+
+	<section id="services" class="emerald">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-sm-6">
+					<div class="media">
+						<div class="pull-left">
+							<i class="icon-md fa fa-clock-o"></i>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">Atención permanente</h3>
+							<p>Cualquier duda puede contactar con Neurocodigo y con gusto será atendido y resolveremos sus inquietudes.</p>
 						</div>
 					</div>
-				</div><!--/.item-->
+				</div><!--/.col-md-4-->
+				<div class="col-md-4 col-sm-6">
+					<div class="media">
+						<div class="pull-left">
+							<i class="fa fa-user icon-md"></i>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">Asesoría Personalizada</h3>
+							<p>Necesita apoyo para hacer crecer su idea o Negocio, Nosotros lo apoyaremos con consultores experimentados.</p>
+						</div>
+					</div>
+				</div><!--/.col-md-4-->
+				<div class="col-md-4 col-sm-6">
+					<div class="media">
+						<div class="pull-left">
+							<i class="fa fa-youtube-play icon-md"></i>
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">Capacitaciónes gratuitas</h3>
+							<p>Revise nuestras redes sociales y aprenda sobre las diversas capacitaciones que le ofrecemos en diferentes ambitos Sin Costo</p>
+						</div>
+					</div>
+				</div><!--/.col-md-4-->
+			</div>
+		</div>
+	</section><!--/#services-->
 
-			</div><!--/.carousel-inner-->
-		</div><!--/.carousel-->
-		<a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-			<i class="fa fa-angle-left"></i>
-		</a>
-		<a class="next hidden-xs" href="#main-slider" data-slide="next">
-			<i class="fa fa-angle-right"></i>
-		</a>
-	</section><!--/#main-slider-->
+	<section id="testimonial" class="alizarin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="center">
+						<h2>Última publicaciones</h2>
+					</div>
 
-	<section id="blog" class="container">
-		<div class="row">
-			<div class="col-sm-8">
-					@include('flat.posts.list-index')
-			</div><!--/.col-md-8-->
-			<aside class="col-sm-4">
-					<div class="widget search">
-						{!! Form::open(['route' => 'search','method'=>'GET','class'=>"form-inline waves-effect waves-light"]) !!}
-							<div class="input-group">
-								<input type="text" name="search" class="form-control" autocomplete="off" placeholder="Buscar" @isset ($search) value="{{ $search }}" @endisset>
-									<span class="input-group-btn">
-										<button class="btn btn-danger" type="button"><i class="fa fa-search"></i></button>
-									</span>
-							</div>
-						{!! Form::close() !!}
-					</div><!--/.search-->
+					<div class="gap"></div>
+					<div  class="carousel slide">
+						<div class="carousel-inner">
+							@foreach($posts as $index => $post)
+								@if($index == 0 || ($index%6)==0)
+									<div class="item @if($index == 0) active @endif">
+										<div class="row">
+											@endif
+											<div class="col-md-2 col-sm-6">
+												<div class="portfolio-item">
+													<div class="item-inner">
+														<img class="img-responsive" src="{{ url('storage/'.$post->image) }}" alt="">
+														<h5>
+															{{ $post->title }}
+														</h5>
+														<div class="overlay">
+															<a class="preview btn btn-danger" title="{{ $post->title }}" href="{{ route('show-post',[$post->category->slug,$post->slug]) }}"><i class="fa fa-eye"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>   
 
-					@include('flat.sponsors.print',['section'=>'lateral','sponsor'=>$system->sponsorRandom()])
+											@if((($index+1)%6)==0)
+										</div><!--/.row-->
+									</div><!--/.item-->
+								@endif
+							@endforeach
+						</div>
+					</div>
 					
-
-					<hr>
-					<div class="widget google">
-						{!! $system->tag_body !!}                 
-					</div><!--/.categories-->
-					@yield('tags')
-					<hr>
-					<h4>Visitanos en Facebook</h4>
-					<div class="fb-page" data-href="https://www.facebook.com/gomecatronica/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/gomecatronica/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gomecatronica/">Mecatronica</a></blockquote></div>
-			</aside>        
-	</div><!--/.row-->
-</section><!--/#blog-->
-
+				</div>
+			</div>
+		</div>
+	</section><!--/#testimonial-->
 @endsection

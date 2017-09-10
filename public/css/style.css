@@ -214,22 +214,45 @@
 }
 
 #main-slider .carousel-inner{
-    height: 75vh;
+    height: 70vh;
 }
 .widget.search{
     margin-top: 10px;
 }
-#services,
-.move-slider{
+.inline-block{
     display: inline-block;
-    padding: 5px
 }
-.move-slider{
-    margin-left: 20px;
+.scroller-move{
+    display: inline-block;
+    float: right;
+}
+.title-scroll{
+    display: inline-block;
+    float: left;
 }
 .carousel-inner{
     width: 100%;
 }
 .navbar-brand img{
     max-width: 200px
+}
+#recent-works,
+#recent-works .container,
+#recent-works .container .scroller-slider
+{
+    padding: 0;
+    margin:0;
+}
+#recent-works .container .scroller-slider .item-access{
+    padding-bottom: 0
+}
+.container-fluid{
+    max-width: 98%;
+    margin: auto;
+}
+.space.emerald{
+    padding: 3px 0;
+}
+#services .container{
+    padding-top: 20px
 }
