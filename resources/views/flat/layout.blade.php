@@ -105,6 +105,22 @@
                     @endif
                     <li><a href="{{ route('show-service',['faq']) }}">FAQ</a></li>
                     <li><a href="{{ route('show-service',['contacts']) }}">Contactos</a></li>
+                    <li>
+                        <a class="facebook" href="https://www.facebook.com/{{ $system->facebook }}">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+    
+                        <a class="instagram" href="https://www.instagram.com/{{ $system->instagram }}">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="youtube" href="https://www.youtube.com/{{ $system->youtube }}">
+                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -169,25 +185,6 @@
                         <abbr title="Teléfono">Tlf:</abbr> {{ $system->telefono }}
                     </address>
 
-                    <div class="social-media">
-                        <h4>Contactanos en nuestras redes sociales</h4>
-    
-                        <a class="facebook" href="https://www.facebook.com/{{ $system->facebook }}">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                            <span>Facebook</span>
-                        </a>
-                        
-                        <a class="instagram" href="https://www.instagram.com/{{ $system->instagram }}">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                            <span>Instagram</span>
-                        </a>
-                        
-                        <a class="youtube" href="https://www.youtube.com/{{ $system->youtube }}">
-                            <i class="fa fa-youtube" aria-hidden="true"></i>
-                            <span>Youtube</span>
-                        </a>
-
-                    </div>
                 </div> <!--/.col-md-3-->
                 
                 <div class="col-md-6 col-sm-6">
