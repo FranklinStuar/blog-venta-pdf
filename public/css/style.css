@@ -256,3 +256,9 @@
 #services .container{
     padding-top: 20px
 }
+.none{
+    display: none;
+}
+.hidden{
+    visibility: hidden;
+}
