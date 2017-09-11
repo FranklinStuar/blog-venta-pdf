@@ -192,7 +192,7 @@
         <div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">
-                	<a class="navbar-bran" href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="logo"></a>
+                	<a class="navbar-bran" href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="logo"><h1>Neurocodigo</h1></a>
 				</div>
 				<div class="col-md-8">
 					<section id="recent-works">
