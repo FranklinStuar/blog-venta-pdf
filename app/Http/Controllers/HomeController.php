@@ -98,7 +98,7 @@ class HomeController extends Controller
             ->with('sponsors',\App\Sponsor::all())
             ->with('visit_posts',\App\PostVisit::count())
             ->with('visit_pdf',\App\PdfView::count())
-            ->with('historial',\App\Historial::count() - \App\SponsorPrint::count())
+            ->with('historial',\App\Historial::where('user_id','<>',2)->count() - \App\SponsorPrint::count())
             ->with('post_pays',\App\PostPay::where('status','active')->get())
             ->with('post_only_pays',\App\PostOncePay::where('status','active')->get())
             ->with('sponsor_pays',\App\SponsorPay::where('status','active')->get())
