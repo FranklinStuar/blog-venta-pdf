@@ -18,7 +18,7 @@
 						<th>Nombre</th>
 						<th>Nombre de usuario</th>
 						<th>Correo Electrónico</th>
-						<th>Rol</th>
+						<th>Registro</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -31,9 +31,7 @@
 							<td>{{ $user->username }}</td>
 							<td>{{ $user->email }}</td>
 							<td>
-								@if(count($user->getRole()) > 0)
-									{{ $user->getRole()['name'] }}
-								@endif
+								{{ $user->created_at->diffForHumans() }}
 							</td>
 							<td>
 								@if (Shinobi::can('user.edit'))
