@@ -116,6 +116,7 @@ Route::get('categoria/{category}','HomeController@showPageOrService')->name('sho
 Route::get('/kits', 'KitsController@list')->name('kits.list');
 
 Route::get('{category}','HomeController@showPageOrService')->name('show-service');
+Route::get('{category}/sub-servicio/{subcategory}','HomeController@showSubcategory')->name('show-sub-service');
 Route::get('/usuario/{username}','HomeController@showUser')->name('show-user');
 Route::get('/autor/{username}','HomeController@showUser')->name('show-author');
 Route::get('{service}/{post_name}','HomeController@showPost')->name('show-post');

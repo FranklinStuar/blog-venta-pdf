@@ -6,5 +6,5 @@
 	{{ $name }}
 @endsection
 @section('content-post')
-    @include('flat.posts.list-posts')
+	@include('flat.posts.list-posts')
 @endsection

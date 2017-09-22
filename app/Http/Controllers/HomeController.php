@@ -264,9 +264,30 @@ class HomeController extends Controller
         if($category != null){
             return view('flat.posts.post')
                 ->with('name',$category->name)
+                ->with('slug',$category->slug)
                 ->with('subCategories',$category->subCategories)
                 ->with('type','Categoría')
                 ->with('posts',Post::where('category_id',$category->id)->paginate(20))
+            ;
+        }
+        abort(404);
+    }
+    public function showSubcategory(Request $request,$category_slug,$subcategory_slug){
+        $category = \App\Category::where('slug',$category_slug)->first();
+        $subcategory = \App\Category::where('slug',$subcategory_slug)->first();
+        $posts = \DB::table('posts as p')
+        ->join('category_post as cp','cp.post_id','p.id')
+        ->where('cp.category_id',$subcategory->id)
+        ->select('p.id','p.title','p.slug','p.excerpt','p.author_id','p.image')
+        ->paginate(20);
+        if($category != null){
+            return view('flat.posts.post')
+                ->with('slug',$category->slug)
+                ->with('name',$category->name)
+                ->with('subCategory_active',$subcategory_slug)
+                ->with('subCategories',$category->subCategories)
+                ->with('type','Categoría')
+                ->with('posts',$posts)
             ;
         }
         abort(404);
