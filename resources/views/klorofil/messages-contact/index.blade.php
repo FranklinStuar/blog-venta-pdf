@@ -30,7 +30,7 @@
 							<td>{{ str_limit($message->message) }}</td>
 							<td>
 								<a href="{{ route('messages-contact.show',[$message->id]) }}" ><span class="glyphicon glyphicon-open-eye">Ver</span></a>
-								{!! Form::open(['route' => ['posts.destroy',$message->id],'method'=>'DELETE','class'=>'destroy']) !!}
+								{!! Form::open(['route' => ['messages-contact.destroy',$message->id],'method'=>'DELETE','class'=>'destroy']) !!}
 									<button class="btn btn-link glyphicon glyphicon-trash"></button>
 								{!! Form::close() !!}
 							</td>

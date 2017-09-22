@@ -46,4 +46,10 @@ class MessageContactsController extends Controller
         $request->session()->flash('success', 'Respuesta enviada correctamente');
         return redirect()->back();
     }
+    public function destroy(Request $request,$id){
+        MessageContact::destroy($id);
+        $request->session()->flash('success', 'Mensaje quitado de lista');
+        return redirect()->back();
+    }
+
 }
