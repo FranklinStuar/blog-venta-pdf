@@ -113,9 +113,8 @@ class User extends Authenticatable
             ->whereDate('finish', '>=' ,\Carbon\Carbon::now()->format('Y-m-d'))
             ->where('deleted_at', null)
             ->get();
-        
-        if (count($pays)>0)
-            return true;
+        if(!count(\App\Post::find($post_id)->oncePricesList()->toArray())) return true;
+        if (count($pays)>0) return true;
 
         // $kits = \DB::table('post_pays as P')
         //     // ->join('roles as R','R.id','P.role_id')
