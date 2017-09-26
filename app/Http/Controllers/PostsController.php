@@ -310,7 +310,7 @@ class PostsController extends Controller
 		return view('flat.payment.post-card')
 			->with('post_slug',$post_slug)
 			->with('price_id',$post_price_id)
-			->with('price',PostOncePrice::find($post_price_id))
+			->with('price',PostOncePrice::find(explode('.', $post_price_id)[0]))
 			;
 	}
 
