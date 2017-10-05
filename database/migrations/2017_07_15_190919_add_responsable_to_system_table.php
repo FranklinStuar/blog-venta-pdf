@@ -14,7 +14,7 @@ class AddResponsableToSystemTable extends Migration
     public function up()
     {
         Schema::table('systems', function (Blueprint $table) {
-            $table->string('responsable');
+            $table->string('responsable')->nullable();
         });
     }
 

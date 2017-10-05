@@ -14,10 +14,10 @@ class AddColumsSystemTable extends Migration
     public function up()
     {
         Schema::table('systems', function (Blueprint $table) {
-            $table->string('sdk_stripe');
-            $table->string('pk_stripe');
-            $table->string('sdk_paypal');
-            $table->string('pk_paypal');
+            $table->string('sdk_stripe')->nullable();
+            $table->string('pk_stripe')->nullable();
+            $table->string('sdk_paypal')->nullable();
+            $table->string('pk_paypal')->nullable();
         });
     }
 

@@ -36,6 +36,8 @@ class System extends Model
       ->where('status','active')
       ->inRandomOrder()
       ->first();
+    if(!$pay_sponsor)
+      return null;
     $historial = \App\Historial::create([
       'user_agent'=>"-",
       'languaje'=>"-",
@@ -43,6 +45,7 @@ class System extends Model
       'ip'=>"-",
       'created_at'=>\Carbon\Carbon::now(),
     ]);
+
     \App\SponsorPrint::create([
       'sponsor_id' => $pay_sponsor->sponsor->id,
       'created_at' => \Carbon\Carbon::now(),

@@ -22,10 +22,10 @@ class CreateSystemsTable extends Migration
             $table->string('direccion',100)->nullable(); //vista de contactenos
             $table->string('telefono',15)->nullable(); //vista de contactenos
             $table->string('celular',15)->nullable(); //vista de contactenos
-            $table->text('quienes_somos');
-            $table->text('cuentas_premium');
-            $table->text('publicidad');
-            $table->text('politicas_condiciones');
+            $table->text('quienes_somos')->nullable();
+            $table->text('cuentas_premium')->nullable();
+            $table->text('publicidad')->nullable();
+            $table->text('politicas_condiciones')->nullable();
             $table->integer('role_id')->unsigned()->index()->nullable(); //rol por defecto para nuevos usuarios
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });

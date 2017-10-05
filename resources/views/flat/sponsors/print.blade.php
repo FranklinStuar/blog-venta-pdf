@@ -1,5 +1,4 @@
-@if($section == "lateral")
-	
+@if($sponsor)
 	<div class="sponsor row">
 		<div class="col-xs-7">
 			<h4>{{ $sponsor->name }}</h4>
