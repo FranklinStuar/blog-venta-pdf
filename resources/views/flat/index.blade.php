@@ -465,7 +465,8 @@
                         <strong>{{ $system->direccion  }}</strong><br>
                         <abbr title="Teléfono">Tlf:</abbr> {{ $system->telefono }}
                     </address>
-
+                    <hr>
+                    <h4><b>{{ $system->totalVisits() }}</b> Visitas totales</h4>
                 </div> <!--/.col-md-3-->
                 
                 <div class="col-md-6 col-sm-6">

@@ -83,5 +83,9 @@ class System extends Model
         $total += $sponsor->total;
     return $total;
   }
+
+  public function totalVisits(){
+    return \App\Historial::count() - \App\SponsorPrint::count();
+  }
 }
 
