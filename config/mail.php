@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_USERNAME','franklinpenafiel1991@gmail.com'),
-        'name' => ' Neurocodigo',
+        'address' => env('MAIL_USERNAME','mail@gmail.com'),
+        'name' => ' Sistema',
     ],
 
     /*

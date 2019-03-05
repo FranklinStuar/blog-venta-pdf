@@ -11,7 +11,7 @@
         <div class="container">
             <div class="center">
                 <h2>Precios para publicidad</h2>
-                <p class="lead">Sea parte de la comunidad de neurocodigo y obtenga grandes beneficios para su empresa mediante la mejor promoción que le brinda neurocodigo</p>
+                <p class="lead">Sea parte de la comunidad de sistema y obtenga grandes beneficios para su empresa mediante la mejor promoción que le brinda sistema</p>
             </div><!--/.center-->   
             <div class="gap"></div>
             <div id="pricing-table" class="row">

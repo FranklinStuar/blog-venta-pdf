@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@yield('title','Inicio') - Neurocodigo</title>
+    <title>@yield('title','Inicio') - Sistema</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -63,7 +63,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="logo"></a>
+                <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('images/logo..png') }}" alt="logo"></a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -213,7 +213,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2017 <a target="_blank" href="#" title="Aikire">Aikire</a>. All Rights Reserved.
+                    &copy; 2017 <a target="_blank" href="#" title="Desarrollador">Desarrollador</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">

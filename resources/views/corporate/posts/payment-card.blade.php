@@ -3,7 +3,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	Realizar pago - Neurocodigo
+	Realizar pago - Sistema
 @endsection
 
 @section('style')

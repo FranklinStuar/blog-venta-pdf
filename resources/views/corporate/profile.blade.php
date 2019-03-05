@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	{{ Auth::user()->name }} - Neurocodigo
+	{{ Auth::user()->name }} - Sistema
 @endsection
 
 
@@ -114,7 +114,7 @@
 									Actualmente no tiene archivos o documentos comprados
 								</p>
 								<p>
-									Realice la compra de documentos o archivos a su elección y disfrute todos los beneficios que le ofrecemos en Neurocodigo
+									Realice la compra de documentos o archivos a su elección y disfrute todos los beneficios que le ofrecemos en Sistema
 								</p>
 							@endif
 							<small>

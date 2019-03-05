@@ -4,7 +4,7 @@
 <meta name="description" content="{{ str_limit($post->meta_description,160) }}">
 <meta name="keywords" content="{{ $post->meta_keywords }}">
 <meta name="robots" content="Index,Follow">
-<meta name="author" content="neurocodigo.com">
+<meta name="author" content="sistema.com">
 <meta name="owner" content="{{ $post->author->name }}">
 <meta name="subjetc" content="{{ $post->seo_title }}">
 <meta name="languaje" content="es">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="{{ url($post->slug) }}" />
 <meta property="og:image" content="{{ url('storage/'.$post->image) }}" />
 <meta property="og:description" content="{{ str_limit($post->meta_description,160) }}" />
-<meta property="og:site_name" content="Neurocodigo, i.e. Moz" /meta property="fb:admins" content="1311771035" />
+<meta property="og:site_name" content="Sistema, i.e. Moz" /meta property="fb:admins" content="1311771035" />
 
 <!-- Twitter Summary card images. Igual o superar los 200x200px -->
 <meta name="twitter:image" content="{{ url('storage/'.$post->image) }}">
@@ -167,7 +167,7 @@
 										  <script
 										    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 										    data-key="pk_test_Xd2SuziRV4jSvH72of9UYKvP"
-										    data-name="Neurocodigo"
+										    data-name="Sistema"
 										    data-email="{{ Auth::user()->email }}"
 										    data-amount="{{ $price->price*100 }}"
 										    {{-- data-image="https://stripe.com/img/documentation/checkout/marketplace.png" --}}
@@ -211,7 +211,7 @@
 			*/
 			(function() { // DON'T EDIT BELOW THIS LINE
 			var d = document, s = d.createElement('script');
-			s.src = 'https://neurocodigo.disqus.com/embed.js';
+			s.src = 'https://sistema.disqus.com/embed.js';
 			s.setAttribute('data-timestamp', +new Date());
 			(d.head || d.body).appendChild(s);
 			})();

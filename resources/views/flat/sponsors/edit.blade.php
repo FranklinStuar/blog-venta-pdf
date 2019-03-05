@@ -1,7 +1,7 @@
 @extends('flat.layout')
 
 @section('title')
-	Editar publicidad - Neurocodigo
+	Editar publicidad - Sistema
 @endsection
 
 

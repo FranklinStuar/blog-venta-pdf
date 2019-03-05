@@ -39,7 +39,7 @@ class MessageContactsController extends Controller
         $data = array('response'=>$request->message,'message_old'=>MessageContact::find($id)->message);
         // dd($data);
         \Mail::send('emails.message-contacts', $data, function ($message) use($system,$request) {
-            $message->from($system->email, 'Neurocodigo');
+            $message->from($system->email, 'Systemta');
             $message->to($request->email)->subject("Respuesta a mensaje");
         });
 

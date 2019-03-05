@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	{{ $sponsor->name }} - Neurocodigo
+	{{ $sponsor->name }} - Sistema
 @endsection
 
 

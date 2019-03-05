@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://neurocodigo.com'),
+    'url' => env('APP_URL', 'https://web.com'),
 
     /*
     |--------------------------------------------------------------------------

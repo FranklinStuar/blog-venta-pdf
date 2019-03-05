@@ -30,7 +30,7 @@ class MailResetPasswordToken extends Notification
     {
         return ['mail'];
     }
-// http://neurocodigo.com/password/email
+// http://Systema.com/password/email
     /**
      * Get the mail representation of the notification.
      *
@@ -43,7 +43,7 @@ class MailResetPasswordToken extends Notification
                     ->subject("Recuperar contraseña")
                     ->line("Si usted solicitó la recuperación de contraseña, por favor haga click en el siguiente botón")
                     ->action('Recuperar Contraseña', url('password/reset', $this->token))
-                    ->line('Gracias por visitar neurocodigo');
+                    ->line('Gracias por visitar Systema');
     }
 
     /**

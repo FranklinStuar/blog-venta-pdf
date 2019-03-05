@@ -24,7 +24,7 @@
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-addon" id="basic-addon1"> http://www.facebook.con/ </span>
-				{!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+				{!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 		</div>
 		<small class="help-block"> Copie la ruta despues de http://www.facebook.con/ en su perfil</small>
 	</div>
@@ -32,7 +32,7 @@
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-addon" id="basic-addon1"> http://www.twitter.con/ </span>
-				{!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+				{!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 		</div>
 		<small class="help-block"> Copie la ruta despues de http://www.twitter.con/ en su perfil</small>
 	</div>
@@ -40,7 +40,7 @@
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-addon" id="basic-addon1"> http://www.instagram.con/ </span>
-				{!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+				{!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 		</div>
 		<small class="help-block"> Copie la ruta despues de http://www.instagram.con/ en su perfil</small>
 	</div>
@@ -48,7 +48,7 @@
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-addon" id="basic-addon1"> http://www.youtube.con/ </span>
-				{!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+				{!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 		</div>
 		<small class="help-block"> Copie la ruta despues de http://www.youtube.con/ en su perfil</small>
 	</div>

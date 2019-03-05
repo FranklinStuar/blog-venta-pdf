@@ -23,7 +23,7 @@
 	<meta name="twitter:description" content="{{ str_limit($context,160) }}">
 	<meta name="twitter:creator" content="@author_handle">
 	<!-- Twitter Summary card images. Igual o superar los 200x200px -->
-	<meta name="twitter:image" content="{{ url('images/neurocodigo.png') }}">
+	<meta name="twitter:image" content="{{ url('images/logo..png') }}">
 
 
 
@@ -31,12 +31,12 @@
 	<meta property="og:type"               content="website" />
 	<meta property="og:title"              content="{{ $title }}" />
 	<meta property="og:description"        content="{{ str_limit($context,150) }}" />
-	<meta property="og:image"              content="{{ url('images/neurocodigo.png') }}" />
+	<meta property="og:image"              content="{{ url('images/logo..png') }}" />
 	<meta property="og:updated_time" content="{{ $system->updated_at }}">
 
 	<meta name="DC.Creator" content="{{ $system->responsable }}" />
 	<meta name="DC.Date" content="Agosto 1 2017" />
-	<meta name="DC.Source" content="Neurocodigo" />
+	<meta name="DC.Source" content="Sistema" />
 	<meta property="article:modified_time" content="{{ $system->updated_at }}">
 	<meta property="article:published_time" content="{{ $system->created_at }}">
 	<link rel="canonical" href="{{ route('show-service',[$page]) }}" />

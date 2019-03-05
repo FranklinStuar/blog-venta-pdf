@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>@yield('title','Neurocodigo')</title>
+  <title>@yield('title','Sistema')</title>
   <meta charset="utf-8">
   <!-- Google Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Playfair+Display:400italic' rel='stylesheet' type='text/css' />
@@ -50,7 +50,7 @@
       <li><a href="contact.html">Contactos</a></li>
     </ol>
     <div align="center">
-      <p><a href="{{url('/')}}"><img src="{{ url('img/demo/neurocodigo.png') }}" alt="" width="298" height="52"></a></p>
+      <p><a href="{{url('/')}}"><img src="{{ url('img/demo/logo..png') }}" alt="" width="298" height="52"></a></p>
       <p>La información que hace posible encontrar tus ideas</p>
     </div>
   </header>

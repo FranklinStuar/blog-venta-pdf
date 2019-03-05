@@ -43,7 +43,7 @@
     <div height: "3px" width: "100%" background= "#37474f"></div>
     <div class="head">
         <div class="title" > <h1>@yield('title')</h1></div>
-        <img class="logo" src="{{ url('images/favicon.png') }}" alt="Neurocodigo">
+        <img class="logo" src="{{ url('images/favicon.png') }}" alt="Sistema">
     </div>
     <br><hr>
     <div class="main">
@@ -53,8 +53,8 @@
 
     <div class="footer">
         @yield('footer')
-        <p>El equipo de <a href="{{ url('/') }}">Neurocodigo</a> está comprometido completamente con su crecimiento ofreciendo las mejores herramientas para su desarrollo personal y profesional.</p>
-        <p>Puede contactar directamente con el personal de <a href="{{ url('/') }}">Neurocodigo</a> respondiendo este mesaje.</p>
+        <p>El equipo de <a href="{{ url('/') }}">Sistema</a> está comprometido completamente con su crecimiento ofreciendo las mejores herramientas para su desarrollo personal y profesional.</p>
+        <p>Puede contactar directamente con el personal de <a href="{{ url('/') }}">Sistema</a> respondiendo este mesaje.</p>
         <p>En caso de tener alguna duda no dude en comunicarsea</p>
         <p>Telf: {{ $system->telefono }} - Wpp: {{ $system->celular }}</p>
         O visitenos en nuestras oficinas ubicadas en {{ $system->direccion }}

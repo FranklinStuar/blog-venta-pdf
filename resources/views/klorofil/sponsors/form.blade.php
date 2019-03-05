@@ -78,7 +78,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.facebook.com/ </span>
-                  {!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+                  {!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
             </div>
             @if ($errors->has('url_facebook'))
                 <span class="help-block">
@@ -94,7 +94,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.instagram.com/ </span>
-                  {!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+                  {!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
             </div>
             @if ($errors->has('url_instagram'))
                 <span class="help-block">
@@ -110,7 +110,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.twitter.com/ </span>
-                  {!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+                  {!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
             </div>
             @if ($errors->has('url_twitter'))
                 <span class="help-block">
@@ -126,7 +126,7 @@
         <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1"> https://www.youtube.com/ </span>
-                  {!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+                  {!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
             </div>
             @if ($errors->has('url_youtube'))
                 <span class="help-block">

@@ -2,7 +2,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	Realizar publicidad - Neurocodigo
+	Realizar publicidad - Sistema
 @endsection
 
 

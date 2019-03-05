@@ -7,7 +7,7 @@
 @section('content')
     <h3>Hola {{ $user->name }},</h3>
     <p>
-        Soy {{ $system->responsable }}, quiero darte la bienvenida a <span class="bolder">"Neurocodigo"</span> y que disfrutes de la información que comparto contigo para tu desarrollo personal, estudiantil o la actividad que realices.
+        Soy {{ $system->responsable }}, quiero darte la bienvenida a <span class="bolder">"Sistema"</span> y que disfrutes de la información que comparto contigo para tu desarrollo personal, estudiantil o la actividad que realices.
     </p>
     <p>
         <span class="bolder">Tu nombre de usuario:</span> {{ $user->username }}

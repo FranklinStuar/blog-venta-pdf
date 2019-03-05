@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	Formas de pago | Neurocodigo
+	Formas de pago | Sistema
 @endsection
 
 @section('container')

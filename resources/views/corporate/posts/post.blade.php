@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	{{ $name }} | Neurocodigo
+	{{ $name }} | Sistema
 @endsection
 
 @section('google-script')

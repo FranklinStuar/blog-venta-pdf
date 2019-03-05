@@ -36,7 +36,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<a class="navbar-brand" href="{{ url('/') }}">
-				<img src="{{ url('images/neurocodigo.png') }}" alt="Neurocodigo">
+				<img src="{{ url('images/logo..png') }}" alt="Sistema">
 			</a>
 			<div class="collapse navbar-collapse" id="navbarNav1">
 				<ul class="navbar-nav mr-auto">
@@ -142,7 +142,7 @@
 		<!--Copyright-->
 		<div class="footer-copyright">
 			<div class="container-fluid">
-				© 2017  Copyright: <a href="http://159.203.134.10/">aikire.com </a>
+				© 2017  Copyright: <a href="http://www.desarrollador.com">desarrollador.com </a>
 
 			</div>
 		</div>

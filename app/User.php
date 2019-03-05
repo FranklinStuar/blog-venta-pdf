@@ -86,7 +86,7 @@ class User extends Authenticatable
         $data = array('user'=>$user,'system'=>$system,'password'=>$password);
 
         \Mail::send('emails.users.register', $data, function ($message) use($user,$system,$password) {
-            $message->from($system->email, 'Neurocodigo');
+            $message->from($system->email, 'Systema');
             $message->to($user->email)->subject("Bienvenido ".$user->name);
         });
     }

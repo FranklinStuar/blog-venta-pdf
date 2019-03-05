@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => url('/')])
-            Neurocodigo
+            Sistema
         @endcomponent
     @endslot
 

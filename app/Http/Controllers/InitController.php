@@ -25,10 +25,10 @@ class InitController extends Controller
             ]);
 
             $user = \App\User::create([
-                'username'=>'_fstuar',
-                'name'=>'Franklin Peñafiel',
-                'email'=>'franklinpenafiel1991@gmail.com',
-                'password'=>bcrypt('Stuar123'),
+                'username'=>'admin',
+                'name'=>'Administrador',
+                'email'=>'admin@mail.com',
+                'password'=>bcrypt('admin123'),
             ]);
             $permissions =[
                 'Vista Administración'=>[

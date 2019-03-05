@@ -240,11 +240,11 @@ class SponsorsController extends Controller
 
 		        $data = array('sponsor'=>$sponsor,'price'=>$price);
 		        \Mail::send('emails.payment-sponsor', $data, function ($message) use($system,$user) {
-		            $message->from($system->email, 'Neurocodigo');
+		            $message->from($system->email, 'Systema');
 		            $message->to($user->email)->subject("Pago confirmado");
 		        });
 
-				$request->session()->flash('success', 'Pago realizado correctamente. Ahora es parte de la comunidad de Neurocodigo');
+				$request->session()->flash('success', 'Pago realizado correctamente. Ahora es parte de la comunidad de Systema');
 				return redirect()->route('profile');
 			}
 			$request->session()->flash('error', 'Problemas al realizar el pago, por favor intente más tarde o comuníquese con soporte técnico');
@@ -294,7 +294,7 @@ class SponsorsController extends Controller
 
 	        $data = array('sponsor'=>$sponsor,'price'=>$premium);
 	        \Mail::send('emails.payment-sponsor', $data, function ($message) use($system,$user) {
-	            $message->from($system->email, 'Neurocodigo');
+	            $message->from($system->email, 'Systema');
 	            $message->to($user->email)->subject("Pago confirmado");
 	        });
 

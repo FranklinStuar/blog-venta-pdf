@@ -364,7 +364,7 @@ class PostsController extends Controller
 	        $user = \Auth::user();
 	        $data = array('post'=>$post,'price'=>$oncePrice);
 	        \Mail::send('emails.payment-only-post', $data, function ($message) use($system,$user) {
-	            $message->from($system->email, 'Neurocodigo');
+	            $message->from($system->email, 'Systema');
 	            $message->to($user->email)->subject("Pago confirmado");
 	        });
 
@@ -408,7 +408,7 @@ class PostsController extends Controller
 		        $user = \Auth::user();
 		        $data = array('post'=>$post,'price'=>$price);
 		        \Mail::send('emails.payment-only-post', $data, function ($message) use($system,$user) {
-		            $message->from($system->email, 'Neurocodigo');
+		            $message->from($system->email, 'Systema');
 		            $message->to($user->email)->subject("Pago confirmado");
 		        });
 

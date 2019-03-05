@@ -16,15 +16,15 @@
     	<div class="row">
     		<div class="col-sm-11 col-sm-offset-1">
     			<h3>Pagar con tarjeta de débito o crédito</h3>
-    			<p>En Neurocodigo le permitimos hacer sus pagos con tarjeta de crédito o débito a través de la plataforma <a href="http://www.stripe.com">Stripe</a> siendo la plataforma más segura para realizar sus pagos.</p>
+    			<p>En Sistema le permitimos hacer sus pagos con tarjeta de crédito o débito a través de la plataforma <a href="http://www.stripe.com">Stripe</a> siendo la plataforma más segura para realizar sus pagos.</p>
     			<p><b>Requerde:</b></p>
-    			<p>Neurocodigo no guarda información de su tarjeta permitiendo proteger su información al respecto.</p>
+    			<p>Sistema no guarda información de su tarjeta permitiendo proteger su información al respecto.</p>
     			<p>Si desea saber más acerca de Stripe y como aseguramos su información visite nuestras <b><a href="#"> preguntas frecuentes</a></b> o envíenos un mensaje en <b><a href="#">nuestro contacto</a></b> y con gusto le atenderemos.</p>
 				{!! Form::open(['route' => $url, 'autocomplete'=>"off"]) !!}
 					<script
 					src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 					data-key="{{ $system->pk_stripe }}"
-					data-name="Neurocodigo"
+					data-name="Sistema"
 					data-locale="auto"
 					data-email="{{ Auth::user()->email }}"
 					data-amount="{{ $price }}"

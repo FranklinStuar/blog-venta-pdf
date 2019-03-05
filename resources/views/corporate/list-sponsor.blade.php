@@ -1,7 +1,7 @@
 @extends('corporate.layout')
 
 @section('title')
-	Precios publicidad | Neurocodigo
+	Precios publicidad | Sistema
 @endsection
 
 

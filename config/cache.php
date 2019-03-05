@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'neurocodigo',
+    'prefix' => 'system',
 
 ];

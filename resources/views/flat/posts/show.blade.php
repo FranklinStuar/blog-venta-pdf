@@ -39,7 +39,7 @@
 
 	<meta name="DC.Creator" content="{{ $post->author->name }}" />
 	<meta name="DC.Date" content="{{ $post->created_at->diffForHumans() }}" />
-	<meta name="DC.Source" content="Neurocodigo" />
+	<meta name="DC.Source" content="Sistema" />
 	<meta property="article:modified_time" content="{{ $post->updated_at }}">
 	<meta property="article:published_time" content="{{ $post->created_at }}">
 	<link rel="canonical" href="{{ route('show-post',[$post->category->slug,$post->slug]) }}" />
@@ -203,7 +203,7 @@
 					*/
 					(function() { // DON'T EDIT BELOW THIS LINE
 					var d = document, s = d.createElement('script');
-					s.src = 'https://neurocodigo.disqus.com/embed.js';
+					s.src = 'https://sistema.disqus.com/embed.js';
 					s.setAttribute('data-timestamp', +new Date());
 					(d.head || d.body).appendChild(s);
 					})();

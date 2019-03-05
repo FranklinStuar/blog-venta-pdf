@@ -75,7 +75,7 @@
 	<div class="form-group">
 	    {!! Form::label('url_facebook', 'Facebook',['class'=>"col-sm-3 control-label"]) !!}
 	    <div class="col-sm-9">
-			{!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+			{!! Form::text('url_facebook', $sponsor->url_facebook, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 			<small class="help-block"> Copie la ruta despues de <b>https://www.facebook.com/</b> en su perfil</small>
 	    </div>
   	</div>
@@ -83,7 +83,7 @@
 	<div class="form-group">
 	    {!! Form::label('url_twitter', 'Twitter',['class'=>"col-sm-3 control-label"]) !!}
 	    <div class="col-sm-9">
-			{!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+			{!! Form::text('url_twitter', $sponsor->url_twitter, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 			<small class="help-block"> Copie la ruta despues de <b>https://www.twitter.com/</b> en su perfil</small>
 	    </div>
   	</div>
@@ -91,7 +91,7 @@
 	<div class="form-group">
 	    {!! Form::label('url_instagram', 'Instagram',['class'=>"col-sm-3 control-label"]) !!}
 	    <div class="col-sm-9">
-			{!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+			{!! Form::text('url_instagram', $sponsor->url_instagram, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 			<small class="help-block"> Copie la ruta despues de <b>https://www.instagram.com/</b> en su perfil</small>
 	    </div>
   	</div>
@@ -99,7 +99,7 @@
 	<div class="form-group">
 	    {!! Form::label('url_youtube', 'Youtube',['class'=>"col-sm-3 control-label"]) !!}
 	    <div class="col-sm-9">
-			{!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"neurocodigo"]) !!}
+			{!! Form::text('url_youtube', $sponsor->url_youtube, ['class'=>'form-control', 'placeholder'=>"sistema"]) !!}
 			<small class="help-block"> Copie la ruta despues de <b>https://www.youtube.com/</b> en su perfil</small>
 	    </div>
   	</div>

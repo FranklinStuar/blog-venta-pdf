@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Neurocodigo</title>
+    <title>Sistema</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -15,12 +15,12 @@
     <meta property="fb:pages" content="323152764504875" />
     <meta property="fb:api_id" content="197798067417693" />
     
-	<meta name="title" content="Neurocodigo">
+	<meta name="title" content="Sistema">
 	<meta name="description" content="{{ $system->description }}">
 	<meta name="news_keywords" content="{{ $system->keywords }}">
 	<meta name="author" content="{{ url('/') }}">
-	<meta name="owner" content="Neurocodigo">
-	<meta name="subjetc" content="Neurocodigo">
+	<meta name="owner" content="Sistema">
+	<meta name="subjetc" content="Sistema">
 	<meta name="languaje" content="es">
 	<meta name="revisit-after" content="30">
 
@@ -28,24 +28,24 @@
 	<!-- Twitter Card data -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@publisher_handle">
-	<meta name="twitter:title" content="Neurocodigo">
+	<meta name="twitter:title" content="Sistema">
 	<meta name="twitter:description" content="{{ $system->description }}">
 	<meta name="twitter:creator" content="@author_handle">
 	<!-- Twitter Summary card images. Igual o superar los 200x200px -->
-	<meta name="twitter:image" content="{{ url('image/neurocodigo.png') }}">
+	<meta name="twitter:image" content="{{ url('image/logo..png') }}">
 
 
 
 	<meta property="og:url"                content="{{ url('/') }}" />
 	<meta property="og:type"               content="article" />
-	<meta property="og:title"              content="Neurocodigo" />
+	<meta property="og:title"              content="Sistema" />
 	<meta property="og:description"        content="{{ $system->description }}" />
-	<meta property="og:image"              content="{{ url('image/neurocodigo.png') }}" />
+	<meta property="og:image"              content="{{ url('image/logo..png') }}" />
 	<meta property="og:updated_time" content="{{ Carbon\Carbon::now() }}">
 
-	<meta name="DC.Creator" content="Neurocodigo" />
+	<meta name="DC.Creator" content="Sistema" />
 	<meta name="DC.Date" content="{{ Carbon\Carbon::now() }}" />
-	<meta name="DC.Source" content="Neurocodigo" />
+	<meta name="DC.Source" content="Sistema" />
 	<link rel="canonical" href="{{ url('/') }}" />
 
 
@@ -98,7 +98,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                {{-- <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('images/neurocodigo.png') }}" alt="logo"></a> --}}
+                {{-- <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('images/logo..png') }}" alt="logo"></a> --}}
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -192,8 +192,8 @@
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-1">
                 	<a class="logo navbar-bran" href="{{ url('/') }}" style="display: block;">
-                		<img src="{{ url('images/neurocodigo.png') }}" alt="logo" height="80px" style="display: block; margin: auto;">
-                		<h1 class="none">Neurocodigo</h1>
+                		<img src="{{ url('images/logo..png') }}" alt="logo" height="80px" style="display: block; margin: auto;">
+                		<h1 class="none">Sistema</h1>
             		</a>
 				</div>
 				<div class="col-md-8">
@@ -347,7 +347,7 @@
 						@yield('tags')
 						<hr>
 						<h4>Visitanos en Facebook</h4>
-						<div class="fb-page" data-href="https://www.facebook.com/gomecatronica/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/gomecatronica/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/gomecatronica/">Mecatronica</a></blockquote></div>
+						<div class="fb-page" data-href="https://www.facebook.com/desarrollador/"  data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/desarrollador/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/desarrollador/">Desarrollador - Sistema empresarial</a></blockquote></div>
 				</aside>        
 				</div>
 			</div>
@@ -364,7 +364,7 @@
 							</div>
 							<div class="media-body">
 								<h3 class="media-heading">Atención permanente</h3>
-								<p>Cualquier duda puede contactar con Neurocodigo y con gusto será atendido y resolveremos sus inquietudes.</p>
+								<p>Cualquier duda puede contactar con Sistema y con gusto será atendido y resolveremos sus inquietudes.</p>
 							</div>
 						</div>
 					</div><!--/.col-md-4-->
@@ -495,7 +495,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2017 <a target="_blank" href="#" title="Aikire">Aikire</a>. All Rights Reserved.
+                    &copy; 2017 <a target="_blank" href="#" title="Desarrollador">Desarrollador</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">

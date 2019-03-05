@@ -1,7 +1,7 @@
 @extends('flat.layout')
 
 @section('title')
-	Nueva publicidad - Neurocodigo
+	Nueva publicidad - Sistema
 @endsection
 
 

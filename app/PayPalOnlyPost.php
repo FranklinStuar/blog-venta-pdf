@@ -51,7 +51,7 @@ class PayPalOnlyPost extends Model
 		return PaypalPayment::transaction()
 							->setAmount($this->amount())
 							->setItemList($this->items())
-							->setDescription('Tu compra en Neurocodigo')
+							->setDescription('Tu compra en Systema')
 							->setInvoiceNumber(uniqid());
 	}
 
